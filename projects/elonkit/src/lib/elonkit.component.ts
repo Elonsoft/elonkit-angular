@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: "es-elonkit",
+  selector: 'es-elonkit',
   template: `
     <p>
       elonkit works!
@@ -23,6 +23,6 @@ export class ElonkitComponent implements OnInit {
   ngOnInit() {}
 
   public onClick() {
-    this.hello.emit("Hello");
+    this.hello.emit('Hello');
   }
 }

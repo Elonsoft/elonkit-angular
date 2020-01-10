@@ -8,9 +8,8 @@ describe('ElonkitComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ElonkitComponent ]
-    })
-    .compileComponents();
+      declarations: [ElonkitComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
