@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "stylelint-config-sass-guidelines"
+  ],
+  "rules": {
+    "function-parentheses-space-inside": null,
+    "max-nesting-depth": 4,
+    "scss/dollar-variable-colon-space-after": null,
+    "selector-pseudo-element-no-unknown": null
+  }
+}
