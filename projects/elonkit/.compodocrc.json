@@ -1,0 +1,10 @@
+{
+  "disableCoverage": true,
+  "disableGraph": true,
+  "disablePrivate": true,
+  "disableProtected": true,
+  "exportFormat": "json",
+  "output": ".",
+  "silent": true,
+  "tsconfig": "./tsconfig.lib.json"
+}

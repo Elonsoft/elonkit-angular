@@ -2,7 +2,7 @@
   "name": "@elonsoft/elonkit",
   "version": "0.0.1",
   "scripts": {
-    "start": "start-storybook",
+    "start": "compodoc && start-storybook",
     "build": "build-storybook -c .storybook -o ../../dist/elonkit-storybook"
   },
   "peerDependencies": {

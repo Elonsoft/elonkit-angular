@@ -15,13 +15,22 @@ import {
   encapsulation: ViewEncapsulation.None
 })
 export class ElonkitComponent {
+  /**
+   * Input text
+   */
   @Input() text: string;
 
+  /**
+   * Output event
+   */
   @Output() hello = new EventEmitter<string>();
 
   constructor() {}
 
-  public onClick() {
+  /**
+   * @ignore
+   */
+  onClick() {
     this.hello.emit('Hello');
   }
 }

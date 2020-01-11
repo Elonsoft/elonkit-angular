@@ -1,0 +1,53 @@
+import { Meta, Preview, Story, Props } from '@storybook/addon-docs/blocks';
+import { withKnobs, text } from '@storybook/addon-knobs';
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+
+import { ElonkitModule } from './elonkit.module';
+import { ElonkitComponent } from './elonkit.component';
+
+<Meta title="UI/Elonkit" decorators={[withKnobs, withA11y]} />
+
+# Component
+
+Some component description.
+
+## Demos
+
+Let's define our first story:
+
+<Preview>
+  <Story name="Story 1" height="200px">
+    {{
+      template: `<es-elonkit [text]="text" (hello)="onHello($event)"></es-elonkit>`,
+      moduleMetadata: {
+        imports: [ElonkitModule]
+      },
+      props: {
+        text: text('text', 'Story 1 Input'),
+        onHello: action('onHello')
+      }
+    }}
+  </Story>
+</Preview>
+
+And here is a second story:
+
+<Preview>
+  <Story name="Story 2" height="200px">
+    {{
+      template: `<es-elonkit [text]="text" (hello)="onHello($event)"></es-elonkit>`,
+      moduleMetadata: {
+        imports: [ElonkitModule]
+      },
+      props: {
+        text: text('text', 'Story 2 Input'),
+        onHello: action('onHello')
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ElonkitComponent} />
