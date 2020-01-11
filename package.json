@@ -5,13 +5,22 @@
     "build": "ng build",
     "test": "ng test",
     "e2e": "ng e2e",
-    "lint:tslint": "tslint -c tslint.json --project projects/elonkit/tsconfig.json 'projects/**/*.ts'",
+    "lint:tslint": "tslint -c tslint.json --project projects/elonkit/tsconfig.lib.json 'projects/**/*.ts'",
     "lint:stylelint": "stylelint projects"
   },
   "private": true,
   "workspaces": [
     "projects/elonkit"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": "tslint -c ./tslint.json --project projects/elonkit/tsconfig.lib.json",
+    "*.{css,scss}": "stylelint"
+  },
   "dependencies": {
     "@angular/animations": "~8.2.14",
     "@angular/cdk": "~8.2.3",
@@ -48,6 +57,7 @@
     "babel-loader": "^8.0.6",
     "codelyzer": "^5.0.0",
     "css-loader": "^3.4.2",
+    "husky": "^4.0.6",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -55,6 +65,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "lint-staged": "^9.5.0",
     "ng-packagr": "^5.4.0",
     "protractor": "~5.4.0",
     "react": "^16.12.0",
