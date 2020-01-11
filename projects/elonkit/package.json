@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "scripts": {
     "start": "compodoc && start-storybook",
-    "build": "build-storybook -c .storybook -o ../../dist/elonkit-storybook"
+    "build": "compodoc && build-storybook -c .storybook -o ../../dist/elonkit-storybook"
   },
   "peerDependencies": {
+    "@angular/cdk": "~8.2.3",
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14",
     "@angular/material": "~8.2.3"

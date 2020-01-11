@@ -1,0 +1,52 @@
+import { Meta, Preview, Story, Props } from '@storybook/addon-docs/blocks';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESCounterModule } from './counter.module';
+import { CounterComponent } from './counter.component';
+
+<Meta title="UI/Counter" decorators={[withA11y, withKnobs]} />
+
+# Counter
+
+This component demonstrates usage of storybook.
+
+## Demos
+
+This is a basic story:
+
+<Preview>
+  <Story name="Default" height="110px">
+    {{
+      template: `<es-counter></es-counter>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESCounterModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can use `knobs` and `actions` addons to work with inputs and outputs:
+
+<Preview>
+  <Story name="With addons" height="110px">
+    {{
+      template: `<es-counter [heading]="heading" (increase)="onIncrease($event)"></es-counter>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESCounterModule]
+      },
+      props: {
+        heading: text('text', 'Counter 2'),
+        onIncrease: action('onIncrease')
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={CounterComponent} />

@@ -1,0 +1,10 @@
+.counter {
+  &__heading {
+    align-items: center;
+    display: flex;
+  }
+
+  &__icon {
+    margin-right: 8px;
+  }
+}
