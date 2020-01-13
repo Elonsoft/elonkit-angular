@@ -1,0 +1,32 @@
+name: Pull Request
+on:
+  push:
+    branches-ignore:
+      - develop
+  pull_request:
+    types: [opened reopened syncronize]
+    branches-ignore:
+      - develop
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn install
+      - name: Lint code
+        run: yarn run lint:tslint
+      - name: Lint styles
+        run: yarn run lint:stylelint
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn install
+      - name: Test
+        run: yarn run test
