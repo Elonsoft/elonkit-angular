@@ -1,4 +1,4 @@
-.counter {
+.es-counter {
   &__heading {
     align-items: center;
     display: flex;
@@ -6,5 +6,13 @@
 
   &__icon {
     margin-right: 8px;
+  }
+
+  &__count {
+    color: #333;
+
+    &_active {
+      color: #000;
+    }
   }
 }

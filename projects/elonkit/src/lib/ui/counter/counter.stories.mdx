@@ -20,7 +20,7 @@ This component demonstrates usage of storybook.
 This is a basic story:
 
 <Preview>
-  <Story name="Default" height="110px">
+  <Story name="Default" height="150px">
     {{
       template: `<es-counter></es-counter>`,
       moduleMetadata: {
@@ -33,7 +33,7 @@ This is a basic story:
 We can use `knobs` and `actions` addons to work with inputs and outputs:
 
 <Preview>
-  <Story name="With addons" height="110px">
+  <Story name="With addons" height="150px">
     {{
       template: `<es-counter [heading]="heading" (increase)="onIncrease($event)"></es-counter>`,
       moduleMetadata: {

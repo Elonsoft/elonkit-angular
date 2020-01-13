@@ -1,5 +1,8 @@
-<h1 class="mat-h2 counter__heading">
-  <mat-icon class="counter__icon">home</mat-icon>
+<h1 class="mat-h2 es-counter__heading">
+  <mat-icon class="es-counter__icon">home</mat-icon>
   {{ heading }}
 </h1>
-<button mat-flat-button color="primary" (click)="onClick()">CLICKS COUNT - {{ value }}</button>
+<p class="mat-body-1 es-counter__count" [ngClass]="{ 'es-counter__count_active': value > 0 }">
+  You clicked {{ value }} times
+</p>
+<button mat-flat-button color="primary" (click)="onClick()">CLICK</button>

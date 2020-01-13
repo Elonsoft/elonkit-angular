@@ -17,12 +17,8 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/elonkit/src/test.ts",
-            "tsConfig": "projects/elonkit/tsconfig.spec.json",
-            "karmaConfig": "projects/elonkit/karma.conf.js"
-          }
+          "builder": "@angular-builders/jest:run",
+          "options": {}
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -31,12 +27,11 @@
               "projects/elonkit/tsconfig.lib.json",
               "projects/elonkit/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "elonkit"
 }

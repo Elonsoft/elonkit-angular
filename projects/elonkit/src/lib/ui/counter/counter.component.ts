@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   ViewEncapsulation,
   Input,
   Output,
@@ -30,7 +31,13 @@ export class CounterComponent {
    */
   value = 0;
 
-  constructor() {}
+  /**
+   * @ignore
+   */
+  constructor(
+    // We need to make changeDetector public in order to be able to use it in tests
+    public changeDetector: ChangeDetectorRef
+  ) {}
 
   /**
    * @ignore

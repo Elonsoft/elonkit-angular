@@ -16,7 +16,8 @@
     "paths": {
       "elonkit": ["dist/elonkit"],
       "elonkit/*": ["dist/elonkit/*"]
-    }
+    },
+    "types": ["jest"]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
