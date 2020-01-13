@@ -10,10 +10,16 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class AutocompleteFormComponent {
   form: FormGroup;
+
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       autocomplete: ['']
     });
   }
-  onSubmit() {}
+
+  onSubmit() {
+    if (this.form.valid) {
+      console.log(this.form.value);
+    }
+  }
 }

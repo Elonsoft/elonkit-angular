@@ -1,5 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Введите сообщение</mat-label>
     <es-autocomplete formControlName="autocomplete">autocomplete</es-autocomplete>
   </mat-form-field>
+  <button>Отправить</button>
 </form>

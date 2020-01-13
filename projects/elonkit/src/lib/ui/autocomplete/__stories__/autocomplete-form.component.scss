@@ -1,5 +1,5 @@
 .es-autocomplete-form {
-  // &.mat-autocomplete-panel {
-  //   max-height: 320px !important;
-  // }
+  &.mat-form-field {
+    width: 100%;
+  }
 }

@@ -1,5 +1,17 @@
-<input matInput [matAutocomplete]="auto" [value]="text" (input)="onInput($event)" />
-<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith">
+<input
+  matInput
+  [matAutocomplete]="auto"
+  [value]="text"
+  [disabled]="disabled"
+  (input)="onInput($event)"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+/>
+<mat-autocomplete
+  #auto="matAutocomplete"
+  [displayWith]="displayWith"
+  (optionSelected)="onSuggestionSelect($event.option.value)"
+>
   <mat-option *ngFor="let option of options" [value]="option">
     {{ option }}
   </mat-option>
