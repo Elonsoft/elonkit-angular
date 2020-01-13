@@ -1,4 +1,6 @@
-<p class="es-autocomplete">
-  autocomplete
-</p>
-<button mat-flat-button color="primary">button</button>
+<input matInput [matAutocomplete]="auto" [value]="text" (input)="onInput($event)" />
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith">
+  <mat-option *ngFor="let option of options" [value]="option">
+    {{ option }}
+  </mat-option>
+</mat-autocomplete>

@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { AutocompleteComponent } from './autocomplete.component';
 
 @NgModule({
   declarations: [AutocompleteComponent],
-  imports: [MatButtonModule],
+  imports: [CommonModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule],
   exports: [AutocompleteComponent]
 })
 export class AutocompleteModule {}
