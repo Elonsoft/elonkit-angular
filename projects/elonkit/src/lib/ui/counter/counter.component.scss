@@ -9,7 +9,26 @@
   }
 
   &__count {
+    align-items: center;
     color: #333;
+    display: flex;
+
+    &::before,
+    &::after {
+      border-radius: 50%;
+      content: '';
+      display: block;
+      height: 8px;
+      width: 8px;
+    }
+
+    &::before {
+      margin-right: 8px;
+    }
+
+    &::after {
+      margin-left: 8px;
+    }
 
     &_active {
       color: #000;

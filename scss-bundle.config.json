@@ -1,0 +1,8 @@
+{
+  "bundlerOptions": {
+    "entryFile": "./projects/elonkit/src/theme.scss",
+    "rootDir": "./projects/src",
+    "outFile": "./dist/elonkit/theme.scss",
+    "logLevel": "error"
+  }
+}
