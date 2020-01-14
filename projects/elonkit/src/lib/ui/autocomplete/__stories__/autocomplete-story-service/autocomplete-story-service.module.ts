@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AutocompleteModule } from '../autocomplete.module';
+import { AutocompleteModule } from '../../autocomplete.module';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 
-import { AutocompleteFormComponent } from './autocomplete-form.component';
+import { AutocompleteStoryServiceComponent } from './autocomplete-story-service.component';
 
 @NgModule({
-  declarations: [AutocompleteFormComponent],
+  declarations: [AutocompleteStoryServiceComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -18,6 +18,6 @@ import { AutocompleteFormComponent } from './autocomplete-form.component';
     MatFormFieldModule,
     MatButtonModule
   ],
-  exports: [AutocompleteFormComponent]
+  exports: [AutocompleteStoryServiceComponent]
 })
-export class AutocompleteFormModule {}
+export class AutocompleteStoryServiceModule {}

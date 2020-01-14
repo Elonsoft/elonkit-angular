@@ -1,18 +1,18 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { GetFilterOptions } from '../filter-options';
+import { GetFilterOptions } from '../../filter-options';
 
 const OPTIONS = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'];
 const DEBOUNCE = 500;
 
 @Component({
-  selector: 'es-autocomplete-form',
-  templateUrl: './autocomplete-form.component.html',
-  styleUrls: ['./autocomplete-form.component.scss'],
+  selector: 'es-autocomplete-story-default',
+  templateUrl: './autocomplete-story-default.component.html',
+  styleUrls: ['./autocomplete-story-default.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class AutocompleteFormComponent {
+export class AutocompleteStoryDefaultComponent {
   public form: FormGroup;
   public options: string[] = OPTIONS;
   public debounceTime: number = DEBOUNCE;
