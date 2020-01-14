@@ -5,9 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteModule } from '../autocomplete.module';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
-
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AutocompleteFormComponent } from './autocomplete-form.component';
 
@@ -15,11 +13,10 @@ import { AutocompleteFormComponent } from './autocomplete-form.component';
   declarations: [AutocompleteFormComponent],
   imports: [
     CommonModule,
-    MatAutocompleteModule,
-    MatInputModule,
     ReactiveFormsModule,
     AutocompleteModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule
   ],
   exports: [AutocompleteFormComponent]
 })

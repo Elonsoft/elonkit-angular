@@ -6,12 +6,18 @@ import {
   HostBinding,
   Optional,
   Self,
-  Input
+  Input,
+  EventEmitter,
+  Output,
+  OnInit,
+  ViewChild
 } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { debounceTime } from 'rxjs/operators';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'es-autocomplete',
@@ -22,7 +28,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   providers: [{ provide: MatFormFieldControl, useExisting: AutocompleteComponent }]
 })
 export class AutocompleteComponent
-  implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy {
+  implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy, OnInit {
   public get value(): any {
     return this._value;
   }
@@ -41,16 +47,6 @@ export class AutocompleteComponent
       this.ngControl.valueAccessor = this;
     }
   }
-  static nextId = 0;
-  // tslint:disable-next-line variable-name
-  private _disabled = false;
-  // tslint:disable-next-line variable-name
-  private _required = false;
-  // tslint:disable-next-line variable-name
-  private _focused = false;
-  // tslint:disable-next-line variable-name
-  private _placeholder = '';
-
   public get focused() {
     return this._focused;
   }
@@ -62,16 +58,6 @@ export class AutocompleteComponent
   public get empty(): boolean {
     return !this.value;
   }
-
-  public text = '';
-  public options: string[] = ['One', 'Two', 'Three'];
-
-  // tslint:disable-next-line variable-name
-  private _value = '';
-
-  public stateChanges = new Subject<void>();
-
-  @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
   @HostBinding('class.floating')
   public get shouldLabelFloat() {
     return this.focused || !!this.text;
@@ -115,8 +101,39 @@ export class AutocompleteComponent
 
     return false;
   }
+  static nextId = 0;
+
+  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
+  private inputChild: MatAutocompleteTrigger;
+
+  @Output() changeText = new EventEmitter<string>();
+
+  @Input() public options: string[];
+
+  @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
 
   @HostBinding('attr.aria-describedby') public describedBy = '';
+  public text = '';
+  private text$ = new Subject<string>();
+  // tslint:disable-next-line variable-name
+  private _disabled = false;
+  // tslint:disable-next-line variable-name
+  private _required = false;
+  // tslint:disable-next-line variable-name
+  private _focused = false;
+  // tslint:disable-next-line variable-name
+  private _placeholder = '';
+
+  // tslint:disable-next-line variable-name
+  private _value = '';
+
+  public stateChanges = new Subject<void>();
+
+  ngOnInit() {
+    this.text$.pipe(debounceTime(500)).subscribe(text => {
+      this.changeText.emit(text);
+    });
+  }
 
   public setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(' ');
@@ -127,11 +144,19 @@ export class AutocompleteComponent
   }
 
   public openPanel() {
-    // console.log('openPanel');
+    setTimeout(() => {
+      if (!this.focused && !this.disabled) {
+        this.focused = true;
+        // NOTE: workaround to focus when clicked around input
+        (this.inputChild as any)._element.nativeElement.focus();
+      }
+    }, 0);
+    this.stateChanges.next();
   }
 
   public ngOnDestroy() {
     this.stateChanges.complete();
+    this.changeText.complete();
   }
 
   public writeValue(value: any) {
@@ -158,6 +183,7 @@ export class AutocompleteComponent
     const target = event.target as HTMLInputElement;
     this.text = target.value;
     this.onChange(this.text);
+    this.text$.next(this.text);
     this.stateChanges.next();
   }
 
