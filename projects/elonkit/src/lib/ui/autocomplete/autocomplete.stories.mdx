@@ -6,8 +6,8 @@ import { withA11y } from '@storybook/addon-a11y';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AutocompleteModule } from './autocomplete.module';
-import { AutocompleteComponent } from './autocomplete.component';
+import { AutocompleteFormModule } from './__stories__/autocomplete-form.module';
+import { AutocompleteFormComponent } from './__stories__/autocomplete-form.component';
 
 <Meta title="UI/Autocomplete" decorators={[withA11y, withKnobs]} />
 
@@ -22,9 +22,9 @@ This is a basic story:
 <Preview>
   <Story name="Default" height="110px">
     {{
-      template: `<es-autocomplete>autocomplete</es-autocomplete>`,
+      template: `<es-autocomplete-form></es-autocomplete-form>`,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, AutocompleteModule]
+        imports: [BrowserAnimationsModule, AutocompleteFormModule]
       }
     }}
   </Story>
@@ -32,4 +32,4 @@ This is a basic story:
 
 ## API
 
-<Props of={AutocompleteComponent} />
+<Props of={AutocompleteFormComponent} />
