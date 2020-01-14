@@ -1,11 +1,12 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form">
   <mat-form-field appearance="outline" class="es-autocomplete-form">
     <mat-label>Введите сообщение</mat-label>
     <es-autocomplete
       formControlName="autocomplete"
       [options]="options"
+      [debounceTime]="debounceTime"
       (changeText)="onChangeText($event)"
-      >autocomplete</es-autocomplete
     >
+    </es-autocomplete>
   </mat-form-field>
 </form>

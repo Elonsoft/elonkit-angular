@@ -109,6 +109,7 @@ export class AutocompleteComponent
   @Output() changeText = new EventEmitter<string>();
 
   @Input() public options: string[];
+  @Input() public debounceTime: number;
 
   @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
 
@@ -130,7 +131,7 @@ export class AutocompleteComponent
   public stateChanges = new Subject<void>();
 
   ngOnInit() {
-    this.text$.pipe(debounceTime(500)).subscribe(text => {
+    this.text$.pipe(debounceTime(this.debounceTime)).subscribe(text => {
       this.changeText.emit(text);
     });
   }
@@ -182,8 +183,8 @@ export class AutocompleteComponent
   public onInput(event: Event) {
     const target = event.target as HTMLInputElement;
     this.text = target.value;
-    this.onChange(this.text);
     this.text$.next(this.text);
+    this.onChange(this.text);
     this.stateChanges.next();
   }
 

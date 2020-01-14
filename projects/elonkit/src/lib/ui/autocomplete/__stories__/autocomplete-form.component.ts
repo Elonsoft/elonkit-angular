@@ -1,5 +1,9 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { GetFilterOptions } from '../filter-options';
+
+const OPTIONS = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'];
+const DEBOUNCE = 500;
 
 @Component({
   selector: 'es-autocomplete-form',
@@ -10,12 +14,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class AutocompleteFormComponent {
   public form: FormGroup;
-  public options: string[] = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'];
-  public text: string;
-
-  /**
-   * Event emitted when user change value in input.
-   */
+  public options: string[] = OPTIONS;
+  public debounceTime: number = DEBOUNCE;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -23,19 +23,8 @@ export class AutocompleteFormComponent {
     });
   }
 
-  /**
-   * @ignore
-   */
-  onSubmit() {
-    if (this.form.valid) {
-      console.log('text from autocomplete component - ', this.text);
-    }
-  }
-
-  /**
-   * @ignore
-   */
-  onChangeText(text: string) {
-    this.text = text;
+  public onChangeText(text: string) {
+    this.options = OPTIONS;
+    this.options = GetFilterOptions(text, this.options);
   }
 }
