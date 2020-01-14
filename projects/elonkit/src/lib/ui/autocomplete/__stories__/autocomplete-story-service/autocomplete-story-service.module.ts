@@ -7,6 +7,8 @@ import { AutocompleteModule } from '../../autocomplete.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 
+import { AutocompleteService } from '../autocomplete-story-service/autocomplete.service';
+
 import { AutocompleteStoryServiceComponent } from './autocomplete-story-service.component';
 
 @NgModule({
@@ -18,6 +20,7 @@ import { AutocompleteStoryServiceComponent } from './autocomplete-story-service.
     MatFormFieldModule,
     MatButtonModule
   ],
-  exports: [AutocompleteStoryServiceComponent]
+  exports: [AutocompleteStoryServiceComponent],
+  providers: [AutocompleteService]
 })
 export class AutocompleteStoryServiceModule {}

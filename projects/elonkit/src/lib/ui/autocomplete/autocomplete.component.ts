@@ -109,6 +109,7 @@ export class AutocompleteComponent
   @Output() changeText = new EventEmitter<string>();
 
   @Input() public options: string[];
+  @Input() public isLoading: boolean;
   @Input() public debounceTime: number;
 
   @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
