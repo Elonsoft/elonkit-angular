@@ -15,9 +15,11 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "elonkit": ["dist/elonkit"],
-      "elonkit/*": ["dist/elonkit/*"]
+      "elonkit/*": ["dist/elonkit/*"],
+      "~storybook/*": ["projects/elonkit/storybook/*"]
     },
-    "types": ["jest"]
+    "types": ["jest"],
+    "jsx": "react"
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
