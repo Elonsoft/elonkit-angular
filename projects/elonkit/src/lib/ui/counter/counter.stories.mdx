@@ -1,4 +1,5 @@
-import { Meta, Preview, Story, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
 
 import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
@@ -9,7 +10,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ESCounterModule } from './counter.module';
 import { CounterComponent } from './counter.component';
 
-<Meta title="UI/Counter" decorators={[withA11y, withKnobs]} />
+import { COUNTER_STORY_ADDONS_SOURCE } from './__stories__/counter-story-addons';
+import { COUNTER_STORY_BASIC_SOURCE } from './__stories__/counter-story-basic';
+import {
+  CounterStoryContainerModule,
+  COUNTER_STORY_CONTAINER_SOURCE
+} from './__stories__/counter-story-container';
+
+<Meta title='UI/Counter' decorators={[withA11y, withKnobs]} />
 
 # Counter
 
@@ -19,8 +27,8 @@ This component demonstrates usage of storybook.
 
 This is a basic story:
 
-<Preview>
-  <Story name="Default" height="150px">
+<Preview source={COUNTER_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='170px'>
     {{
       template: `<es-counter></es-counter>`,
       moduleMetadata: {
@@ -32,16 +40,29 @@ This is a basic story:
 
 We can use `knobs` and `actions` addons to work with inputs and outputs:
 
-<Preview>
-  <Story name="With addons" height="150px">
+<Preview source={COUNTER_STORY_ADDONS_SOURCE}>
+  <Story name='With addons' height='170px'>
     {{
       template: `<es-counter [heading]="heading" (increase)="onIncrease($event)"></es-counter>`,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, ESCounterModule]
       },
       props: {
-        heading: text('heading', 'Counter 2'),
+        heading: text('heading', 'Counter With Addons'),
         onIncrease: action('onIncrease')
+      }
+    }}
+  </Story>
+</Preview>
+
+This is an example of a component wraped into a container component, which overrides some styles of nested component.
+
+<Preview source={COUNTER_STORY_CONTAINER_SOURCE}>
+  <Story name='With container' height='170px'>
+    {{
+      template: `<es-counter-story-container></es-counter-story-container>`,
+      moduleMetadata: {
+        imports: [CounterStoryContainerModule]
       }
     }}
   </Story>

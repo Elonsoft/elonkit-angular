@@ -1,4 +1,4 @@
-const util = require('util');
+const path = require('path');
 
 module.exports = {
   stories: ['../src/**/*.stories.mdx'],
@@ -15,5 +15,9 @@ module.exports = {
         sourceLoaderOptions: null
       }
     }
-  ]
+  ],
+  webpackFinal: async config => {
+    config.resolve.alias['~storybook'] = path.resolve(__dirname);
+    return config;
+  }
 };

@@ -2,6 +2,8 @@
   &__heading {
     align-items: center;
     display: flex;
+    margin-bottom: 16px;
+    margin-top: 0;
   }
 
   &__icon {
@@ -11,23 +13,30 @@
   &__count {
     align-items: center;
     color: #333;
-    display: flex;
+    display: inline-block;
+    margin-bottom: 24px;
+    margin-top: 0;
+    padding: 8px;
+    position: relative;
+    text-transform: uppercase;
+    width: auto;
 
     &::before,
     &::after {
-      border-radius: 50%;
       content: '';
       display: block;
-      height: 8px;
-      width: 8px;
+      height: 2px;
+      left: 0;
+      position: absolute;
+      right: 0;
     }
 
     &::before {
-      margin-right: 8px;
+      top: 0;
     }
 
     &::after {
-      margin-left: 8px;
+      bottom: 0;
     }
 
     &_active {

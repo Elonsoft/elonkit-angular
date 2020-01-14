@@ -5,6 +5,6 @@
   "disableProtected": true,
   "exportFormat": "json",
   "output": ".",
-  "silent": true,
+  "silent": false,
   "tsconfig": "./tsconfig.lib.json"
 }
