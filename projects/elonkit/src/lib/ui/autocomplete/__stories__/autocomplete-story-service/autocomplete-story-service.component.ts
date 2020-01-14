@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { GetFilterOptions } from '../../filter-options';
 import { AutocompleteService } from '../autocomplete-story-service/autocomplete.service';
 
 const DEBOUNCE = 500;
@@ -38,15 +37,18 @@ export class AutocompleteStoryServiceComponent implements OnInit {
   public ngOnInit() {
     this.isLoading = true;
     this.autocompleteService.getOptions().subscribe(options => {
-      this.optionsFromService = options.OPTIONS;
-      this.options = this.optionsFromService;
+      this.options = options.options;
       this.isLoading = false;
       this.changeDetector.detectChanges();
     });
   }
 
   public onChangeText(text: string) {
-    this.options = this.optionsFromService;
-    this.options = GetFilterOptions(text, this.options);
+    this.isLoading = true;
+    this.autocompleteService.getOptions(text).subscribe(options => {
+      this.options = options.options;
+      this.isLoading = false;
+      this.changeDetector.detectChanges();
+    });
   }
 }

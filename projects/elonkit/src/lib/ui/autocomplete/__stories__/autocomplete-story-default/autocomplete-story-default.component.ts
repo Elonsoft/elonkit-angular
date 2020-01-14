@@ -24,7 +24,6 @@ export class AutocompleteStoryDefaultComponent {
   }
 
   public onChangeText(text: string) {
-    this.options = OPTIONS;
-    this.options = GetFilterOptions(text, this.options);
+    this.options = GetFilterOptions(text, OPTIONS);
   }
 }

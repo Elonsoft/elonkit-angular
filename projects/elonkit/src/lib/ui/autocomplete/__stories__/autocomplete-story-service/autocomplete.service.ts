@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { delay } from 'rxjs/operators';
 
+import { delay } from 'rxjs/operators';
 import { of } from 'rxjs';
+
+import { GetFilterOptions } from '../../filter-options';
 
 const OPTIONS = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'];
 
 @Injectable()
 export class AutocompleteService {
-  public getOptions() {
+  public getOptions(text?: string) {
+    const options = GetFilterOptions(text, OPTIONS);
     return of({
-      OPTIONS
+      options
     }).pipe(delay(3000));
   }
 }
