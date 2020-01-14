@@ -4,7 +4,7 @@
   "scripts": {
     "build": "ng build && scss-bundle",
     "test": "ng test",
-    "lint:tslint": "tslint -c tslint.json --project projects/elonkit/tsconfig.lib.json --project projects/elonkit/tsconfig.spec.json 'projects/**/*.ts'",
+    "lint:tslint": "tslint -c tslint.json --project tsconfig.json 'projects/**/*.ts'",
     "lint:stylelint": "stylelint projects"
   },
   "private": true,
@@ -17,7 +17,7 @@
     }
   },
   "lint-staged": {
-    "*.ts": "tslint -c ./tslint.json --project projects/elonkit/tsconfig.lib.json --project projects/elonkit/tsconfig.spec.json",
+    "*.ts": "tslint -c ./tslint.json --project tsconfig.json",
     "*.{css,scss}": "stylelint"
   },
   "dependencies": {

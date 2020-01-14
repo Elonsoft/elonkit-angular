@@ -35,7 +35,7 @@ export class CounterComponent {
    * @ignore
    */
   constructor(
-    // We need to make changeDetector public in order to be able to use it in tests
+    // We need to make changeDetector public in order to be able to use it in tests.
     public changeDetector: ChangeDetectorRef
   ) {}
 

@@ -54,10 +54,12 @@ describe('Counter', () => {
 
     // We can emulate user interaction
     click(button);
+
     expect(getByText('You clicked 1 times')).toBeInTheDocument();
     expect(getByText('You clicked 1 times')).toHaveClass('es-counter__count_active');
 
     click(button);
+
     expect(getByText('You clicked 2 times')).toBeInTheDocument();
     expect(getByText('You clicked 2 times')).toHaveClass('es-counter__count_active');
 
