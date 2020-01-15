@@ -1,16 +1,12 @@
 <form [formGroup]="form">
-  <mat-form-field appearance="outline" class="es-autocomplete-story-service">
+  <mat-form-field appearance="outline" class="es-autocomplete-story-custom">
     <mat-label>Введите сообщение</mat-label>
     <es-autocomplete
       formControlName="autocomplete"
       [options]="options"
-      [isLoading]="isLoading"
       [debounceTime]="debounceTime"
       (changeText)="onChangeText($event)"
     >
-      <ng-template *dd="let option">
-        {{ option.name }}
-      </ng-template>
     </es-autocomplete>
   </mat-form-field>
 </form>

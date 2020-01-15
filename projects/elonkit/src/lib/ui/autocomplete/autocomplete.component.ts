@@ -108,7 +108,7 @@ export class AutocompleteComponent
 
   @Output() changeText = new EventEmitter<string>();
 
-  @Input() public options: string[];
+  @Input() public options: any[];
   @Input() public isLoading: boolean;
   @Input() public debounceTime: number;
 

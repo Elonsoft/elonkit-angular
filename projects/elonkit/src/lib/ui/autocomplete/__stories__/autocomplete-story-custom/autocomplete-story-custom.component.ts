@@ -1,19 +1,31 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { GetFilterOptions } from '../../filter-options';
+import { GetFilterOptions, GetFilterOptionsByKey } from '../../filter-options';
 
-const OPTIONS = ['One', 'Two', 'Three', 'Four', 'Five'];
-
+const OPTIONS = [
+  {
+    id: 1,
+    name: 'Anna'
+  },
+  {
+    id: 2,
+    name: 'Mary'
+  },
+  {
+    id: 3,
+    name: 'Elena'
+  }
+];
 const DEBOUNCE = 500;
 
 @Component({
-  selector: 'es-autocomplete-story-default',
-  templateUrl: './autocomplete-story-default.component.html',
-  styleUrls: ['./autocomplete-story-default.component.scss'],
+  selector: 'es-autocomplete-story-custom',
+  templateUrl: './autocomplete-story-custom.component.html',
+  styleUrls: ['./autocomplete-story-custom.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class AutocompleteStoryDefaultComponent {
+export class AutocompleteStoryCustomComponent {
   public form: FormGroup;
   public options: any[] = OPTIONS;
   public debounceTime: number = DEBOUNCE;
@@ -25,6 +37,6 @@ export class AutocompleteStoryDefaultComponent {
   }
 
   public onChangeText(text: string) {
-    this.options = GetFilterOptions(text, OPTIONS);
+    this.options = GetFilterOptionsByKey(text, OPTIONS, 'name');
   }
 }

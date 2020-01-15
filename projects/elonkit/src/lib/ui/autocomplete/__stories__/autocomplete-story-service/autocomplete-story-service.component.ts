@@ -35,15 +35,14 @@ export class AutocompleteStoryServiceComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.isLoading = true;
-    this.autocompleteService.getOptions().subscribe(options => {
-      this.options = options.options;
-      this.isLoading = false;
-      this.changeDetector.detectChanges();
-    });
+    this.loadingOptions();
   }
 
   public onChangeText(text: string) {
+    this.loadingOptions(text);
+  }
+
+  public loadingOptions(text?: string) {
     this.isLoading = true;
     this.autocompleteService.getOptions(text).subscribe(options => {
       this.options = options.options;

@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 
 import { GetFilterOptions } from '../../filter-options';
 
-const OPTIONS = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'];
+const OPTIONS = ['One', 'Two', 'Three', 'Four', 'Five'];
 
 @Injectable()
 export class AutocompleteService {

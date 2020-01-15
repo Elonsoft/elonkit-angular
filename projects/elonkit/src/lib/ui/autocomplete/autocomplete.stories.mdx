@@ -14,6 +14,9 @@ import { AutocompleteStoryDefaultComponent } from './__stories__/autocomplete-st
 import { AutocompleteStoryServiceModule } from './__stories__/autocomplete-story-service/autocomplete-story-service.module';
 import { AutocompleteStoryServiceComponent } from './__stories__/autocomplete-story-service/autocomplete-story-service.component';
 
+import { AutocompleteStoryCustomModule } from './__stories__/autocomplete-story-custom/autocomplete-story-custom.module';
+import { AutocompleteStoryCustomComponent } from './__stories__/autocomplete-story-custom/autocomplete-story-custom.component';
+
 <Meta title="UI/Autocomplete" decorators={[withA11y, withKnobs]} />
 
 # Autocomplete
@@ -25,7 +28,7 @@ This component demonstrates usage of storybook.
 This is a basic story:
 
 <Preview>
-  <Story name="Default" height="110px">
+  <Story name="Default" height="300px">
     {{
       template: `<es-autocomplete-story-default></es-autocomplete-story-default>`,
       moduleMetadata: {
@@ -38,11 +41,24 @@ This is a basic story:
 This is a story with service:
 
 <Preview>
-  <Story name="Service" height="110px">
+  <Story name="Service" height="300px">
     {{
       template: `<es-autocomplete-story-service></es-autocomplete-story-service>`,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, AutocompleteStoryServiceModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+This is a story with custom options:
+
+<Preview>
+  <Story name="Custom options" height="300px">
+    {{
+      template: `<es-autocomplete-story-custom></es-autocomplete-story-custom>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, AutocompleteStoryCustomModule]
       }
     }}
   </Story>
