@@ -3,10 +3,16 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   OnInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AutocompleteService } from '../autocomplete-story-service/autocomplete.service';
+
+import { BehaviorSubject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 const DEBOUNCE = 500;
 
@@ -17,7 +23,9 @@ const DEBOUNCE = 500;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class AutocompleteStoryServiceComponent implements OnInit {
+export class AutocompleteStoryServiceComponent implements OnInit, OnDestroy {
+  text$ = new BehaviorSubject<string>('');
+
   public form: FormGroup;
   public options: string[];
   public isLoading = false;
@@ -32,10 +40,25 @@ export class AutocompleteStoryServiceComponent implements OnInit {
     this.form = this.formBuilder.group({
       autocomplete: ['']
     });
+
+    this.text$
+      .pipe(
+        untilComponentDestroyed(this),
+        switchMap(text => this.autocompleteService.getOptions(text))
+      )
+      .subscribe(options => {
+        this.options = options.options;
+        this.isLoading = false;
+        this.changeDetector.detectChanges();
+      });
   }
 
   public ngOnInit() {
     this.loadingOptions();
+  }
+
+  public ngOnDestroy() {
+    //
   }
 
   public onChangeText(text: string) {
@@ -44,10 +67,6 @@ export class AutocompleteStoryServiceComponent implements OnInit {
 
   public loadingOptions(text?: string) {
     this.isLoading = true;
-    this.autocompleteService.getOptions(text).subscribe(options => {
-      this.options = options.options;
-      this.isLoading = false;
-      this.changeDetector.detectChanges();
-    });
+    this.text$.next(text);
   }
 }
