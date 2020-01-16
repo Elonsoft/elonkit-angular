@@ -43,6 +43,7 @@ export class AutocompleteComponent
 
   @Input() public options: any[];
   @Input() public isLoading: boolean;
+  @Input() public isCustomSelection = false;
   @Input() public debounceTime: number;
   @Input() public displayWith = (value?: any): string | undefined => {
     return value ? value : undefined;
@@ -216,7 +217,12 @@ export class AutocompleteComponent
   onBlur() {
     this.onTouched();
     this.focused = false;
-    this.changeText.emit(this.text);
+
+    if (!this.isCustomSelection) {
+      this.text = this.value;
+    }
+
+    // this.changeText.emit(this.text);
     this.stateChanges.next();
   }
 

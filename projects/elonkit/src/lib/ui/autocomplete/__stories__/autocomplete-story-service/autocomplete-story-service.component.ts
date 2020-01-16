@@ -2,17 +2,14 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  OnInit,
   ChangeDetectorRef,
   OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AutocompleteService } from '../autocomplete-story-service/autocomplete.service';
 
-import { BehaviorSubject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 const DEBOUNCE = 500;
 
@@ -23,14 +20,14 @@ const DEBOUNCE = 500;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class AutocompleteStoryServiceComponent implements OnInit, OnDestroy {
+export class AutocompleteStoryServiceComponent implements OnDestroy {
   text$ = new BehaviorSubject<string>('');
 
   public form: FormGroup;
   public options: string[];
   public isLoading = false;
-  public optionsFromService: string[];
   public debounceTime: number = DEBOUNCE;
+  private subscription: Subscription | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,9 +38,11 @@ export class AutocompleteStoryServiceComponent implements OnInit, OnDestroy {
       autocomplete: ['']
     });
 
-    this.text$
+    this.subscription = this.text$
       .pipe(
-        untilComponentDestroyed(this),
+        tap(() => {
+          this.isLoading = true;
+        }),
         switchMap(text => this.autocompleteService.getOptions(text))
       )
       .subscribe(options => {
@@ -53,20 +52,14 @@ export class AutocompleteStoryServiceComponent implements OnInit, OnDestroy {
       });
   }
 
-  public ngOnInit() {
-    this.loadingOptions();
-  }
-
   public ngOnDestroy() {
-    //
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    }
   }
 
   public onChangeText(text: string) {
-    this.loadingOptions(text);
-  }
-
-  public loadingOptions(text?: string) {
-    this.isLoading = true;
     this.text$.next(text);
   }
 }
