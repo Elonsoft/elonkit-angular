@@ -13,7 +13,8 @@ import {
   ViewChild,
   ContentChild,
   TemplateRef,
-  InjectionToken
+  InjectionToken,
+  Inject
 } from '@angular/core';
 
 import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
@@ -53,8 +54,6 @@ export class AutocompleteComponent
 
   @Input() public options: any[];
   @Input() public isLoading: boolean;
-  @Input() public isCustomSelection = false;
-  @Input() public debounceTime: number;
   @Input() public displayWith = (value?: any): string | undefined => {
     return value ? value : undefined;
   };
@@ -71,11 +70,22 @@ export class AutocompleteComponent
   constructor(
     @Optional() @Self() public ngControl: NgControl,
     @Optional()
-    public ngForm: FormGroupDirective
+    public ngForm: FormGroupDirective,
+    @Optional()
+    @Inject(ES_AUTOCOMPLETE_DEFAULT_OPTIONS)
+    private autocompleteDefaultOptions: EsAutocompleteDefaultOptions
   ) {
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
     }
+    this.debounceTime =
+      autocompleteDefaultOptions && autocompleteDefaultOptions.debounceTime
+        ? autocompleteDefaultOptions.debounceTime
+        : 0;
+    this.isCustomSelection =
+      autocompleteDefaultOptions && autocompleteDefaultOptions.isCustomSelection
+        ? autocompleteDefaultOptions.isCustomSelection
+        : false;
   }
 
   ngOnInit() {
@@ -87,6 +97,36 @@ export class AutocompleteComponent
   public ngOnDestroy() {
     this.stateChanges.complete();
     this.changeText.complete();
+  }
+
+  // tslint:disable-next-line variable-name
+  _debounceTime: number;
+
+  @Input()
+  get debounceTime(): number {
+    return this._debounceTime;
+  }
+  set debounceTime(value: number) {
+    this._debounceTime =
+      value ||
+      (this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.debounceTime) ||
+      0;
+  }
+
+  // tslint:disable-next-line variable-name
+  _isCustomSelection: boolean;
+
+  @Input()
+  get isCustomSelection(): boolean {
+    return this._isCustomSelection;
+  }
+  set isCustomSelection(value: boolean) {
+    this._isCustomSelection =
+      value !== undefined
+        ? value
+        : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.isCustomSelection
+        ? this.autocompleteDefaultOptions.isCustomSelection
+        : false;
   }
 
   // tslint:disable-next-line variable-name

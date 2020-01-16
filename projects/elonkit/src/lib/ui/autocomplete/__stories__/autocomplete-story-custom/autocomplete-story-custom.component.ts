@@ -1,10 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Inject } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { GetFilterOptionsByKey } from '../../filter-options';
-import {
-  ES_AUTOCOMPLETE_DEFAULT_OPTIONS,
-  EsAutocompleteDefaultOptions
-} from '../../autocomplete.component';
 
 const OPTIONS = [
   {
@@ -34,19 +30,11 @@ const OPTIONS = [
 export class AutocompleteStoryCustomComponent {
   public form: FormGroup;
   public options: any[] = OPTIONS;
-  public debounceTime: number;
-  public isCustomSelection = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    @Inject(ES_AUTOCOMPLETE_DEFAULT_OPTIONS)
-    private autocompleteDefaultOptions: EsAutocompleteDefaultOptions
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       autocomplete: ['']
     });
-    this.debounceTime = autocompleteDefaultOptions.debounceTime;
-    this.isCustomSelection = autocompleteDefaultOptions.isCustomSelection;
   }
 
   public onChangeText(text: string) {
