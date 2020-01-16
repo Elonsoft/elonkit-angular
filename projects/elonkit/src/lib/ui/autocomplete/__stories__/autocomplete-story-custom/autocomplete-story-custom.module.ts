@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AutocompleteModule } from '../../autocomplete.module';
 
+import { ES_AUTOCOMPLETE_DEFAULT_OPTIONS } from '../../autocomplete.component';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -18,6 +20,15 @@ import { AutocompleteStoryCustomComponent } from './autocomplete-story-custom.co
     MatFormFieldModule,
     MatButtonModule
   ],
-  exports: [AutocompleteStoryCustomComponent]
+  exports: [AutocompleteStoryCustomComponent],
+  providers: [
+    {
+      provide: ES_AUTOCOMPLETE_DEFAULT_OPTIONS,
+      useValue: {
+        debounceTime: 2000,
+        isCustomSelection: true
+      }
+    }
+  ]
 })
 export class AutocompleteStoryCustomModule {}

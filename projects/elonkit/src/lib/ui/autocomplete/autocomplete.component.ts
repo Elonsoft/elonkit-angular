@@ -12,7 +12,8 @@ import {
   OnInit,
   ViewChild,
   ContentChild,
-  TemplateRef
+  TemplateRef,
+  InjectionToken
 } from '@angular/core';
 
 import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
@@ -25,6 +26,15 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 import { AutocompleteOptionDirective } from '../autocomplete/autocomplete-option.directive';
+
+export const ES_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<EsAutocompleteDefaultOptions>(
+  'ES_AUTOCOMPLETE_DEFAULT_OPTIONS'
+);
+
+export interface EsAutocompleteDefaultOptions {
+  debounceTime?: number;
+  isCustomSelection?: boolean;
+}
 
 @Component({
   selector: 'es-autocomplete',
