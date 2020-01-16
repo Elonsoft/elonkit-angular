@@ -16,7 +16,7 @@ const OPTIONS = [
     name: 'Elena'
   }
 ];
-const DEBOUNCE = 500;
+const DEBOUNCE = 0;
 
 @Component({
   selector: 'es-autocomplete-story-custom',

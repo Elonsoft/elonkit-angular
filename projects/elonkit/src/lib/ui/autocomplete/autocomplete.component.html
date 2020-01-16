@@ -23,7 +23,7 @@
   </mat-option>
 </mat-autocomplete>-->
 
-<mat-autocomplete
+<!--<mat-autocomplete
   #auto="matAutocomplete"
   [displayWith]="displayWith"
   (optionSelected)="onSuggestionSelect($event.option.value)"
@@ -32,6 +32,42 @@
     <mat-option *ngFor="let option of options" [value]="option.name">
       {{ option.name }}
     </mat-option>
+  </ng-container>
+  <mat-option *ngIf="isLoading">
+    <mat-spinner [diameter]="24"></mat-spinner>
+  </mat-option>
+</mat-autocomplete>-->
+
+<!--<mat-autocomplete
+  #auto="matAutocomplete"
+  [displayWith]="displayWith"
+  (optionSelected)="onSuggestionSelect($event.option.value)"
+>
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngFor="let option of options">
+      <ng-container
+        *ngTemplateOutlet="optionTemplate; context: { $implicit: option }"
+      ></ng-container>
+    </ng-container>
+  </ng-container>
+  <mat-option *ngIf="isLoading">
+    <mat-spinner [diameter]="24"></mat-spinner>
+  </mat-option>
+</mat-autocomplete>-->
+
+<mat-autocomplete
+  #auto="matAutocomplete"
+  [displayWith]="displayWith"
+  (optionSelected)="onSuggestionSelect($event.option.value)"
+>
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngFor="let option of options">
+      <mat-option [value]="option.name">
+        <ng-container
+          *ngTemplateOutlet="optionTemplate; context: { $implicit: option }"
+        ></ng-container>
+      </mat-option>
+    </ng-container>
   </ng-container>
   <mat-option *ngIf="isLoading">
     <mat-spinner [diameter]="24"></mat-spinner>

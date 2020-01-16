@@ -10,14 +10,26 @@ import {
   EventEmitter,
   Output,
   OnInit,
-  ViewChild
+  ViewChild,
+  ContentChild,
+  TemplateRef,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
+  ViewChildren
 } from '@angular/core';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { Subject } from 'rxjs';
+
 import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+
+import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+
+import { MatFormFieldControl } from '@angular/material/form-field';
+import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+
+import { AutocompleteOptionDirective } from '../autocomplete/autocomplete-option.directive';
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'es-autocomplete',
@@ -28,7 +40,12 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
   providers: [{ provide: MatFormFieldControl, useExisting: AutocompleteComponent }]
 })
 export class AutocompleteComponent
-  implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy, OnInit {
+  implements
+    MatFormFieldControl<string>,
+    ControlValueAccessor,
+    OnDestroy,
+    OnInit,
+    AfterContentInit {
   public get value(): any {
     return this._value;
   }
@@ -38,15 +55,6 @@ export class AutocompleteComponent
     this.stateChanges.next();
   }
 
-  constructor(
-    @Optional() @Self() public ngControl: NgControl,
-    @Optional()
-    public ngForm: FormGroupDirective
-  ) {
-    if (this.ngControl != null) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
   public get focused() {
     return this._focused;
   }
@@ -101,13 +109,19 @@ export class AutocompleteComponent
 
     return false;
   }
+
+  @ContentChildren(MatOption) set contentOption(value: QueryList<MatOption>) {
+    console.log(value);
+  }
   static nextId = 0;
 
-  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
-  private inputChild: MatAutocompleteTrigger;
+  @ContentChild(AutocompleteOptionDirective, { read: TemplateRef, static: false }) optionTemplate;
+
+  // @ViewChildren(MatOption) contentOption: QueryList<MatOption>;
+
+  @ViewChild(MatAutocomplete, { static: false }) autocomplete: MatAutocomplete;
 
   @Output() changeText = new EventEmitter<string>();
-
   @Input() public options: any[];
   @Input() public isLoading: boolean;
   @Input() public debounceTime: number;
@@ -116,6 +130,12 @@ export class AutocompleteComponent
 
   @HostBinding('attr.aria-describedby') public describedBy = '';
   public text = '';
+
+  public stateChanges = new Subject<void>();
+  public kek = '';
+
+  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
+  private inputChild: MatAutocompleteTrigger;
   private text$ = new Subject<string>();
   // tslint:disable-next-line variable-name
   private _disabled = false;
@@ -129,12 +149,30 @@ export class AutocompleteComponent
   // tslint:disable-next-line variable-name
   private _value = '';
 
-  public stateChanges = new Subject<void>();
+  constructor(
+    @Optional() @Self() public ngControl: NgControl,
+    @Optional()
+    public ngForm: FormGroupDirective
+  ) {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   ngOnInit() {
     this.text$.pipe(debounceTime(this.debounceTime)).subscribe(text => {
       this.changeText.emit(text);
     });
+  }
+
+  ngAfterContentInit() {
+    // console.log(this.contentOption);
+    // console.log(this.contentOption.length);
+    // this.contentOption.changes.subscribe(option => {
+    //   this.autocomplete.options = option;
+    //   // this.autocomplete.options.notifyOnChanges();
+    //   console.log(option);
+    // });
   }
 
   public setDescribedByIds(ids: string[]) {
