@@ -7,7 +7,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
 import { AutocompleteOptionDirective } from './autocomplete-option.directive';
-
 import { AutocompleteComponent } from './autocomplete.component';
 
 @NgModule({

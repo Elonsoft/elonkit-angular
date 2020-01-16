@@ -1,35 +1,17 @@
-<!--<form [formGroup]="form">
+<form [formGroup]="form">
   <mat-form-field appearance="outline" class="es-autocomplete-story-custom">
     <mat-label>Введите сообщение</mat-label>
     <es-autocomplete
       formControlName="autocomplete"
       [options]="options"
       [debounceTime]="debounceTime"
+      [valueFn]="valueFn"
       (changeText)="onChangeText($event)"
     >
       <ng-container *esAutocompleteOption="let option">
-        <mat-option [value]="option.name">
-          {{ option.name }}
-          {{ option.id }}
-        </mat-option>
+        {{ option.name }}
+        <b>{{ option.id }}</b>
       </ng-container>
     </es-autocomplete>
   </mat-form-field>
 </form>
--->
-
-<form [formGroup]="form">
-    <mat-form-field appearance="outline" class="es-autocomplete-story-custom">
-      <mat-label>Введите сообщение</mat-label>
-      <es-autocomplete
-        formControlName="autocomplete"
-        [options]="options"
-        [debounceTime]="debounceTime"
-        (changeText)="onChangeText($event)"
-      >
-        <ng-container *esAutocompleteOption="let option">
-         {{option.name}}
-        </ng-container>
-      </es-autocomplete>
-    </mat-form-field>
-  </form>

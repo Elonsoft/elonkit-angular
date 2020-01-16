@@ -12,11 +12,7 @@ import {
   OnInit,
   ViewChild,
   ContentChild,
-  TemplateRef,
-  ContentChildren,
-  QueryList,
-  AfterContentInit,
-  ViewChildren
+  TemplateRef
 } from '@angular/core';
 
 import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
@@ -26,10 +22,9 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 import { AutocompleteOptionDirective } from '../autocomplete/autocomplete-option.directive';
-import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'es-autocomplete',
@@ -40,12 +35,52 @@ import { MatOption } from '@angular/material/core';
   providers: [{ provide: MatFormFieldControl, useExisting: AutocompleteComponent }]
 })
 export class AutocompleteComponent
-  implements
-    MatFormFieldControl<string>,
-    ControlValueAccessor,
-    OnDestroy,
-    OnInit,
-    AfterContentInit {
+  implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy, OnInit {
+  public text = '';
+  public stateChanges = new Subject<void>();
+  private inputChild: MatAutocompleteTrigger;
+  private text$ = new Subject<string>();
+
+  @Input() public options: any[];
+  @Input() public isLoading: boolean;
+  @Input() public debounceTime: number;
+  @Input() public displayWith = (value?: any): string | undefined => {
+    return value ? value : undefined;
+  };
+  @Input() public valueFn = (option: any): any => {
+    return option;
+  };
+
+  @Output() changeText = new EventEmitter<string>();
+
+  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
+  @ContentChild(AutocompleteOptionDirective, { read: TemplateRef, static: false })
+  optionTemplate;
+
+  constructor(
+    @Optional() @Self() public ngControl: NgControl,
+    @Optional()
+    public ngForm: FormGroupDirective
+  ) {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  ngOnInit() {
+    this.text$.pipe(debounceTime(this.debounceTime)).subscribe(text => {
+      this.changeText.emit(text);
+    });
+  }
+
+  public ngOnDestroy() {
+    this.stateChanges.complete();
+    this.changeText.complete();
+  }
+
+  // tslint:disable-next-line variable-name
+  private _value = '';
+
   public get value(): any {
     return this._value;
   }
@@ -54,6 +89,9 @@ export class AutocompleteComponent
     this._value = value;
     this.stateChanges.next();
   }
+
+  // tslint:disable-next-line variable-name
+  private _focused = false;
 
   public get focused() {
     return this._focused;
@@ -66,10 +104,17 @@ export class AutocompleteComponent
   public get empty(): boolean {
     return !this.value;
   }
+
+  static nextId = 0;
+  @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
+  @HostBinding('attr.aria-describedby') public describedBy = '';
   @HostBinding('class.floating')
   public get shouldLabelFloat() {
     return this.focused || !!this.text;
   }
+
+  // tslint:disable-next-line variable-name
+  private _required = false;
 
   @Input()
   public get required() {
@@ -80,6 +125,9 @@ export class AutocompleteComponent
     this.stateChanges.next();
   }
 
+  // tslint:disable-next-line variable-name
+  private _disabled = false;
+
   @Input()
   public get disabled(): boolean {
     return this._disabled;
@@ -88,6 +136,9 @@ export class AutocompleteComponent
     this._disabled = coerceBooleanProperty(dis);
     this.stateChanges.next();
   }
+
+  // tslint:disable-next-line variable-name
+  private _placeholder = '';
 
   @Input()
   public get placeholder() {
@@ -110,71 +161,6 @@ export class AutocompleteComponent
     return false;
   }
 
-  @ContentChildren(MatOption) set contentOption(value: QueryList<MatOption>) {
-    console.log(value);
-  }
-  static nextId = 0;
-
-  @ContentChild(AutocompleteOptionDirective, { read: TemplateRef, static: false }) optionTemplate;
-
-  // @ViewChildren(MatOption) contentOption: QueryList<MatOption>;
-
-  @ViewChild(MatAutocomplete, { static: false }) autocomplete: MatAutocomplete;
-
-  @Output() changeText = new EventEmitter<string>();
-  @Input() public options: any[];
-  @Input() public isLoading: boolean;
-  @Input() public debounceTime: number;
-
-  @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
-
-  @HostBinding('attr.aria-describedby') public describedBy = '';
-  public text = '';
-
-  public stateChanges = new Subject<void>();
-  public kek = '';
-
-  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
-  private inputChild: MatAutocompleteTrigger;
-  private text$ = new Subject<string>();
-  // tslint:disable-next-line variable-name
-  private _disabled = false;
-  // tslint:disable-next-line variable-name
-  private _required = false;
-  // tslint:disable-next-line variable-name
-  private _focused = false;
-  // tslint:disable-next-line variable-name
-  private _placeholder = '';
-
-  // tslint:disable-next-line variable-name
-  private _value = '';
-
-  constructor(
-    @Optional() @Self() public ngControl: NgControl,
-    @Optional()
-    public ngForm: FormGroupDirective
-  ) {
-    if (this.ngControl != null) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
-
-  ngOnInit() {
-    this.text$.pipe(debounceTime(this.debounceTime)).subscribe(text => {
-      this.changeText.emit(text);
-    });
-  }
-
-  ngAfterContentInit() {
-    // console.log(this.contentOption);
-    // console.log(this.contentOption.length);
-    // this.contentOption.changes.subscribe(option => {
-    //   this.autocomplete.options = option;
-    //   // this.autocomplete.options.notifyOnChanges();
-    //   console.log(option);
-    // });
-  }
-
   public setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(' ');
   }
@@ -192,11 +178,6 @@ export class AutocompleteComponent
       }
     }, 0);
     this.stateChanges.next();
-  }
-
-  public ngOnDestroy() {
-    this.stateChanges.complete();
-    this.changeText.complete();
   }
 
   public writeValue(value: any) {
@@ -237,10 +218,6 @@ export class AutocompleteComponent
     this.onTouched();
     this.focused = false;
     this.stateChanges.next();
-  }
-
-  public displayWith(suggestion?: any): string | undefined {
-    return suggestion ? suggestion : undefined;
   }
 
   public onSuggestionSelect(event: Event) {

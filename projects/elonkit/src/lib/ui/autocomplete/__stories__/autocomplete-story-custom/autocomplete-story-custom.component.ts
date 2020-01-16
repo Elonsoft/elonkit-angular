@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { GetFilterOptions, GetFilterOptionsByKey } from '../../filter-options';
+import { GetFilterOptionsByKey } from '../../filter-options';
 
 const OPTIONS = [
   {
@@ -38,5 +38,9 @@ export class AutocompleteStoryCustomComponent {
 
   public onChangeText(text: string) {
     this.options = GetFilterOptionsByKey(text, OPTIONS, 'name');
+  }
+
+  public valueFn(option: any): any {
+    return option.name;
   }
 }
