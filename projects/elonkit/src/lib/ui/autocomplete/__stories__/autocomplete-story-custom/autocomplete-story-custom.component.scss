@@ -1,4 +1,10 @@
 .es-autocomplete-story-custom {
+  &__option-img {
+    height: 25px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
   &.mat-form-field {
     width: 100%;
   }

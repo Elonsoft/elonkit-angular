@@ -5,15 +5,18 @@ import { GetFilterOptionsByKey } from '../../filter-options';
 const OPTIONS = [
   {
     id: 1,
-    name: 'Anna'
+    name: 'Anna',
+    foto: 'https://joeschmoe.io/api/v1/jenni'
   },
   {
     id: 2,
-    name: 'Mary'
+    name: 'Mary',
+    foto: 'https://joeschmoe.io/api/v1/julie'
   },
   {
     id: 3,
-    name: 'Elena'
+    name: 'Elena',
+    foto: 'https://joeschmoe.io/api/v1/jolee'
   }
 ];
 const DEBOUNCE = 0;

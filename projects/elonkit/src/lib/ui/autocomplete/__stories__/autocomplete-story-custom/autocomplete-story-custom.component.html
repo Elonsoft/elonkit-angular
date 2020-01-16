@@ -9,6 +9,7 @@
       (changeText)="onChangeText($event)"
     >
       <ng-container *esAutocompleteOption="let option">
+        <img class="es-autocomplete-story-custom__option-img" [src]="option.foto" />
         {{ option.name }}
         <b>{{ option.id }}</b>
       </ng-container>

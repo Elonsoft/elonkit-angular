@@ -214,9 +214,9 @@ export class AutocompleteComponent
   }
 
   onBlur() {
-    this.text = this.value;
     this.onTouched();
     this.focused = false;
+    this.changeText.emit(this.text);
     this.stateChanges.next();
   }
 
