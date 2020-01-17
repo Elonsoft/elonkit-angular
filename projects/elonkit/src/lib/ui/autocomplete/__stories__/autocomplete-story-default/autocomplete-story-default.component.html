@@ -4,7 +4,8 @@
     <es-autocomplete
       formControlName="autocomplete"
       [options]="options"
-      [debounceTime]="500"
+      [debounceTime]="debounceTime"
+      [freeInput]="freeInput"
       (changeText)="onChangeText($event)"
     >
     </es-autocomplete>

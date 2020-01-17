@@ -20,8 +20,8 @@ import {
 import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { Subject, timer } from 'rxjs';
+import { debounce } from 'rxjs/operators';
 
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -34,7 +34,7 @@ export const ES_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<EsAutocomplete
 
 export interface EsAutocompleteDefaultOptions {
   debounceTime?: number;
-  isCustomSelection?: boolean;
+  freeInput?: boolean;
 }
 
 @Component({
@@ -47,26 +47,57 @@ export interface EsAutocompleteDefaultOptions {
 })
 export class AutocompleteComponent
   implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy, OnInit {
+  /**
+   * @ignore
+   */
   public text = '';
+  /**
+   * @ignore
+   */
   public stateChanges = new Subject<void>();
-  private inputChild: MatAutocompleteTrigger;
   private text$ = new Subject<string>();
 
+  /**
+   * Array of options
+   */
   @Input() public options: any[];
-  @Input() public isLoading: boolean;
+
+  /**
+   * @ignore
+   */
+  @Input() public isLoading = false;
+
+  /**
+   * Function that maps an option control value to its display value in the trigger
+   */
   @Input() public displayWith = (value?: any): string | undefined => {
     return value ? value : undefined;
   };
+
+  /**
+   * Function that have chosen value
+   */
   @Input() public valueFn = (option: any): any => {
     return option;
   };
 
+  /**
+   * Event emitted when user change text in input
+   */
   @Output() public changeText = new EventEmitter<string>();
 
   @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
+  private inputChild: MatAutocompleteTrigger;
+
+  /**
+   * Template that allows add custom options
+   */
   @ContentChild(AutocompleteOptionDirective, { read: TemplateRef, static: false })
   public optionTemplate: any;
 
+  /**
+   * @ignore
+   */
   constructor(
     @Optional() @Self() public ngControl: NgControl,
     @Optional()
@@ -82,18 +113,24 @@ export class AutocompleteComponent
       autocompleteDefaultOptions && autocompleteDefaultOptions.debounceTime
         ? autocompleteDefaultOptions.debounceTime
         : 0;
-    this.isCustomSelection =
-      autocompleteDefaultOptions && autocompleteDefaultOptions.isCustomSelection
-        ? autocompleteDefaultOptions.isCustomSelection
+    this.freeInput =
+      autocompleteDefaultOptions && autocompleteDefaultOptions.freeInput
+        ? autocompleteDefaultOptions.freeInput
         : false;
   }
 
+  /**
+   * @ignore
+   */
   public ngOnInit() {
-    this.text$.pipe(debounceTime(this.debounceTime)).subscribe(text => {
+    this.text$.pipe(debounce(() => timer(this.debounceTime))).subscribe(text => {
       this.changeText.emit(text);
     });
   }
 
+  /**
+   * @ignore
+   */
   public ngOnDestroy() {
     this.stateChanges.complete();
     this.changeText.complete();
@@ -102,6 +139,9 @@ export class AutocompleteComponent
   // tslint:disable-next-line variable-name
   private _debounceTime: number;
 
+  /**
+   * Change value after a particular time span has passed
+   */
   @Input()
   public get debounceTime(): number {
     return this._debounceTime;
@@ -114,18 +154,21 @@ export class AutocompleteComponent
   }
 
   // tslint:disable-next-line variable-name
-  private _isCustomSelection: boolean;
+  private _freeInput: boolean;
 
+  /**
+   * If true the user input is not bound to provided options
+   */
   @Input()
-  public get isCustomSelection(): boolean {
-    return this._isCustomSelection;
+  public get freeInput(): boolean {
+    return this._freeInput;
   }
-  public set isCustomSelection(value: boolean) {
-    this._isCustomSelection =
+  public set freeInput(value: boolean) {
+    this._freeInput =
       value !== undefined
         ? value
-        : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.isCustomSelection
-        ? this.autocompleteDefaultOptions.isCustomSelection
+        : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.freeInput
+        ? this.autocompleteDefaultOptions.freeInput
         : false;
   }
 
@@ -167,6 +210,9 @@ export class AutocompleteComponent
   // tslint:disable-next-line variable-name
   private _required = false;
 
+  /**
+   * This property is used to indicate whether the input is required
+   */
   @Input()
   public get required() {
     return this._required;
@@ -179,6 +225,9 @@ export class AutocompleteComponent
   // tslint:disable-next-line variable-name
   private _disabled = false;
 
+  /**
+   * This property tells the form field when it should be in the disabled state
+   */
   @Input()
   public get disabled(): boolean {
     return this._disabled;
@@ -191,6 +240,9 @@ export class AutocompleteComponent
   // tslint:disable-next-line variable-name
   private _placeholder = '';
 
+  /**
+   * This property allows us to tell component what to use as a placeholder
+   */
   @Input()
   public get placeholder(): string {
     return this._placeholder;
@@ -212,14 +264,23 @@ export class AutocompleteComponent
     return false;
   }
 
+  /**
+   * @ignore
+   */
   public setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(' ');
   }
 
+  /**
+   * @ignore
+   */
   public onContainerClick(event: MouseEvent) {
     this.openPanel();
   }
 
+  /**
+   * @ignore
+   */
   public openPanel() {
     setTimeout(() => {
       if (!this.focused && !this.disabled && this.inputChild) {
@@ -231,6 +292,9 @@ export class AutocompleteComponent
     this.stateChanges.next();
   }
 
+  /**
+   * @ignore
+   */
   public writeValue(value: any) {
     if (value !== undefined) {
       this.value = value;
@@ -239,18 +303,33 @@ export class AutocompleteComponent
     }
   }
 
+  /**
+   * @ignore
+   */
   public registerOnChange(onChange: (value: any) => void) {
     this.onChange = onChange;
   }
 
+  /**
+   * @ignore
+   */
   public onChange = (_: any) => {};
 
+  /**
+   * @ignore
+   */
   public registerOnTouched(onTouched: () => void) {
     this.onTouched = onTouched;
   }
 
+  /**
+   * @ignore
+   */
   public onTouched = () => {};
 
+  /**
+   * @ignore
+   */
   public onInput(event: Event) {
     const target = event.target as HTMLInputElement;
     this.text = target.value;
@@ -259,16 +338,22 @@ export class AutocompleteComponent
     this.stateChanges.next();
   }
 
+  /**
+   * @ignore
+   */
   public onFocus() {
     this.focused = true;
     this.stateChanges.next();
   }
 
+  /**
+   * @ignore
+   */
   public onBlur() {
     this.onTouched();
     this.focused = false;
 
-    if (!this.isCustomSelection) {
+    if (!this.freeInput) {
       this.text = this.value;
     }
 
@@ -276,6 +361,9 @@ export class AutocompleteComponent
     this.stateChanges.next();
   }
 
+  /**
+   * @ignore
+   */
   public onSuggestionSelect(event: Event) {
     this.value = event;
     this.onChange(this.value);

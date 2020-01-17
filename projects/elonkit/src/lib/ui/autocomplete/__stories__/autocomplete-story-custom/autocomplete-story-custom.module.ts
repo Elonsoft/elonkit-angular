@@ -26,7 +26,7 @@ import { AutocompleteStoryCustomComponent } from './autocomplete-story-custom.co
       provide: ES_AUTOCOMPLETE_DEFAULT_OPTIONS,
       useValue: {
         debounceTime: 1000,
-        isCustomSelection: true
+        freeInput: true
       }
     }
   ]
