@@ -1,0 +1,39 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESInlineFormFieldModule } from './inline-form-field.module';
+import { InlineFormFieldComponent } from './inline-form-field.component';
+
+import {
+  InlineFormFieldStoryBasicModule,
+  InlineFormFieldStoryBasicComponent
+} from './__stories__/inline-form-field-story-basic';
+
+<Meta title='UI/InlineFormField' decorators={[withA11y, withKnobs]} />
+
+# InlineFormField
+
+This component demonstrates usage of storybook.
+
+## Demos
+
+<Preview>
+  <Story name='Basic' height='170px'>
+    {{
+      component: InlineFormFieldStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, InlineFormFieldStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={InlineFormFieldComponent} />

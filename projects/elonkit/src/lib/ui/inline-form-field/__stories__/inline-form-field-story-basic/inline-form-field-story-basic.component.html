@@ -1,0 +1,88 @@
+<form [formGroup]="form">
+  <es-inline-form-field text="Test text">
+    <mat-form-field>
+      <input matInput placeholder="Placeholder" autocomplete="off" />
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field text="01.01.2001">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field text="Test text" typography="mat-body-2">
+    <mat-form-field>
+      <input matInput placeholder="Placeholder" autocomplete="off" />
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field [text]="value.textarea">
+    <mat-form-field>
+      <textarea
+        matInput
+        matTextareaAutosize
+        placeholder="Placeholder"
+        formControlName="textarea"
+        autocomplete="off"
+      ></textarea>
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field text="Test text" typography="mat-caption">
+    <mat-form-field>
+      <input matInput placeholder="Placeholder" autocomplete="off" />
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field text="Test text" typography="mat-h1">
+    <mat-form-field>
+      <input matInput placeholder="Placeholder" autocomplete="off" />
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field text="Test text" typography="mat-h1">
+    <mat-form-field>
+      <textarea matInput matTextareaAutosize placeholder="Placeholder" autocomplete="off">
+      Test text</textarea
+      >
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field text="With hint / error">
+    <mat-form-field>
+      <input matInput placeholder="Placeholder" autocomplete="off" />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field text="Buttons">
+    <mat-form-field>
+      <button matPrefix mat-icon-button>
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <input matInput placeholder="Buttons" />
+      <button matSuffix mat-icon-button>
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field text="Select">
+    <mat-form-field>
+      <mat-select placeholder="Favorite option">
+        <mat-option value="Option 1">
+          Option 1
+        </mat-option>
+        <mat-option value="Option 2">
+          Option 2
+        </mat-option>
+        <mat-option value="Option 3">
+          Option 3
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </es-inline-form-field>
+</form>
