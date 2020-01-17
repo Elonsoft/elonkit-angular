@@ -19,7 +19,7 @@ import { switchMap, tap } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class AutocompleteStoryServiceComponent implements OnDestroy {
-  text$ = new BehaviorSubject<string>('');
+  private text$ = new BehaviorSubject<string>('');
 
   public form: FormGroup;
   public options: string[];
@@ -32,7 +32,7 @@ export class AutocompleteStoryServiceComponent implements OnDestroy {
     private changeDetector: ChangeDetectorRef
   ) {
     this.form = this.formBuilder.group({
-      autocomplete: ['']
+      autocomplete: ''
     });
 
     this.subscription = this.text$

@@ -19,7 +19,7 @@ export class AutocompleteStoryDefaultComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      autocomplete: ['']
+      autocomplete: ''
     });
   }
 

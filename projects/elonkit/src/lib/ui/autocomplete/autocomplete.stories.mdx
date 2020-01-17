@@ -1,4 +1,5 @@
-import { Meta, Preview, Story, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
 
 import { withKnobs, text, number, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -10,14 +11,17 @@ import { AutocompleteComponent } from './autocomplete.component';
 
 import { AutocompleteStoryDefaultModule } from './__stories__/autocomplete-story-default/autocomplete-story-default.module';
 import { AutocompleteStoryDefaultComponent } from './__stories__/autocomplete-story-default/autocomplete-story-default.component';
+import { AUTOCOMPLETE_STORY_DEFAULT_SOURCE } from './__stories__/autocomplete-story-default/autocomplete-story-default.source';
 
 import { AutocompleteStoryServiceModule } from './__stories__/autocomplete-story-service/autocomplete-story-service.module';
 import { AutocompleteStoryServiceComponent } from './__stories__/autocomplete-story-service/autocomplete-story-service.component';
+import { AUTOCOMPLETE_STORY_SERVICE_SOURCE } from './__stories__/autocomplete-story-service/autocomplete-story-service.source';
 
 import { AutocompleteStoryCustomModule } from './__stories__/autocomplete-story-custom/autocomplete-story-custom.module';
 import { AutocompleteStoryCustomComponent } from './__stories__/autocomplete-story-custom/autocomplete-story-custom.component';
+import { AUTOCOMPLETE_STORY_CUSTOM_SOURCE } from './__stories__/autocomplete-story-custom/autocomplete-story-custom.source';
 
-<Meta title="UI/Autocomplete" decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Autocomplete' decorators={[withA11y, withKnobs]} />
 
 # Autocomplete
 
@@ -27,8 +31,8 @@ This component demonstrates usage of storybook.
 
 This is a basic story:
 
-<Preview>
-  <Story name="Default" height="210px">
+<Preview source={AUTOCOMPLETE_STORY_DEFAULT_SOURCE}>
+  <Story name='Default' height='210px'>
     {{
       component: AutocompleteStoryDefaultComponent,
       moduleMetadata: {
@@ -44,8 +48,8 @@ This is a basic story:
 
 This is a story with service:
 
-<Preview>
-  <Story name="Service" height="210px">
+<Preview source={AUTOCOMPLETE_STORY_SERVICE_SOURCE}>
+  <Story name='Service' height='210px'>
     {{
       template: `<es-autocomplete-story-service></es-autocomplete-story-service>`,
       moduleMetadata: {
@@ -57,8 +61,8 @@ This is a story with service:
 
 This is a story with custom options:
 
-<Preview>
-  <Story name="Custom options" height="210px">
+<Preview source={AUTOCOMPLETE_STORY_CUSTOM_SOURCE}>
+  <Story name='Custom options' height='210px'>
     {{
       template: `<es-autocomplete-story-custom></es-autocomplete-story-custom>`,
       moduleMetadata: {
@@ -71,3 +75,23 @@ This is a story with custom options:
 ## API
 
 <Props of={AutocompleteComponent} />
+
+## Constants
+
+Injection token to be used to override the default options for es-autocomplete
+
+```ts
+import { ES_AUTOCOMPLETE_DEFAULT_OPTIONS } from '@elonsoft/elonkit/autocomplete';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_AUTOCOMPLETE_DEFAULT_OPTIONS,
+      useValue: {
+        debounceTime: 1000,
+        freeInput: true
+      }
+    }
+  ]
+})
+```

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { GetFilterOptionsByKey } from '../../filter-options';
 
@@ -33,7 +33,7 @@ export class AutocompleteStoryCustomComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      autocomplete: ['']
+      autocomplete: ''
     });
   }
 
