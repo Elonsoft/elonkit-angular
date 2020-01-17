@@ -222,7 +222,7 @@ export class AutocompleteComponent
 
   public openPanel() {
     setTimeout(() => {
-      if (!this.focused && !this.disabled) {
+      if (!this.focused && !this.disabled && this.inputChild) {
         this.focused = true;
         // NOTE: workaround to focus when clicked around input
         (this.inputChild as any)._element.nativeElement.focus();
