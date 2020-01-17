@@ -11,8 +11,6 @@ import { AutocompleteService } from '../autocomplete-story-service/autocomplete.
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
-const DEBOUNCE = 500;
-
 @Component({
   selector: 'es-autocomplete-story-service',
   templateUrl: './autocomplete-story-service.component.html',
@@ -26,7 +24,6 @@ export class AutocompleteStoryServiceComponent implements OnDestroy {
   public form: FormGroup;
   public options: string[];
   public isLoading = false;
-  public debounceTime: number = DEBOUNCE;
   private subscription: Subscription | null = null;
 
   constructor(

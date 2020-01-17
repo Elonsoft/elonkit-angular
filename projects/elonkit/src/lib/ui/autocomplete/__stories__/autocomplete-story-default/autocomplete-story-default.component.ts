@@ -2,9 +2,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { GetFilterOptions } from '../../filter-options';
 
-const OPTIONS = ['One', 'Two', 'Three', 'Four', 'Five'];
-
-const DEBOUNCE = 500;
+const OPTIONS = ['One', 'Two', 'Three'];
 
 @Component({
   selector: 'es-autocomplete-story-default',
@@ -16,7 +14,6 @@ const DEBOUNCE = 500;
 export class AutocompleteStoryDefaultComponent {
   public form: FormGroup;
   public options: any[] = OPTIONS;
-  public debounceTime: number = DEBOUNCE;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({

@@ -61,11 +61,11 @@ export class AutocompleteComponent
     return option;
   };
 
-  @Output() changeText = new EventEmitter<string>();
+  @Output() public changeText = new EventEmitter<string>();
 
   @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
   @ContentChild(AutocompleteOptionDirective, { read: TemplateRef, static: false })
-  optionTemplate;
+  public optionTemplate: any;
 
   constructor(
     @Optional() @Self() public ngControl: NgControl,
@@ -88,7 +88,7 @@ export class AutocompleteComponent
         : false;
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.text$.pipe(debounceTime(this.debounceTime)).subscribe(text => {
       this.changeText.emit(text);
     });
@@ -100,13 +100,13 @@ export class AutocompleteComponent
   }
 
   // tslint:disable-next-line variable-name
-  _debounceTime: number;
+  private _debounceTime: number;
 
   @Input()
-  get debounceTime(): number {
+  public get debounceTime(): number {
     return this._debounceTime;
   }
-  set debounceTime(value: number) {
+  public set debounceTime(value: number) {
     this._debounceTime =
       value ||
       (this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.debounceTime) ||
@@ -114,13 +114,13 @@ export class AutocompleteComponent
   }
 
   // tslint:disable-next-line variable-name
-  _isCustomSelection: boolean;
+  private _isCustomSelection: boolean;
 
   @Input()
-  get isCustomSelection(): boolean {
+  public get isCustomSelection(): boolean {
     return this._isCustomSelection;
   }
-  set isCustomSelection(value: boolean) {
+  public set isCustomSelection(value: boolean) {
     this._isCustomSelection =
       value !== undefined
         ? value
@@ -156,11 +156,11 @@ export class AutocompleteComponent
     return !this.value;
   }
 
-  static nextId = 0;
+  private static nextId = 0;
   @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
   @HostBinding('attr.aria-describedby') public describedBy = '';
   @HostBinding('class.floating')
-  public get shouldLabelFloat() {
+  public get shouldLabelFloat(): boolean {
     return this.focused || !!this.text;
   }
 
@@ -192,7 +192,7 @@ export class AutocompleteComponent
   private _placeholder = '';
 
   @Input()
-  public get placeholder() {
+  public get placeholder(): string {
     return this._placeholder;
   }
 
@@ -201,7 +201,7 @@ export class AutocompleteComponent
     this.stateChanges.next();
   }
 
-  public get errorState() {
+  public get errorState(): boolean {
     const control = this.ngControl;
     const form = this.ngForm;
 
@@ -243,13 +243,13 @@ export class AutocompleteComponent
     this.onChange = onChange;
   }
 
-  onChange = (_: any) => {};
+  public onChange = (_: any) => {};
 
   public registerOnTouched(onTouched: () => void) {
     this.onTouched = onTouched;
   }
 
-  onTouched = () => {};
+  public onTouched = () => {};
 
   public onInput(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -259,12 +259,12 @@ export class AutocompleteComponent
     this.stateChanges.next();
   }
 
-  onFocus() {
+  public onFocus() {
     this.focused = true;
     this.stateChanges.next();
   }
 
-  onBlur() {
+  public onBlur() {
     this.onTouched();
     this.focused = false;
 
