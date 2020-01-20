@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  Input,
+  ChangeDetectorRef
+} from '@angular/core';
 
 @Component({
   selector: 'es-heading',
@@ -17,4 +23,6 @@ export class HeadingComponent {
    * Route to redirect at click of a button
    */
   @Input() public backRoute: string[] = ['..'];
+
+  constructor(public cdr: ChangeDetectorRef) {}
 }
