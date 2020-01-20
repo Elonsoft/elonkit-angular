@@ -1,0 +1,10 @@
+<mat-form-field appearance="outline" class="es-autocomplete-story-ng-model">
+  <mat-label>Season</mat-label>
+  <es-autocomplete
+    [(ngModel)]="text"
+    [options]="options"
+    [freeInput]="true"
+    (changeText)="onChangeText($event)"
+  >
+  </es-autocomplete>
+</mat-form-field>

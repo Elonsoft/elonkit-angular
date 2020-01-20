@@ -6,17 +6,17 @@ const OPTIONS = [
   {
     id: 1,
     name: 'Anna',
-    foto: 'https://joeschmoe.io/api/v1/jenni'
+    photo: 'https://joeschmoe.io/api/v1/jenni'
   },
   {
     id: 2,
     name: 'Mary',
-    foto: 'https://joeschmoe.io/api/v1/julie'
+    photo: 'https://joeschmoe.io/api/v1/julie'
   },
   {
     id: 3,
     name: 'Elena',
-    foto: 'https://joeschmoe.io/api/v1/jolee'
+    photo: 'https://joeschmoe.io/api/v1/jolee'
   }
 ];
 

@@ -2,7 +2,7 @@ export const AUTOCOMPLETE_STORY_DEFAULT_SOURCE = {
   html: `
     <form [formGroup]="form">
       <mat-form-field appearance="outline">
-        <mat-label>enter text</mat-label>
+        <mat-label>Fruit</mat-label>
         <es-autocomplete
           formControlName="autocomplete"
           [options]="options"
@@ -16,7 +16,7 @@ export const AUTOCOMPLETE_STORY_DEFAULT_SOURCE = {
   ts: `
     import { GetFilterOptions } from '@elonsoft/elonkit/autocomplete';
 
-    const OPTIONS = ['One', 'Two', 'Three'];
+    const OPTIONS = ['Apple', 'Lemon', 'Mango'];
 
     @Component(...)
     export class AutocompleteStoryDefaultComponent {

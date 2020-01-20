@@ -5,7 +5,7 @@ import { of, Observable } from 'rxjs';
 
 import { GetFilterOptions } from '../../filter-options';
 
-const OPTIONS = ['One', 'Two', 'Three'];
+const OPTIONS = ['Red', 'White', 'Green'];
 
 @Injectable()
 export class AutocompleteService {

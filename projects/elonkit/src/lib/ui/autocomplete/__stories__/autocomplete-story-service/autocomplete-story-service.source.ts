@@ -2,7 +2,7 @@ export const AUTOCOMPLETE_STORY_SERVICE_SOURCE = {
   html: `
     <form [formGroup]="form">
       <mat-form-field appearance="outline">
-        <mat-label>enter text</mat-label>
+        <mat-label>Color</mat-label>
         <es-autocomplete
         formControlName="autocomplete"
         [options]="options"

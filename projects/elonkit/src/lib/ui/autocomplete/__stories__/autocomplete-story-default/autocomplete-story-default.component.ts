@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@a
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { GetFilterOptions } from '../../filter-options';
 
-const OPTIONS = ['One', 'Two', 'Three'];
+const OPTIONS = ['Apple', 'Lemon', 'Mango'];
 
 @Component({
   selector: 'es-autocomplete-story-default',

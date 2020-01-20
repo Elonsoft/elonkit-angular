@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   ViewEncapsulation,
   OnDestroy,
   HostBinding,
@@ -81,61 +82,6 @@ export class AutocompleteComponent
     return option;
   };
 
-  /**
-   * Event emitted when user change text in input
-   */
-  @Output() public changeText = new EventEmitter<string>();
-
-  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
-  private inputChild: MatAutocompleteTrigger;
-
-  /**
-   * Template that allows add custom options
-   */
-  @ContentChild(AutocompleteOptionDirective, { read: TemplateRef, static: false })
-  public optionTemplate: any;
-
-  /**
-   * @ignore
-   */
-  constructor(
-    @Optional() @Self() public ngControl: NgControl,
-    @Optional()
-    public ngForm: FormGroupDirective,
-    @Optional()
-    @Inject(ES_AUTOCOMPLETE_DEFAULT_OPTIONS)
-    private autocompleteDefaultOptions: EsAutocompleteDefaultOptions
-  ) {
-    if (this.ngControl != null) {
-      this.ngControl.valueAccessor = this;
-    }
-    this.debounceTime =
-      autocompleteDefaultOptions && autocompleteDefaultOptions.debounceTime
-        ? autocompleteDefaultOptions.debounceTime
-        : 0;
-    this.freeInput =
-      autocompleteDefaultOptions && autocompleteDefaultOptions.freeInput
-        ? autocompleteDefaultOptions.freeInput
-        : false;
-  }
-
-  /**
-   * @ignore
-   */
-  public ngOnInit() {
-    this.text$.pipe(debounce(() => timer(this.debounceTime))).subscribe(text => {
-      this.changeText.emit(text);
-    });
-  }
-
-  /**
-   * @ignore
-   */
-  public ngOnDestroy() {
-    this.stateChanges.complete();
-    this.changeText.complete();
-  }
-
   // tslint:disable-next-line variable-name
   private _debounceTime: number;
 
@@ -199,14 +145,6 @@ export class AutocompleteComponent
     return !this.value;
   }
 
-  private static nextId = 0;
-  @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
-  @HostBinding('attr.aria-describedby') public describedBy = '';
-  @HostBinding('class.floating')
-  public get shouldLabelFloat(): boolean {
-    return this.focused || !!this.text;
-  }
-
   // tslint:disable-next-line variable-name
   private _required = false;
 
@@ -262,6 +200,74 @@ export class AutocompleteComponent
     }
 
     return false;
+  }
+
+  /**
+   * Event emitted when user change text in input
+   */
+  @Output() public changeText = new EventEmitter<string>();
+
+  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
+  private inputChild: MatAutocompleteTrigger;
+
+  /**
+   * Template that allows add custom options
+   */
+  @ContentChild(AutocompleteOptionDirective, { read: TemplateRef, static: false })
+  public optionTemplate: any;
+
+  private static nextId = 0;
+  @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
+  @HostBinding('attr.aria-describedby') public describedBy = '';
+  @HostBinding('class.floating')
+  public get shouldLabelFloat(): boolean {
+    return this.focused || !!this.text;
+  }
+
+  /**
+   * @ignore
+   */
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    @Optional() @Self() public ngControl: NgControl,
+    @Optional()
+    public ngForm: FormGroupDirective,
+    @Optional()
+    @Inject(ES_AUTOCOMPLETE_DEFAULT_OPTIONS)
+    private autocompleteDefaultOptions: EsAutocompleteDefaultOptions
+  ) {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    }
+    this.debounceTime =
+      autocompleteDefaultOptions && autocompleteDefaultOptions.debounceTime
+        ? autocompleteDefaultOptions.debounceTime
+        : 0;
+    this.freeInput =
+      autocompleteDefaultOptions && autocompleteDefaultOptions.freeInput
+        ? autocompleteDefaultOptions.freeInput
+        : false;
+
+    this.stateChanges.subscribe(() => {
+      this.changeDetector.detectChanges();
+    });
+  }
+
+  /**
+   * @ignore
+   */
+  public ngOnInit() {
+    this.text$.pipe(debounce(() => timer(this.debounceTime))).subscribe(text => {
+      this.changeText.emit(text);
+    });
+  }
+
+  /**
+   * @ignore
+   */
+  public ngOnDestroy() {
+    this.stateChanges.complete();
+    this.changeText.complete();
   }
 
   /**
