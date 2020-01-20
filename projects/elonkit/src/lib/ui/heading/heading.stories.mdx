@@ -1,0 +1,90 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
+
+import { ESHeadingModule } from './heading.module';
+import { HeadingComponent } from './heading.component';
+
+import { HEADING_STORY_BASIC_SOURCE } from './__stories__/heading-story-basic';
+import { HEADING_STORY_ADDONS_SOURCE } from './__stories__/heading-story-addons';
+import {
+  HEADING_STORY_CUSTOMIZATION_SOURCE,
+  HeadingStoryCustomizationModule
+} from './__stories__/heading-story-customization';
+
+<Meta title='UI/Heading' decorators={[withA11y, withKnobs]} />
+
+# Heading
+
+This component demonstrates usage of storybook.
+
+## Demos
+
+This is a basic story:
+
+<Preview source={HEADING_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='170px'>
+    {{
+      template: `<es-heading></es-heading>`,
+      moduleMetadata: {
+        imports: [
+          BrowserAnimationsModule,
+          ESHeadingModule,
+          RouterModule.forRoot([{path: '**', component: HeadingComponent}])
+        ],
+        providers: [{ provide: APP_BASE_HREF, useValue: '/?path=/story/' }]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can use `knobs` and `actions` addons to work with inputs and outputs:
+
+<Preview source={HEADING_STORY_ADDONS_SOURCE}>
+  <Story name='With addons' height='170px'>
+    {{
+      template: `<es-heading [title]="title" [backRoute]="backRoute"></es-heading>`,
+      moduleMetadata: {
+        imports: [
+          BrowserAnimationsModule,
+          ESHeadingModule,
+          RouterModule.forRoot([{path: '**', component: HeadingComponent}])
+        ],
+        providers: [{ provide: APP_BASE_HREF, useValue: '/?path=/story/' }]
+      },
+      props: {
+        title: text('title', 'My page'),
+        backRoute: text('backRoute', '/some-page')
+      }
+    }}
+  </Story>
+</Preview>
+
+This is an example of a component wraped into a container component, which overrides some styles of nested component.
+
+<Preview source={HEADING_STORY_CUSTOMIZATION_SOURCE}>
+  <Story name='With customization' height='170px'>
+    {{
+      template: `<es-heading-story-customization></es-heading-story-customization>`,
+      moduleMetadata: {
+        imports: [
+          BrowserAnimationsModule,
+          HeadingStoryCustomizationModule,
+          RouterModule.forRoot([{path: '**', component: HeadingComponent}])
+        ],
+        providers: [{ provide: APP_BASE_HREF, useValue: '/?path=/story/' }]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={HeadingComponent} />
