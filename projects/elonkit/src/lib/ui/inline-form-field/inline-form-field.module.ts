@@ -15,6 +15,6 @@ import {
   declarations: [InlineFormFieldComponent],
   imports: [CommonModule, MatButtonModule, MatIconModule],
   exports: [InlineFormFieldComponent],
-  providers: [{ provide: InlineFormFieldLocale, useValue: InlineFormFieldLocaleEN }]
+  providers: [{ provide: InlineFormFieldLocale, useClass: InlineFormFieldLocaleEN }]
 })
 export class ESInlineFormFieldModule {}
