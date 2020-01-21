@@ -96,15 +96,17 @@ describe('InlineFormField', () => {
   });
 
   it('Should accept typography class', async () => {
-    const typography = 'mat-body-2';
-
     const component = await render(InlineFormFieldComponent, {
-      componentProperties: {
-        typography
-      },
       imports: [ESInlineFormFieldModule],
       excludeComponentDeclaration: true
     });
+
+    expect(component.getByTestId('root')).toHaveClass('mat-body-1');
+
+    const typography = 'mat-body-2';
+
+    component.fixture.componentInstance.typography = typography;
+    component.fixture.componentInstance.changeDetector.detectChanges();
 
     expect(component.getByTestId('root')).toHaveClass(typography);
   });
