@@ -16,5 +16,5 @@ export class InlineFormFieldLocaleEN extends InlineFormFieldLocale {
 export class InlineFormFieldLocaleRU extends InlineFormFieldLocale {
   labelEdit = 'Редактировать';
   labelSave = 'Сохранить';
-  labelCancel = 'Отмена';
+  labelCancel = 'Отменить';
 }
