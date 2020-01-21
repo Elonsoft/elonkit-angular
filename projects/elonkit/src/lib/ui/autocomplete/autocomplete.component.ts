@@ -228,7 +228,7 @@ export class AutocompleteComponent
    * @ignore
    */
   constructor(
-    private changeDetector: ChangeDetectorRef,
+    public changeDetector: ChangeDetectorRef,
     @Optional() @Self() public ngControl: NgControl,
     @Optional()
     public ngForm: FormGroupDirective,
@@ -281,21 +281,19 @@ export class AutocompleteComponent
    * @ignore
    */
   public onContainerClick(event: MouseEvent) {
-    this.openPanel();
+    this.openPanel(event);
   }
 
   /**
    * @ignore
    */
-  public openPanel() {
-    setTimeout(() => {
-      if (!this.focused && !this.disabled && this.inputChild) {
-        this.focused = true;
-        // NOTE: workaround to focus when clicked around input
-        (this.inputChild as any)._element.nativeElement.focus();
-      }
-    }, 0);
-    this.stateChanges.next();
+  private openPanel(event: MouseEvent) {
+    if (!this.focused && !this.disabled && this.inputChild) {
+      event.stopPropagation();
+      this.inputChild.openPanel();
+      (this.inputChild as any)._element.nativeElement.focus();
+      this.stateChanges.next();
+    }
   }
 
   /**

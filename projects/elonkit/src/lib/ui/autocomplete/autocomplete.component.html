@@ -7,6 +7,7 @@
   (input)="onInput($event)"
   (focus)="onFocus()"
   (blur)="onBlur()"
+  data-testid="input"
 />
 <mat-autocomplete
   #auto="matAutocomplete"
@@ -15,7 +16,7 @@
 >
   <ng-container *ngIf="!isLoading">
     <ng-container *ngFor="let option of options">
-      <mat-option [value]="valueFn(option)">
+      <mat-option [value]="valueFn(option)" data-testid="mat-option">
         <ng-container *ngIf="!optionTemplate">{{ option }}</ng-container>
         <ng-container *ngIf="optionTemplate">
           <ng-container

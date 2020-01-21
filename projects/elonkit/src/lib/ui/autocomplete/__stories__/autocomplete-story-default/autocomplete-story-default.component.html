@@ -10,4 +10,16 @@
     >
     </es-autocomplete>
   </mat-form-field>
+
+  <br />
+  <br />
+
+  <es-autocomplete
+    formControlName="autocomplete"
+    [options]="options"
+    [debounceTime]="debounceTime"
+    [freeInput]="freeInput"
+    (changeText)="onChangeText($event)"
+  >
+  </es-autocomplete>
 </form>
