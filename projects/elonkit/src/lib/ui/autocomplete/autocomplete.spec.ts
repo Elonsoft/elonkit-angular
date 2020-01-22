@@ -1,3 +1,6 @@
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { render, RenderResult } from '@testing-library/angular';
 
 import { inject, fakeAsync, tick } from '@angular/core/testing';
@@ -5,8 +8,45 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { AutocompleteModule } from './autocomplete.module';
 import { AutocompleteComponent } from './autocomplete.component';
+import { Component } from '@angular/core';
+
+@Component({
+  template: `
+    <mat-form-field appearance="outline" class="es-autocomplete-story-custom">
+      <mat-label>Friend</mat-label>
+      <es-autocomplete
+        [(ngModel)]="text"
+        [options]="options"
+        [valueFn]="valueFn"
+        (changeText)="onChangeText($event)"
+      >
+        <ng-container *esAutocompleteOption="let option">
+          <img class="es-autocomplete-story-custom__option-img" [src]="option.photo" />
+          {{ option.name }}
+        </ng-container>
+      </es-autocomplete>
+    </mat-form-field>
+  `
+})
+class AutocompleteCustomComponent {
+  public text = '';
+  public options: any[] = FRIENDS;
+  public valueFn(option: any): any {
+    return option.name;
+  }
+}
 
 const FRUITS = ['Apple', 'Lemon', 'Mango'];
+const FRIENDS = [
+  {
+    name: 'Anna',
+    photo: 'https://joeschmoe.io/api/v1/jenni'
+  },
+  {
+    name: 'Mary',
+    photo: 'https://joeschmoe.io/api/v1/julie'
+  }
+];
 
 describe('Autocomplete', () => {
   describe('Base', () => {
@@ -29,10 +69,10 @@ describe('Autocomplete', () => {
       })();
     });
 
-    // afterEach(inject([OverlayContainer], (currentOverlay: OverlayContainer) => {
-    //   currentOverlay.ngOnDestroy();
-    //   overlay.ngOnDestroy();
-    // }));
+    afterEach(inject([OverlayContainer], (currentOverlay: OverlayContainer) => {
+      currentOverlay.ngOnDestroy();
+      overlay.ngOnDestroy();
+    }));
 
     it('Should display passed options', fakeAsync(async () => {
       const input = component.getByTestId('input');
@@ -41,10 +81,6 @@ describe('Autocomplete', () => {
 
       const options = overlayElement.querySelectorAll('[data-testid="mat-option"]');
       expect(options).toHaveLength(3);
-
-      // for (let i = 0; i < FRUITS.length; i++) {
-      //   expect(options[i].textContent).toContain(FRUITS[i]);
-      // }
 
       // all items of FRUITS array contain in overlay
       for (const fruit of FRUITS) {
@@ -158,8 +194,43 @@ describe('Autocomplete', () => {
   });
 
   describe('Custom options', () => {
-    it('Should fail', () => {
-      expect(2 + 2).toBe(4);
+    let component: RenderResult<AutocompleteCustomComponent, AutocompleteCustomComponent>;
+    let overlay: OverlayContainer;
+    let overlayElement: HTMLElement;
+
+    beforeEach(async () => {
+      component = await render(AutocompleteCustomComponent, {
+        imports: [AutocompleteModule, FormsModule, MatFormFieldModule],
+        componentProperties: {
+          options: FRIENDS
+        }
+      });
+
+      inject([OverlayContainer], (oc: OverlayContainer) => {
+        overlay = oc;
+        overlayElement = oc.getContainerElement();
+      })();
     });
+
+    afterEach(inject([OverlayContainer], (currentOverlay: OverlayContainer) => {
+      currentOverlay.ngOnDestroy();
+      overlay.ngOnDestroy();
+    }));
+
+    it('Should display options with photo and name', fakeAsync(async () => {
+      const input = component.getByTestId('input');
+
+      component.focusIn(input);
+
+      const options = overlayElement.querySelectorAll('[data-testid="mat-option"]');
+
+      expect(options).toHaveLength(2);
+
+      for (let i = 0; i < FRIENDS.length; i++) {
+        const image = options[i].querySelector('img');
+        expect(options[i].textContent).toContain(FRIENDS[i].name);
+        expect(image).toHaveAttribute('src', FRIENDS[i].photo);
+      }
+    }));
   });
 });
