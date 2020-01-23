@@ -75,6 +75,11 @@ export class ChipsAutocompleteComponent
   @Input() public chips: any[];
 
   /**
+   * Color of chips
+   */
+  @Input() public color: string;
+
+  /**
    * Change value after a particular time span has passed
    */
   @Input()

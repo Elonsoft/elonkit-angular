@@ -1,0 +1,19 @@
+<form [formGroup]="form">
+  <mat-form-field appearance="outline" class="es-chips-autocomplete-story-custom">
+    <mat-label>Friend</mat-label>
+    <es-chips-autocomplete
+      formControlName="chips"
+      (changeText)="onChangeText($event)"
+      [options]="options"
+      [chips]="chips"
+      [removable]="true"
+      [selectable]="true"
+      [valueFn]="valueFn"
+    >
+      <ng-container *esChipsAutocompleteOption="let option">
+        <img class="es-chips-autocomplete-story-custom__option-img" [src]="option.photo" />
+        {{ option.name }}
+      </ng-container>
+    </es-chips-autocomplete>
+  </mat-form-field>
+</form>

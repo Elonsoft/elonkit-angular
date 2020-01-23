@@ -11,6 +11,7 @@ import { ESChipsAutocompleteModule } from './chips-autocomplete.module';
 import { ChipsAutocompleteComponent } from './chips-autocomplete.component';
 
 import { ESChipsAutocompleteBasicModule } from './__stories__/chips-autocomplete-story-basic/chips-autocomplete-story-basic.module';
+import { ESChipsAutocompleteCustomModule } from './__stories__/chips-autocomplete-story-custom/chips-autocomplete-story-custom.module';
 
 <Meta title='UI/Chips autocomplete' decorators={[withA11y, withKnobs]} />
 
@@ -28,6 +29,21 @@ This is a basic story:
       template: `<es-chips-autocomplete-story-basic></es-chips-autocomplete-story-basic>`,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, ESChipsAutocompleteBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## Demos
+
+This is a custom story:
+
+<Preview>
+  <Story name='Custom' height='170px'>
+    {{
+      template: `<es-chips-autocomplete-story-custom></es-chips-autocomplete-story-custom>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESChipsAutocompleteCustomModule]
       }
     }}
   </Story>

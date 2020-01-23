@@ -4,6 +4,7 @@
     [selectable]="selectable"
     [removable]="removable"
     (removed)="onRemove(i)"
+    [color]="color"
   >
     {{ chip }}
     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>

@@ -15,6 +15,7 @@ export class ChipsAutocompleteBasicComponent {
   public form: FormGroup;
   public options: any[] = OPTIONS;
   public chips: any[] = [];
+  public color = 'accent';
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
