@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <mat-form-field class="es-chips-autocomplete-story-basic">
+    <mat-label>Fruit</mat-label>
+    <es-chips-autocomplete
+      formControlName="chips"
+      (changeText)="onChangeText($event)"
+      [options]="options"
+      [chips]="chips"
+      [removable]="true"
+      [selectable]="true"
+    ></es-chips-autocomplete>
+  </mat-form-field>
+</form>

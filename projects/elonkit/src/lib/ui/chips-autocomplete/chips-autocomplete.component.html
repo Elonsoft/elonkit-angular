@@ -1,0 +1,41 @@
+<mat-chip-list #chipList>
+  <mat-chip
+    *ngFor="let chip of chips; let i = index"
+    [selectable]="selectable"
+    [removable]="removable"
+    (removed)="onRemove(i)"
+  >
+    {{ chip }}
+    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+  </mat-chip>
+  <input
+    matInput
+    #inputChild
+    [matAutocomplete]="auto"
+    [matChipInputFor]="chipList"
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    [value]="text"
+    [disabled]="disabled"
+    (input)="onInput($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    (matChipInputTokenEnd)="add($event)"
+  />
+</mat-chip-list>
+
+<mat-autocomplete
+  #auto="matAutocomplete"
+  [displayWith]="displayWith"
+  (optionSelected)="onSuggestionSelect($event.option.value)"
+>
+  <ng-container *ngFor="let option of options">
+    <mat-option [value]="valueFn(option)">
+      <ng-container *ngIf="!optionTemplate">{{ option }}</ng-container>
+      <ng-container *ngIf="optionTemplate">
+        <ng-container
+          *ngTemplateOutlet="optionTemplate; context: { $implicit: option }"
+        ></ng-container>
+      </ng-container>
+    </mat-option>
+  </ng-container>
+</mat-autocomplete>

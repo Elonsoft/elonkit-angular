@@ -1,0 +1,38 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESChipsAutocompleteModule } from './chips-autocomplete.module';
+import { ChipsAutocompleteComponent } from './chips-autocomplete.component';
+
+import { ESChipsAutocompleteBasicModule } from './__stories__/chips-autocomplete-story-basic/chips-autocomplete-story-basic.module';
+
+<Meta title='UI/Chips autocomplete' decorators={[withA11y, withKnobs]} />
+
+# ChipsAutocomplete
+
+This component demonstrates usage of chips autocomplete.
+
+## Demos
+
+This is a basic story:
+
+<Preview>
+  <Story name='Basic' height='170px'>
+    {{
+      template: `<es-chips-autocomplete-story-basic></es-chips-autocomplete-story-basic>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESChipsAutocompleteBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ChipsAutocompleteComponent} />
