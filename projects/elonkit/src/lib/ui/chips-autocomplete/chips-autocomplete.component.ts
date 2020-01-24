@@ -29,6 +29,8 @@ import { Subject, timer } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 
 import { ChipsAutocompleteOptionDirective } from '../chips-autocomplete/chips-autocomplete.directive';
+import { ChipDirective } from '../chips-autocomplete/chip.directive';
+
 import { MatChipInputEvent } from '@angular/material/chips';
 
 import { ENTER, COMMA, SEMICOLON } from '@angular/cdk/keycodes';
@@ -50,9 +52,19 @@ export interface EsAutocompleteDefaultOptions {
   encapsulation: ViewEncapsulation.None,
   providers: [{ provide: MatFormFieldControl, useExisting: ChipsAutocompleteComponent }]
 })
-export class ChipsAutocompleteComponent
+export class ChipsAutocompleteComponent<T>
   implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy, OnInit {
   public separatorKeysCodes = [ENTER, COMMA, SEMICOLON];
+  private static nextId = 0;
+  /**
+   * @ignore
+   */
+  public text = '';
+  /**
+   * @ignore
+   */
+  public stateChanges = new Subject<void>();
+  private text$ = new Subject<string>();
 
   /**
    * If true this chip list is selectable
@@ -67,17 +79,38 @@ export class ChipsAutocompleteComponent
   /**
    * Array of options
    */
-  @Input() public options: any[];
-
-  /**
-   * Array of chips
-   */
-  @Input() public chips: any[];
+  @Input() public options: T[];
 
   /**
    * Color of chips
    */
   @Input() public color: string;
+
+  /**
+   * If true the user can choose only unique options
+   */
+  @Input() public unique: false;
+
+  // tslint:disable-next-line variable-name
+  private _debounceTime: number;
+
+  // tslint:disable-next-line variable-name
+  private _freeInput: boolean;
+
+  // tslint:disable-next-line variable-name
+  private _value: T[] = [];
+
+  // tslint:disable-next-line variable-name
+  private _focused = false;
+
+  // tslint:disable-next-line variable-name
+  private _required = false;
+
+  // tslint:disable-next-line variable-name
+  private _disabled = false;
+
+  // tslint:disable-next-line variable-name
+  private _placeholder = '';
 
   /**
    * Change value after a particular time span has passed
@@ -167,6 +200,63 @@ export class ChipsAutocompleteComponent
     this.stateChanges.next();
   }
 
+  /**
+   * @ignore
+   */
+  @Input() public isLoading = false;
+
+  /**
+   * Function that maps an option control value to its display value in the trigger
+   */
+  @Input() public displayWith = (option: T): string => {
+    return '' + option;
+  };
+
+  /**
+   * Function that have chosen value
+   */
+  @Input() public valueFn = (option: any): any => {
+    return option;
+  };
+
+  /**
+   * Function that have compared values
+   */
+  @Input() compareWith = (a: T, b: T) => a === b;
+
+  /**
+   * @ignore
+   */
+  isOptionVisible(option: T) {
+    if (this.unique) {
+      if (this.value) {
+        return !this.value.some(e => this.compareWith(e, option));
+      }
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Event emitted when user change text in input
+   */
+  @Output() public changeText = new EventEmitter<string>();
+
+  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
+  private inputChild: MatAutocompleteTrigger;
+  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
+
+  /**
+   * Template that allows add custom options
+   */
+  @ContentChild(ChipsAutocompleteOptionDirective, { read: TemplateRef, static: false })
+  public optionTemplate: any;
+  @ContentChild(ChipDirective, { read: TemplateRef, static: false })
+  public chipTemplate: any;
+
+  @HostBinding() public id = `es-autocomplete-${ChipsAutocompleteComponent.nextId++}`;
+  @HostBinding('attr.aria-describedby') public describedBy = '';
+
   public get errorState(): boolean {
     const control = this.ngControl;
     const form = this.ngForm;
@@ -177,9 +267,11 @@ export class ChipsAutocompleteComponent
 
     return false;
   }
+
   @HostBinding('class.floating')
   public get shouldLabelFloat(): boolean {
-    return this.focused || !!this.text || this.chips.length > 0;
+    // return this.focused || !!this.text || (this.value && this.value.length > 0);
+    return false;
   }
 
   /**
@@ -210,74 +302,6 @@ export class ChipsAutocompleteComponent
       this.changeDetector.detectChanges();
     });
   }
-
-  private static nextId = 0;
-  /**
-   * @ignore
-   */
-  public text = '';
-  /**
-   * @ignore
-   */
-  public stateChanges = new Subject<void>();
-  private text$ = new Subject<string>();
-
-  /**
-   * @ignore
-   */
-  @Input() public isLoading = false;
-
-  // tslint:disable-next-line variable-name
-  private _debounceTime: number;
-
-  // tslint:disable-next-line variable-name
-  private _freeInput: boolean;
-
-  // tslint:disable-next-line variable-name
-  private _value = '';
-
-  // tslint:disable-next-line variable-name
-  private _focused = false;
-
-  // tslint:disable-next-line variable-name
-  private _required = false;
-
-  // tslint:disable-next-line variable-name
-  private _disabled = false;
-
-  // tslint:disable-next-line variable-name
-  private _placeholder = '';
-
-  /**
-   * Event emitted when user change text in input
-   */
-  @Output() public changeText = new EventEmitter<string>();
-
-  @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
-  private inputChild: MatAutocompleteTrigger;
-  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
-
-  /**
-   * Template that allows add custom options
-   */
-  @ContentChild(ChipsAutocompleteOptionDirective, { read: TemplateRef, static: false })
-  public optionTemplate: any;
-  @HostBinding() public id = `es-autocomplete-${ChipsAutocompleteComponent.nextId++}`;
-  @HostBinding('attr.aria-describedby') public describedBy = '';
-
-  /**
-   * Function that maps an option control value to its display value in the trigger
-   */
-  @Input() public displayWith = (value?: any): string | undefined => {
-    return value ? value : undefined;
-  };
-
-  /**
-   * Function that have chosen value
-   */
-  @Input() public valueFn = (option: any): any => {
-    return option;
-  };
 
   /**
    * @ignore
@@ -326,7 +350,7 @@ export class ChipsAutocompleteComponent
    * @ignore
    */
   public writeValue(value: any) {
-    if (value !== undefined) {
+    if (!!value) {
       this.value = value;
       this.text = this.value;
       this.stateChanges.next();
@@ -382,11 +406,6 @@ export class ChipsAutocompleteComponent
   public onBlur() {
     this.onTouched();
     this.focused = false;
-
-    if (!this.freeInput) {
-      this.text = this.value;
-    }
-
     this.stateChanges.next();
   }
 
@@ -394,11 +413,9 @@ export class ChipsAutocompleteComponent
    * @ignore
    */
   public onSuggestionSelect(event: Event) {
-    this.value = event;
+    this.value = this.value.concat(event);
     this.onChange(this.value);
     this.stateChanges.next();
-
-    this.chips.push(event);
     (this.inputChild as any)._element.nativeElement.value = '';
   }
 
@@ -406,7 +423,9 @@ export class ChipsAutocompleteComponent
    * @ignore
    */
   public onRemove(index: number) {
-    this.chips.splice(index, 1);
+    this.value.splice(index, 1);
+    this.onChange(this.value);
+    this.stateChanges.next();
   }
 
   /**
@@ -416,10 +435,22 @@ export class ChipsAutocompleteComponent
     const input = event.input;
     const value = event.value;
 
-    if ((value || '').trim()) {
-      this.chips.push(value.trim());
+    if (this.freeInput) {
+      if ((value || '').trim()) {
+        this.value = this.value.concat(value.trim());
+        this.onChange(this.value);
+        this.stateChanges.next();
+      }
+    } else {
+      const opt = this.options.find(
+        option => this.displayWith(option).toLowerCase() === value.toLowerCase()
+      );
+      if (opt && !this.value.find(e => this.displayWith(e).toLowerCase() === value.toLowerCase())) {
+        this.value = this.value.concat(opt);
+        this.onChange(this.value);
+        this.stateChanges.next();
+      }
     }
-
     if (input) {
       input.value = '';
     }

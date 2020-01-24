@@ -8,10 +8,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ChipsAutocompleteOptionDirective } from './chips-autocomplete.directive';
+import { ChipDirective } from './chip.directive';
+
 import { ChipsAutocompleteComponent } from './chips-autocomplete.component';
 
 @NgModule({
-  declarations: [ChipsAutocompleteComponent, ChipsAutocompleteOptionDirective],
+  declarations: [ChipsAutocompleteComponent, ChipsAutocompleteOptionDirective, ChipDirective],
   imports: [
     CommonModule,
     MatAutocompleteModule,
@@ -20,6 +22,11 @@ import { ChipsAutocompleteComponent } from './chips-autocomplete.component';
     MatChipsModule,
     MatIconModule
   ],
-  exports: [ChipsAutocompleteComponent, ChipsAutocompleteOptionDirective, MatSelectModule]
+  exports: [
+    ChipsAutocompleteComponent,
+    ChipsAutocompleteOptionDirective,
+    ChipDirective,
+    MatSelectModule
+  ]
 })
 export class ESChipsAutocompleteModule {}

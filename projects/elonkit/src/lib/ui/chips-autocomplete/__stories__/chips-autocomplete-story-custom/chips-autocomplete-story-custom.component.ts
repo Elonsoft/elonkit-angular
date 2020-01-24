@@ -27,11 +27,11 @@ const OPTIONS = [
 export class ChipsAutocompleteCustomComponent {
   public form: FormGroup;
   public options: any[] = OPTIONS;
-  public chips: any[] = [];
+  public unique = true;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      chips: ''
+      chips: []
     });
   }
 
@@ -40,6 +40,10 @@ export class ChipsAutocompleteCustomComponent {
   }
 
   public valueFn(option: any): any {
+    return option;
+  }
+
+  public displayWith(option: any): any {
     return option.name;
   }
 }

@@ -1,14 +1,18 @@
 <mat-chip-list #chipList>
   <mat-chip
-    *ngFor="let chip of chips; let i = index"
+    *ngFor="let chip of value; let i = index"
     [selectable]="selectable"
     [removable]="removable"
     (removed)="onRemove(i)"
     [color]="color"
   >
-    {{ chip }}
+    <ng-container *ngIf="!chipTemplate"> {{ displayWith(chip) }} </ng-container>
+    <ng-container *ngIf="chipTemplate">
+      <ng-container *ngTemplateOutlet="chipTemplate; context: { $implicit: chip }"></ng-container>
+    </ng-container>
     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
   </mat-chip>
+
   <input
     matInput
     #inputChild
@@ -30,7 +34,7 @@
   (optionSelected)="onSuggestionSelect($event.option.value)"
 >
   <ng-container *ngFor="let option of options">
-    <mat-option [value]="valueFn(option)">
+    <mat-option *ngIf="isOptionVisible(option)" [value]="option">
       <ng-container *ngIf="!optionTemplate">{{ option }}</ng-container>
       <ng-container *ngIf="optionTemplate">
         <ng-container
