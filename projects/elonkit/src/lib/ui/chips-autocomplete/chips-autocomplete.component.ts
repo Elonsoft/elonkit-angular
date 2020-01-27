@@ -15,15 +15,20 @@ import {
   ContentChild,
   TemplateRef,
   InjectionToken,
-  Inject
+  Inject,
+  Host
 } from '@angular/core';
 
 import { ControlValueAccessor, NgControl, FormGroupDirective } from '@angular/forms';
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
+import {
+  MatAutocompleteTrigger,
+  MatAutocomplete,
+  MatAutocompleteOrigin
+} from '@angular/material/autocomplete';
 
 import { Subject, timer } from 'rxjs';
 import { debounce } from 'rxjs/operators';
@@ -65,6 +70,11 @@ export class ChipsAutocompleteComponent<T>
    */
   public stateChanges = new Subject<void>();
   private text$ = new Subject<string>();
+
+  /**
+   * @ignore
+   */
+  public origin: MatAutocompleteOrigin;
 
   /**
    * If true this chip list is selectable
@@ -288,7 +298,8 @@ export class ChipsAutocompleteComponent<T>
     public ngForm: FormGroupDirective,
     @Optional()
     @Inject(ES_CHIPS_DEFAULT_OPTIONS)
-    private autocompleteDefaultOptions: EsAutocompleteDefaultOptions
+    private autocompleteDefaultOptions: EsAutocompleteDefaultOptions,
+    @Optional() @Host() private matFormField: MatFormField
   ) {
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
@@ -314,6 +325,11 @@ export class ChipsAutocompleteComponent<T>
     this.text$.pipe(debounce(() => timer(this.debounceTime))).subscribe(text => {
       this.changeText.emit(text);
     });
+    if (this.matFormField) {
+      this.origin = {
+        elementRef: this.matFormField.getConnectedOverlayOrigin()
+      };
+    }
   }
 
   /**
