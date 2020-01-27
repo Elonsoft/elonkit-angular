@@ -3,10 +3,10 @@
     <mat-label>Friends</mat-label>
     <es-chips-autocomplete
       formControlName="chips"
-      (changeText)="onChangeText($event)"
       [options]="options"
       [valueFn]="valueFn"
       [displayWith]="displayWith"
+      (changeText)="onChangeText($event)"
     >
       <ng-container *esChip="let option">
         <img class="es-chips-autocomplete-story-custom__option-img" [src]="option.photo" />

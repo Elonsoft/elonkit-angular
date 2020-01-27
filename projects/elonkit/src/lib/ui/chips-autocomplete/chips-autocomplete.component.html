@@ -5,6 +5,7 @@
     [removable]="removable"
     (removed)="onRemove(i)"
     [color]="color"
+    data-testid="mat-chip"
   >
     <ng-container *ngIf="!chipTemplate"> {{ displayWith(chip) }} </ng-container>
     <ng-container *ngIf="chipTemplate">
@@ -26,6 +27,7 @@
     (focus)="onFocus()"
     (blur)="onBlur()"
     (matChipInputTokenEnd)="add($event)"
+    data-testid="input"
   />
 </mat-chip-list>
 
@@ -35,7 +37,7 @@
   (optionSelected)="onSuggestionSelect($event.option.value)"
 >
   <ng-container *ngFor="let option of options">
-    <mat-option *ngIf="isOptionVisible(option)" [value]="option">
+    <mat-option *ngIf="isOptionVisible(option)" [value]="option" data-testid="mat-option">
       <div (click)="onSelect($event, option)">
         <mat-checkbox
           *ngIf="withCheckbox"

@@ -3,9 +3,9 @@
     <mat-label>Countries</mat-label>
     <es-chips-autocomplete
       formControlName="chips"
-      (changeText)="onChangeText($event)"
       [options]="options"
       [withCheckbox]="withCheckbox"
+      (changeText)="onChangeText($event)"
     >
     </es-chips-autocomplete>
   </mat-form-field>
