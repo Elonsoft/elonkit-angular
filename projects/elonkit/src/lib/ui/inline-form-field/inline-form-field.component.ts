@@ -6,13 +6,26 @@ import {
   Input,
   Output,
   EventEmitter,
-  ContentChild
+  ContentChild,
+  InjectionToken,
+  Optional,
+  Inject
 } from '@angular/core';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
 import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
 
 import { InlineFormFieldLocale } from './inline-form-field.component.locale';
+
+export interface ESInlineFormFieldDefaultOptions {
+  typography?: string;
+}
+
+const DEFAULT_TYPOGRAPHY = 'mat-body-1';
+
+export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
+  ESInlineFormFieldDefaultOptions
+>('ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS');
 
 @Component({
   selector: 'es-inline-form-field',
@@ -46,11 +59,12 @@ export class InlineFormFieldComponent {
     return this._typography;
   }
   set typography(value: string) {
-    this._typography = value || 'mat-body-1';
+    this._typography =
+      value || (this.defaultOptions && this.defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
 
   /**
-   * Text to display..
+   * Text to display.
    */
   @Input() text: string;
 
@@ -74,8 +88,14 @@ export class InlineFormFieldComponent {
   /**
    * @ignore
    */
-  constructor(public changeDetector: ChangeDetectorRef, public locale: InlineFormFieldLocale) {
-    this.typography = 'mat-body-1';
+  constructor(
+    public changeDetector: ChangeDetectorRef,
+    public locale: InlineFormFieldLocale,
+    @Optional()
+    @Inject(ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS)
+    private defaultOptions: ESInlineFormFieldDefaultOptions
+  ) {
+    this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
 
   /**
