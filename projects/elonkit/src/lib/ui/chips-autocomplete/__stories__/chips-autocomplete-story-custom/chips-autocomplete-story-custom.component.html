@@ -5,12 +5,8 @@
       formControlName="chips"
       (changeText)="onChangeText($event)"
       [options]="options"
-      [removable]="true"
-      [selectable]="true"
       [valueFn]="valueFn"
       [displayWith]="displayWith"
-      [freeInput]="false"
-      [unique]="unique"
     >
       <ng-container *esChip="let option">
         <img class="es-chips-autocomplete-story-custom__option-img" [src]="option.photo" />

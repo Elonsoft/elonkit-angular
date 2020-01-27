@@ -27,7 +27,6 @@ const OPTIONS = [
 export class ChipsAutocompleteCustomComponent {
   public form: FormGroup;
   public options: any[] = OPTIONS;
-  public unique = true;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({

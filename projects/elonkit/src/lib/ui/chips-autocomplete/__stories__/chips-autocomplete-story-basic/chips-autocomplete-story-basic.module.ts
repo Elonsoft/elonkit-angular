@@ -18,7 +18,10 @@ import { ChipsAutocompleteBasicComponent } from './chips-autocomplete-story-basi
       provide: ES_CHIPS_DEFAULT_OPTIONS,
       useValue: {
         debounceTime: 1000,
-        freeInput: true
+        freeInput: true,
+        unique: true,
+        selectable: true,
+        removable: true
       }
     }
   ]

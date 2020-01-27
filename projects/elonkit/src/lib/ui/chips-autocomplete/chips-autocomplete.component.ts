@@ -47,6 +47,9 @@ export const ES_CHIPS_DEFAULT_OPTIONS = new InjectionToken<EsAutocompleteDefault
 export interface EsAutocompleteDefaultOptions {
   debounceTime?: number;
   freeInput?: boolean;
+  unique?: boolean;
+  selectable?: boolean;
+  removable?: boolean;
 }
 
 @Component({
@@ -77,16 +80,6 @@ export class ChipsAutocompleteComponent<T>
   public origin: MatAutocompleteOrigin;
 
   /**
-   * If true this chip list is selectable
-   */
-  @Input() public selectable: boolean;
-
-  /**
-   * If true this chip list is removable
-   */
-  @Input() public removable: boolean;
-
-  /**
    * Array of options
    */
   @Input() public options: T[];
@@ -95,11 +88,6 @@ export class ChipsAutocompleteComponent<T>
    * Color of chips
    */
   @Input() public color: string;
-
-  /**
-   * If true the user can choose only unique options
-   */
-  @Input() public unique: false;
 
   /**
    * If true the user have options with checkboxes
@@ -111,6 +99,15 @@ export class ChipsAutocompleteComponent<T>
 
   // tslint:disable-next-line variable-name
   private _freeInput: boolean;
+
+  // tslint:disable-next-line variable-name
+  private _unique: boolean;
+
+  // tslint:disable-next-line variable-name
+  private _selectable: boolean;
+
+  // tslint:disable-next-line variable-name
+  private _removable: boolean;
 
   // tslint:disable-next-line variable-name
   private _value: T[] = [];
@@ -154,6 +151,54 @@ export class ChipsAutocompleteComponent<T>
         ? value
         : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.freeInput
         ? this.autocompleteDefaultOptions.freeInput
+        : false;
+  }
+
+  /**
+   * If true the user can choose only unique options
+   */
+  @Input()
+  public get unique(): boolean {
+    return this._unique;
+  }
+  public set unique(value: boolean) {
+    this._unique =
+      value !== undefined
+        ? value
+        : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.unique
+        ? this.autocompleteDefaultOptions.unique
+        : false;
+  }
+
+  /**
+   * If true this chip list is selectable
+   */
+  @Input()
+  public get selectable(): boolean {
+    return this._selectable;
+  }
+  public set selectable(value: boolean) {
+    this._selectable =
+      value !== undefined
+        ? value
+        : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.selectable
+        ? this.autocompleteDefaultOptions.selectable
+        : false;
+  }
+
+  /**
+   * If true this chip list is removable
+   */
+  @Input()
+  public get removable(): boolean {
+    return this._removable;
+  }
+  public set removable(value: boolean) {
+    this._removable =
+      value !== undefined
+        ? value
+        : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.removable
+        ? this.autocompleteDefaultOptions.removable
         : false;
   }
 
@@ -311,6 +356,21 @@ export class ChipsAutocompleteComponent<T>
     this.freeInput =
       autocompleteDefaultOptions && autocompleteDefaultOptions.freeInput
         ? autocompleteDefaultOptions.freeInput
+        : false;
+
+    this.unique =
+      autocompleteDefaultOptions && autocompleteDefaultOptions.unique
+        ? autocompleteDefaultOptions.unique
+        : false;
+
+    this.selectable =
+      autocompleteDefaultOptions && autocompleteDefaultOptions.selectable
+        ? autocompleteDefaultOptions.selectable
+        : false;
+
+    this.removable =
+      autocompleteDefaultOptions && autocompleteDefaultOptions.removable
+        ? autocompleteDefaultOptions.removable
         : false;
 
     this.stateChanges.subscribe(() => {
