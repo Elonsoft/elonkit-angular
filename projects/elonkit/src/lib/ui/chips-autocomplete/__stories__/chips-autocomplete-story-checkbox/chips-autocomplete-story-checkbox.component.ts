@@ -2,19 +2,19 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { GetFilterOptions } from '../../filter-options';
 
-const OPTIONS = ['Apple', 'Lemon', 'Mango'];
+const OPTIONS = ['Russia', 'Spain', 'India'];
 
 @Component({
-  selector: 'es-chips-autocomplete-story-basic',
-  templateUrl: './chips-autocomplete-story-basic.component.html',
-  styleUrls: ['./chips-autocomplete-story-basic.component.scss'],
+  selector: 'es-chips-autocomplete-story-checkbox',
+  templateUrl: './chips-autocomplete-story-checkbox.component.html',
+  styleUrls: ['./chips-autocomplete-story-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ChipsAutocompleteBasicComponent {
+export class ChipsAutocompleteCheckboxComponent {
   public form: FormGroup;
   public options: string[] = OPTIONS;
-  public color = 'accent';
+  public withCheckbox = true;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({

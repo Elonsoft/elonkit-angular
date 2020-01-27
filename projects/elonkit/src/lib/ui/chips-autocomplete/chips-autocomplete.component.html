@@ -35,12 +35,20 @@
 >
   <ng-container *ngFor="let option of options">
     <mat-option *ngIf="isOptionVisible(option)" [value]="option">
-      <ng-container *ngIf="!optionTemplate">{{ option }}</ng-container>
-      <ng-container *ngIf="optionTemplate">
-        <ng-container
-          *ngTemplateOutlet="optionTemplate; context: { $implicit: option }"
-        ></ng-container>
-      </ng-container>
+      <div (click)="onSelect($event, option)">
+        <mat-checkbox
+          *ngIf="withCheckbox"
+          class="es-chips-autocomplete__option-checkbox"
+          [checked]="isOptionChecked(option)"
+          (click)="$event.preventDefault()"
+        ></mat-checkbox>
+        <ng-container *ngIf="!optionTemplate">{{ option }}</ng-container>
+        <ng-container *ngIf="optionTemplate">
+          <ng-container
+            *ngTemplateOutlet="optionTemplate; context: { $implicit: option }"
+          ></ng-container>
+        </ng-container>
+      </div>
     </mat-option>
   </ng-container>
 </mat-autocomplete>

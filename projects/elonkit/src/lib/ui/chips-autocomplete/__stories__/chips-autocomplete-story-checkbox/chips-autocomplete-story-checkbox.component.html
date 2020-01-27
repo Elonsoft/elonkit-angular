@@ -1,13 +1,15 @@
 <form [formGroup]="form">
-  <mat-form-field appearance="outline" class="es-chips-autocomplete-story-basic">
-    <mat-label>Fruit</mat-label>
+  <mat-form-field appearance="outline" class="es-chips-autocomplete-story-checkbox">
+    <mat-label>Countries</mat-label>
     <es-chips-autocomplete
       formControlName="chips"
       (changeText)="onChangeText($event)"
       [options]="options"
       [removable]="true"
       [selectable]="true"
-      [color]="color"
+      [freeInput]="false"
+      [unique]="false"
+      [withCheckbox]="withCheckbox"
     >
     </es-chips-autocomplete>
   </mat-form-field>

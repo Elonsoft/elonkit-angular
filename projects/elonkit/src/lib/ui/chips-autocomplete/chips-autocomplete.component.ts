@@ -91,6 +91,11 @@ export class ChipsAutocompleteComponent<T>
    */
   @Input() public unique: false;
 
+  /**
+   * If true the user have options with checkboxes
+   */
+  @Input() public withCheckbox: false;
+
   // tslint:disable-next-line variable-name
   private _debounceTime: number;
 
@@ -270,8 +275,7 @@ export class ChipsAutocompleteComponent<T>
 
   @HostBinding('class.floating')
   public get shouldLabelFloat(): boolean {
-    // return this.focused || !!this.text || (this.value && this.value.length > 0);
-    return false;
+    return this.focused || !!this.text || (this.value && this.value.length > 0);
   }
 
   /**
@@ -434,7 +438,6 @@ export class ChipsAutocompleteComponent<T>
   public add(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
-
     if (this.freeInput) {
       if ((value || '').trim()) {
         this.value = this.value.concat(value.trim());
@@ -454,5 +457,34 @@ export class ChipsAutocompleteComponent<T>
     if (input) {
       input.value = '';
     }
+  }
+
+  /**
+   * @ignore
+   */
+  public onSelect(event: MouseEvent, option: T) {
+    if (this.withCheckbox) {
+      event.stopPropagation();
+
+      if (this.value) {
+        if (!this.value.find(e => this.compareWith(e, option))) {
+          this.value = this.value.concat(option);
+        } else {
+          this.value.splice(this.value.indexOf(option), 1);
+        }
+        this.onChange(this.value);
+        this.stateChanges.next();
+      }
+    }
+  }
+
+  /**
+   * @ignore
+   */
+  public isOptionChecked(option: T): boolean {
+    if (this.value) {
+      return this.value.find(e => this.compareWith(e, option));
+    }
+    return false;
   }
 }

@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { ChipsAutocompleteOptionDirective } from './chips-autocomplete.directive';
 import { ChipDirective } from './chip.directive';
@@ -20,7 +21,8 @@ import { ChipsAutocompleteComponent } from './chips-autocomplete.component';
     MatInputModule,
     MatSelectModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule
   ],
   exports: [
     ChipsAutocompleteComponent,

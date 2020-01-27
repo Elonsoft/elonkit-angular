@@ -12,6 +12,7 @@ import { ChipsAutocompleteComponent } from './chips-autocomplete.component';
 
 import { ESChipsAutocompleteBasicModule } from './__stories__/chips-autocomplete-story-basic/chips-autocomplete-story-basic.module';
 import { ESChipsAutocompleteCustomModule } from './__stories__/chips-autocomplete-story-custom/chips-autocomplete-story-custom.module';
+import { ESChipsAutocompleteCheckboxModule } from './__stories__/chips-autocomplete-story-checkbox/chips-autocomplete-story-checkbox.module';
 
 <Meta title='UI/Chips autocomplete' decorators={[withA11y, withKnobs]} />
 
@@ -44,6 +45,19 @@ This is a custom story:
       template: `<es-chips-autocomplete-story-custom></es-chips-autocomplete-story-custom>`,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, ESChipsAutocompleteCustomModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+This is a checkbox story:
+
+<Preview>
+  <Story name='Checkbox' height='170px'>
+    {{
+      template: `<es-chips-autocomplete-story-checkbox></es-chips-autocomplete-story-checkbox>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESChipsAutocompleteCheckboxModule]
       }
     }}
   </Story>
