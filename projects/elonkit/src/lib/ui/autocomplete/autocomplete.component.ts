@@ -15,7 +15,8 @@ import {
   ContentChild,
   TemplateRef,
   InjectionToken,
-  Inject
+  Inject,
+  Host
 } from '@angular/core';
 
 import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
@@ -24,8 +25,8 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, timer } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
+import { MatAutocompleteTrigger, MatAutocompleteOrigin } from '@angular/material/autocomplete';
 
 import { AutocompleteOptionDirective } from '../autocomplete/autocomplete-option.directive';
 
@@ -57,6 +58,11 @@ export class AutocompleteComponent
    */
   public stateChanges = new Subject<void>();
   private text$ = new Subject<string>();
+
+  /**
+   * @ignore
+   */
+  public origin: MatAutocompleteOrigin;
 
   /**
    * Array of options
@@ -234,7 +240,8 @@ export class AutocompleteComponent
     public ngForm: FormGroupDirective,
     @Optional()
     @Inject(ES_AUTOCOMPLETE_DEFAULT_OPTIONS)
-    private autocompleteDefaultOptions: EsAutocompleteDefaultOptions
+    private autocompleteDefaultOptions: EsAutocompleteDefaultOptions,
+    @Optional() @Host() private matFormField: MatFormField
   ) {
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
@@ -257,6 +264,12 @@ export class AutocompleteComponent
    * @ignore
    */
   public ngOnInit() {
+    if (this.matFormField) {
+      this.origin = {
+        elementRef: this.matFormField.getConnectedOverlayOrigin()
+      };
+    }
+
     this.text$.pipe(debounce(() => timer(this.debounceTime))).subscribe(text => {
       this.changeText.emit(text);
     });
