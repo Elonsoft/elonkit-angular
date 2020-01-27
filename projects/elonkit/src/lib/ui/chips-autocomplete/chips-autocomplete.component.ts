@@ -29,14 +29,13 @@ import {
   MatAutocomplete,
   MatAutocompleteOrigin
 } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 import { Subject, timer } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 
 import { ChipsAutocompleteOptionDirective } from '../chips-autocomplete/chips-autocomplete.directive';
 import { ChipDirective } from '../chips-autocomplete/chip.directive';
-
-import { MatChipInputEvent } from '@angular/material/chips';
 
 import { ENTER, COMMA, SEMICOLON } from '@angular/cdk/keycodes';
 
@@ -74,25 +73,31 @@ export class ChipsAutocompleteComponent<T>
   public stateChanges = new Subject<void>();
   private text$ = new Subject<string>();
 
+  public get value(): any {
+    return this._value;
+  }
+
+  public set value(value: any) {
+    this._value = value;
+    this.stateChanges.next();
+  }
+
+  public get focused() {
+    return this._focused;
+  }
+  public set focused(focused: boolean) {
+    this._focused = focused;
+    this.stateChanges.next();
+  }
+
+  public get empty(): boolean {
+    return !this.value;
+  }
+
   /**
    * @ignore
    */
   public origin: MatAutocompleteOrigin;
-
-  /**
-   * Array of options
-   */
-  @Input() public options: T[];
-
-  /**
-   * Color of chips
-   */
-  @Input() public color: string;
-
-  /**
-   * If true the user have options with checkboxes
-   */
-  @Input() public withCheckbox: false;
 
   // tslint:disable-next-line variable-name
   private _debounceTime: number;
@@ -125,6 +130,21 @@ export class ChipsAutocompleteComponent<T>
   private _placeholder = '';
 
   /**
+   * Array of options
+   */
+  @Input() public options: T[];
+
+  /**
+   * Color of chips
+   */
+  @Input() public color: string;
+
+  /**
+   * If true the user have options with checkbox
+   */
+  @Input() public withCheckbox: false;
+
+  /**
    * Change value after a particular time span has passed
    */
   @Input()
@@ -155,7 +175,7 @@ export class ChipsAutocompleteComponent<T>
   }
 
   /**
-   * If true the user can choose only unique options
+   * If true the user can choose only unique option
    */
   @Input()
   public get unique(): boolean {
@@ -171,7 +191,7 @@ export class ChipsAutocompleteComponent<T>
   }
 
   /**
-   * If true this chip list is selectable
+   * If true this chips list is selectable
    */
   @Input()
   public get selectable(): boolean {
@@ -187,7 +207,7 @@ export class ChipsAutocompleteComponent<T>
   }
 
   /**
-   * If true this chip list is removable
+   * If true this chips list is removable
    */
   @Input()
   public get removable(): boolean {
@@ -200,27 +220,6 @@ export class ChipsAutocompleteComponent<T>
         : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.removable
         ? this.autocompleteDefaultOptions.removable
         : false;
-  }
-
-  public get value(): any {
-    return this._value;
-  }
-
-  public set value(value: any) {
-    this._value = value;
-    this.stateChanges.next();
-  }
-
-  public get focused() {
-    return this._focused;
-  }
-  public set focused(focused: boolean) {
-    this._focused = focused;
-    this.stateChanges.next();
-  }
-
-  public get empty(): boolean {
-    return !this.value;
   }
 
   /**
@@ -282,12 +281,12 @@ export class ChipsAutocompleteComponent<T>
   /**
    * Function that have compared values
    */
-  @Input() compareWith = (a: T, b: T) => a === b;
+  @Input() public compareWith = (a: T, b: T) => a === b;
 
   /**
    * @ignore
    */
-  isOptionVisible(option: T) {
+  public isOptionVisible(option: T): boolean {
     if (this.unique) {
       if (this.value) {
         return !this.value.some(e => this.compareWith(e, option));
@@ -311,6 +310,10 @@ export class ChipsAutocompleteComponent<T>
    */
   @ContentChild(ChipsAutocompleteOptionDirective, { read: TemplateRef, static: false })
   public optionTemplate: any;
+
+  /**
+   * Template that allows add custom chips
+   */
   @ContentChild(ChipDirective, { read: TemplateRef, static: false })
   public chipTemplate: any;
 
