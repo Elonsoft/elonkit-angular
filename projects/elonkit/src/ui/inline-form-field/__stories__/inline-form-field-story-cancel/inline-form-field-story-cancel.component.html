@@ -1,4 +1,4 @@
-<es-inline-form-field [text]="text">
+<es-inline-form-field [text]="text" (edit)="onEdit()" (cancel)="onCancel()">
   <mat-form-field>
     <input [(ngModel)]="text" matInput autocomplete="off" />
   </mat-form-field>

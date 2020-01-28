@@ -1,0 +1,17 @@
+<es-inline-form-field [text]="text" [typography]="typography">
+  <mat-form-field>
+    <input [(ngModel)]="text" matInput placeholder="Placeholder" autocomplete="off" />
+  </mat-form-field>
+</es-inline-form-field>
+
+<es-inline-form-field [text]="textMultiline" [typography]="typography">
+  <mat-form-field>
+    <textarea
+      [(ngModel)]="textMultiline"
+      matInput
+      matTextareaAutosize
+      placeholder="Placeholder"
+      autocomplete="off"
+    ></textarea>
+  </mat-form-field>
+</es-inline-form-field>
