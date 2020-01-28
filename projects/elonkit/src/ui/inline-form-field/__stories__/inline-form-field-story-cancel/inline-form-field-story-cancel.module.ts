@@ -5,13 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { InlineFormFieldStoryBasicComponent } from './inline-form-field-story-basic.component';
+import { InlineFormFieldStoryCancelComponent } from './inline-form-field-story-cancel.component';
 
 import { ESInlineFormFieldModule } from '../..';
 
 @NgModule({
-  declarations: [InlineFormFieldStoryBasicComponent],
+  declarations: [InlineFormFieldStoryCancelComponent],
   imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, ESInlineFormFieldModule],
-  exports: [InlineFormFieldStoryBasicComponent]
+  exports: [InlineFormFieldStoryCancelComponent]
 })
-export class InlineFormFieldStoryBasicModule {}
+export class InlineFormFieldStoryCancelModule {}

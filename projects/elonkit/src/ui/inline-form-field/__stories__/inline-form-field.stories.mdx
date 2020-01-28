@@ -11,19 +11,44 @@ import { ESInlineFormFieldComponent } from '..';
 
 import {
   InlineFormFieldStoryBasicModule,
-  InlineFormFieldStoryBasicComponent
+  InlineFormFieldStoryBasicComponent,
+  INLINE_FORM_FIELD_STORY_BASIC_SOURCE
 } from './inline-form-field-story-basic';
 
-<Meta title='UI/InlineFormField' decorators={[withA11y, withKnobs]} />
+import {
+  InlineFormFieldStoryTypographyModule,
+  InlineFormFieldStoryTypographyComponent,
+  INLINE_FORM_FIELD_STORY_TYPOGRAPHY_SOURCE
+} from './inline-form-field-story-typography';
 
-# InlineFormField
+import {
+  InlineFormFieldStoryCompositionModule,
+  InlineFormFieldStoryCompositionComponent,
+  INLINE_FORM_FIELD_STORY_COMPOSITION_SOURCE
+} from './inline-form-field-story-composition';
 
-This component demonstrates usage of storybook.
+import {
+  InlineFormFieldStoryCancelModule,
+  InlineFormFieldStoryCancelComponent,
+  INLINE_FORM_FIELD_STORY_CANCEL_SOURCE
+} from './inline-form-field-story-cancel';
+
+import {
+  InlineFormFieldStoryLocaleModule,
+  InlineFormFieldStoryLocaleComponent,
+  INLINE_FORM_FIELD_STORY_LOCALE_SOURCE
+} from './inline-form-field-story-locale';
+
+<Meta title='UI/Inline Form Field' decorators={[withA11y, withKnobs]} />
+
+# Inline Form Field
+
+This component allows inline switching between display value and input.
 
 ## Demos
 
-<Preview>
-  <Story name='Basic' height='170px'>
+<Preview source={INLINE_FORM_FIELD_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='50px'>
     {{
       component: InlineFormFieldStoryBasicComponent,
       moduleMetadata: {
@@ -33,6 +58,81 @@ This component demonstrates usage of storybook.
   </Story>
 </Preview>
 
+We can use `typography` input in order to change text presentation.
+
+<Preview source={INLINE_FORM_FIELD_STORY_TYPOGRAPHY_SOURCE}>
+  <Story name='Typography' height='170px'>
+    {{
+      component: InlineFormFieldStoryTypographyComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, InlineFormFieldStoryTypographyModule]
+      },
+      props: {
+        typography: text('typography', 'mat-h2')
+      }
+    }}
+  </Story>
+</Preview>
+
+This component is compatible with any\* Angular Material form field feature.
+
+<Preview source={INLINE_FORM_FIELD_STORY_COMPOSITION_SOURCE}>
+  <Story name='Composition' height='380px'>
+    {{
+      component: InlineFormFieldStoryCompositionComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, InlineFormFieldStoryCompositionModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+With help of `edit` and `cancel` outputs we can restore previous input value.
+Take a note that this example is just a basic demo, adjust it to your needs.
+
+<Preview source={INLINE_FORM_FIELD_STORY_CANCEL_SOURCE}>
+  <Story name='Cancel' height='50px'>
+    {{
+      component: InlineFormFieldStoryCancelComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, InlineFormFieldStoryCancelModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale which is used for `aria-label`'s on buttons.
+
+<Preview source={INLINE_FORM_FIELD_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='50px'>
+    {{
+      component: InlineFormFieldStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, InlineFormFieldStoryLocaleModule]
+      }
+    }}
+  </Story>
+</Preview>
+
 ## API
 
 <Props of={ESInlineFormFieldComponent} />
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/inline-form-field';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        typography: 'mat-body-1'
+      }
+    }
+  ]
+})
+```

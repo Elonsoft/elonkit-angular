@@ -49,13 +49,13 @@ export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
   ]
 })
 export class ESInlineFormFieldComponent {
-  private _typography: string;
+  private _typography;
 
   /**
    * Class applied to text.
    */
   @Input()
-  get typography() {
+  get typography(): string {
     return this._typography;
   }
   set typography(value: string) {
