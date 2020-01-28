@@ -61,6 +61,9 @@ export interface EsAutocompleteDefaultOptions {
 })
 export class ChipsAutocompleteComponent<T>
   implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy, OnInit {
+  /**
+   * The list of key codes that will trigger a chipEnd event
+   */
   public separatorKeysCodes = [ENTER, COMMA, SEMICOLON];
   private static nextId = 0;
   /**
@@ -303,7 +306,7 @@ export class ChipsAutocompleteComponent<T>
 
   @ViewChild('inputChild', { read: MatAutocompleteTrigger, static: true })
   private inputChild: MatAutocompleteTrigger;
-  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
+  @ViewChild('auto', { static: false }) private matAutocomplete: MatAutocomplete;
 
   /**
    * Template that allows add custom options

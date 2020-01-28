@@ -22,7 +22,7 @@ export const CHIPS_AUTOCOMPLETE_STORY_CUSTOM_SOURCE = {
     </mat-form-field>
   </form>`,
   ts: `
-    import { GetFilterOptionsByKey } from '@elonsoft/elonkit/autocomplete';
+    import { GetFilterOptionsByKey } from '@elonsoft/elonkit/chips-autocomplete';
     const OPTIONS = [
       {
         name: 'Anna',

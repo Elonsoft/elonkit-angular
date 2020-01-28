@@ -71,3 +71,26 @@ This is a checkbox story:
 ## API
 
 <Props of={ChipsAutocompleteComponent} />
+
+## Constants
+
+Injection token to be used to override the default options for es-chips-autocomplete
+
+```ts
+import { ES_CHIPS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/chips-autocomplete';
+
+@NgModule({
+   providers: [
+    {
+      provide: ES_CHIPS_DEFAULT_OPTIONS,
+      useValue: {
+        debounceTime: 1000,
+        freeInput: true,
+        unique: true,
+        selectable: true,
+        removable: true
+      }
+    }
+  ]
+})
+```

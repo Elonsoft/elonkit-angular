@@ -13,7 +13,7 @@ export const CHIPS_AUTOCOMPLETE_STORY_BASIC_SOURCE = {
     </mat-form-field>
   </form>`,
   ts: `
-    import { GetFilterOptions } from '@elonsoft/elonkit/autocomplete';
+    import { GetFilterOptions } from '@elonsoft/elonkit/chips-autocomplete';
     const OPTIONS = ['Apple', 'Lemon', 'Mango'];
 
     @Component(...)
