@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CounterComponent } from './counter.component';
+import { ESCounterComponent } from './counter.component';
 
 @NgModule({
-  declarations: [CounterComponent],
+  declarations: [ESCounterComponent],
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  exports: [CounterComponent]
+  exports: [ESCounterComponent]
 })
 export class ESCounterModule {}

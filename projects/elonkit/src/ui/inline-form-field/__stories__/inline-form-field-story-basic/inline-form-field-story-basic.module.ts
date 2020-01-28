@@ -13,11 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { InlineFormFieldStoryBasicComponent } from './inline-form-field-story-basic.component';
 
-import { ESInlineFormFieldModule } from '../../inline-form-field.module';
-import {
-  InlineFormFieldLocale,
-  InlineFormFieldLocaleRU
-} from '../../inline-form-field.component.locale';
+import { ESInlineFormFieldModule, ESInlineFormFieldLocale, ESInlineFormFieldLocaleRU } from '../..';
 
 @NgModule({
   declarations: [InlineFormFieldStoryBasicComponent],
@@ -37,6 +33,6 @@ import {
     ESInlineFormFieldModule
   ],
   exports: [InlineFormFieldStoryBasicComponent],
-  providers: [{ provide: InlineFormFieldLocale, useClass: InlineFormFieldLocaleRU }]
+  providers: [{ provide: ESInlineFormFieldLocale, useClass: ESInlineFormFieldLocaleRU }]
 })
 export class InlineFormFieldStoryBasicModule {}

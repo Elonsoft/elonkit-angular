@@ -1,12 +1,11 @@
 import { render } from '@testing-library/angular';
 
-import { ESCounterModule } from './counter.module';
-import { CounterComponent } from './counter.component';
+import { ESCounterModule, ESCounterComponent } from '..';
 
 describe('Counter', () => {
   // This is an example of a basic test setup
   it('Should render component', async () => {
-    const { getByText } = await render(CounterComponent, {
+    const { getByText } = await render(ESCounterComponent, {
       imports: [ESCounterModule],
       excludeComponentDeclaration: true
     });
@@ -16,7 +15,7 @@ describe('Counter', () => {
   });
 
   it('Should render correct heading', async () => {
-    const { fixture, getByText } = await render(CounterComponent, {
+    const { fixture, getByText } = await render(ESCounterComponent, {
       // We can pass inputs...
       componentProperties: { heading: 'Heading 1' },
       imports: [ESCounterModule],
@@ -36,7 +35,7 @@ describe('Counter', () => {
   it('Should increase value on click', async () => {
     const onIncrease = jest.fn();
 
-    const { getByText, click } = await render(CounterComponent, {
+    const { getByText, click } = await render(ESCounterComponent, {
       // We can pass outputs
       componentProperties: {
         increase: {

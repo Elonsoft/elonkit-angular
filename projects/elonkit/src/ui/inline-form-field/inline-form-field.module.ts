@@ -4,17 +4,17 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { InlineFormFieldComponent } from './inline-form-field.component';
+import { ESInlineFormFieldComponent } from './inline-form-field.component';
 
 import {
-  InlineFormFieldLocale,
-  InlineFormFieldLocaleEN
+  ESInlineFormFieldLocale,
+  ESInlineFormFieldLocaleEN
 } from './inline-form-field.component.locale';
 
 @NgModule({
-  declarations: [InlineFormFieldComponent],
+  declarations: [ESInlineFormFieldComponent],
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  exports: [InlineFormFieldComponent],
-  providers: [{ provide: InlineFormFieldLocale, useClass: InlineFormFieldLocaleEN }]
+  exports: [ESInlineFormFieldComponent],
+  providers: [{ provide: ESInlineFormFieldLocale, useClass: ESInlineFormFieldLocaleEN }]
 })
 export class ESInlineFormFieldModule {}
