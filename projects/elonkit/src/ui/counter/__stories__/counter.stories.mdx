@@ -7,15 +7,14 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ESCounterModule } from './counter.module';
-import { CounterComponent } from './counter.component';
+import { ESCounterModule, ESCounterComponent } from '..';
 
-import { COUNTER_STORY_ADDONS_SOURCE } from './__stories__/counter-story-addons';
-import { COUNTER_STORY_BASIC_SOURCE } from './__stories__/counter-story-basic';
+import { COUNTER_STORY_ADDONS_SOURCE } from './counter-story-addons';
+import { COUNTER_STORY_BASIC_SOURCE } from './counter-story-basic';
 import {
   CounterStoryContainerModule,
   COUNTER_STORY_CONTAINER_SOURCE
-} from './__stories__/counter-story-container';
+} from './counter-story-container';
 
 <Meta title='UI/Counter' decorators={[withA11y, withKnobs]} />
 
@@ -70,4 +69,4 @@ This is an example of a component wraped into a container component, which overr
 
 ## API
 
-<Props of={CounterComponent} />
+<Props of={ESCounterComponent} />

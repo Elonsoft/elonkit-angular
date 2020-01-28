@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CounterStoryContainerComponent } from './counter-story-container.component';
-import { ESCounterModule } from '../../counter.module';
+import { ESCounterModule } from '../..';
 
 @NgModule({
   declarations: [CounterStoryContainerComponent],

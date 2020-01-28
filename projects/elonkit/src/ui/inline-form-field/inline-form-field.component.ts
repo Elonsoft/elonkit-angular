@@ -15,7 +15,7 @@ import {
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
 import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
 
-import { InlineFormFieldLocale } from './inline-form-field.component.locale';
+import { ESInlineFormFieldLocale } from './inline-form-field.component.locale';
 
 export interface ESInlineFormFieldDefaultOptions {
   typography?: string;
@@ -48,7 +48,7 @@ export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
     }
   ]
 })
-export class InlineFormFieldComponent {
+export class ESInlineFormFieldComponent {
   private _typography: string;
 
   /**
@@ -90,7 +90,7 @@ export class InlineFormFieldComponent {
    */
   constructor(
     public changeDetector: ChangeDetectorRef,
-    public locale: InlineFormFieldLocale,
+    public locale: ESInlineFormFieldLocale,
     @Optional()
     @Inject(ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS)
     private defaultOptions: ESInlineFormFieldDefaultOptions

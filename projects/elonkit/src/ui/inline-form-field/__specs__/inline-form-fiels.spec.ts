@@ -5,12 +5,12 @@ import { MatInputModule } from '@angular/material/input';
 
 import { render } from '@testing-library/angular';
 
-import { ESInlineFormFieldModule } from './inline-form-field.module';
-import { InlineFormFieldComponent } from './inline-form-field.component';
 import {
-  InlineFormFieldLocale,
-  InlineFormFieldLocaleRU
-} from './inline-form-field.component.locale';
+  ESInlineFormFieldModule,
+  ESInlineFormFieldComponent,
+  ESInlineFormFieldLocale,
+  ESInlineFormFieldLocaleRU
+} from '..';
 
 const TEXT_HELLO = 'Hello';
 const TEXT_HELLO_WORLD = 'Hello World';
@@ -54,7 +54,7 @@ describe('InlineFormField', () => {
     const onSave = jest.fn();
     const onCancel = jest.fn();
 
-    const component = await render(InlineFormFieldComponent, {
+    const component = await render(ESInlineFormFieldComponent, {
       componentProperties: {
         edit: {
           emit: onEdit
@@ -81,9 +81,9 @@ describe('InlineFormField', () => {
   });
 
   it('Should change locale', async () => {
-    const component = await render(InlineFormFieldComponent, {
+    const component = await render(ESInlineFormFieldComponent, {
       imports: [ESInlineFormFieldModule],
-      providers: [{ provide: InlineFormFieldLocale, useClass: InlineFormFieldLocaleRU }],
+      providers: [{ provide: ESInlineFormFieldLocale, useClass: ESInlineFormFieldLocaleRU }],
       excludeComponentDeclaration: true
     });
 
@@ -96,7 +96,7 @@ describe('InlineFormField', () => {
   });
 
   it('Should accept typography class', async () => {
-    const component = await render(InlineFormFieldComponent, {
+    const component = await render(ESInlineFormFieldComponent, {
       imports: [ESInlineFormFieldModule],
       excludeComponentDeclaration: true
     });
