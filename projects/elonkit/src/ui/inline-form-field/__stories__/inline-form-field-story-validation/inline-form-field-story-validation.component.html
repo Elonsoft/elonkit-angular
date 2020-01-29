@@ -1,0 +1,31 @@
+<form [formGroup]="form">
+  <es-inline-form-field
+    [text]="form.get('text').value"
+    (edit)="onEdit(form.get('text'))"
+    (cancel)="onCancel(form.get('text'))"
+    class="inline-form-field"
+  >
+    <mat-form-field>
+      <input formControlName="text" matInput autocomplete="off" />
+      <mat-error *ngIf="form.get('text').hasError('required')">
+        This field is required
+      </mat-error>
+    </mat-form-field>
+  </es-inline-form-field>
+
+  <es-inline-form-field
+    [text]="form.get('server').value"
+    [manualSave]="true"
+    (edit)="onEdit(form.get('server'))"
+    (cancel)="onCancel(form.get('server'))"
+    (save)="onSave($event)"
+    class="inline-form-field"
+  >
+    <mat-form-field>
+      <input formControlName="server" matInput autocomplete="off" />
+      <mat-error *ngIf="form.get('server').hasError('required')">
+        This field is required
+      </mat-error>
+    </mat-form-field>
+  </es-inline-form-field>
+</form>

@@ -16,6 +16,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/
 import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
 
 import { ESInlineFormFieldLocale } from './inline-form-field.component.locale';
+import { NgControl } from '@angular/forms';
 
 export interface ESInlineFormFieldDefaultOptions {
   typography?: string;
@@ -71,19 +72,30 @@ export class ESInlineFormFieldComponent {
   /**
    * Event emitted when user clicks "edit" button.
    */
-  @Output() edit = new EventEmitter<void>();
+  @Output() edit = new EventEmitter<ESInlineFormFieldComponent>();
 
   /**
    * Event emitted when user clicks "save" button.
    */
-  @Output() save = new EventEmitter<void>();
+  @Output() save = new EventEmitter<ESInlineFormFieldComponent>();
+
+  /**
+   * Disable default behaviour of "save" button and only emit event.
+   */
+  @Input() manualSave = false;
 
   /**
    * Event emitted when user clicks "cancel" button.
    */
-  @Output() cancel = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<ESInlineFormFieldComponent>();
 
   @ContentChild(MatFormField, { static: false }) private formField: MatFormField;
+  @ContentChild(NgControl, { static: false }) private control: NgControl;
+
+  /**
+   * @ignore
+   */
+  public isHidden = true;
 
   /**
    * @ignore
@@ -99,15 +111,18 @@ export class ESInlineFormFieldComponent {
   }
 
   /**
-   * @ignore
+   * Use this method to manually switch between display value and input.
    */
-  public isHidden = true;
+  public setHidden(isHidden: boolean) {
+    this.isHidden = isHidden;
+    this.changeDetector.detectChanges();
+  }
 
   /**
    * @ignore
    */
   public onEdit() {
-    this.edit.emit();
+    this.edit.emit(this);
     this.isHidden = false;
     if (this.formField) {
       const element = this.formField._elementRef.nativeElement as HTMLElement;
@@ -125,7 +140,16 @@ export class ESInlineFormFieldComponent {
    * @ignore
    */
   public onSave() {
-    this.save.emit();
+    if (this.manualSave) {
+      this.save.emit(this);
+      return;
+    }
+
+    if (this.control && this.control.invalid) {
+      return;
+    }
+
+    this.save.emit(this);
     this.isHidden = true;
   }
 
@@ -133,7 +157,7 @@ export class ESInlineFormFieldComponent {
    * @ignore
    */
   public onCancel() {
-    this.cancel.emit();
+    this.cancel.emit(this);
     this.isHidden = true;
   }
 }
