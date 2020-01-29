@@ -28,12 +28,6 @@ import {
 } from './inline-form-field-story-composition';
 
 import {
-  InlineFormFieldStoryCancelModule,
-  InlineFormFieldStoryCancelComponent,
-  INLINE_FORM_FIELD_STORY_CANCEL_SOURCE
-} from './inline-form-field-story-cancel';
-
-import {
   InlineFormFieldStoryLocaleModule,
   InlineFormFieldStoryLocaleComponent,
   INLINE_FORM_FIELD_STORY_LOCALE_SOURCE
@@ -88,19 +82,6 @@ This component is compatible with any\* Angular Material form field feature.
       component: InlineFormFieldStoryCompositionComponent,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, InlineFormFieldStoryCompositionModule]
-      }
-    }}
-  </Story>
-</Preview>
-
-With help of `edit` and `cancel` outputs we can restore previous input value.
-
-<Preview source={INLINE_FORM_FIELD_STORY_CANCEL_SOURCE}>
-  <Story name='Cancel' height='50px'>
-    {{
-      component: InlineFormFieldStoryCancelComponent,
-      moduleMetadata: {
-        imports: [BrowserAnimationsModule, InlineFormFieldStoryCancelModule]
       }
     }}
   </Story>
