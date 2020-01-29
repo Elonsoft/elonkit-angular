@@ -39,6 +39,12 @@ import {
   INLINE_FORM_FIELD_STORY_LOCALE_SOURCE
 } from './inline-form-field-story-locale';
 
+import {
+  InlineFormFieldStoryValidationModule,
+  InlineFormFieldStoryValidationComponent,
+  INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE
+} from './inline-form-field-story-validation';
+
 <Meta title='UI/Inline Form Field' decorators={[withA11y, withKnobs]} />
 
 # Inline Form Field
@@ -88,7 +94,6 @@ This component is compatible with any\* Angular Material form field feature.
 </Preview>
 
 With help of `edit` and `cancel` outputs we can restore previous input value.
-Take a note that this example is just a basic demo, adjust it to your needs.
 
 <Preview source={INLINE_FORM_FIELD_STORY_CANCEL_SOURCE}>
   <Story name='Cancel' height='50px'>
@@ -109,6 +114,20 @@ We can override default locale which is used for `aria-label`'s on buttons.
       component: InlineFormFieldStoryLocaleComponent,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, InlineFormFieldStoryLocaleModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+Synchronous validations for template-driven and reactive forms are supported out of the box.
+If there are any server-side validations you should take advantage of `manualSave` input.
+
+<Preview source={INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE}>
+  <Story name='Validation' height='100px'>
+    {{
+      component: InlineFormFieldStoryValidationComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, InlineFormFieldStoryValidationModule]
       }
     }}
   </Story>
