@@ -3,9 +3,8 @@ export const INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE = {
   @Component({
     ...
   })
-  export class ExampleComponent {
+  export class InlineFormFieldStoryValidationComponent {
     form: FormGroup;
-    previousValues: Array<{ control: FormControl; value: any }> = [];
 
     constructor(private changeDetector: ChangeDetectorRef, private formBuilder: FormBuilder) {
       this.form = this.formBuilder.group({
@@ -14,47 +13,26 @@ export const INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE = {
       });
     }
 
-    onEdit(control: FormControl) {
-      const index = this.previousValues.findIndex(e => e.control === control);
-      if (index !== -1) {
-        this.previousValues[index].value = control.value;
-      } else {
-        this.previousValues.push({
-          control,
-          value: control.value
-        });
-      }
-    }
-
-    onCancel(control: FormControl) {
-      const index = this.previousValues.findIndex(e => e.control === control);
-      control.setValue(this.previousValues[index].value);
-    }
-
     onSave(inlineFormField: ESInlineFormFieldComponent) {
       const value: string = this.form.get('server').value;
 
-      save(value)
-        .then(() => {
+      save(value).subscribe(
+        () => {
           inlineFormField.setHidden(true);
-        })
-        .catch(() => {
-          this.form.get('server').setErrors({ required: true });
+        },
+        errors => {
+          this.form.get('server').setErrors(errors);
           this.changeDetector.detectChanges();
-        });
+        }
+      );
     }
   }
   `,
   html: `
   <form [formGroup]="form">
-    <es-inline-form-field
-      [text]="form.get('text').value"
-      (edit)="onEdit(form.get('text'))"
-      (cancel)="onCancel(form.get('text'))"
-      class="inline-form-field"
-    >
+    <es-inline-form-field [text]="form.get('text').value">
       <mat-form-field>
-        <input formControlName="text" matInput autocomplete="off" />
+        <input formControlName="text" matInput />
         <mat-error *ngIf="form.get('text').hasError('required')">
           This field is required
         </mat-error>
@@ -63,14 +41,11 @@ export const INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE = {
 
     <es-inline-form-field
       [text]="form.get('server').value"
-      [saveManually]="true"
-      (edit)="onEdit(form.get('server'))"
+      [manualSave]="true"
       (save)="onSave($event)"
-      (cancel)="onCancel(form.get('server'))"
-      class="inline-form-field"
     >
       <mat-form-field>
-        <input formControlName="server" matInput autocomplete="off" />
+        <input formControlName="server" matInput />
         <mat-error *ngIf="form.get('server').hasError('required')">
           This field is required
         </mat-error>

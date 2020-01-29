@@ -12,11 +12,12 @@ import {
   Inject
 } from '@angular/core';
 
+import { FormControl, FormControlName, NgModel } from '@angular/forms';
+
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
 import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
 
 import { ESInlineFormFieldLocale } from './inline-form-field.component.locale';
-import { NgControl } from '@angular/forms';
 
 export interface ESInlineFormFieldDefaultOptions {
   typography?: string;
@@ -90,12 +91,17 @@ export class ESInlineFormFieldComponent {
   @Output() cancel = new EventEmitter<ESInlineFormFieldComponent>();
 
   @ContentChild(MatFormField, { static: false }) private formField: MatFormField;
-  @ContentChild(NgControl, { static: false }) private control: NgControl;
+
+  @ContentChild(NgModel, { static: false }) private ngModel: NgModel;
+  @ContentChild(FormControl, { static: false }) private formControl: FormControl;
+  @ContentChild(FormControlName, { static: false }) private formControlName: FormControlName;
 
   /**
    * @ignore
    */
   public isHidden = true;
+
+  private previousValue;
 
   /**
    * @ignore
@@ -110,6 +116,19 @@ export class ESInlineFormFieldComponent {
     this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
 
+  private getControl(): FormControl | null {
+    if (this.formControl) {
+      return this.formControl;
+    }
+    if (this.formControlName) {
+      return this.formControlName.control;
+    }
+    if (this.ngModel) {
+      return this.ngModel.control;
+    }
+    return null;
+  }
+
   /**
    * Use this method to manually switch between display value and input.
    */
@@ -122,6 +141,11 @@ export class ESInlineFormFieldComponent {
    * @ignore
    */
   public onEdit() {
+    const control = this.getControl();
+    if (control) {
+      this.previousValue = control.value;
+    }
+
     this.edit.emit(this);
     this.isHidden = false;
     if (this.formField) {
@@ -145,7 +169,8 @@ export class ESInlineFormFieldComponent {
       return;
     }
 
-    if (this.control && this.control.invalid) {
+    const control = this.getControl();
+    if (control && control.invalid) {
       return;
     }
 
@@ -157,6 +182,11 @@ export class ESInlineFormFieldComponent {
    * @ignore
    */
   public onCancel() {
+    const control = this.getControl();
+    if (control) {
+      control.setValue(this.previousValue);
+    }
+
     this.cancel.emit(this);
     this.isHidden = true;
   }

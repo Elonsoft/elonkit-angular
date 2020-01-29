@@ -31,24 +31,12 @@ const save = (value: string) =>
 })
 export class InlineFormFieldStoryValidationComponent {
   form: FormGroup;
-  previous: Array<{ control: FormControl; value: any }> = [];
 
   constructor(private changeDetector: ChangeDetectorRef, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       text: ['Hello World', [Validators.required]],
       server: 'Hello Server Side Validation'
     });
-  }
-
-  onEdit(control: FormControl) {
-    const index = this.previous.findIndex(e => e.control === control);
-    this.previous.splice(index, index === -1 ? 0 : 1);
-    this.previous.push({ control, value: control.value });
-  }
-
-  onCancel(control: FormControl) {
-    const previous = this.previous.find(e => e.control === control);
-    control.setValue(previous.value);
   }
 
   onSave(inlineFormField: ESInlineFormFieldComponent) {
