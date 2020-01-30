@@ -71,6 +71,11 @@ export class ESInlineFormFieldComponent {
   @Input() text: string;
 
   /**
+   * Disable default behaviour of "save" button and only emit event.
+   */
+  @Input() manualSave = false;
+
+  /**
    * Event emitted when user clicks "edit" button.
    */
   @Output() edit = new EventEmitter<ESInlineFormFieldComponent>();
@@ -79,11 +84,6 @@ export class ESInlineFormFieldComponent {
    * Event emitted when user clicks "save" button.
    */
   @Output() save = new EventEmitter<ESInlineFormFieldComponent>();
-
-  /**
-   * Disable default behaviour of "save" button and only emit event.
-   */
-  @Input() manualSave = false;
 
   /**
    * Event emitted when user clicks "cancel" button.
@@ -97,6 +97,7 @@ export class ESInlineFormFieldComponent {
   @ContentChild(FormControlName, { static: false }) private formControlName: FormControlName;
 
   /**
+   * @internal
    * @ignore
    */
   public isHidden = true;
@@ -104,11 +105,21 @@ export class ESInlineFormFieldComponent {
   private previousValue;
 
   /**
+   * @internal
    * @ignore
    */
   constructor(
+    /**
+     * @internal
+     */
     public changeDetector: ChangeDetectorRef,
+    /**
+     * @internal
+     */
     public locale: ESInlineFormFieldLocale,
+    /**
+     * @internal
+     */
     @Optional()
     @Inject(ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS)
     private defaultOptions: ESInlineFormFieldDefaultOptions
@@ -138,6 +149,7 @@ export class ESInlineFormFieldComponent {
   }
 
   /**
+   * @internal
    * @ignore
    */
   public onEdit() {
@@ -161,6 +173,7 @@ export class ESInlineFormFieldComponent {
   }
 
   /**
+   * @internal
    * @ignore
    */
   public onSave() {
@@ -179,6 +192,7 @@ export class ESInlineFormFieldComponent {
   }
 
   /**
+   * @internal
    * @ignore
    */
   public onCancel() {
