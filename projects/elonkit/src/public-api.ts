@@ -1,5 +1,2 @@
-/*
- * Public API Surface of elonkit
- */
-
-export * from './lib/ui/counter';
+export * from './ui/counter';
+export * from './ui/inline-form-field';

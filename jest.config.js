@@ -4,5 +4,6 @@ module.exports = {
     'ts-jest': {
       diagnostics: false
     }
-  }
+  },
+  testPathIgnorePatterns: ['<rootDir>/dist/']
 };

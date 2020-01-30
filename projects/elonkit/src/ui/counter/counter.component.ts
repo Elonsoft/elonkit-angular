@@ -15,7 +15,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class CounterComponent {
+export class ESCounterComponent {
   /**
    * Heading text.
    */

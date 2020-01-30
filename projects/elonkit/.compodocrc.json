@@ -4,7 +4,7 @@
   "disablePrivate": true,
   "disableProtected": true,
   "exportFormat": "json",
-  "output": ".",
+  "output": "..",
   "silent": false,
-  "tsconfig": "./tsconfig.lib.json"
+  "tsconfig": "../tsconfig.lib.json"
 }

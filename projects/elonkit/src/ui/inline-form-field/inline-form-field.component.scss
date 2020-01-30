@@ -1,0 +1,162 @@
+$root: '.hidden-field';
+
+.es-inline-form-field {
+  margin: 0;
+  width: 100%;
+
+  &__preview,
+  &__input {
+    align-items: flex-start;
+    display: flex;
+  }
+
+  &__preview {
+    &:hover {
+      /* stylelint-disable-next-line */
+      .es-inline-form-field__button_edit .mat-icon-button {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__text {
+    line-height: normal;
+    padding: 5px 0;
+    white-space: pre-wrap;
+  }
+
+  &__input {
+    position: relative;
+
+    /* stylelint-disable selector-max-compound-selectors, selector-no-qualifying-type, indentation */
+
+    .mat-form-field {
+      font-weight: inherit;
+      line-height: normal;
+      width: 100%;
+    }
+
+    .mat-form-field-infix {
+      border-top: 0;
+      padding: 5px 0;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+      padding-right: 64px;
+    }
+
+    .mat-form-field-underline {
+      bottom: 0;
+    }
+
+    .mat-form-field-appearance-standard .mat-form-field-flex {
+      padding-top: 0;
+    }
+
+    .mat-input-element {
+      margin-top: 0;
+    }
+
+    textarea.mat-input-element {
+      margin: 0;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .mat-form-field-subscript-wrapper {
+      position: absolute;
+      top: 100%;
+    }
+
+    .mat-form-field-flex {
+      align-items: center;
+    }
+
+    .mat-form-field:not(.mat-form-field-appearance-legacy) {
+      .mat-form-field-prefix,
+      .mat-form-field-suffix {
+        .mat-icon-button {
+          height: 24px;
+          width: 24px;
+        }
+
+        .mat-datepicker-toggle-default-icon {
+          width: 18px;
+        }
+
+        .mat-icon {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .mat-form-field-appearance-standard.mat-form-field-has-label
+      .mat-select:not(.mat-select-empty)
+      .mat-select-arrow-wrapper {
+      transform: none;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    position: absolute;
+    right: 0;
+  }
+
+  &__button {
+    margin-left: 8px;
+    position: relative;
+
+    &::after {
+      content: '\a0';
+      display: block;
+      font-size: inherit;
+      line-height: normal;
+      padding: 5px 0;
+      width: 24px;
+    }
+
+    .mat-icon-button {
+      font-size: inherit;
+      height: 24px;
+      line-height: 24px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+
+      .mat-button-wrapper {
+        align-items: center;
+        display: flex;
+        height: 24px;
+      }
+    }
+
+    .mat-icon {
+      color: rgba(0, 0, 0, 0.38);
+      font-size: 22px;
+    }
+
+    &_edit {
+      .mat-icon-button {
+        opacity: 0;
+        transition: 200ms;
+
+        &:focus {
+          opacity: 1;
+        }
+      }
+
+      .mat-icon {
+        font-size: 18px;
+      }
+    }
+
+    &_save {
+      .mat-icon {
+        color: #37c995;
+      }
+    }
+  }
+}

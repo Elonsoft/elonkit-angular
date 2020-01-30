@@ -30,7 +30,7 @@ export const Preview: React.FC<IPreviewProps> = ({ children, source }) => {
       {isSourceAvailable && (
         <div>
           <button className='storybook-preview__toggle' onClick={onSourceVisibleToggle}>
-            {isSourceVisible ? 'Hide source' : 'Show source'}
+            {isSourceVisible ? 'Hide code' : 'Show code'}
           </button>
         </div>
       )}
