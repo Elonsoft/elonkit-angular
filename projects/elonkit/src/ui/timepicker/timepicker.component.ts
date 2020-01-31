@@ -34,9 +34,10 @@ import { ESTimepickerLocale } from './timepicker.component.locale';
 export class ESTimepickerComponent
   implements ControlValueAccessor, MatFormFieldControl<ESTimepickerComponent>, OnDestroy {
   /**
+   * @internal
    * @ignore
    */
-  mask = {
+  public mask = {
     mask: [/\d/, /\d/, ':', /\d/, /\d/],
     pipe: autoCorrectedTimePipe
   };
@@ -44,10 +45,10 @@ export class ESTimepickerComponent
   private _withSeconds = false;
 
   /**
-   * withSeconds
+   * Enable seconds input.
    */
   @Input()
-  get withSeconds() {
+  get withSeconds(): boolean {
     return this._withSeconds;
   }
   set withSeconds(withSeconds: boolean) {
@@ -63,47 +64,16 @@ export class ESTimepickerComponent
     }
   }
 
-  /**
-   * @ignore
-   */
-  public stateChanges = new Subject<void>();
-
-  private previousValue = '';
-  private _value = '';
-
-  public get value() {
-    return this._value;
-  }
-
-  public set value(value: any) {
-    this._value = value;
-    this.stateChanges.next();
-  }
-
-  private _focused = false;
-
-  public get focused() {
-    return this._focused;
-  }
-  public set focused(focused: boolean) {
-    this._focused = focused;
-    this.stateChanges.next();
-  }
-
-  public get empty(): boolean {
-    return !this.value;
-  }
-
   private _required = false;
 
   /**
-   * This property is used to indicate whether the input is required
+   * Mark input as required and forbid clearing existing value.
    */
   @Input()
-  public get required() {
+  public get required(): boolean {
     return this._required;
   }
-  public set required(required) {
+  public set required(required: boolean) {
     this._required = coerceBooleanProperty(required);
     this.stateChanges.next();
   }
@@ -111,7 +81,7 @@ export class ESTimepickerComponent
   private _disabled = false;
 
   /**
-   * This property tells the form field when it should be in the disabled state
+   * Disable input.
    */
   @Input()
   public get disabled(): boolean {
@@ -122,11 +92,62 @@ export class ESTimepickerComponent
     this.stateChanges.next();
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
+  public stateChanges = new Subject<void>();
+
+  private previousValue = '';
+  private _value = '';
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get value() {
+    return this._value;
+  }
+  public set value(value: any) {
+    this._value = value;
+    this.stateChanges.next();
+  }
+
+  private _focused = false;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get focused() {
+    return this._focused;
+  }
+  public set focused(focused: boolean) {
+    this._focused = focused;
+    this.stateChanges.next();
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get empty(): boolean {
+    return !this.value;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
   public get placeholder(): string {
     const { labelHH, labelMM, labelSS } = this.locale;
     return this.withSeconds ? `${labelHH}:${labelMM}:${labelSS}` : `${labelHH}:${labelMM}`;
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
   public get errorState(): boolean {
     const control = this.ngControl;
     const form = this.ngForm;
@@ -139,23 +160,45 @@ export class ESTimepickerComponent
   }
 
   private static nextId = 0;
+
+  /**
+   * @internal
+   * @ignore
+   */
   @HostBinding() public id = `es-timepicker-${ESTimepickerComponent.nextId++}`;
 
+  /**
+   * @internal
+   * @ignore
+   */
   @HostBinding('attr.aria-describedby') public describedBy = '';
 
-  @HostBinding('class.floating')
-  public get shouldLabelFloat(): boolean {
+  /**
+   * @internal
+   * @ignore
+   */
+  @HostBinding('class.floating') public get shouldLabelFloat() {
     return this.focused || !!this.value;
   }
 
   @ViewChild('input', { static: true }) private input: ElementRef<HTMLInputElement>;
 
   /**
+   * @internal
    * @ignore
    */
   constructor(
+    /**
+     * @internal
+     */
     public changeDetector: ChangeDetectorRef,
+    /**
+     * @internal
+     */
     @Optional() @Self() public ngControl: NgControl,
+    /**
+     * @internal
+     */
     @Optional() public ngForm: FormGroupDirective,
     private datePipe: DatePipe,
     private locale: ESTimepickerLocale
@@ -170,6 +213,7 @@ export class ESTimepickerComponent
   }
 
   /**
+   * @internal
    * @ignore
    */
   public ngOnDestroy() {
@@ -177,6 +221,7 @@ export class ESTimepickerComponent
   }
 
   /**
+   * @internal
    * @ignore
    */
   public setDescribedByIds(ids: string[]) {
@@ -184,6 +229,7 @@ export class ESTimepickerComponent
   }
 
   /**
+   * @internal
    * @ignore
    */
   public writeValue(value: any) {
@@ -199,6 +245,7 @@ export class ESTimepickerComponent
   }
 
   /**
+   * @internal
    * @ignore
    */
   public registerOnChange(onChange: (value: any) => void) {
@@ -206,11 +253,13 @@ export class ESTimepickerComponent
   }
 
   /**
+   * @internal
    * @ignore
    */
   public onChange = (_: any) => {};
 
   /**
+   * @internal
    * @ignore
    */
   public registerOnTouched(onTouched: () => void) {
@@ -218,11 +267,13 @@ export class ESTimepickerComponent
   }
 
   /**
+   * @internal
    * @ignore
    */
   public onTouched = () => {};
 
   /**
+   * @internal
    * @ignore
    */
   public onInput(event: Event) {
@@ -231,6 +282,7 @@ export class ESTimepickerComponent
   }
 
   /**
+   * @internal
    * @ignore
    */
   public onFocus() {
@@ -239,6 +291,7 @@ export class ESTimepickerComponent
   }
 
   /**
+   * @internal
    * @ignore
    */
   public onBlur() {
@@ -264,6 +317,10 @@ export class ESTimepickerComponent
     this.stateChanges.next();
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
   public onContainerClick() {
     if (!this.focused && !this.disabled && this.input) {
       this.input.nativeElement.focus();

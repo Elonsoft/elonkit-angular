@@ -2,7 +2,7 @@
   "name": "elonsoft",
   "version": "0.0.1",
   "scripts": {
-    "build": "ng build && scss-bundle",
+    "build": "ng build && scss-bundle && cp README.md dist/elonkit",
     "test": "ng test",
     "test:watch": "ng test --watch",
     "lint:tslint": "tslint -c tslint.json --project tsconfig.json 'projects/**/*.ts'",
@@ -29,10 +29,12 @@
     "@angular/core": "~8.2.14",
     "@angular/forms": "~8.2.14",
     "@angular/material": "~8.2.3",
-    "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
+    "@angular/platform-browser": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "angular2-text-mask": "^9.0.0",
     "rxjs": "~6.5.4",
+    "text-mask-addons": "^3.8.0",
     "tslib": "~1.10.0",
     "zone.js": "~0.9.1"
   },
