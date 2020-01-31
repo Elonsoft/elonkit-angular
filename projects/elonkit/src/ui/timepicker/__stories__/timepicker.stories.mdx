@@ -1,0 +1,56 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESTimepickerComponent } from '..';
+
+import {
+  TimepickerStoryBasicModule,
+  TimepickerStoryBasicComponent
+} from './timepicker-story-basic';
+
+import {
+  TimepickerStorySecondsModule,
+  TimepickerStorySecondsComponent
+} from './timepicker-story-seconds';
+
+<Meta title='UI/Timepicker' decorators={[withA11y, withKnobs]} />
+
+# Timepicker
+
+Description.
+
+## Demos
+
+<Preview>
+  <Story name='Basic' height='70px'>
+    {{
+      component: TimepickerStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TimepickerStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+Seconds.
+
+<Preview>
+  <Story name='Seconds' height='70px'>
+    {{
+      component: TimepickerStorySecondsComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TimepickerStorySecondsModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESTimepickerComponent} />
