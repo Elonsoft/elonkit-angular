@@ -11,33 +11,38 @@ import { ESTimepickerComponent } from '..';
 
 import {
   TimepickerStoryBasicModule,
-  TimepickerStoryBasicComponent
+  TimepickerStoryBasicComponent,
+  TIMEPICKER_STORY_BASIC_SOURCE
 } from './timepicker-story-basic';
 
 import {
   TimepickerStorySecondsModule,
-  TimepickerStorySecondsComponent
+  TimepickerStorySecondsComponent,
+  TIMEPICKER_STORY_SECONDS_SOURCE
 } from './timepicker-story-seconds';
 
 import {
   TimepickerStoryLocaleModule,
-  TimepickerStoryLocaleComponent
+  TimepickerStoryLocaleComponent,
+  TIMEPICKER_STORY_LOCALE_SOURCE
 } from './timepicker-story-locale';
 
 import {
   TimepickerStoryRequiredModule,
-  TimepickerStoryRequiredComponent
+  TimepickerStoryRequiredComponent,
+  TIMEPICKER_STORY_REQUIRED_SOURCE
 } from './timepicker-story-required';
 
 <Meta title='UI/Timepicker' decorators={[withA11y, withKnobs]} />
 
 # Timepicker
 
-Description.
+The timepicker allows users to enter a time through masked text input.
+This component named `picker` instead of `input` in case we'll implement an actual picker in the future.
 
 ## Demos
 
-<Preview>
+<Preview source={TIMEPICKER_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='110px'>
     {{
       component: TimepickerStoryBasicComponent,
@@ -48,9 +53,9 @@ Description.
   </Story>
 </Preview>
 
-Seconds.
+We can use `withSeconds` in order to display seconds input.
 
-<Preview>
+<Preview source={TIMEPICKER_STORY_SECONDS_SOURCE}>
   <Story name='Seconds' height='110px'>
     {{
       component: TimepickerStorySecondsComponent,
@@ -61,9 +66,9 @@ Seconds.
   </Story>
 </Preview>
 
-Locale.
+We can override default locale which is used for input placeholder.
 
-<Preview>
+<Preview source={TIMEPICKER_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='110px'>
     {{
       component: TimepickerStoryLocaleComponent,
@@ -74,9 +79,9 @@ Locale.
   </Story>
 </Preview>
 
-Required.
+When input is required it won't allow to clear existing value.
 
-<Preview>
+<Preview source={TIMEPICKER_STORY_REQUIRED_SOURCE}>
   <Story name='Required' height='110px'>
     {{
       component: TimepickerStoryRequiredComponent,
