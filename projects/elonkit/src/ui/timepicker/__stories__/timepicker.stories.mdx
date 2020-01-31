@@ -3,7 +3,7 @@ import { Preview } from '~storybook/components';
 
 import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,6 +19,16 @@ import {
   TimepickerStorySecondsComponent
 } from './timepicker-story-seconds';
 
+import {
+  TimepickerStoryLocaleModule,
+  TimepickerStoryLocaleComponent
+} from './timepicker-story-locale';
+
+import {
+  TimepickerStoryRequiredModule,
+  TimepickerStoryRequiredComponent
+} from './timepicker-story-required';
+
 <Meta title='UI/Timepicker' decorators={[withA11y, withKnobs]} />
 
 # Timepicker
@@ -28,7 +38,7 @@ Description.
 ## Demos
 
 <Preview>
-  <Story name='Basic' height='70px'>
+  <Story name='Basic' height='110px'>
     {{
       component: TimepickerStoryBasicComponent,
       moduleMetadata: {
@@ -41,11 +51,40 @@ Description.
 Seconds.
 
 <Preview>
-  <Story name='Seconds' height='70px'>
+  <Story name='Seconds' height='110px'>
     {{
       component: TimepickerStorySecondsComponent,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, TimepickerStorySecondsModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+Locale.
+
+<Preview>
+  <Story name='Locale' height='110px'>
+    {{
+      component: TimepickerStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TimepickerStoryLocaleModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+Required.
+
+<Preview>
+  <Story name='Required' height='110px'>
+    {{
+      component: TimepickerStoryRequiredComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TimepickerStoryRequiredModule]
+      },
+      props: {
+        required: boolean('required', true)
       }
     }}
   </Story>
