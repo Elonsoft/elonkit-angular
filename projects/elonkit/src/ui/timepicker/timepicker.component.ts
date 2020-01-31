@@ -23,6 +23,8 @@ import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrect
 const autoCorrectedTimePipe = createAutoCorrectedDatePipe('HH:MM');
 const autoCorrectedTimeSecondsPipe = createAutoCorrectedDatePipe('HH:MM:SS');
 
+import { ESTimepickerLocale } from './timepicker.component.locale';
+
 @Component({
   selector: 'es-timepicker',
   templateUrl: './timepicker.component.html',
@@ -121,7 +123,8 @@ export class ESTimepickerComponent
   }
 
   public get placeholder(): string {
-    return this.withSeconds ? 'HH:MM:SS' : 'HH:MM';
+    const { labelHH, labelMM, labelSS } = this.locale;
+    return this.withSeconds ? `${labelHH}:${labelMM}:${labelSS}` : `${labelHH}:${labelMM}`;
   }
 
   public get errorState(): boolean {
@@ -153,9 +156,9 @@ export class ESTimepickerComponent
   constructor(
     public changeDetector: ChangeDetectorRef,
     @Optional() @Self() public ngControl: NgControl,
-    @Optional()
-    public ngForm: FormGroupDirective,
-    private datePipe: DatePipe
+    @Optional() public ngForm: FormGroupDirective,
+    private datePipe: DatePipe,
+    private locale: ESTimepickerLocale
   ) {
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
@@ -242,13 +245,18 @@ export class ESTimepickerComponent
     this.onTouched();
     this.focused = false;
 
-    if (this.value && !this.value.includes('_')) {
-      const [hours, minutes, seconds] = this.value.split(':');
-      const date = new Date();
-      date.setHours(hours);
-      date.setMinutes(minutes);
-      date.setSeconds(this.withSeconds ? seconds || 0 : 0);
-      this.onChange(date);
+    if ((!this.required || this.value) && !this.value.includes('_')) {
+      if (this.value) {
+        const [hours, minutes, seconds] = this.value.split(':');
+        const date = new Date();
+        date.setHours(hours);
+        date.setMinutes(minutes);
+        date.setSeconds(this.withSeconds ? seconds || 0 : 0);
+        this.onChange(date);
+      } else {
+        this.onChange(null);
+      }
+      this.previousValue = this.value;
     } else {
       this.value = this.previousValue;
     }
