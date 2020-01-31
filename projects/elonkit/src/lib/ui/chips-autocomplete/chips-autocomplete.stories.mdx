@@ -1,0 +1,96 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESChipsAutocompleteModule } from './chips-autocomplete.module';
+import { ChipsAutocompleteComponent } from './chips-autocomplete.component';
+
+import { ESChipsAutocompleteBasicModule } from './__stories__/chips-autocomplete-story-basic/chips-autocomplete-story-basic.module';
+import { CHIPS_AUTOCOMPLETE_STORY_BASIC_SOURCE } from './__stories__/chips-autocomplete-story-basic/chips-autocomplete-story-basic.source';
+
+import { ESChipsAutocompleteCustomModule } from './__stories__/chips-autocomplete-story-custom/chips-autocomplete-story-custom.module';
+import { CHIPS_AUTOCOMPLETE_STORY_CUSTOM_SOURCE } from './__stories__/chips-autocomplete-story-custom/chips-autocomplete-story-custom.source';
+
+import { ESChipsAutocompleteCheckboxModule } from './__stories__/chips-autocomplete-story-checkbox/chips-autocomplete-story-checkbox.module';
+import { CHIPS_AUTOCOMPLETE_STORY_CHECKBOX_SOURCE } from './__stories__/chips-autocomplete-story-checkbox/chips-autocomplete-story-checkbox.source';
+
+<Meta title='UI/Chips autocomplete' decorators={[withA11y, withKnobs]} />
+
+# ChipsAutocomplete
+
+This component demonstrates usage of chips autocomplete.
+
+## Demos
+
+This is a basic story:
+
+<Preview source={CHIPS_AUTOCOMPLETE_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='230px'>
+    {{
+      template: `<es-chips-autocomplete-story-basic></es-chips-autocomplete-story-basic>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESChipsAutocompleteBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## Demos
+
+This is a custom story:
+
+<Preview source={CHIPS_AUTOCOMPLETE_STORY_CUSTOM_SOURCE}>
+  <Story name='Custom' height='230px'>
+    {{
+      template: `<es-chips-autocomplete-story-custom></es-chips-autocomplete-story-custom>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESChipsAutocompleteCustomModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+This is a checkbox story:
+
+<Preview source={CHIPS_AUTOCOMPLETE_STORY_CHECKBOX_SOURCE}>
+  <Story name='Checkbox' height='230px'>
+    {{
+      template: `<es-chips-autocomplete-story-checkbox></es-chips-autocomplete-story-checkbox>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESChipsAutocompleteCheckboxModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ChipsAutocompleteComponent} />
+
+## Constants
+
+Injection token to be used to override the default options for es-chips-autocomplete
+
+```ts
+import { ES_CHIPS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/chips-autocomplete';
+
+@NgModule({
+   providers: [
+    {
+      provide: ES_CHIPS_DEFAULT_OPTIONS,
+      useValue: {
+        debounceTime: 1000,
+        freeInput: true,
+        unique: true,
+        selectable: true,
+        removable: true
+      }
+    }
+  ]
+})
+```

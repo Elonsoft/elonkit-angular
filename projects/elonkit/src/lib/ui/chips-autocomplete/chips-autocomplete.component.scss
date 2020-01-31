@@ -1,0 +1,14 @@
+.es-chips-autocomplete {
+  &__option-checkbox {
+    &.mat-checkbox {
+      margin-left: 12px;
+      margin-right: 15px;
+    }
+  }
+}
+
+input {
+  flex: 1 0 150px;
+  margin: 4px;
+  width: 150px;
+}
