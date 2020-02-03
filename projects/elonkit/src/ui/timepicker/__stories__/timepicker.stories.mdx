@@ -1,0 +1,100 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESTimepickerComponent } from '..';
+
+import {
+  TimepickerStoryBasicModule,
+  TimepickerStoryBasicComponent,
+  TIMEPICKER_STORY_BASIC_SOURCE
+} from './timepicker-story-basic';
+
+import {
+  TimepickerStorySecondsModule,
+  TimepickerStorySecondsComponent,
+  TIMEPICKER_STORY_SECONDS_SOURCE
+} from './timepicker-story-seconds';
+
+import {
+  TimepickerStoryLocaleModule,
+  TimepickerStoryLocaleComponent,
+  TIMEPICKER_STORY_LOCALE_SOURCE
+} from './timepicker-story-locale';
+
+import {
+  TimepickerStoryRequiredModule,
+  TimepickerStoryRequiredComponent,
+  TIMEPICKER_STORY_REQUIRED_SOURCE
+} from './timepicker-story-required';
+
+<Meta title='UI/Timepicker' decorators={[withA11y, withKnobs]} />
+
+# Timepicker
+
+The timepicker allows users to enter a time through masked text input.
+This component named `picker` instead of `input` in case we'll implement an actual picker in the future.
+
+## Demos
+
+<Preview source={TIMEPICKER_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='110px'>
+    {{
+      component: TimepickerStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TimepickerStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can use `withSeconds` in order to display seconds input.
+
+<Preview source={TIMEPICKER_STORY_SECONDS_SOURCE}>
+  <Story name='Seconds' height='110px'>
+    {{
+      component: TimepickerStorySecondsComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TimepickerStorySecondsModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale which is used for input placeholder.
+
+<Preview source={TIMEPICKER_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='110px'>
+    {{
+      component: TimepickerStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TimepickerStoryLocaleModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+When input is required it won't allow to clear existing value.
+
+<Preview source={TIMEPICKER_STORY_REQUIRED_SOURCE}>
+  <Story name='Required' height='110px'>
+    {{
+      component: TimepickerStoryRequiredComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TimepickerStoryRequiredModule]
+      },
+      props: {
+        required: boolean('required', true)
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESTimepickerComponent} />
