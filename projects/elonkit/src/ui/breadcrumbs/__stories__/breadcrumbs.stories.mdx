@@ -1,0 +1,38 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESBreadcrumbsComponent } from '..';
+
+import {
+  BreadcrumbsStoryBasicModule,
+  BreadcrumbsStoryBasicComponent
+} from './breadcrumbs-story-basic';
+
+<Meta title='UI/Breadcrumbs' decorators={[withA11y, withKnobs]} />
+
+# Breadcrumbs
+
+Description.
+
+## Demos
+
+<Preview>
+  <Story name='Basic' height='110px'>
+    {{
+      component: BreadcrumbsStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, BreadcrumbsStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESBreadcrumbsComponent} />
