@@ -1,0 +1,23 @@
+.es-breadcrumbs {
+  align-items: center;
+  display: flex;
+
+  &__breadcrumb {
+    align-items: center;
+    display: flex;
+    margin-right: 16px;
+    text-decoration: none;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__icon {
+    margin-right: 4px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

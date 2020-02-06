@@ -12,14 +12,14 @@ const ROUTES = [
   {
     path: '',
     data: {
-      breadcrumbs: 'Home'
+      breadcrumbs: { icon: 'home', text: 'Home' }
     },
     resolve: { breadcrumbs: ESBreadcrumbsResolver },
     children: [
       {
         path: 'posts',
         data: {
-          breadcrumbs: 'Posts'
+          breadcrumbs: { text: 'Posts' }
         },
         resolve: { breadcrumbs: ESBreadcrumbsResolver },
         children: [

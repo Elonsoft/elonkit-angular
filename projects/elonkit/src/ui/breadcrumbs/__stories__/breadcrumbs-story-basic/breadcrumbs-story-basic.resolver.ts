@@ -15,6 +15,6 @@ export class PostsResolver implements Resolve<any> {
 @Injectable()
 export class PostsBreadcrumbsResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot) {
-    return route.parent.data.data.title;
+    return { text: route.parent.data.data.title };
   }
 }

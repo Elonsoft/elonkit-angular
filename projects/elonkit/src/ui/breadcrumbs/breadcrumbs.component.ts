@@ -2,6 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  ViewEncapsulation,
   OnInit,
   OnDestroy
 } from '@angular/core';
@@ -14,11 +15,13 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'es-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./breadcrumbs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
   destroyed$ = new Subject();
-  breadcrumbs: Array<{ path: string; text: string }> = [];
+  breadcrumbs: Array<{ path: string; text?: string; icon?: string }> = [];
 
   constructor(private changeDetector: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {}
 
@@ -35,7 +38,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
         ) {
           breadcrumbs.unshift({
             path: this.getPath(route),
-            text: route.snapshot.data.breadcrumbs
+            ...route.snapshot.data.breadcrumbs
           });
         }
         route = route.parent;

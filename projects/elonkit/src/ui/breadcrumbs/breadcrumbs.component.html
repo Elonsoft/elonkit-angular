@@ -1,5 +1,12 @@
-<ul>
-  <li *ngFor="let breadcrumb of breadcrumbs">
-    <a [routerLink]="[breadcrumb.path]">{{ breadcrumb.text }}</a>
-  </li>
-</ul>
+<nav class="es-breadcrumbs">
+  <a
+    *ngFor="let breadcrumb of breadcrumbs"
+    [routerLink]="[breadcrumb.path]"
+    class="es-breadcrumbs__breadcrumb"
+  >
+    <mat-icon *ngIf="breadcrumb.icon" class="es-breadcrumbs__icon">
+      {{ breadcrumb.icon }}
+    </mat-icon>
+    <span *ngIf="breadcrumb.text">{{ breadcrumb.text }}</span>
+  </a>
+</nav>
