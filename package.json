@@ -2,7 +2,7 @@
   "name": "elonsoft",
   "version": "0.0.1",
   "scripts": {
-    "build": "ng build && scss-bundle && cp README.md dist/elonkit",
+    "build": "ng build --prod && scss-bundle && cp README.md dist/elonkit",
     "test": "ng test",
     "test:watch": "ng test --watch",
     "lint:tslint": "tslint -c tslint.json --project tsconfig.json 'projects/**/*.ts'",
