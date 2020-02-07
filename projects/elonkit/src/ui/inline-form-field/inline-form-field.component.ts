@@ -15,7 +15,7 @@ import {
 import { FormControl, FormControlName, NgModel } from '@angular/forms';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
-import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
+import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 
 import { ESInlineFormFieldLocale } from './inline-form-field.component.locale';
 
