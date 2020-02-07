@@ -7,6 +7,7 @@ export class ESTimepickerLocale {
   labelSS = 'SS';
 }
 
+@Injectable()
 export class ESTimepickerLocaleRU extends ESTimepickerLocale {
   labelHH = 'ЧЧ';
   labelMM = 'ММ';
