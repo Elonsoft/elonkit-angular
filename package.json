@@ -22,29 +22,29 @@
     "*.{css,scss}": "stylelint"
   },
   "dependencies": {
-    "@angular/animations": "~8.2.14",
+    "@angular/animations": "~9.0.0",
     "@angular/cdk": "~8.2.3",
-    "@angular/common": "~8.2.14",
-    "@angular/compiler": "~8.2.14",
-    "@angular/core": "~8.2.14",
-    "@angular/forms": "~8.2.14",
+    "@angular/common": "~9.0.0",
+    "@angular/compiler": "~9.0.0",
+    "@angular/core": "~9.0.0",
+    "@angular/forms": "~9.0.0",
     "@angular/material": "~8.2.3",
-    "@angular/platform-browser": "~8.2.14",
-    "@angular/platform-browser-dynamic": "~8.2.14",
-    "@angular/router": "~8.2.14",
+    "@angular/platform-browser": "~9.0.0",
+    "@angular/platform-browser-dynamic": "~9.0.0",
+    "@angular/router": "~9.0.0",
     "angular2-text-mask": "^9.0.0",
     "rxjs": "~6.5.4",
     "text-mask-addons": "^3.8.0",
     "tslib": "~1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-builders/jest": "~8.3.2",
-    "@angular-devkit/build-angular": "~0.803.25",
-    "@angular-devkit/build-ng-packagr": "~0.803.25",
-    "@angular/cli": "~8.3.25",
-    "@angular/compiler-cli": "~8.2.14",
-    "@angular/language-service": "~8.2.14",
+    "@angular-devkit/build-angular": "~0.900.1",
+    "@angular-devkit/build-ng-packagr": "~0.900.1",
+    "@angular/cli": "~9.0.1",
+    "@angular/compiler-cli": "~9.0.0",
+    "@angular/language-service": "~9.0.0",
     "@babel/core": "~7.8.4",
     "@compodoc/compodoc": "~1.1.11",
     "@material-ui/core": "^4.9.1",
@@ -64,7 +64,7 @@
     "husky": "~4.2.1",
     "jest": "~24.9.0",
     "lint-staged": "~10.0.7",
-    "ng-packagr": "~5.7.0",
+    "ng-packagr": "~9.0.0",
     "node-sass": "^4.13.1",
     "react": "~16.12.0",
     "react-is": "~16.12.0",
@@ -77,6 +77,6 @@
     "tslint": "~6.0.0",
     "tslint-config-prettier": "~1.18.0",
     "tslint-plugin-prettier": "~2.1.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.7.5"
   }
 }
