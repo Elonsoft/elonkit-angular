@@ -15,7 +15,7 @@ import {
 import { FormControl, FormControlName, NgModel } from '@angular/forms';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
-import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
+import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 
 import { ESInlineFormFieldLocale } from './inline-form-field.component.locale';
 
@@ -90,11 +90,11 @@ export class ESInlineFormFieldComponent {
    */
   @Output() cancel = new EventEmitter<ESInlineFormFieldComponent>();
 
-  @ContentChild(MatFormField, { static: false }) private formField: MatFormField;
+  @ContentChild(MatFormField) private formField: MatFormField;
 
-  @ContentChild(NgModel, { static: false }) private ngModel: NgModel;
-  @ContentChild(FormControl, { static: false }) private formControl: FormControl;
-  @ContentChild(FormControlName, { static: false }) private formControlName: FormControlName;
+  @ContentChild(NgModel) private ngModel: NgModel;
+  @ContentChild(FormControl) private formControl: FormControl;
+  @ContentChild(FormControlName) private formControlName: FormControlName;
 
   /**
    * @internal

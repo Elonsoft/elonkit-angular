@@ -7,6 +7,7 @@ export class ESInlineFormFieldLocale {
   labelCancel = 'Cancel';
 }
 
+@Injectable()
 export class ESInlineFormFieldLocaleRU extends ESInlineFormFieldLocale {
   labelEdit = 'Редактировать';
   labelSave = 'Сохранить';

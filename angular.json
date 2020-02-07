@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/elonkit/tsconfig.lib.json",
             "project": "projects/elonkit/src/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/elonkit/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
