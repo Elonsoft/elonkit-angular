@@ -1,19 +1,61 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { PostsService } from './breadcrumbs-story-basic.service';
+import { CategoriesService, ItemsService } from './breadcrumbs-story-basic.service';
 
 @Injectable()
-export class PostsResolver implements Resolve<any> {
-  constructor(private postsService: PostsService) {}
-
-  resolve(route: ActivatedRouteSnapshot) {
-    return this.postsService.getOne(+route.params.id);
+export class HomeBreadcrumbsResolver implements Resolve<any> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return state.url !== '/' ? { icon: 'home', text: 'Home' } : null;
   }
 }
 
 @Injectable()
-export class PostsBreadcrumbsResolver implements Resolve<any> {
+export class CategoriesListResolver implements Resolve<any> {
+  constructor(private categoriesService: CategoriesService) {}
+
+  resolve(route: ActivatedRouteSnapshot) {
+    return this.categoriesService.getAll();
+  }
+}
+
+@Injectable()
+export class CategoriesShowResolver implements Resolve<any> {
+  constructor(private categoriesService: CategoriesService) {}
+
+  resolve(route: ActivatedRouteSnapshot) {
+    return this.categoriesService.getOne(+route.params.item);
+  }
+}
+
+@Injectable()
+export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
+  resolve(route: ActivatedRouteSnapshot) {
+    const category = route.parent.data.data.find(e => e.id === +route.params.category);
+
+    return {
+      icon: 'star',
+      text: category.title,
+      breadcrumbs: route.parent.data.data.map(({ id, title }) => ({
+        path: id,
+        icon: 'star',
+        text: title
+      }))
+    };
+  }
+}
+
+@Injectable()
+export class ItemsResolver implements Resolve<any> {
+  constructor(private itemsService: ItemsService) {}
+
+  resolve(route: ActivatedRouteSnapshot) {
+    return this.itemsService.getOne(+route.params.item);
+  }
+}
+
+@Injectable()
+export class ItemsBreadcrumbsResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot) {
     return { text: route.parent.data.data.title };
   }

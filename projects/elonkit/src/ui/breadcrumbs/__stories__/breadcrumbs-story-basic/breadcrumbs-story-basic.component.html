@@ -1,9 +1,19 @@
 <es-breadcrumbs></es-breadcrumbs>
+
+<br />
+
 <router-outlet></router-outlet>
+
+<br />
+
 <div>
-  <a [routerLink]="['posts']">Posts</a>
+  <a [routerLink]="['categories']">Categories</a>
 </div>
 <div>
-  <a [routerLink]="['posts', 1]">Post 1</a> &nbsp; <a [routerLink]="['posts', 2]">Post 2</a> &nbsp;
-  <a [routerLink]="['posts', 3]">Post 3</a>
+  <a [routerLink]="['categories', 1, 1]">Item 1</a> &nbsp;
+  <a [routerLink]="['categories', 1, 2]">Item 2</a> &nbsp;
 </div>
+
+<br />
+
+URL: {{ path }}

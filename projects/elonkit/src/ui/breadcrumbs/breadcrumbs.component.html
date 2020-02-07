@@ -1,12 +1,8 @@
-<nav class="es-breadcrumbs">
-  <a
-    *ngFor="let breadcrumb of breadcrumbs"
-    [routerLink]="[breadcrumb.path]"
+<nav class="es-breadcrumbs" *ngIf="breadcrumbsService.breadcrumbs$ | async as breadcrumbs">
+  <es-breadcrumbs-breadcrumb
+    *ngFor="let breadcrumb of breadcrumbs; let i = index"
+    [breadcrumb]="breadcrumb"
+    [last]="i === breadcrumbs.length - 1"
     class="es-breadcrumbs__breadcrumb"
-  >
-    <mat-icon *ngIf="breadcrumb.icon" class="es-breadcrumbs__icon">
-      {{ breadcrumb.icon }}
-    </mat-icon>
-    <span *ngIf="breadcrumb.text">{{ breadcrumb.text }}</span>
-  </a>
+  ></es-breadcrumbs-breadcrumb>
 </nav>

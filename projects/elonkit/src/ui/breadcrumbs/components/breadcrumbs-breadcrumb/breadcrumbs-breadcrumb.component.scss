@@ -1,0 +1,34 @@
+.es-breadcrumbs-breadcrumb {
+  $root: '.es-breadcrumbs-breadcrumb';
+
+  align-items: center;
+  display: flex;
+
+  &__link {
+    align-items: center;
+    color: #000;
+    display: flex;
+    text-decoration: none;
+
+    &_last {
+      color: rgba(0, 0, 0, 0.38);
+    }
+
+    &:not(&_last) {
+      &:hover,
+      &:focus {
+        #{$root}__text {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &__icon {
+    margin-right: 4px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

@@ -1,12 +1,24 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, APP_BASE_HREF } from '@angular/common';
+
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { BreadcrumbsStoryBasicComponent } from './breadcrumbs-story-basic.component';
-import { PostsResolver, PostsBreadcrumbsResolver } from './breadcrumbs-story-basic.resolver';
-import { PostsService } from './breadcrumbs-story-basic.service';
+import {
+  BreadcrumbsStoryBasicComponent,
+  BreadcrumbsStoryBasicPlaceholderComponent
+} from './breadcrumbs-story-basic.component';
+import { CategoriesService, ItemsService } from './breadcrumbs-story-basic.service';
 
-import { ESBreadcrumbsModule, ESBreadcrumbsComponent, ESBreadcrumbsResolver } from '../..';
+import {
+  HomeBreadcrumbsResolver,
+  CategoriesListResolver,
+  CategoriesShowResolver,
+  CategoriesShowBreadcrumbsResolver,
+  ItemsResolver,
+  ItemsBreadcrumbsResolver
+} from './breadcrumbs-story-basic.resolver';
+
+import { ESBreadcrumbsModule, ESBreadcrumbsResolver } from '../..';
 
 const ROUTES = [
   {
@@ -14,31 +26,49 @@ const ROUTES = [
     data: {
       breadcrumbs: { icon: 'home', text: 'Home' }
     },
-    resolve: { breadcrumbs: ESBreadcrumbsResolver },
+    resolve: {
+      breadcrumbs: ESBreadcrumbsResolver
+    },
     children: [
       {
-        path: 'posts',
+        path: 'categories',
         data: {
-          breadcrumbs: { text: 'Posts' }
+          breadcrumbs: { text: 'Categories' }
         },
-        resolve: { breadcrumbs: ESBreadcrumbsResolver },
+        resolve: {
+          data: CategoriesListResolver, // We need to move list resolver one level up in order to use horizontal navigation.
+          breadcrumbs: ESBreadcrumbsResolver
+        },
         children: [
           {
             path: '',
-            component: ESBreadcrumbsComponent
+            component: BreadcrumbsStoryBasicPlaceholderComponent
           },
           {
-            path: ':id',
+            path: ':category',
             resolve: {
-              data: PostsResolver
+              data: CategoriesShowResolver,
+              breadcrumbs: CategoriesShowBreadcrumbsResolver
             },
             children: [
               {
                 path: '',
-                component: ESBreadcrumbsComponent,
+                component: BreadcrumbsStoryBasicPlaceholderComponent
+              },
+              {
+                path: ':item',
                 resolve: {
-                  breadcrumbs: PostsBreadcrumbsResolver
-                }
+                  data: ItemsResolver
+                },
+                children: [
+                  {
+                    path: '',
+                    component: BreadcrumbsStoryBasicPlaceholderComponent,
+                    resolve: {
+                      breadcrumbs: ItemsBreadcrumbsResolver
+                    }
+                  }
+                ]
               }
             ]
           }
@@ -49,9 +79,19 @@ const ROUTES = [
 ];
 
 @NgModule({
-  declarations: [BreadcrumbsStoryBasicComponent],
+  declarations: [BreadcrumbsStoryBasicComponent, BreadcrumbsStoryBasicPlaceholderComponent],
   imports: [CommonModule, ESBreadcrumbsModule, RouterTestingModule.withRoutes(ROUTES)],
   exports: [BreadcrumbsStoryBasicComponent],
-  providers: [PostsResolver, PostsBreadcrumbsResolver, PostsService]
+  providers: [
+    CategoriesService,
+    ItemsService,
+    HomeBreadcrumbsResolver,
+    CategoriesListResolver,
+    CategoriesShowResolver,
+    CategoriesShowBreadcrumbsResolver,
+    ItemsResolver,
+    ItemsBreadcrumbsResolver,
+    { provide: APP_BASE_HREF, useValue: '/' }
+  ]
 })
 export class BreadcrumbsStoryBasicModule {}

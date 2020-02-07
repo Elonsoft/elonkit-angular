@@ -1,0 +1,33 @@
+<div class="es-breadcrumbs-breadcrumb mat-caption">
+  <a *ngIf="!last" [routerLink]="[breadcrumb.path]" class="es-breadcrumbs-breadcrumb__link">
+    <ng-container *ngTemplateOutlet="item"></ng-container>
+  </a>
+  <span *ngIf="last" class="es-breadcrumbs-breadcrumb__link es-breadcrumbs-breadcrumb__link_last">
+    <ng-container *ngTemplateOutlet="item"></ng-container>
+  </span>
+
+  <div *ngIf="breadcrumb.data.breadcrumbs">
+    <button type="button" mat-icon-button [matMenuTriggerFor]="breadcrumbsMenu">
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #breadcrumbsMenu="matMenu" xPosition="before" yPosition="below">
+      <a
+        *ngFor="let item of breadcrumb.data.breadcrumbs"
+        mat-menu-item
+        [routerLink]="[breadcrumb.parentPath, item.path]"
+      >
+        <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+        {{ item.text }}
+      </a>
+    </mat-menu>
+  </div>
+</div>
+
+<ng-template #item>
+  <mat-icon *ngIf="breadcrumb.data.icon" class="es-breadcrumbs-breadcrumb__icon">
+    {{ breadcrumb.data.icon }}
+  </mat-icon>
+  <span *ngIf="breadcrumb.data.text" class="es-breadcrumbs-breadcrumb__text">
+    {{ breadcrumb.data.text }}
+  </span>
+</ng-template>
