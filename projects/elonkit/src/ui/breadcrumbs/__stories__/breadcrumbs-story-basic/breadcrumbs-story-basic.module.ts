@@ -24,7 +24,7 @@ const ROUTES = [
   {
     path: '',
     data: {
-      breadcrumbs: { icon: 'home', text: 'Home' }
+      breadcrumbs: { icon: 'home' }
     },
     resolve: {
       breadcrumbs: ESBreadcrumbsResolver

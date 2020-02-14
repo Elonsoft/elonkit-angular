@@ -3,10 +3,19 @@
   display: flex;
 
   &__breadcrumb {
-    margin-right: 16px;
-
     &:last-child {
       margin-right: 0;
+    }
+  }
+
+  &__separator {
+    color: rgba(0, 0, 0, 0.38);
+    margin: 0 10px;
+
+    &.mat-icon {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
     }
   }
 }

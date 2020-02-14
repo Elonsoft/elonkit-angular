@@ -34,11 +34,9 @@ export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
     const category = route.parent.data.data.find(e => e.id === +route.params.category);
 
     return {
-      icon: 'star',
       text: category.title,
       breadcrumbs: route.parent.data.data.map(({ id, title }) => ({
         path: id,
-        icon: 'star',
         text: title
       }))
     };

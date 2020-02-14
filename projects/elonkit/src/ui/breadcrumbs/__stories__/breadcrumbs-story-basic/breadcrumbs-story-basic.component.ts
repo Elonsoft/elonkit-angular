@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,8 +6,13 @@ import { Router } from '@angular/router';
   templateUrl: './breadcrumbs-story-basic.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BreadcrumbsStoryBasicComponent {
+export class BreadcrumbsStoryBasicComponent implements OnInit {
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    // Hack for RouterTestingModule
+    this.router.navigate(['/']);
+  }
 
   get path() {
     return this.router.url;

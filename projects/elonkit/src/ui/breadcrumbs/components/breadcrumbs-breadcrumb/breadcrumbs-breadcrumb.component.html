@@ -6,8 +6,13 @@
     <ng-container *ngTemplateOutlet="item"></ng-container>
   </span>
 
-  <div *ngIf="breadcrumb.data.breadcrumbs">
-    <button type="button" mat-icon-button [matMenuTriggerFor]="breadcrumbsMenu">
+  <ng-container *ngIf="breadcrumb.data.breadcrumbs">
+    <button
+      type="button"
+      mat-icon-button
+      [matMenuTriggerFor]="breadcrumbsMenu"
+      class="es-breadcrumbs-breadcrumb__menu"
+    >
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <mat-menu #breadcrumbsMenu="matMenu" xPosition="before" yPosition="below">
@@ -20,7 +25,7 @@
         {{ item.text }}
       </a>
     </mat-menu>
-  </div>
+  </ng-container>
 </div>
 
 <ng-template #item>
