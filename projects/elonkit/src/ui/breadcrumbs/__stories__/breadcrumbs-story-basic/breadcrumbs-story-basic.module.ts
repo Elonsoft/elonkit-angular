@@ -5,17 +5,22 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import {
   BreadcrumbsStoryBasicComponent,
-  BreadcrumbsStoryBasicPlaceholderComponent
+  BreadcrumbsStoryBasicHomeComponent,
+  BreadcrumbsStoryBasicCategoriesListComponent,
+  BreadcrumbsStoryBasicItemsListComponent,
+  BreadcrumbsStoryBasicItemsShowComponent,
+  BreadcrumbsStoryBasicItemsEditComponent
 } from './breadcrumbs-story-basic.component';
+
 import { CategoriesService, ItemsService } from './breadcrumbs-story-basic.service';
 
 import {
-  HomeBreadcrumbsResolver,
   CategoriesListResolver,
   CategoriesShowResolver,
   CategoriesShowBreadcrumbsResolver,
-  ItemsResolver,
-  ItemsBreadcrumbsResolver
+  ItemsListResolver,
+  ItemsShowResolver,
+  ItemsShowBreadcrumbsResolver
 } from './breadcrumbs-story-basic.resolver';
 
 import { ESBreadcrumbsModule, ESBreadcrumbsResolver } from '../..';
@@ -31,6 +36,10 @@ const ROUTES = [
     },
     children: [
       {
+        path: '',
+        component: BreadcrumbsStoryBasicHomeComponent
+      },
+      {
         path: 'categories',
         data: {
           breadcrumbs: { text: 'Categories' }
@@ -42,7 +51,7 @@ const ROUTES = [
         children: [
           {
             path: '',
-            component: BreadcrumbsStoryBasicPlaceholderComponent
+            component: BreadcrumbsStoryBasicCategoriesListComponent
           },
           {
             path: ':category',
@@ -53,27 +62,30 @@ const ROUTES = [
             children: [
               {
                 path: '',
-                component: BreadcrumbsStoryBasicPlaceholderComponent
+                component: BreadcrumbsStoryBasicItemsListComponent,
+                resolve: {
+                  data: ItemsListResolver
+                }
               },
               {
                 path: ':item',
                 resolve: {
-                  data: ItemsResolver
+                  data: ItemsShowResolver
                 },
                 children: [
                   {
                     path: '',
                     resolve: {
-                      breadcrumbs: ItemsBreadcrumbsResolver
+                      breadcrumbs: ItemsShowBreadcrumbsResolver
                     },
                     children: [
                       {
                         path: '',
-                        component: BreadcrumbsStoryBasicPlaceholderComponent
+                        component: BreadcrumbsStoryBasicItemsShowComponent
                       },
                       {
                         path: 'edit',
-                        component: BreadcrumbsStoryBasicPlaceholderComponent,
+                        component: BreadcrumbsStoryBasicItemsEditComponent,
                         data: {
                           breadcrumbs: { text: 'Edit' }
                         },
@@ -94,18 +106,25 @@ const ROUTES = [
 ];
 
 @NgModule({
-  declarations: [BreadcrumbsStoryBasicComponent, BreadcrumbsStoryBasicPlaceholderComponent],
+  declarations: [
+    BreadcrumbsStoryBasicComponent,
+    BreadcrumbsStoryBasicHomeComponent,
+    BreadcrumbsStoryBasicCategoriesListComponent,
+    BreadcrumbsStoryBasicItemsListComponent,
+    BreadcrumbsStoryBasicItemsShowComponent,
+    BreadcrumbsStoryBasicItemsEditComponent
+  ],
   imports: [CommonModule, ESBreadcrumbsModule, RouterTestingModule.withRoutes(ROUTES)],
   exports: [BreadcrumbsStoryBasicComponent],
   providers: [
     CategoriesService,
     ItemsService,
-    HomeBreadcrumbsResolver,
     CategoriesListResolver,
     CategoriesShowResolver,
     CategoriesShowBreadcrumbsResolver,
-    ItemsResolver,
-    ItemsBreadcrumbsResolver,
+    ItemsListResolver,
+    ItemsShowResolver,
+    ItemsShowBreadcrumbsResolver,
     { provide: APP_BASE_HREF, useValue: '/' }
   ]
 })

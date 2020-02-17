@@ -17,7 +17,7 @@ import { ESBreadcrumbsService } from './breadcrumbs.service';
 
 const SIZE_ICON = 24;
 const SIZE_ICON_MAGRIN = 4;
-const SIZE_SEPARATOR = 40;
+const SIZE_SEPARATOR = 44;
 const SIZE_MENU = 20;
 const SIZE_COLLAPSE = 24;
 

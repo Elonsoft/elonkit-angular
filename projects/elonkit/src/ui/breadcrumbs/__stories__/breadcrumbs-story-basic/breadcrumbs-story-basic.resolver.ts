@@ -4,17 +4,10 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { CategoriesService, ItemsService } from './breadcrumbs-story-basic.service';
 
 @Injectable()
-export class HomeBreadcrumbsResolver implements Resolve<any> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return state.url !== '/' ? { icon: 'home', text: 'Home' } : null;
-  }
-}
-
-@Injectable()
 export class CategoriesListResolver implements Resolve<any> {
   constructor(private categoriesService: CategoriesService) {}
 
-  resolve(route: ActivatedRouteSnapshot) {
+  resolve() {
     return this.categoriesService.getAll();
   }
 }
@@ -44,7 +37,16 @@ export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
 }
 
 @Injectable()
-export class ItemsResolver implements Resolve<any> {
+export class ItemsListResolver implements Resolve<any> {
+  constructor(private itemsService: ItemsService) {}
+
+  resolve(route: ActivatedRouteSnapshot) {
+    return this.itemsService.getAll(+route.params.category);
+  }
+}
+
+@Injectable()
+export class ItemsShowResolver implements Resolve<any> {
   constructor(private itemsService: ItemsService) {}
 
   resolve(route: ActivatedRouteSnapshot) {
@@ -53,7 +55,7 @@ export class ItemsResolver implements Resolve<any> {
 }
 
 @Injectable()
-export class ItemsBreadcrumbsResolver implements Resolve<any> {
+export class ItemsShowBreadcrumbsResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot) {
     return { text: route.parent.data.data.title };
   }
