@@ -1,10 +1,16 @@
+:host {
+  display: block;
+}
+
 .es-breadcrumbs {
   align-items: center;
   display: flex;
+  overflow: hidden;
 
   &__breadcrumb {
     &:last-child {
       margin-right: 0;
+      min-width: 0;
     }
   }
 
@@ -17,5 +23,15 @@
       height: 20px;
       width: 20px;
     }
+  }
+
+  &__width {
+    height: auto;
+    left: -1000px;
+    position: absolute;
+    visibility: hidden;
+    white-space: nowrap;
+    width: auto;
+    z-index: -1;
   }
 }

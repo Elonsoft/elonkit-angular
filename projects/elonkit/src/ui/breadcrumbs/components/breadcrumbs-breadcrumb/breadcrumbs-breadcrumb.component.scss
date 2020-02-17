@@ -3,11 +3,16 @@
 
   align-items: center;
   display: flex;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   &__link {
     align-items: center;
     color: #000;
     display: flex;
+    min-width: 0;
     text-decoration: none;
 
     &_last {
@@ -27,15 +32,20 @@
   &__icon {
     margin-right: 4px;
 
-    &.mat-icon {
-      font-size: 20px;
-      height: 20px;
-      width: 20px;
-    }
+    // &.mat-icon {
+    //   font-size: 20px;
+    //   height: 20px;
+    //   width: 20px;
+    // }
 
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  &__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__menu {

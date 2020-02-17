@@ -63,10 +63,25 @@ const ROUTES = [
                 children: [
                   {
                     path: '',
-                    component: BreadcrumbsStoryBasicPlaceholderComponent,
                     resolve: {
                       breadcrumbs: ItemsBreadcrumbsResolver
-                    }
+                    },
+                    children: [
+                      {
+                        path: '',
+                        component: BreadcrumbsStoryBasicPlaceholderComponent
+                      },
+                      {
+                        path: 'edit',
+                        component: BreadcrumbsStoryBasicPlaceholderComponent,
+                        data: {
+                          breadcrumbs: { text: 'Edit' }
+                        },
+                        resolve: {
+                          breadcrumbs: ESBreadcrumbsResolver
+                        }
+                      }
+                    ]
                   }
                 ]
               }

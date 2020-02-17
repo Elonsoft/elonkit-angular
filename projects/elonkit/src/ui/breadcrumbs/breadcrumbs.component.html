@@ -1,12 +1,22 @@
-<nav class="es-breadcrumbs" *ngIf="breadcrumbsService.breadcrumbs$ | async as breadcrumbs">
+<nav #navigation class="es-breadcrumbs">
   <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
-    <es-breadcrumbs-breadcrumb
-      [breadcrumb]="breadcrumb"
-      [last]="i === breadcrumbs.length - 1"
-      class="es-breadcrumbs__breadcrumb"
-    ></es-breadcrumbs-breadcrumb>
-    <mat-icon *ngIf="i < breadcrumbs.length - 1" class="es-breadcrumbs__separator">
-      chevron_right
-    </mat-icon>
+    <ng-container *ngIf="!collapseIndexes.includes(i)">
+      <es-breadcrumbs-breadcrumb
+        [breadcrumb]="breadcrumb"
+        [last]="i === breadcrumbs.length - 1"
+        class="es-breadcrumbs__breadcrumb"
+      ></es-breadcrumbs-breadcrumb>
+      <mat-icon *ngIf="i < breadcrumbs.length - 1" class="es-breadcrumbs__separator">
+        chevron_right
+      </mat-icon>
+    </ng-container>
+
+    <ng-container *ngIf="i === 1 && collapseIndexes.length">
+      <es-breadcrumbs-collapse [breadcrumbs]="collapseBreadcrumbs"></es-breadcrumbs-collapse>
+      <mat-icon class="es-breadcrumbs__separator">
+        chevron_right
+      </mat-icon>
+    </ng-container>
   </ng-container>
 </nav>
+<div #width class="es-breadcrumbs__width mat-caption" aria-hidden="true"></div>
