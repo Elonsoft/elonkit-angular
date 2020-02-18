@@ -66,3 +66,28 @@ We can override default locale which is used for aria-label on collapse button.
 ## API
 
 <Props of={ESBreadcrumbsComponent} />
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_BREADCRUMBS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/breadcrumbs';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_BREADCRUMBS_DEFAULT_OPTIONS,
+      useValue: {
+        sizes: {
+          icon: 24,
+          iconMargin: 4,
+          separator: 44,
+          menu: 20,
+          collapse: 24
+        }
+      }
+    }
+  ]
+})
+```

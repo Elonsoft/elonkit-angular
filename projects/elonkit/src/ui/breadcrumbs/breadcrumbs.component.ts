@@ -7,7 +7,10 @@ import {
   ViewChild,
   ElementRef,
   OnInit,
-  OnDestroy
+  OnDestroy,
+  InjectionToken,
+  Optional,
+  Inject
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -16,11 +19,27 @@ import { takeUntil, delay } from 'rxjs/operators';
 import { IBreadcrumb } from './breadcrumbs.types';
 import { ESBreadcrumbsService } from './breadcrumbs.service';
 
-const SIZE_ICON = 24;
-const SIZE_ICON_MAGRIN = 4;
-const SIZE_SEPARATOR = 44;
-const SIZE_MENU = 20;
-const SIZE_COLLAPSE = 24;
+export interface ESBreadcrumbsDefaultOptions {
+  sizes?: {
+    icon: number;
+    iconMargin: number;
+    separator: number;
+    menu: number;
+    collapse: number;
+  };
+}
+
+const DEFAULT_SIZES = {
+  icon: 24,
+  iconMargin: 4,
+  separator: 44,
+  menu: 20,
+  collapse: 24
+};
+
+export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDefaultOptions>(
+  'ES_BREADCRUMBS_DEFAULT_OPTIONS'
+);
 
 @Component({
   selector: 'es-breadcrumbs',
@@ -49,25 +68,27 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
   @HostListener('window:resize') onResize() {
     const element = this.elementNavigation.nativeElement;
     if (element && this.breadcrumbs.length > 2) {
+      const sizes = this.defaultOptions?.sizes || DEFAULT_SIZES;
+
       const widths = this.breadcrumbs.map(({ data: { label, icon, breadcrumbs } }) => {
         let result = 0;
         if (label) {
           result += this.getLabelWidth(label);
         }
         if (icon) {
-          result += SIZE_ICON;
+          result += sizes.icon;
         }
         if (label && icon) {
-          result += SIZE_ICON_MAGRIN;
+          result += sizes.iconMargin;
         }
         if (breadcrumbs) {
-          result += SIZE_MENU;
+          result += sizes.menu;
         }
         return result;
       });
 
       let scrollWidth =
-        widths.reduce((acc, w) => acc + w, 0) + SIZE_SEPARATOR * (widths.length - 1);
+        widths.reduce((acc, w) => acc + w, 0) + sizes.separator * (widths.length - 1);
       const clientWidth = element.clientWidth;
 
       const collapseIndexes = [];
@@ -75,12 +96,12 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
 
       for (let i = 1; i < widths.length - 1 && scrollWidth > clientWidth; i++) {
         if (!collapseIndexes.length) {
-          scrollWidth += SIZE_COLLAPSE + SIZE_SEPARATOR;
+          scrollWidth += sizes.collapse + sizes.separator;
         }
 
         collapseIndexes.push(i);
         collapseBreadcrumbs.push(this.breadcrumbs[i]);
-        scrollWidth -= widths[i] + SIZE_SEPARATOR;
+        scrollWidth -= widths[i] + sizes.separator;
       }
 
       this.collapseIndexes = collapseIndexes;
@@ -113,7 +134,10 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private breadcrumbsService: ESBreadcrumbsService
+    private breadcrumbsService: ESBreadcrumbsService,
+    @Optional()
+    @Inject(ES_BREADCRUMBS_DEFAULT_OPTIONS)
+    private defaultOptions: ESBreadcrumbsDefaultOptions
   ) {}
 
   /**
