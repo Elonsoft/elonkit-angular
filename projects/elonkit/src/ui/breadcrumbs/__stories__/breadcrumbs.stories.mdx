@@ -7,27 +7,57 @@ import { withKnobs, boolean } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ESBreadcrumbsComponent } from '..';
+import { ESBreadcrumbsComponent, ESBreadcrumbsLocale, ESBreadcrumbsLocaleRU } from '..';
 
 import {
   BreadcrumbsStoryBasicModule,
-  BreadcrumbsStoryBasicComponent
+  BreadcrumbsStoryBasicComponent,
+  BREADCRUMBS_STORY_BASIC_SOURCE
 } from './breadcrumbs-story-basic';
+
+import {
+  BreadcrumbsStoryLocaleModule,
+  BreadcrumbsStoryLocaleComponent,
+  BREADCRUMBS_STORY_LOCALE_SOURCE
+} from './breadcrumbs-story-locale';
 
 <Meta title='UI/Breadcrumbs' decorators={[withA11y, withKnobs]} />
 
 # Breadcrumbs
 
-Description.
+Breadcrumbs indicate the current page’s location within a navigational hierarchy.
 
 ## Demos
 
-<Preview>
-  <Story name='Basic' height='110px'>
+In order to generate breadcrumbs we need to resolve `breadcrumb` key or provide static data with the same key.
+
+There is a strange behaviour in angular router when resolved data overrides it's child static data.
+For this case we provide `ESBreadcrumbsResolver` which copies static data and solves this problem.
+
+For a horizontal navigation we need to provide an array of nested breadcrumbs.
+For more details see [source code](https://github.com/Elonsoft/elonkit/blob/master/projects/elonkit/src/ui/breadcrumbs/__stories__/breadcrumbs-story-basic/breadcrumbs-story-basic.resolver.ts#L31)
+of this story.
+
+<Preview source={BREADCRUMBS_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='210px'>
     {{
       component: BreadcrumbsStoryBasicComponent,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, BreadcrumbsStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale which is used for aria-label on collapse button.
+
+<Preview source={BREADCRUMBS_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='210px'>
+    {{
+      component: BreadcrumbsStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, BreadcrumbsStoryLocaleModule],
+        providers: [{ provide: ESBreadcrumbsLocale, useClass: ESBreadcrumbsLocaleRU }]
       }
     }}
   </Story>

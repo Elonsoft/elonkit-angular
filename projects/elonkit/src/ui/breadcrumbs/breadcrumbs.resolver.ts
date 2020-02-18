@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 
+import { IBreadcrumb } from './breadcrumbs.types';
+
 @Injectable()
-export class ESBreadcrumbsResolver implements Resolve<any> {
+export class ESBreadcrumbsResolver implements Resolve<IBreadcrumb> {
   resolve(route: ActivatedRouteSnapshot) {
-    if (route.routeConfig && route.routeConfig.data && route.data.breadcrumbs) {
-      return route.data.breadcrumbs;
+    if (route.routeConfig && route.routeConfig.data && route.data.breadcrumb) {
+      return route.data.breadcrumb;
     }
     return null;
   }

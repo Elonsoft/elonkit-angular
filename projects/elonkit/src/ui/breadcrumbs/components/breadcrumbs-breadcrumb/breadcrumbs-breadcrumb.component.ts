@@ -8,6 +8,13 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@a
   encapsulation: ViewEncapsulation.None
 })
 export class ESBreadcrumbsBreadcrumbComponent {
+  /**
+   * @internal
+   */
   @Input() breadcrumb;
+
+  /**
+   * @internal
+   */
   @Input() last = false;
 }

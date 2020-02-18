@@ -34,13 +34,13 @@ export class ESBreadcrumbsService implements OnDestroy {
     let route = this.activatedRoute;
     while (route) {
       if (
-        (route.routeConfig?.resolve?.breadcrumbs || route.routeConfig?.data?.breadcrumbs) &&
-        route.snapshot.data.breadcrumbs
+        (route.routeConfig?.resolve?.breadcrumb || route.routeConfig?.data?.breadcrumb) &&
+        route.snapshot.data.breadcrumb
       ) {
         breadcrumbs.push({
           path: this.getPath(route),
           parentPath: this.getPath(route.parent),
-          data: route.snapshot.data.breadcrumbs
+          data: route.snapshot.data.breadcrumb
         });
       }
       route = route.firstChild;

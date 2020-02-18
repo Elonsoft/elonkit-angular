@@ -11,7 +11,15 @@ import { ESBreadcrumbsLocale } from '../../breadcrumbs.component.locale';
   encapsulation: ViewEncapsulation.None
 })
 export class ESBreadcrumbsCollapseComponent {
+  /**
+   * @internal
+   */
   @Input() breadcrumbs: IBreadcrumb[];
 
-  constructor(public locale: ESBreadcrumbsLocale) {}
+  constructor(
+    /**
+     * @internal
+     */
+    public locale: ESBreadcrumbsLocale
+  ) {}
 }

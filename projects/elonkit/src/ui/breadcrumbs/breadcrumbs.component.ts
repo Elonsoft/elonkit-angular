@@ -30,9 +30,22 @@ const SIZE_COLLAPSE = 24;
   encapsulation: ViewEncapsulation.None
 })
 export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
+  /**
+   * @internal
+   * @ignore
+   */
   @ViewChild('navigation', { static: true }) elementNavigation: ElementRef<HTMLElement>;
+
+  /**
+   * @internal
+   * @ignore
+   */
   @ViewChild('width', { static: true }) elementWidth: ElementRef<HTMLElement>;
 
+  /**
+   * @internal
+   * @ignore
+   */
   @HostListener('window:resize') onResize() {
     const element = this.elementNavigation.nativeElement;
     if (element && this.breadcrumbs.length > 2) {
@@ -78,29 +91,50 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
   public breadcrumbs: IBreadcrumb[] = [];
 
+  /**
+   * @internal
+   * @ignore
+   */
   public collapseIndexes: number[] = [];
+
+  /**
+   * @internal
+   * @ignore
+   */
   public collapseBreadcrumbs: IBreadcrumb[] = [];
 
   private destroyed$ = new Subject();
 
   constructor(
-    private chageDetector: ChangeDetectorRef,
+    private changeDetector: ChangeDetectorRef,
     private breadcrumbsService: ESBreadcrumbsService
   ) {}
 
-  ngOnInit() {
+  /**
+   * @internal
+   * @ignore
+   */
+  public ngOnInit() {
     this.breadcrumbsService.breadcrumbs$
       .pipe(takeUntil(this.destroyed$), delay(1))
       .subscribe(breadcrumbs => {
         this.breadcrumbs = breadcrumbs;
         this.onResize();
-        this.chageDetector.detectChanges();
+        this.changeDetector.detectChanges();
       });
   }
 
-  ngOnDestroy() {
+  /**
+   * @internal
+   * @ignore
+   */
+  public ngOnDestroy() {
     this.destroyed$.next();
   }
 
