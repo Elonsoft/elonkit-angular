@@ -13,6 +13,7 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 
+import { IBreadcrumb } from './breadcrumbs.types';
 import { ESBreadcrumbsService } from './breadcrumbs.service';
 
 const SIZE_ICON = 24;
@@ -35,15 +36,15 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
   @HostListener('window:resize') onResize() {
     const element = this.elementNavigation.nativeElement;
     if (element && this.breadcrumbs.length > 2) {
-      const widths = this.breadcrumbs.map(({ data: { text, icon, breadcrumbs } }) => {
+      const widths = this.breadcrumbs.map(({ data: { label, icon, breadcrumbs } }) => {
         let result = 0;
-        if (text) {
-          result += this.getTextWidth(text);
+        if (label) {
+          result += this.getLabelWidth(label);
         }
         if (icon) {
           result += SIZE_ICON;
         }
-        if (text && icon) {
+        if (label && icon) {
           result += SIZE_ICON_MAGRIN;
         }
         if (breadcrumbs) {
@@ -77,10 +78,10 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public breadcrumbs = [];
+  public breadcrumbs: IBreadcrumb[] = [];
 
-  public collapseIndexes = [];
-  public collapseBreadcrumbs = [];
+  public collapseIndexes: number[] = [];
+  public collapseBreadcrumbs: IBreadcrumb[] = [];
 
   private destroyed$ = new Subject();
 
@@ -103,7 +104,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
     this.destroyed$.next();
   }
 
-  private getTextWidth(text: string) {
+  private getLabelWidth(text: string) {
     const container = this.elementWidth.nativeElement;
     container.textContent = text;
     return container.clientWidth + 1;

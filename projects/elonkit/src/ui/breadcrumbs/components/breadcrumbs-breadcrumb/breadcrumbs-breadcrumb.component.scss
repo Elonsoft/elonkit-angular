@@ -20,9 +20,8 @@
     }
 
     &:not(&_last) {
-      &:hover,
-      &:focus {
-        #{$root}__text {
+      &:hover {
+        #{$root}__label {
           text-decoration: underline;
         }
       }
@@ -43,7 +42,7 @@
     }
   }
 
-  &__text {
+  &__label {
     overflow: hidden;
     text-overflow: ellipsis;
   }

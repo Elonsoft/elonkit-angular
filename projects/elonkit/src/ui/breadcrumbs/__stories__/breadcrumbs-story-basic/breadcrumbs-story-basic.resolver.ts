@@ -27,10 +27,10 @@ export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
     const category = route.parent.data.data.find(e => e.id === +route.params.category);
 
     return {
-      text: category.title,
+      label: category.title,
       breadcrumbs: route.parent.data.data.map(({ id, title }) => ({
         path: id,
-        text: title
+        label: title
       }))
     };
   }
@@ -57,6 +57,6 @@ export class ItemsShowResolver implements Resolve<any> {
 @Injectable()
 export class ItemsShowBreadcrumbsResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot) {
-    return { text: route.parent.data.data.title };
+    return { label: route.parent.data.data.title };
   }
 }

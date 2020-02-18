@@ -29,7 +29,7 @@ const ROUTES = [
   {
     path: '',
     data: {
-      breadcrumbs: { icon: 'home' }
+      breadcrumbs: { icon: 'home', ariaLabel: 'Home' }
     },
     resolve: {
       breadcrumbs: ESBreadcrumbsResolver
@@ -42,7 +42,7 @@ const ROUTES = [
       {
         path: 'categories',
         data: {
-          breadcrumbs: { text: 'Categories' }
+          breadcrumbs: { label: 'Categories' }
         },
         resolve: {
           data: CategoriesListResolver, // We need to move list resolver one level up in order to use horizontal navigation.
@@ -87,7 +87,7 @@ const ROUTES = [
                         path: 'edit',
                         component: BreadcrumbsStoryBasicItemsEditComponent,
                         data: {
-                          breadcrumbs: { text: 'Edit' }
+                          breadcrumbs: { label: 'Edit' }
                         },
                         resolve: {
                           breadcrumbs: ESBreadcrumbsResolver

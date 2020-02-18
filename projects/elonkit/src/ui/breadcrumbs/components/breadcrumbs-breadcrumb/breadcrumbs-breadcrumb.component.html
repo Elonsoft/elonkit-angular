@@ -1,5 +1,10 @@
 <div class="es-breadcrumbs-breadcrumb mat-caption">
-  <a *ngIf="!last" [routerLink]="[breadcrumb.path]" class="es-breadcrumbs-breadcrumb__link">
+  <a
+    *ngIf="!last"
+    [routerLink]="[breadcrumb.path]"
+    [attr.aria-label]="breadcrumb.data.ariaLabel"
+    class="es-breadcrumbs-breadcrumb__link"
+  >
     <ng-container *ngTemplateOutlet="item"></ng-container>
   </a>
   <span *ngIf="last" class="es-breadcrumbs-breadcrumb__link es-breadcrumbs-breadcrumb__link_last">
@@ -22,7 +27,7 @@
         [routerLink]="[breadcrumb.parentPath, item.path]"
       >
         <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
-        {{ item.text }}
+        {{ item.label }}
       </a>
     </mat-menu>
   </ng-container>
@@ -32,7 +37,7 @@
   <mat-icon *ngIf="breadcrumb.data.icon" class="es-breadcrumbs-breadcrumb__icon">
     {{ breadcrumb.data.icon }}
   </mat-icon>
-  <span *ngIf="breadcrumb.data.text" class="es-breadcrumbs-breadcrumb__text">
-    {{ breadcrumb.data.text }}
+  <span *ngIf="breadcrumb.data.label" class="es-breadcrumbs-breadcrumb__label">
+    {{ breadcrumb.data.label }}
   </span>
 </ng-template>

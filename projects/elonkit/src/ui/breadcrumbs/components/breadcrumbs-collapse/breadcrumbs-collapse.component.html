@@ -2,7 +2,7 @@
   type="button"
   [matMenuTriggerFor]="menu"
   matRipple
-  aria-label="More"
+  [attr.aria-label]="locale.labelMore"
   class="es-breadcrumbs-collapse"
 >
   <mat-icon>
@@ -12,6 +12,6 @@
 <mat-menu #menu="matMenu" yPosition="below">
   <a *ngFor="let breadcrumb of breadcrumbs" mat-menu-item [routerLink]="[breadcrumb.path]">
     <mat-icon *ngIf="breadcrumb.data.icon">{{ breadcrumb.data.icon }}</mat-icon>
-    {{ breadcrumb.data.text }}
+    {{ breadcrumb.data.label }}
   </a>
 </mat-menu>
