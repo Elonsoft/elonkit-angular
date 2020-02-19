@@ -165,6 +165,8 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
   private getLabelWidth(text: string) {
     const container = this.elementWidth.nativeElement;
     container.textContent = text;
-    return container.clientWidth + 1;
+    const width = container.clientWidth + 1;
+    container.textContent = '';
+    return width;
   }
 }
