@@ -12,7 +12,11 @@ import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'es-breadcrumbs-basic',
-  templateUrl: './breadcrumbs-story-basic.component.html',
+  template: `
+    <es-breadcrumbs></es-breadcrumbs>
+    <br />
+    <router-outlet></router-outlet>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsStoryBasicComponent implements OnInit {
@@ -20,11 +24,7 @@ export class BreadcrumbsStoryBasicComponent implements OnInit {
 
   ngOnInit() {
     // Hack for RouterTestingModule
-    this.router.navigate(['/']);
-  }
-
-  get path() {
-    return this.router.url;
+    this.router.navigate(['/categories']);
   }
 }
 

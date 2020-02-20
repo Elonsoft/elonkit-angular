@@ -12,7 +12,9 @@ import {
   InjectionToken,
   Optional,
   Inject,
-  Input
+  Input,
+  ContentChild,
+  TemplateRef
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -20,6 +22,7 @@ import { takeUntil, delay } from 'rxjs/operators';
 
 import { IBreadcrumb } from './breadcrumbs.types';
 import { ESBreadcrumbsService } from './breadcrumbs.service';
+import { ESBreadcrumbsSeparatorDirective } from './breadcrumbs-separator.directive';
 
 export interface ESBreadcrumbsDefaultOptions {
   typography?: string;
@@ -57,7 +60,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   private _typography;
 
   /**
-   * Class applied to breadcrumb labels.
+   * Class applied to breadcrumb's labels.
    */
   @Input()
   get typography(): string {
@@ -66,6 +69,12 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   set typography(value: string) {
     this._typography = value || this.defaultOptions?.typography || DEFAULT_TYPOGRAPHY;
   }
+
+  /**
+   * @ignore
+   */
+  @ContentChild(ESBreadcrumbsSeparatorDirective, { read: TemplateRef, static: false })
+  public separatorTemplate: any;
 
   /**
    * @internal

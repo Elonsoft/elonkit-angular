@@ -10,12 +10,15 @@ import { MatRippleModule } from '@angular/material/core';
 import { ESBreadcrumbsComponent } from './breadcrumbs.component';
 import { ESBreadcrumbsResolver } from './breadcrumbs.resolver';
 
+import { ESBreadcrumbsSeparatorDirective } from './breadcrumbs-separator.directive';
+
 import { ESBreadcrumbsBreadcrumbComponent } from './components/breadcrumbs-breadcrumb';
 import { ESBreadcrumbsCollapseComponent } from './components/breadcrumbs-collapse';
 
 @NgModule({
   declarations: [
     ESBreadcrumbsComponent,
+    ESBreadcrumbsSeparatorDirective,
     ESBreadcrumbsBreadcrumbComponent,
     ESBreadcrumbsCollapseComponent
   ],
@@ -27,7 +30,7 @@ import { ESBreadcrumbsCollapseComponent } from './components/breadcrumbs-collaps
     MatMenuModule,
     MatRippleModule
   ],
-  exports: [ESBreadcrumbsComponent],
+  exports: [ESBreadcrumbsComponent, ESBreadcrumbsSeparatorDirective],
   providers: [ESBreadcrumbsResolver]
 })
 export class ESBreadcrumbsModule {}

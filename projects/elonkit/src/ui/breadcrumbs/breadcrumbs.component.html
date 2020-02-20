@@ -20,9 +20,14 @@
 </nav>
 
 <ng-template #separator>
-  <mat-icon class="es-breadcrumbs__separator">
-    chevron_right
-  </mat-icon>
+  <ng-container *ngIf="!separatorTemplate">
+    <mat-icon class="es-breadcrumbs__separator">
+      chevron_right
+    </mat-icon>
+  </ng-container>
+  <ng-container *ngIf="separatorTemplate">
+    <ng-container *ngTemplateOutlet="separatorTemplate"></ng-container>
+  </ng-container>
 </ng-template>
 
 <div #width class="es-breadcrumbs__width mat-caption" aria-hidden="true"></div>

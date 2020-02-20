@@ -16,6 +16,12 @@ import {
 } from './breadcrumbs-story-basic';
 
 import {
+  BreadcrumbsStoryCustomizationModule,
+  BreadcrumbsStoryCustomizationComponent,
+  BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE
+} from './breadcrumbs-story-customization';
+
+import {
   BreadcrumbsStoryLocaleModule,
   BreadcrumbsStoryLocaleComponent,
   BREADCRUMBS_STORY_LOCALE_SOURCE
@@ -44,6 +50,19 @@ of this story.
       component: BreadcrumbsStoryBasicComponent,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, BreadcrumbsStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can customize separator and label's font.
+
+<Preview source={BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE}>
+  <Story name='Customization' height='210px'>
+    {{
+      component: BreadcrumbsStoryCustomizationComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, BreadcrumbsStoryCustomizationModule]
       }
     }}
   </Story>
