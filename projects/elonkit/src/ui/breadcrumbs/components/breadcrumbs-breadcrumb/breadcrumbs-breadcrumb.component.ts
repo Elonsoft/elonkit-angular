@@ -21,6 +21,11 @@ export class ESBreadcrumbsBreadcrumbComponent {
    */
   @Input() last = false;
 
+  /**
+   * @internal
+   */
+  @Input() typography: string;
+
   constructor(
     /**
      * @internal

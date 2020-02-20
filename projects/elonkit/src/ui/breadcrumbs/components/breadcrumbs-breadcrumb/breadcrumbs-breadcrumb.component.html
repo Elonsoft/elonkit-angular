@@ -1,4 +1,4 @@
-<div class="es-breadcrumbs-breadcrumb mat-caption">
+<div class="es-breadcrumbs-breadcrumb" [ngClass]="typography">
   <a
     *ngIf="!last"
     [routerLink]="[breadcrumb.path]"

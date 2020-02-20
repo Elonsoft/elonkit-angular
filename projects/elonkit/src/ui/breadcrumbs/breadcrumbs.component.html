@@ -4,19 +4,25 @@
       <es-breadcrumbs-breadcrumb
         [breadcrumb]="breadcrumb"
         [last]="i === breadcrumbs.length - 1"
+        [typography]="typography"
         class="es-breadcrumbs__breadcrumb"
       ></es-breadcrumbs-breadcrumb>
-      <mat-icon *ngIf="i < breadcrumbs.length - 1" class="es-breadcrumbs__separator">
-        chevron_right
-      </mat-icon>
+      <ng-container *ngIf="i < breadcrumbs.length - 1">
+        <ng-container *ngTemplateOutlet="separator"></ng-container>
+      </ng-container>
     </ng-container>
 
     <ng-container *ngIf="i === 1 && collapseIndexes.length">
       <es-breadcrumbs-collapse [breadcrumbs]="collapseBreadcrumbs"></es-breadcrumbs-collapse>
-      <mat-icon class="es-breadcrumbs__separator">
-        chevron_right
-      </mat-icon>
+      <ng-container *ngTemplateOutlet="separator"></ng-container>
     </ng-container>
   </ng-container>
 </nav>
+
+<ng-template #separator>
+  <mat-icon class="es-breadcrumbs__separator">
+    chevron_right
+  </mat-icon>
+</ng-template>
+
 <div #width class="es-breadcrumbs__width mat-caption" aria-hidden="true"></div>

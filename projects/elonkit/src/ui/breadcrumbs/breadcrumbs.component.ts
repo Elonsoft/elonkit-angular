@@ -8,9 +8,11 @@ import {
   ElementRef,
   OnInit,
   OnDestroy,
+  AfterContentInit,
   InjectionToken,
   Optional,
-  Inject
+  Inject,
+  Input
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -20,6 +22,7 @@ import { IBreadcrumb } from './breadcrumbs.types';
 import { ESBreadcrumbsService } from './breadcrumbs.service';
 
 export interface ESBreadcrumbsDefaultOptions {
+  typography?: string;
   sizes?: {
     icon: number;
     iconMargin: number;
@@ -28,6 +31,8 @@ export interface ESBreadcrumbsDefaultOptions {
     collapse: number;
   };
 }
+
+const DEFAULT_TYPOGRAPHY = 'mat-body-1';
 
 const DEFAULT_SIZES = {
   icon: 24,
@@ -48,7 +53,20 @@ export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDe
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
+export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentInit {
+  private _typography;
+
+  /**
+   * Class applied to breadcrumb labels.
+   */
+  @Input()
+  get typography(): string {
+    return this._typography;
+  }
+  set typography(value: string) {
+    this._typography = value || this.defaultOptions?.typography || DEFAULT_TYPOGRAPHY;
+  }
+
   /**
    * @internal
    * @ignore
@@ -138,7 +156,9 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
     @Optional()
     @Inject(ES_BREADCRUMBS_DEFAULT_OPTIONS)
     private defaultOptions: ESBreadcrumbsDefaultOptions
-  ) {}
+  ) {
+    this.typography = defaultOptions?.typography || DEFAULT_TYPOGRAPHY;
+  }
 
   /**
    * @internal
@@ -160,6 +180,19 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy {
    */
   public ngOnDestroy() {
     this.destroyed$.next();
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  ngAfterContentInit() {
+    if ((document as any).fonts?.ready) {
+      (document as any).fonts.ready.then(() => {
+        this.onResize();
+        this.changeDetector.detectChanges();
+      });
+    }
   }
 
   private getLabelWidth(text: string) {
