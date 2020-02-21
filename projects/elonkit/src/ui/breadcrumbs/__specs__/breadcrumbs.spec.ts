@@ -132,7 +132,7 @@ describe('Breadcrumbs', () => {
       const menu = component.getByLabelText('More');
       component.click(menu);
 
-      const options = overlayElement.querySelectorAll('a');
+      const options = overlayElement.querySelectorAll('.mat-menu-item');
       expect(options).toHaveLength(2);
 
       expect(overlayElement.textContent).toContain('Categories');

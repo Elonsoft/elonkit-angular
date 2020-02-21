@@ -86,6 +86,32 @@ We can override default locale which is used for aria-label on collapse button.
 
 <Props of={ESBreadcrumbsComponent} />
 
+## Interfaces
+
+```ts
+interface ESBreadcrumbData {
+  icon?: string;
+  svgIcon?: string;
+  label?: string;
+  breadcrumbs?: Array<{
+    path: string | number;
+    icon?: string;
+    svgIcon?: string;
+    label?: string;
+  }>;
+}
+```
+
+```ts
+interface ESBreadcrumbsDefaultOptionsSizes {
+  icon: number;
+  iconMargin: number;
+  separator: number;
+  menu: number;
+  collapse: number;
+}
+```
+
 ## Constants
 
 Injection token that can be used to configure the default options for all components within an app.
@@ -102,7 +128,7 @@ import { ES_BREADCRUMBS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/breadcrumbs
         sizes: {
           icon: 24,
           iconMargin: 4,
-          separator: 44,
+          separator: 32,
           menu: 20,
           collapse: 24
         }

@@ -4,11 +4,11 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 
-import { IBreadcrumb } from './breadcrumbs.types';
+import { ESBreadcrumb } from './breadcrumbs.types';
 
 @Injectable({ providedIn: 'root' })
 export class ESBreadcrumbsService implements OnDestroy {
-  breadcrumbs$ = new BehaviorSubject<IBreadcrumb[]>([]);
+  breadcrumbs$ = new BehaviorSubject<ESBreadcrumb[]>([]);
   destroyed$ = new Subject();
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {

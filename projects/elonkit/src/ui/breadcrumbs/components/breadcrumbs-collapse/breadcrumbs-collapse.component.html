@@ -27,6 +27,7 @@
           [routerLink]="[breadcrumb.parentPath, item.path]"
         >
           <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+          <mat-icon *ngIf="item.svgIcon" [svgIcon]="svgIcon">{{ item.svgIcon }}</mat-icon>
           {{ item.label }}
         </a>
       </mat-menu>

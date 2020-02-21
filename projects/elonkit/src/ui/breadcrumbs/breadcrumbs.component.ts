@@ -20,27 +20,29 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 
-import { IBreadcrumb } from './breadcrumbs.types';
+import { ESBreadcrumb } from './breadcrumbs.types';
 import { ESBreadcrumbsService } from './breadcrumbs.service';
 import { ESBreadcrumbsSeparatorDirective } from './breadcrumbs-separator.directive';
 
-export interface ESBreadcrumbsDefaultOptions {
-  typography?: string;
-  sizes?: {
-    icon: number;
-    iconMargin: number;
-    separator: number;
-    menu: number;
-    collapse: number;
-  };
+export interface ESBreadcrumbsDefaultOptionsSizes {
+  icon: number;
+  iconMargin: number;
+  separator: number;
+  menu: number;
+  collapse: number;
 }
 
-const DEFAULT_TYPOGRAPHY = 'mat-body-1';
+export interface ESBreadcrumbsDefaultOptions {
+  typography?: string;
+  sizes?: ESBreadcrumbsDefaultOptionsSizes;
+}
 
-const DEFAULT_SIZES = {
+export const ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY = 'mat-body-1';
+
+export const ES_BREADCRUMBS_DEFAULT_SIZES = {
   icon: 24,
   iconMargin: 4,
-  separator: 44,
+  separator: 40,
   menu: 20,
   collapse: 24
 };
@@ -60,14 +62,28 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   private _typography;
 
   /**
-   * Class applied to breadcrumb's labels.
+   * Class applied to breadcrumb labels.
    */
   @Input()
   get typography(): string {
     return this._typography;
   }
   set typography(value: string) {
-    this._typography = value || this.defaultOptions?.typography || DEFAULT_TYPOGRAPHY;
+    this._typography =
+      value || this.defaultOptions?.typography || ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY;
+  }
+
+  private _sizes;
+
+  /**
+   * Sizes of component elements which are used for collapse calculations.
+   */
+  @Input()
+  get sizes(): ESBreadcrumbsDefaultOptionsSizes {
+    return this._sizes;
+  }
+  set sizes(value: ESBreadcrumbsDefaultOptionsSizes) {
+    this._sizes = value || this.defaultOptions?.sizes || ES_BREADCRUMBS_DEFAULT_SIZES;
   }
 
   /**
@@ -95,7 +111,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   @HostListener('window:resize') onResize() {
     const element = this.elementNavigation.nativeElement;
     if (element && this.breadcrumbs.length > 2) {
-      const sizes = this.defaultOptions?.sizes || DEFAULT_SIZES;
+      const sizes = this.sizes;
 
       const widths = this.breadcrumbs.map(({ data: { label, icon, breadcrumbs } }) => {
         let result = 0;
@@ -143,7 +159,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * @internal
    * @ignore
    */
-  public breadcrumbs: IBreadcrumb[] = [];
+  public breadcrumbs: ESBreadcrumb[] = [];
 
   /**
    * @internal
@@ -155,7 +171,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * @internal
    * @ignore
    */
-  public collapseBreadcrumbs: IBreadcrumb[] = [];
+  public collapseBreadcrumbs: ESBreadcrumb[] = [];
 
   private destroyed$ = new Subject();
 
@@ -166,7 +182,8 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     @Inject(ES_BREADCRUMBS_DEFAULT_OPTIONS)
     private defaultOptions: ESBreadcrumbsDefaultOptions
   ) {
-    this.typography = defaultOptions?.typography || DEFAULT_TYPOGRAPHY;
+    this.typography = defaultOptions?.typography || ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY;
+    this.sizes = defaultOptions?.sizes || ES_BREADCRUMBS_DEFAULT_SIZES;
   }
 
   /**

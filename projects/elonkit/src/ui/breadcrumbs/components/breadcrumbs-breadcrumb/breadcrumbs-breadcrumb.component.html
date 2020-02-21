@@ -28,6 +28,7 @@
         [routerLink]="[breadcrumb.parentPath, item.path]"
       >
         <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+        <mat-icon *ngIf="item.svgIcon" [svgIcon]="svgIcon">{{ item.svgIcon }}</mat-icon>
         {{ item.label }}
       </a>
     </mat-menu>
@@ -37,6 +38,13 @@
 <ng-template #item>
   <mat-icon *ngIf="breadcrumb.data.icon" class="es-breadcrumbs-breadcrumb__icon">
     {{ breadcrumb.data.icon }}
+  </mat-icon>
+  <mat-icon
+    *ngIf="breadcrumb.data.svgIcon"
+    [svgIcon]="breadcrumb.data.svgIcon"
+    class="es-breadcrumbs-breadcrumb__icon"
+  >
+    {{ breadcrumb.data.svgIcon }}
   </mat-icon>
   <span *ngIf="breadcrumb.data.label" class="es-breadcrumbs-breadcrumb__label">
     {{ breadcrumb.data.label }}

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 
-import { IBreadcrumb } from '../../breadcrumbs.types';
+import { ESBreadcrumb } from '../../breadcrumbs.types';
 import { ESBreadcrumbsLocale } from '../../breadcrumbs.component.locale';
 
 @Component({
@@ -14,7 +14,7 @@ export class ESBreadcrumbsCollapseComponent {
   /**
    * @internal
    */
-  @Input() breadcrumbs: IBreadcrumb[];
+  @Input() breadcrumbs: ESBreadcrumb[];
 
   constructor(
     /**
