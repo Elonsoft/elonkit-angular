@@ -13,7 +13,10 @@
     </ng-container>
 
     <ng-container *ngIf="i === 1 && collapseIndexes.length">
-      <es-breadcrumbs-collapse [breadcrumbs]="collapseBreadcrumbs"></es-breadcrumbs-collapse>
+      <es-breadcrumbs-collapse
+        [breadcrumbs]="collapseBreadcrumbs"
+        [moreTemplate]="moreTemplate"
+      ></es-breadcrumbs-collapse>
       <ng-container *ngTemplateOutlet="separator"></ng-container>
     </ng-container>
   </ng-container>

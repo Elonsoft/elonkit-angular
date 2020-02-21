@@ -22,6 +22,7 @@ import {
   ItemsShowResolver,
   ItemsShowBreadcrumbsResolver
 } from './breadcrumbs.spec.resolver';
+import { NgZone } from '@angular/core';
 
 const setWidth = (
   component: RenderResult<BreadcrumbsRootComponent, BreadcrumbsRootComponent>,
@@ -67,32 +68,35 @@ describe('Breadcrumbs', () => {
       overlay.ngOnDestroy();
     }));
 
-    it('Should render hierarchy', inject([Location], async (location: Location) => {
-      setWidth(component, 1000);
+    it('Should render hierarchy', inject(
+      [NgZone, Location],
+      async (zone: NgZone, location: Location) => {
+        setWidth(component, 1000);
 
-      await component.navigate('/categories/1/1/edit');
-      await component.fixture.whenStable();
+        await component.navigate('/categories/1/1/edit');
+        await component.fixture.whenStable();
 
-      component.click(component.getByText('Item #1-1'));
-      await component.fixture.whenStable();
+        zone.run(() => component.click(component.getByText('Item #1-1')));
+        await component.fixture.whenStable();
 
-      expect(location.path()).toBe('/categories/1/1');
+        expect(location.path()).toBe('/categories/1/1');
 
-      component.click(component.getByText('Category #1'));
-      await component.fixture.whenStable();
+        zone.run(() => component.click(component.getByText('Category #1')));
+        await component.fixture.whenStable();
 
-      expect(location.path()).toBe('/categories/1');
+        expect(location.path()).toBe('/categories/1');
 
-      component.click(component.getByText('Categories'));
-      await component.fixture.whenStable();
+        zone.run(() => component.click(component.getByText('Categories')));
+        await component.fixture.whenStable();
 
-      expect(location.path()).toBe('/categories');
+        expect(location.path()).toBe('/categories');
 
-      component.click(component.getByLabelText('Home'));
-      await component.fixture.whenStable();
+        zone.run(() => component.click(component.getByLabelText('Home')));
+        await component.fixture.whenStable();
 
-      expect(location.path()).toBe('/');
-    }));
+        expect(location.path()).toBe('/');
+      }
+    ));
 
     it('Should have horizontal navigation', inject([Location], async (location: Location) => {
       setWidth(component, 1000);

@@ -1,7 +1,7 @@
 .es-breadcrumbs-collapse {
   background: transparent;
   border: 0;
-  border-radius: 2px;
+  border-radius: 4px;
   color: rgba(0, 0, 0, 0.54);
   cursor: pointer;
   display: block;
@@ -12,7 +12,7 @@
 
   &:hover,
   &:focus {
-    background-color: #eee;
+    background-color: rgba(0, 0, 0, 0.04);
     outline: 0;
   }
 }

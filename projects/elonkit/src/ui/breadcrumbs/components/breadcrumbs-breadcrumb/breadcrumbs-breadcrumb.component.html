@@ -4,6 +4,7 @@
     [routerLink]="[breadcrumb.path]"
     [attr.aria-label]="breadcrumb.data.ariaLabel"
     class="es-breadcrumbs-breadcrumb__link"
+    mat-ripple
   >
     <ng-container *ngTemplateOutlet="item"></ng-container>
   </a>

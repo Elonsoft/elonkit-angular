@@ -6,10 +6,10 @@
     "build": "compodoc -c ../.compodocrc.json && build-storybook -c ../storybook -s ../storybook/assets -o ../../../dist/elonkit-storybook"
   },
   "peerDependencies": {
-    "@angular/cdk": "~8.2.3",
-    "@angular/common": "^8.2.14",
-    "@angular/core": "^8.2.14",
-    "@angular/material": "~8.2.3",
+    "@angular/cdk": "^9.0.1",
+    "@angular/common": "^9.0.2",
+    "@angular/core": "^9.0.2",
+    "@angular/material": "^9.0.1",
     "angular2-text-mask": "^9.0.0",
     "text-mask-addons": "^3.8.0"
   }

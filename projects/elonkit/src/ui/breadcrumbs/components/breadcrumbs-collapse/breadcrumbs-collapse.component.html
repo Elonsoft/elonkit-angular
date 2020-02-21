@@ -5,9 +5,12 @@
   [attr.aria-label]="locale.labelMore"
   class="es-breadcrumbs-collapse"
 >
-  <mat-icon>
+  <mat-icon *ngIf="!moreTemplate">
     more_horiz
   </mat-icon>
+  <ng-container *ngIf="moreTemplate">
+    <ng-container *ngTemplateOutlet="moreTemplate"></ng-container>
+  </ng-container>
 </button>
 <mat-menu #menu="matMenu" yPosition="below">
   <ng-container *ngFor="let breadcrumb of breadcrumbs">

@@ -104,11 +104,12 @@ interface ESBreadcrumbData {
 
 ```ts
 interface ESBreadcrumbsDefaultOptionsSizes {
+  itemPadding: number;
   icon: number;
   iconMargin: number;
-  separator: number;
   menu: number;
-  collapse: number;
+  separator: number;
+  more: number;
 }
 ```
 
@@ -126,11 +127,12 @@ import { ES_BREADCRUMBS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/breadcrumbs
       useValue: {
         typography: 'mat-body-1',
         sizes: {
+          itemPadding: 8,
           icon: 24,
           iconMargin: 4,
-          separator: 32,
           menu: 20,
-          collapse: 24
+          separator: 40,
+          more: 24
         }
       }
     }

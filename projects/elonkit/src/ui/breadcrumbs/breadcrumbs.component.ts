@@ -22,14 +22,17 @@ import { takeUntil, delay } from 'rxjs/operators';
 
 import { ESBreadcrumb } from './breadcrumbs.types';
 import { ESBreadcrumbsService } from './breadcrumbs.service';
-import { ESBreadcrumbsSeparatorDirective } from './breadcrumbs-separator.directive';
+
+import { ESBreadcrumbsMoreDirective } from './directives/breadcrumbs-more.directive';
+import { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separator.directive';
 
 export interface ESBreadcrumbsDefaultOptionsSizes {
+  itemPadding: number;
   icon: number;
   iconMargin: number;
-  separator: number;
   menu: number;
-  collapse: number;
+  separator: number;
+  more: number;
 }
 
 export interface ESBreadcrumbsDefaultOptions {
@@ -40,11 +43,12 @@ export interface ESBreadcrumbsDefaultOptions {
 export const ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY = 'mat-body-1';
 
 export const ES_BREADCRUMBS_DEFAULT_SIZES = {
+  itemPadding: 8,
   icon: 24,
   iconMargin: 4,
-  separator: 40,
   menu: 20,
-  collapse: 24
+  separator: 40,
+  more: 24
 };
 
 export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDefaultOptions>(
@@ -89,6 +93,12 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   /**
    * @ignore
    */
+  @ContentChild(ESBreadcrumbsMoreDirective, { read: TemplateRef, static: false })
+  public moreTemplate: any;
+
+  /**
+   * @ignore
+   */
   @ContentChild(ESBreadcrumbsSeparatorDirective, { read: TemplateRef, static: false })
   public separatorTemplate: any;
 
@@ -114,7 +124,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
       const sizes = this.sizes;
 
       const widths = this.breadcrumbs.map(({ data: { label, icon, breadcrumbs } }) => {
-        let result = 0;
+        let result = sizes.itemPadding;
         if (label) {
           result += this.getLabelWidth(label);
         }
@@ -139,7 +149,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
 
       for (let i = 1; i < widths.length - 1 && scrollWidth > clientWidth; i++) {
         if (!collapseIndexes.length) {
-          scrollWidth += sizes.collapse + sizes.separator;
+          scrollWidth += sizes.more + sizes.separator;
         }
 
         collapseIndexes.push(i);
@@ -216,7 +226,12 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     if ((document as any).fonts?.ready) {
       (document as any).fonts.ready.then(() => {
         this.onResize();
-        this.changeDetector.detectChanges();
+
+        // Tests in CI fail without this check.
+        // tslint:disable-next-line
+        if (!this.changeDetector['destroyed']) {
+          this.changeDetector.detectChanges();
+        }
       });
     }
   }
