@@ -1,14 +1,14 @@
+import { Component } from '@angular/core';
+import { inject, fakeAsync, tick } from '@angular/core/testing';
+
 import { FormsModule } from '@angular/forms';
+
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { render, RenderResult } from '@testing-library/angular';
 
-import { inject, fakeAsync, tick } from '@angular/core/testing';
-import { OverlayContainer } from '@angular/cdk/overlay';
-
-import { AutocompleteModule } from './autocomplete.module';
-import { AutocompleteComponent } from './autocomplete.component';
-import { Component } from '@angular/core';
+import { AutocompleteModule, AutocompleteComponent } from '..';
 
 @Component({
   template: `
