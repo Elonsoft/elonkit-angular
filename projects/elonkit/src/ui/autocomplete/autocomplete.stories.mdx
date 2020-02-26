@@ -21,10 +21,6 @@ import { AutocompleteStoryCustomModule } from './__stories__/autocomplete-story-
 import { AutocompleteStoryCustomComponent } from './__stories__/autocomplete-story-custom/autocomplete-story-custom.component';
 import { AUTOCOMPLETE_STORY_CUSTOM_SOURCE } from './__stories__/autocomplete-story-custom/autocomplete-story-custom.source';
 
-import { AutocompleteStoryNgModelModule } from './__stories__/autocomplete-story-ng-model/autocomplete-story-ng-model.module';
-import { AutocompleteStoryNgModelComponent } from './__stories__/autocomplete-story-ng-model/autocomplete-story-ng-model.component';
-import { AUTOCOMPLETE_STORY_NG_MODEL_SOURCE } from './__stories__/autocomplete-story-ng-model/autocomplete-story-ng-model.source';
-
 <Meta title='UI/Autocomplete' decorators={[withA11y, withKnobs]} />
 
 # Autocomplete
@@ -71,19 +67,6 @@ This is a story with custom options:
       template: `<es-autocomplete-story-custom></es-autocomplete-story-custom>`,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, AutocompleteStoryCustomModule]
-      }
-    }}
-  </Story>
-</Preview>
-
-This is a story with ngModel:
-
-<Preview source={AUTOCOMPLETE_STORY_NG_MODEL_SOURCE}>
-  <Story name='ngModel' height='260px'>
-    {{
-      template: `<es-autocomplete-story-ng-model></es-autocomplete-story-ng-model>`,
-      moduleMetadata: {
-        imports: [BrowserAnimationsModule, AutocompleteStoryNgModelModule]
       }
     }}
   </Story>

@@ -3,14 +3,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   ViewEncapsulation,
+  OnInit,
   OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
   HostBinding,
   Optional,
   Self,
-  Input,
-  EventEmitter,
-  Output,
-  OnInit,
   ViewChild,
   ContentChild,
   TemplateRef,
@@ -23,12 +23,12 @@ import { NgControl, ControlValueAccessor, FormGroupDirective } from '@angular/fo
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { Subject, timer } from 'rxjs';
-import { debounce } from 'rxjs/operators';
+import { debounce, takeUntil } from 'rxjs/operators';
 
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { MatAutocompleteTrigger, MatAutocompleteOrigin } from '@angular/material/autocomplete';
 
-import { AutocompleteOptionDirective } from '../autocomplete/autocomplete-option.directive';
+import { AutocompleteOptionDirective } from './autocomplete-option.directive';
 
 export const ES_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<EsAutocompleteDefaultOptions>(
   'ES_AUTOCOMPLETE_DEFAULT_OPTIONS'
@@ -48,7 +48,7 @@ export interface EsAutocompleteDefaultOptions {
   providers: [{ provide: MatFormFieldControl, useExisting: AutocompleteComponent }]
 })
 export class AutocompleteComponent
-  implements MatFormFieldControl<string>, ControlValueAccessor, OnDestroy, OnInit {
+  implements MatFormFieldControl<string>, ControlValueAccessor, OnInit, OnDestroy {
   /**
    * @ignore
    */
@@ -65,20 +65,20 @@ export class AutocompleteComponent
   public origin: MatAutocompleteOrigin;
 
   /**
-   * Array of options
+   * Array of options to display.
    */
   @Input() public options: any[];
 
   /**
    * @ignore
    */
-  @Input() public isLoading = false;
+  @Input() public loading = false;
 
   /**
-   * Function that maps an option control value to its display value in the trigger
+   * Function that maps an option control value to its display value in the trigger.
    */
-  @Input() public displayWith = (value?: any): string | undefined => {
-    return value ? value : undefined;
+  @Input() public displayWith = (value?: any): string => {
+    return value;
   };
 
   /**
@@ -99,10 +99,7 @@ export class AutocompleteComponent
     return this._debounceTime;
   }
   public set debounceTime(value: number) {
-    this._debounceTime =
-      value ||
-      (this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.debounceTime) ||
-      0;
+    this._debounceTime = value ?? (this.autocompleteDefaultOptions?.debounceTime || 0);
   }
 
   // tslint:disable-next-line variable-name
@@ -116,12 +113,7 @@ export class AutocompleteComponent
     return this._freeInput;
   }
   public set freeInput(value: boolean) {
-    this._freeInput =
-      value !== undefined
-        ? value
-        : this.autocompleteDefaultOptions && this.autocompleteDefaultOptions.freeInput
-        ? this.autocompleteDefaultOptions.freeInput
-        : false;
+    this._freeInput = value ?? (this.autocompleteDefaultOptions?.freeInput || false);
   }
 
   // tslint:disable-next-line variable-name
@@ -202,7 +194,7 @@ export class AutocompleteComponent
     const form = this.ngForm;
 
     if (control) {
-      return control.invalid && (control.touched || (form && form.submitted));
+      return control.invalid && (control.touched || form?.submitted);
     }
 
     return false;
@@ -223,12 +215,17 @@ export class AutocompleteComponent
   public optionTemplate: any;
 
   private static nextId = 0;
+
   @HostBinding() public id = `es-autocomplete-${AutocompleteComponent.nextId++}`;
+
   @HostBinding('attr.aria-describedby') public describedBy = '';
+
   @HostBinding('class.floating')
   public get shouldLabelFloat(): boolean {
     return this.focused || !!this.text;
   }
+
+  private destroyed$ = new Subject();
 
   /**
    * @ignore
@@ -246,14 +243,8 @@ export class AutocompleteComponent
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
     }
-    this.debounceTime =
-      autocompleteDefaultOptions && autocompleteDefaultOptions.debounceTime
-        ? autocompleteDefaultOptions.debounceTime
-        : 0;
-    this.freeInput =
-      autocompleteDefaultOptions && autocompleteDefaultOptions.freeInput
-        ? autocompleteDefaultOptions.freeInput
-        : false;
+    this.debounceTime = autocompleteDefaultOptions?.debounceTime || 0;
+    this.freeInput = !!autocompleteDefaultOptions?.freeInput;
 
     this.stateChanges.subscribe(() => {
       this.changeDetector.detectChanges();
@@ -270,17 +261,22 @@ export class AutocompleteComponent
       };
     }
 
-    this.text$.pipe(debounce(() => timer(this.debounceTime))).subscribe(text => {
-      this.changeText.emit(text);
-    });
+    this.text$
+      .pipe(
+        takeUntil(this.destroyed$),
+        debounce(() => timer(this.debounceTime))
+      )
+      .subscribe(text => {
+        this.changeText.emit(text);
+      });
   }
 
   /**
    * @ignore
    */
   public ngOnDestroy() {
+    this.destroyed$.next();
     this.stateChanges.complete();
-    this.changeText.complete();
   }
 
   /**

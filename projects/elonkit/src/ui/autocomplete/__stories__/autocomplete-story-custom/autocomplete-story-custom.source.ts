@@ -7,13 +7,14 @@ export const AUTOCOMPLETE_STORY_CUSTOM_SOURCE = {
           formControlName="autocomplete"
           [options]="options"
           [valueFn]="valueFn"
-          (changeText)="onChangeText($event)">
+          (changeText)="onChangeText($event)"
+        >
           <ng-container *esAutocompleteOption="let option">
-            <img class="es-autocomplete-story-custom__option-img" [src]="option.photo" />
+            <img class="es-autocomplete-story-custom__image" [src]="option.photo" />
             {{ option.name }}
             <b>{{ option.id }}</b>
           </ng-container>
-      </es-autocomplete>
+        </es-autocomplete>
       </mat-form-field>
     </form>`,
   ts: `
@@ -59,7 +60,7 @@ export const AUTOCOMPLETE_STORY_CUSTOM_SOURCE = {
     `,
   scss: `
   .es-autocomplete-story-custom {
-    &__option-img {
+    &__image {
       height: 25px;
       margin-right: 8px;
       vertical-align: middle;

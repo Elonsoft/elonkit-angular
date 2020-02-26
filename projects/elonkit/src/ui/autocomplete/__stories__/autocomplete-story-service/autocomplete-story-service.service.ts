@@ -8,7 +8,7 @@ import { GetFilterOptions } from '../../filter-options';
 const OPTIONS = ['Red', 'White', 'Green'];
 
 @Injectable()
-export class AutocompleteService {
+export class AutocompleteStoryServiceService {
   public getOptions(text?: string): Observable<any> {
     const options = GetFilterOptions(text, OPTIONS);
     return of({

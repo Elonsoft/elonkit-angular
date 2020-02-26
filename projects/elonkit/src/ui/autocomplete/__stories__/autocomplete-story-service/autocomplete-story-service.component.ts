@@ -6,7 +6,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AutocompleteService } from '../autocomplete-story-service/autocomplete.service';
+import { AutocompleteStoryServiceService } from './autocomplete-story-service.service';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -28,7 +28,7 @@ export class AutocompleteStoryServiceComponent implements OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private autocompleteService: AutocompleteService,
+    private autocompleteService: AutocompleteStoryServiceService,
     private changeDetector: ChangeDetectorRef
   ) {
     this.form = this.formBuilder.group({

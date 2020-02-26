@@ -15,7 +15,7 @@
   [displayWith]="displayWith"
   (optionSelected)="onSuggestionSelect($event.option.value)"
 >
-  <ng-container *ngIf="!isLoading">
+  <ng-container *ngIf="!loading">
     <ng-container *ngFor="let option of options">
       <mat-option [value]="valueFn(option)" data-testid="mat-option">
         <ng-container *ngIf="!optionTemplate">{{ option }}</ng-container>
@@ -27,7 +27,7 @@
       </mat-option>
     </ng-container>
   </ng-container>
-  <mat-option *ngIf="isLoading">
+  <mat-option *ngIf="loading">
     <mat-spinner [diameter]="24"></mat-spinner>
   </mat-option>
 </mat-autocomplete>
