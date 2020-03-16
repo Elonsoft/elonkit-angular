@@ -16,6 +16,11 @@
 
   &__separator {
     color: rgba(0, 0, 0, 0.38);
+    display: inline-block;
+    fill: currentColor;
+    height: 24px;
+    margin: 0 -4px;
+    width: 24px;
   }
 
   &__width {

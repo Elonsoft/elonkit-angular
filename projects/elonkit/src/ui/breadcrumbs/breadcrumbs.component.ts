@@ -40,14 +40,14 @@ export interface ESBreadcrumbsDefaultOptions {
   sizes?: ESBreadcrumbsDefaultOptionsSizes;
 }
 
-export const ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY = 'mat-body-1';
+export const ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY = 'mat-caption';
 
 export const ES_BREADCRUMBS_DEFAULT_SIZES = {
   itemPadding: 8,
   icon: 24,
   iconMargin: 4,
   menu: 20,
-  separator: 40,
+  separator: 16,
   more: 24
 };
 

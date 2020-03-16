@@ -15,4 +15,10 @@
     background-color: rgba(0, 0, 0, 0.04);
     outline: 0;
   }
+
+  &__more {
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+  }
 }

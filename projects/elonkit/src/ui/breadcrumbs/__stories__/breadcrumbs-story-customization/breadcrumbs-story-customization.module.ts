@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 
 import { RouterTestingModule } from '@angular/router/testing';
@@ -35,7 +34,7 @@ const ROUTES = [
   {
     path: '',
     data: {
-      breadcrumb: { svgIcon: 'home', ariaLabel: 'Home' }
+      breadcrumb: { icon: 'home', ariaLabel: 'Home' }
     },
     resolve: {
       breadcrumb: ESBreadcrumbsResolver
@@ -122,7 +121,6 @@ const ROUTES = [
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     MatIconModule,
     ESBreadcrumbsModule,
     RouterTestingModule.withRoutes(ROUTES)

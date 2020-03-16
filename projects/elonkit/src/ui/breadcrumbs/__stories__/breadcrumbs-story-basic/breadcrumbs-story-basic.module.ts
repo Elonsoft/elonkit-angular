@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -29,7 +30,7 @@ const ROUTES = [
   {
     path: '',
     data: {
-      breadcrumb: { icon: 'home', ariaLabel: 'Home' }
+      breadcrumb: { svgIcon: 'home', ariaLabel: 'Home' }
     },
     resolve: {
       breadcrumb: ESBreadcrumbsResolver
@@ -114,7 +115,12 @@ const ROUTES = [
     BreadcrumbsStoryBasicItemsShowComponent,
     BreadcrumbsStoryBasicItemsEditComponent
   ],
-  imports: [CommonModule, ESBreadcrumbsModule, RouterTestingModule.withRoutes(ROUTES)],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    ESBreadcrumbsModule,
+    RouterTestingModule.withRoutes(ROUTES)
+  ],
   exports: [BreadcrumbsStoryBasicComponent],
   providers: [
     CategoriesService,

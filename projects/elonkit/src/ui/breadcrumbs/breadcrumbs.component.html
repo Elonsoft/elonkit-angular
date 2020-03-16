@@ -24,9 +24,17 @@
 
 <ng-template #separator>
   <ng-container *ngIf="!separatorTemplate">
-    <mat-icon class="es-breadcrumbs__separator">
-      chevron_right
-    </mat-icon>
+    <div class="es-breadcrumbs__separator">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M10 8L14 12L10 16" stroke="black" stroke-opacity="0.38" stroke-width="1.5" />
+      </svg>
+    </div>
   </ng-container>
   <ng-container *ngIf="separatorTemplate">
     <ng-container *ngTemplateOutlet="separatorTemplate"></ng-container>
