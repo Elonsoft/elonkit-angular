@@ -88,7 +88,6 @@ export class AutocompleteComponent
     return option;
   };
 
-  // tslint:disable-next-line variable-name
   private _debounceTime: number;
 
   /**
@@ -102,7 +101,6 @@ export class AutocompleteComponent
     this._debounceTime = value ?? (this.autocompleteDefaultOptions?.debounceTime || 0);
   }
 
-  // tslint:disable-next-line variable-name
   private _freeInput: boolean;
 
   /**
@@ -116,7 +114,6 @@ export class AutocompleteComponent
     this._freeInput = value ?? (this.autocompleteDefaultOptions?.freeInput || false);
   }
 
-  // tslint:disable-next-line variable-name
   private _value = '';
 
   public get value(): any {
@@ -128,14 +125,13 @@ export class AutocompleteComponent
     this.stateChanges.next();
   }
 
-  // tslint:disable-next-line variable-name
   private _focused = false;
 
   public get focused() {
     return this._focused;
   }
-  public set focused(focused: boolean) {
-    this._focused = focused;
+  public set focused(value: boolean) {
+    this._focused = value;
     this.stateChanges.next();
   }
 
@@ -143,7 +139,6 @@ export class AutocompleteComponent
     return !this.value;
   }
 
-  // tslint:disable-next-line variable-name
   private _required = false;
 
   /**
@@ -153,12 +148,11 @@ export class AutocompleteComponent
   public get required() {
     return this._required;
   }
-  public set required(req) {
-    this._required = coerceBooleanProperty(req);
+  public set required(value) {
+    this._required = coerceBooleanProperty(value);
     this.stateChanges.next();
   }
 
-  // tslint:disable-next-line variable-name
   private _disabled = false;
 
   /**
@@ -168,12 +162,11 @@ export class AutocompleteComponent
   public get disabled(): boolean {
     return this._disabled;
   }
-  public set disabled(dis: boolean) {
-    this._disabled = coerceBooleanProperty(dis);
+  public set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
     this.stateChanges.next();
   }
 
-  // tslint:disable-next-line variable-name
   private _placeholder = '';
 
   /**
@@ -184,8 +177,8 @@ export class AutocompleteComponent
     return this._placeholder;
   }
 
-  public set placeholder(plh) {
-    this._placeholder = plh;
+  public set placeholder(value: string) {
+    this._placeholder = value;
     this.stateChanges.next();
   }
 
@@ -311,7 +304,7 @@ export class AutocompleteComponent
   public writeValue(value: any) {
     if (value !== undefined) {
       this.value = value;
-      this.text = this.value;
+      this.text = this.displayWith(this.value);
       this.stateChanges.next();
     }
   }
@@ -367,7 +360,7 @@ export class AutocompleteComponent
     this.focused = false;
 
     if (!this.freeInput) {
-      this.text = this.value;
+      this.text = this.displayWith(this.value);
     }
 
     // this.changeText.emit(this.text);
@@ -380,6 +373,8 @@ export class AutocompleteComponent
   public onSuggestionSelect(event: Event) {
     this.value = event;
     this.onChange(this.value);
+    this.text = this.displayWith(this.value);
+
     this.stateChanges.next();
   }
 }
