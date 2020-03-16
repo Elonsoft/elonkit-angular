@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <mat-form-field appearance="outline" class="es-autocomplete-story-service">
+    <mat-label>Color</mat-label>
+    <es-autocomplete
+      formControlName="autocomplete"
+      [options]="options"
+      [loading]="isLoading"
+      [debounceTime]="500"
+      (changeText)="onChangeText($event)"
+    >
+    </es-autocomplete>
+  </mat-form-field>
+</form>

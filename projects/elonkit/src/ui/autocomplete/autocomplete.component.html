@@ -1,0 +1,33 @@
+<input
+  matInput
+  #inputChild
+  [matAutocomplete]="auto"
+  [matAutocompleteConnectedTo]="origin"
+  [value]="text"
+  [disabled]="disabled"
+  (input)="onInput($event)"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  data-testid="input"
+/>
+<mat-autocomplete
+  #auto="matAutocomplete"
+  [displayWith]="displayWith"
+  (optionSelected)="onSuggestionSelect($event.option.value)"
+>
+  <ng-container *ngIf="!loading">
+    <ng-container *ngFor="let option of options">
+      <mat-option [value]="valueFn(option)" data-testid="mat-option">
+        <ng-container *ngIf="!optionTemplate">{{ option }}</ng-container>
+        <ng-container *ngIf="optionTemplate">
+          <ng-container
+            *ngTemplateOutlet="optionTemplate; context: { $implicit: option }"
+          ></ng-container>
+        </ng-container>
+      </mat-option>
+    </ng-container>
+  </ng-container>
+  <mat-option *ngIf="loading">
+    <mat-spinner [diameter]="24"></mat-spinner>
+  </mat-option>
+</mat-autocomplete>

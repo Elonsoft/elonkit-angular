@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+  <mat-form-field appearance="outline" class="es-autocomplete-story-custom">
+    <mat-label>Friend</mat-label>
+    <es-autocomplete
+      formControlName="autocomplete"
+      [options]="options"
+      [valueFn]="valueFn"
+      (changeText)="onChangeText($event)"
+    >
+      <ng-container *esAutocompleteOption="let option">
+        <img class="es-autocomplete-story-custom__option-img" [src]="option.photo" />
+        {{ option.name }}
+        <b>{{ option.id }}</b>
+      </ng-container>
+    </es-autocomplete>
+  </mat-form-field>
+</form>
