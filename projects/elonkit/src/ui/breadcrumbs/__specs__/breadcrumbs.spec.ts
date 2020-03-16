@@ -122,7 +122,7 @@ describe('Breadcrumbs', () => {
     }));
 
     it('Should collapse', inject([Location], async (location: Location) => {
-      setWidth(component, 200);
+      setWidth(component, 150);
 
       await component.navigate('/categories/1/1/edit');
       await component.fixture.whenStable();
@@ -172,7 +172,7 @@ describe('Breadcrumbs', () => {
     });
 
     it('Should change collapse locale', async () => {
-      setWidth(component, 200);
+      setWidth(component, 150);
 
       await component.navigate('/categories/1/1/edit');
       await component.fixture.whenStable();
