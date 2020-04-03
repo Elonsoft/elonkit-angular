@@ -3,16 +3,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   ViewEncapsulation,
-  Input
+  Input,
+  forwardRef
 } from '@angular/core';
 
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-interface IValue {
-  name: string;
-  file: File;
-  preview?: string;
-}
+import { IValue } from './file-uploader.types';
 
 const toImage = (file: File) =>
   new Promise<string>((resolve, reject) => {
@@ -27,9 +25,16 @@ const toImage = (file: File) =>
   templateUrl: './file-uploader.component.html',
   styleUrls: ['./file-uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ESFileUploaderComponent),
+      multi: true
+    }
+  ]
 })
-export class ESFileUploaderComponent {
+export class ESFileUploaderComponent implements ControlValueAccessor {
   @Input() variant: 'list' | 'grid' = 'list';
 
   private _multiple = false;
@@ -58,7 +63,7 @@ export class ESFileUploaderComponent {
 
   constructor(public changeDetector: ChangeDetectorRef) {}
 
-  public async onChange(files: FileList) {
+  public async onSelect(files: FileList) {
     const newValue: IValue[] = [];
     for (const file of Array.from(files)) {
       if (this.isFileAcceptable(file)) {
@@ -77,12 +82,51 @@ export class ESFileUploaderComponent {
       this.value = newValue;
     }
 
+    this.onChange(this.value);
+    this.onTouched();
     this.changeDetector.detectChanges();
   }
 
   public onRemove(index) {
     this.value.splice(index, 1);
+    this.onChange(this.value);
+    this.onTouched();
   }
+
+  public writeValue(value: IValue[]) {
+    if (value !== undefined) {
+      this.value = value;
+      this.changeDetector.detectChanges();
+    }
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public registerOnChange(onChange: (value: IValue[]) => void) {
+    this.onChange = onChange;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public onChange = (_: IValue[]) => {};
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public registerOnTouched(onTouched: () => void) {
+    this.onTouched = onTouched;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public onTouched = () => {};
 
   private isFileAcceptable(file: File) {
     const types = this.accept.split(',').map(e => e.trim());

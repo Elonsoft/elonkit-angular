@@ -2,7 +2,7 @@
   class="es-file-uploader__dropzone"
   [multiple]="multiple"
   [accept]="accept"
-  (selected)="onChange($event)"
+  (selected)="onSelect($event)"
 ></es-file-uploader-dropzone>
 
 <ul class="es-file-uploader__items es-file-uploader__items_{{ variant }}">
@@ -12,6 +12,7 @@
   >
     <div
       class="es-file-uploader__preview es-file-uploader__preview_{{ variant }}"
+      [ngClass]="{ 'es-file-uploader__preview_image': !!item.preview }"
       [style.background-image]="item.preview ? 'url(' + item.preview + ')' : null"
     >
       <mat-icon *ngIf="!item.preview">insert_drive_file</mat-icon>

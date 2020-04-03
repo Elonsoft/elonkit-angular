@@ -37,9 +37,13 @@
     width: 160px;
 
     &_list {
-      height: 32px;
+      height: 64px;
       margin-right: 8px;
-      width: 32px;
+      width: 64px;
+    }
+
+    &_image {
+      background-color: transparent;
     }
   }
 
@@ -55,10 +59,11 @@
 
   &__remove {
     &_grid {
-      left: 50%;
+      background-color: rgba(0, 0, 0, 0.38);
+      color: #fff;
       position: absolute !important;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
+      right: 8px;
+      top: 8px;
     }
   }
 }
