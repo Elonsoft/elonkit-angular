@@ -1,0 +1,57 @@
+.es-file-uploader {
+  &__items {
+    display: grid;
+    gap: 16px;
+    padding: 0;
+
+    &_list {
+      grid-template-columns: 1;
+    }
+
+    &_grid {
+      grid-template-columns: repeat(auto-fill, 160px);
+    }
+  }
+
+  &__item {
+    align-items: center;
+    display: flex;
+    position: relative;
+  }
+
+  &__preview {
+    align-items: center;
+    background-color: #eee;
+    background-position: center;
+    background-size: cover;
+    border-radius: 6px;
+    display: flex;
+    flex-shrink: 0;
+    height: 160px;
+    justify-content: center;
+    width: 160px;
+
+    &_list {
+      margin-right: 8px;
+    }
+  }
+
+  &__name {
+    &_list {
+      margin-right: 8px;
+    }
+
+    &_grid {
+      display: none;
+    }
+  }
+
+  &__remove {
+    &_grid {
+      left: 50%;
+      position: absolute !important;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+}

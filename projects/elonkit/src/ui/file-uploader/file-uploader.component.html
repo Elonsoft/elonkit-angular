@@ -1,0 +1,28 @@
+<input #input type="file" [multiple]="multiple" [accept]="accept" (change)="onChange($event)" />
+<ul class="es-file-uploader__items es-file-uploader__items_{{ variant }}">
+  <li
+    *ngFor="let item of value; let i = index"
+    class="es-file-uploader__item es-file-uploader__item_{{ variant }}"
+  >
+    <div
+      class="es-file-uploader__preview es-file-uploader__preview_{{ variant }}"
+      [style.background-image]="item.preview ? 'url(' + item.preview + ')' : null"
+    >
+      <mat-icon *ngIf="!item.preview">insert_drive_file</mat-icon>
+    </div>
+    <div class="es-file-uploader__name es-file-uploader__name_{{ variant }}">{{ item.name }}</div>
+    <button
+      mat-icon-button
+      class="es-file-uploader__remove"
+      [ngClass]="{
+        'es-file-uploader__remove_list': variant === 'list',
+        'es-file-uploader__remove_grid': variant === 'grid'
+      }"
+      (click)="onRemove(i)"
+    >
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
+  </li>
+</ul>

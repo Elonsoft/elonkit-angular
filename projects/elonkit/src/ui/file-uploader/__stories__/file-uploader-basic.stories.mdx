@@ -1,0 +1,44 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text, boolean, select } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESFileUploaderModule, ESFileUploaderComponent } from '..';
+
+<Meta title='UI/File Uploader' decorators={[withA11y, withKnobs]} />
+
+# File Uploader
+
+-
+
+## Demos
+
+This is a basic story:
+
+<Preview source={COUNTER_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='170px'>
+    {{
+      template: `
+        <es-file-uploader [variant]="variant" [multiple]="multiple" [required]="required" [accept]="accept">
+        </es-file-uploader>
+      `,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESFileUploaderModule]
+      },
+      props: {
+        variant: select('variant', ['list', 'grid'], 'list'),
+        multiple: boolean('multiple', true),
+        required: boolean('required', true),
+        accept: text('accept', 'image/*')
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESFileUploaderComponent} />
