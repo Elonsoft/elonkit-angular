@@ -61,11 +61,13 @@ export class ESFileUploaderComponent {
   public async onChange(files: FileList) {
     const newValue: IValue[] = [];
     for (const file of Array.from(files)) {
-      if (file.type.startsWith('image')) {
-        const preview = await toImage(file);
-        newValue.push({ name: file.name, file, preview });
-      } else {
-        newValue.push({ name: file.name, file });
+      if (this.isFileAcceptable(file)) {
+        if (file.type.startsWith('image')) {
+          const preview = await toImage(file);
+          newValue.push({ name: file.name, file, preview });
+        } else {
+          newValue.push({ name: file.name, file });
+        }
       }
     }
 
@@ -80,5 +82,29 @@ export class ESFileUploaderComponent {
 
   public onRemove(index) {
     this.value.splice(index, 1);
+  }
+
+  private isFileAcceptable(file: File) {
+    const types = this.accept.split(',').map(e => e.trim());
+
+    if (types.includes('*')) {
+      return true;
+    }
+
+    for (const type of types) {
+      if (type.charAt(0) === '.' && file.name.toLowerCase().endsWith(type)) {
+        return true;
+      }
+
+      if (type.endsWith('/*') && file.type.startsWith(type.replace(/\/.*$/, ''))) {
+        return true;
+      }
+
+      if (file.type === type) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

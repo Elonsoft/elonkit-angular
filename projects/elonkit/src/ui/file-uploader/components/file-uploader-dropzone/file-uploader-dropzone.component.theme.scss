@@ -1,9 +1,9 @@
 @mixin es-file-uploader-dropzone-theme($theme) {
-  $primary: mat-color(map-get($theme, primary));
+  $accent: mat-color(map-get($theme, accent));
 
   .es-file-uploader-dropzone {
     &__title {
-      color: $primary;
+      color: $accent;
     }
   }
 }
