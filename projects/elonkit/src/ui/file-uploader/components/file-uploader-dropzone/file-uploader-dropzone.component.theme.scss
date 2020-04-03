@@ -1,0 +1,9 @@
+@mixin es-file-uploader-dropzone-theme($theme) {
+  $primary: mat-color(map-get($theme, primary));
+
+  .es-file-uploader-dropzone {
+    &__title {
+      color: $primary;
+    }
+  }
+}

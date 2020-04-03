@@ -5,9 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ESFileUploaderComponent } from './file-uploader.component';
+import { ESFileUploaderDropzoneComponent } from './components/file-uploader-dropzone';
 
 @NgModule({
-  declarations: [ESFileUploaderComponent],
+  declarations: [ESFileUploaderComponent, ESFileUploaderDropzoneComponent],
   imports: [CommonModule, MatButtonModule, MatIconModule],
   exports: [ESFileUploaderComponent]
 })

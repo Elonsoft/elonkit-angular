@@ -1,0 +1,22 @@
+<label
+  class="es-file-uploader-dropzone"
+  (dragover)="onDragOver($event)"
+  (dragenter)="onDragEnter($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+>
+  <div class="mat-body-1 es-file-uploader-dropzone__title">
+    <mat-icon class="es-file-uploader-dropzone__icon">cloud_upload</mat-icon>
+    {{ title | uppercase }}
+  </div>
+  <div class="mat-caption es-file-uploader-dropzone__subtitle">{{ subtitle }}</div>
+
+  <input
+    class="es-file-uploader-dropzone__input"
+    #input
+    type="file"
+    [multiple]="multiple"
+    [accept]="accept"
+    (change)="onChange($event)"
+  />
+</label>

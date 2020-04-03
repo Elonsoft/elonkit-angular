@@ -1,4 +1,10 @@
-<input #input type="file" [multiple]="multiple" [accept]="accept" (change)="onChange($event)" />
+<es-file-uploader-dropzone
+  class="es-file-uploader__dropzone"
+  [multiple]="multiple"
+  [accept]="accept"
+  (selected)="onChange($event)"
+></es-file-uploader-dropzone>
+
 <ul class="es-file-uploader__items es-file-uploader__items_{{ variant }}">
   <li
     *ngFor="let item of value; let i = index"

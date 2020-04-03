@@ -1,0 +1,35 @@
+.es-file-uploader-dropzone {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 1px dashed rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  padding: 24px;
+  position: relative;
+
+  &__title {
+    align-items: center;
+    display: flex;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  &__icon {
+    margin-right: 8px;
+  }
+
+  &__subtitle {
+    color: rgba(0, 0, 0, 0.38);
+  }
+
+  &__input {
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+  }
+}

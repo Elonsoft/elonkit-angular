@@ -1,4 +1,9 @@
 .es-file-uploader {
+  &__dropzone {
+    display: block;
+    margin-bottom: 24px;
+  }
+
   &__items {
     display: grid;
     gap: 16px;
@@ -32,7 +37,9 @@
     width: 160px;
 
     &_list {
+      height: 32px;
       margin-right: 8px;
+      width: 32px;
     }
   }
 

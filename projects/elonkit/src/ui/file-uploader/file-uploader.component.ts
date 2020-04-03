@@ -3,9 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   ViewEncapsulation,
-  Input,
-  ViewChild,
-  ElementRef
+  Input
 } from '@angular/core';
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -56,17 +54,13 @@ export class ESFileUploaderComponent {
 
   @Input() accept = '*';
 
-  @ViewChild('input', { static: true }) private input: ElementRef<HTMLInputElement>;
-
   value: IValue[] = [];
 
   constructor(public changeDetector: ChangeDetectorRef) {}
 
-  public async onChange(event: Event) {
-    const target = event.target as HTMLInputElement;
-
+  public async onChange(files: FileList) {
     const newValue: IValue[] = [];
-    for (const file of Array.from(target.files)) {
+    for (const file of Array.from(files)) {
       if (file.type.startsWith('image')) {
         const preview = await toImage(file);
         newValue.push({ name: file.name, file, preview });
@@ -82,8 +76,6 @@ export class ESFileUploaderComponent {
     }
 
     this.changeDetector.detectChanges();
-
-    this.input.nativeElement.value = '';
   }
 
   public onRemove(index) {

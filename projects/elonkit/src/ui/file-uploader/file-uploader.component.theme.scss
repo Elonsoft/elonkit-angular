@@ -1,0 +1,5 @@
+@import './components/file-uploader-dropzone/file-uploader-dropzone.component.theme';
+
+@mixin es-file-uploader-theme($theme) {
+  @include es-file-uploader-dropzone-theme($theme);
+}
