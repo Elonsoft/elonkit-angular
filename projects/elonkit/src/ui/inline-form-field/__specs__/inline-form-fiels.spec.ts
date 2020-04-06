@@ -152,15 +152,18 @@ describe('InlineFormField', () => {
 
     const component = await render(ESInlineFormFieldComponent, {
       componentProperties: {
-        edit: {
-          emit: onEdit
-        } as any,
-        save: {
-          emit: onSave
-        } as any,
-        cancel: {
-          emit: onCancel
-        } as any
+        edit:
+          {
+            emit: onEdit
+          } as any,
+        save:
+          {
+            emit: onSave
+          } as any,
+        cancel:
+          {
+            emit: onCancel
+          } as any
       },
       imports: [ESInlineFormFieldModule],
       excludeComponentDeclaration: true
@@ -219,9 +222,10 @@ describe('InlineFormField', () => {
       imports: [FormsModule, MatFormFieldModule, MatInputModule, ESInlineFormFieldModule],
       componentProperties: {
         manualSave: true,
-        save: {
-          emit: onSave
-        } as any
+        save:
+          {
+            emit: onSave
+          } as any
       }
     });
 

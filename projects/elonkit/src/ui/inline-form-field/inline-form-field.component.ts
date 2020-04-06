@@ -39,10 +39,13 @@ export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {
-        appearance: 'standard'
+        appearance: 'standard',
+        floatLabel: 'never'
       }
     },
     {
+      // Keep this for Angular 8 compability
+      // tslint:disable-next-line
       provide: MAT_LABEL_GLOBAL_OPTIONS,
       useValue: {
         float: 'never'
