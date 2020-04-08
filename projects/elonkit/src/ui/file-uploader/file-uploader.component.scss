@@ -1,7 +1,20 @@
 .es-file-uploader {
+  &__container {
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+
   &__dropzone {
     display: block;
-    margin-bottom: 24px;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__hint {
+    padding-left: 12px;
   }
 
   &__items {

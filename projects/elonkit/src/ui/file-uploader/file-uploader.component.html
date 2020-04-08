@@ -1,38 +1,47 @@
-<es-file-uploader-dropzone
-  class="es-file-uploader__dropzone"
-  [multiple]="multiple"
-  [accept]="accept"
-  [invalid]="invalid"
-  (selected)="onSelect($event)"
-></es-file-uploader-dropzone>
+<div class="es-file-uploader">
+  <div class="es-file-uploader__container">
+    <es-file-uploader-dropzone
+      class="es-file-uploader__dropzone"
+      [multiple]="multiple"
+      [accept]="accept"
+      [invalid]="invalid"
+      (selected)="onSelect($event)"
+    ></es-file-uploader-dropzone>
 
-<ul class="es-file-uploader__items es-file-uploader__items_{{ variant }}">
-  <li
-    *ngFor="let item of value; let i = index"
-    class="es-file-uploader__item es-file-uploader__item_{{ variant }}"
-  >
-    <div
-      class="es-file-uploader__preview es-file-uploader__preview_{{ variant }}"
-      [ngClass]="{ 'es-file-uploader__preview_image': !!item.preview }"
-      [style.background-image]="item.preview ? 'url(' + item.preview + ')' : null"
-    >
-      <mat-icon *ngIf="!item.preview">insert_drive_file</mat-icon>
+    <div class="es-file-uploader__hint mat-caption">
+      <ng-content *ngIf="!invalid" select="mat-hint"></ng-content>
+      <ng-content *ngIf="invalid" select="mat-error"></ng-content>
     </div>
-    <div class="es-file-uploader__name es-file-uploader__name_{{ variant }} mat-body-1">
-      {{ item.name }}
-    </div>
-    <button
-      mat-icon-button
-      class="es-file-uploader__remove"
-      [ngClass]="{
-        'es-file-uploader__remove_list': variant === 'list',
-        'es-file-uploader__remove_grid': variant === 'grid'
-      }"
-      (click)="onRemove(i)"
+  </div>
+
+  <ul *ngIf="value.length" class="es-file-uploader__items es-file-uploader__items_{{ variant }}">
+    <li
+      *ngFor="let item of value; let i = index"
+      class="es-file-uploader__item es-file-uploader__item_{{ variant }}"
     >
-      <mat-icon>
-        close
-      </mat-icon>
-    </button>
-  </li>
-</ul>
+      <div
+        class="es-file-uploader__preview es-file-uploader__preview_{{ variant }}"
+        [ngClass]="{ 'es-file-uploader__preview_image': !!item.preview }"
+        [style.background-image]="item.preview ? 'url(' + item.preview + ')' : null"
+      >
+        <mat-icon *ngIf="!item.preview">insert_drive_file</mat-icon>
+      </div>
+      <div class="es-file-uploader__name es-file-uploader__name_{{ variant }} mat-body-1">
+        {{ item.name }}
+      </div>
+      <button
+        mat-icon-button
+        class="es-file-uploader__remove"
+        [ngClass]="{
+          'es-file-uploader__remove_list': variant === 'list',
+          'es-file-uploader__remove_grid': variant === 'grid'
+        }"
+        (click)="onRemove(i)"
+      >
+        <mat-icon>
+          close
+        </mat-icon>
+      </button>
+    </li>
+  </ul>
+</div>
