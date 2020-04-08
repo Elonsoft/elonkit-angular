@@ -1,5 +1,6 @@
 <label
   class="es-file-uploader-dropzone"
+  [ngClass]="{ 'es-file-uploader-dropzone_invalid': invalid }"
   (dragover)="onDragOver($event)"
   (dragenter)="onDragEnter($event)"
   (dragleave)="onDragLeave($event)"

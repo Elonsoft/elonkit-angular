@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'es-file-uploader-story-basic',
@@ -11,11 +12,16 @@ export class FileUploaderStoryBasicComponent {
   @Input() required: boolean;
   @Input() accept: string;
 
-  value = [
-    {
-      name: 'Image.png',
-      preview:
-        'https://www.vets4pets.com/siteassets/species/cat/kitten/tiny-kitten-in-field.jpg?w=585&scale=down'
-    }
-  ];
+  form = new FormGroup({
+    value: new FormControl(
+      [
+        {
+          name: 'Image.png',
+          preview:
+            'https://www.vets4pets.com/siteassets/species/cat/kitten/tiny-kitten-in-field.jpg?w=585&scale=down'
+        }
+      ],
+      [Validators.required]
+    )
+  });
 }

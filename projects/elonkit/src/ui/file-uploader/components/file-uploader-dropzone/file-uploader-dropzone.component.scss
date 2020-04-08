@@ -1,14 +1,19 @@
 .es-file-uploader-dropzone {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.03);
-  border: 1px dashed rgba(0, 0, 0, 0.12);
   border-radius: 6px;
+  border-style: dashed;
+  border-width: 1px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
   padding: 24px;
   position: relative;
+
+  &_invalid {
+    //
+  }
 
   &__title {
     align-items: center;

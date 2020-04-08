@@ -20,6 +20,7 @@ import {
 export class ESFileUploaderDropzoneComponent {
   @Input() multiple: boolean;
   @Input() accept = '*';
+  @Input() invalid: boolean;
 
   @Output() selected = new EventEmitter<FileList>();
 

@@ -1,7 +1,14 @@
 @mixin es-file-uploader-dropzone-theme($theme) {
   $accent: mat-color(map-get($theme, accent));
+  $warn: mat-color(map-get($theme, warn));
 
   .es-file-uploader-dropzone {
+    border-color: rgba(0, 0, 0, 0.12);
+
+    &_invalid {
+      border-color: $warn;
+    }
+
     &__title {
       color: $accent;
     }

@@ -2,6 +2,7 @@
   class="es-file-uploader__dropzone"
   [multiple]="multiple"
   [accept]="accept"
+  [invalid]="invalid"
   (selected)="onSelect($event)"
 ></es-file-uploader-dropzone>
 
@@ -17,7 +18,9 @@
     >
       <mat-icon *ngIf="!item.preview">insert_drive_file</mat-icon>
     </div>
-    <div class="es-file-uploader__name es-file-uploader__name_{{ variant }}">{{ item.name }}</div>
+    <div class="es-file-uploader__name es-file-uploader__name_{{ variant }} mat-body-1">
+      {{ item.name }}
+    </div>
     <button
       mat-icon-button
       class="es-file-uploader__remove"

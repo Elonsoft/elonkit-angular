@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FileUploaderStoryBasicComponent } from './file-uploader-story-basic.component';
 
@@ -8,7 +8,7 @@ import { ESFileUploaderModule } from '../..';
 
 @NgModule({
   declarations: [FileUploaderStoryBasicComponent],
-  imports: [CommonModule, FormsModule, ESFileUploaderModule],
+  imports: [CommonModule, ReactiveFormsModule, ESFileUploaderModule],
   exports: [FileUploaderStoryBasicComponent]
 })
 export class FileUploaderStoryBasicModule {}

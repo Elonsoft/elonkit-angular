@@ -4,10 +4,18 @@ import {
   ChangeDetectorRef,
   ViewEncapsulation,
   Input,
-  forwardRef
+  forwardRef,
+  Optional,
+  Self
 } from '@angular/core';
 
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  FormGroupDirective
+} from '@angular/forms';
+
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { IValue } from './file-uploader.types';
@@ -25,14 +33,7 @@ const toImage = (file: File) =>
   templateUrl: './file-uploader.component.html',
   styleUrls: ['./file-uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ESFileUploaderComponent),
-      multi: true
-    }
-  ]
+  encapsulation: ViewEncapsulation.None
 })
 export class ESFileUploaderComponent implements ControlValueAccessor {
   @Input() variant: 'list' | 'grid' = 'list';
@@ -61,7 +62,21 @@ export class ESFileUploaderComponent implements ControlValueAccessor {
 
   value: IValue[] = [];
 
-  constructor(public changeDetector: ChangeDetectorRef) {}
+  constructor(
+    public changeDetector: ChangeDetectorRef,
+    /**
+     * @internal
+     */
+    @Optional() @Self() public ngControl: NgControl,
+    /**
+     * @internal
+     */
+    @Optional() public ngForm: FormGroupDirective
+  ) {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   public async onSelect(files: FileList) {
     const newValue: IValue[] = [];
@@ -127,6 +142,21 @@ export class ESFileUploaderComponent implements ControlValueAccessor {
    * @ignore
    */
   public onTouched = () => {};
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get invalid(): boolean {
+    const control = this.ngControl;
+    const form = this.ngForm;
+
+    if (control) {
+      return control.invalid && (control.touched || (form && form.submitted));
+    }
+
+    return false;
+  }
 
   private isFileAcceptable(file: File) {
     const types = this.accept.split(',').map(e => e.trim());
