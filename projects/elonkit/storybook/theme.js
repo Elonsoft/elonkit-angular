@@ -1,11 +1,11 @@
 import { create } from '@storybook/theming/create';
+import logo from './logo.svg';
 
 export default create({
   base: 'light',
 
-  fontBase: '"Courier New", monospace',
-  fontCode: 'monospace',
+  fontBase: '"Roboto", sans-serif',
 
-  brandTitle: 'Elonsoft',
-  brandUrl: 'https://elonsoft.ru/'
+  brandImage: logo,
+  brandUrl: 'https://github.com/Elonsoft/elonkit/'
 });

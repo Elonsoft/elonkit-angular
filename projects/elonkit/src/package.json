@@ -2,8 +2,8 @@
   "name": "@elonsoft/elonkit",
   "version": "0.0.1",
   "scripts": {
-    "start": "compodoc -c ../.compodocrc.json && start-storybook -c ../storybook --port 4200",
-    "build": "compodoc -c ../.compodocrc.json && build-storybook -c ../storybook -o ../../../dist/elonkit-storybook"
+    "start": "compodoc -c ../.compodocrc.json && start-storybook -c ../storybook -s ../storybook/public --port 4200",
+    "build": "compodoc -c ../.compodocrc.json && build-storybook -c ../storybook -s ../storybook/public -o ../../../dist/elonkit-storybook"
   },
   "peerDependencies": {
     "@angular/cdk": "~8.2.3",
