@@ -1,0 +1,24 @@
+.es-breadcrumbs-collapse {
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+  display: block;
+  height: 24px;
+  outline: 0;
+  padding: 0;
+  transition: 200ms;
+
+  &:hover,
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.04);
+    outline: 0;
+  }
+
+  &__more {
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+  }
+}

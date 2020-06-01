@@ -1,0 +1,44 @@
+<nav #navigation class="es-breadcrumbs">
+  <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
+    <ng-container *ngIf="!collapseIndexes.includes(i)">
+      <es-breadcrumbs-breadcrumb
+        [breadcrumb]="breadcrumb"
+        [last]="i === breadcrumbs.length - 1"
+        [typography]="typography"
+        class="es-breadcrumbs__breadcrumb"
+      ></es-breadcrumbs-breadcrumb>
+      <ng-container *ngIf="i < breadcrumbs.length - 1">
+        <ng-container *ngTemplateOutlet="separator"></ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="i === 1 && collapseIndexes.length">
+      <es-breadcrumbs-collapse
+        [breadcrumbs]="collapseBreadcrumbs"
+        [moreTemplate]="moreTemplate"
+      ></es-breadcrumbs-collapse>
+      <ng-container *ngTemplateOutlet="separator"></ng-container>
+    </ng-container>
+  </ng-container>
+</nav>
+
+<ng-template #separator>
+  <ng-container *ngIf="!separatorTemplate">
+    <div class="es-breadcrumbs__separator">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M10 8L14 12L10 16" stroke="black" stroke-opacity="0.38" stroke-width="1.5" />
+      </svg>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="separatorTemplate">
+    <ng-container *ngTemplateOutlet="separatorTemplate"></ng-container>
+  </ng-container>
+</ng-template>
+
+<div #width class="es-breadcrumbs__width mat-caption" aria-hidden="true"></div>

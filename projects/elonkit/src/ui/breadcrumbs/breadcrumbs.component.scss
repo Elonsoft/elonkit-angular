@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.es-breadcrumbs {
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+
+  &__breadcrumb {
+    &:last-child {
+      margin-right: 0;
+      min-width: 0;
+    }
+  }
+
+  &__separator {
+    color: rgba(0, 0, 0, 0.38);
+    display: inline-block;
+    fill: currentColor;
+    height: 24px;
+    margin: 0 -4px;
+    width: 24px;
+  }
+
+  &__width {
+    height: auto;
+    left: -1000px;
+    position: absolute;
+    visibility: hidden;
+    white-space: nowrap;
+    width: auto;
+    z-index: -1;
+  }
+}

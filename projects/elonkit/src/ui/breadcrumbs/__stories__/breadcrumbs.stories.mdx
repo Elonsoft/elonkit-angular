@@ -1,0 +1,141 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESBreadcrumbsComponent, ESBreadcrumbsLocale, ESBreadcrumbsLocaleRU } from '..';
+
+import {
+  BreadcrumbsStoryBasicModule,
+  BreadcrumbsStoryBasicComponent,
+  BREADCRUMBS_STORY_BASIC_SOURCE
+} from './breadcrumbs-story-basic';
+
+import {
+  BreadcrumbsStoryCustomizationModule,
+  BreadcrumbsStoryCustomizationComponent,
+  BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE
+} from './breadcrumbs-story-customization';
+
+import {
+  BreadcrumbsStoryLocaleModule,
+  BreadcrumbsStoryLocaleComponent,
+  BREADCRUMBS_STORY_LOCALE_SOURCE
+} from './breadcrumbs-story-locale';
+
+<Meta title='UI/Breadcrumbs' decorators={[withA11y, withKnobs]} />
+
+# Breadcrumbs
+
+Breadcrumbs indicate the current page’s location within a navigational hierarchy.
+
+## Demos
+
+In order to generate breadcrumbs we need to resolve `breadcrumb` key or provide static data with the same key.
+
+There is a strange behaviour in angular router when resolved data overrides it's child static data.
+For this case we provide `ESBreadcrumbsResolver` which copies static data and solves this problem.
+
+For a horizontal navigation we need to provide an array of nested breadcrumbs.
+For more details see [source code](https://github.com/Elonsoft/elonkit/blob/master/projects/elonkit/src/ui/breadcrumbs/__stories__/breadcrumbs-story-basic/breadcrumbs-story-basic.resolver.ts#L31)
+of this story.
+
+<Preview source={BREADCRUMBS_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='210px'>
+    {{
+      component: BreadcrumbsStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, BreadcrumbsStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can customize icons and label's font.
+
+<Preview source={BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE}>
+  <Story name='Customization' height='210px'>
+    {{
+      component: BreadcrumbsStoryCustomizationComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, BreadcrumbsStoryCustomizationModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale which is used for aria-label on collapse button.
+
+<Preview source={BREADCRUMBS_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='210px'>
+    {{
+      component: BreadcrumbsStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, BreadcrumbsStoryLocaleModule],
+        providers: [{ provide: ESBreadcrumbsLocale, useClass: ESBreadcrumbsLocaleRU }]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESBreadcrumbsComponent} />
+
+## Interfaces
+
+```ts
+interface ESBreadcrumbData {
+  icon?: string;
+  svgIcon?: string;
+  label?: string;
+  breadcrumbs?: Array<{
+    path: string | number;
+    icon?: string;
+    svgIcon?: string;
+    label?: string;
+  }>;
+}
+```
+
+```ts
+interface ESBreadcrumbsDefaultOptionsSizes {
+  itemPadding: number;
+  icon: number;
+  iconMargin: number;
+  menu: number;
+  separator: number;
+  more: number;
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_BREADCRUMBS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/breadcrumbs';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_BREADCRUMBS_DEFAULT_OPTIONS,
+      useValue: {
+        typography: 'mat-body-1',
+        sizes: {
+          itemPadding: 8,
+          icon: 24,
+          iconMargin: 4,
+          menu: 20,
+          separator: 40,
+          more: 24
+        }
+      }
+    }
+  ]
+})
+```
