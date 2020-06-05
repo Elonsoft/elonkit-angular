@@ -13,8 +13,6 @@ export class ESActionHeadingComponent {
   public type: 'h1' | 'h2' = 'h1';
   @Input()
   public color: 'primary' | 'warn' | 'accent' = 'primary';
-  @Input()
-  public actionPermissions: string | string[];
   @Output()
   public action: EventEmitter<any> = new EventEmitter();
 }

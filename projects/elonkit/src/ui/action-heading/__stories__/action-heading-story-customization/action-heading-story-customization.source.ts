@@ -1,6 +1,7 @@
 export const ACTION_HEADING_STORY_CUSTOMIZATION_SOURCE = {
   html: `
-  <es-action-heading [title]="text">
-  </es-action-heading>
+  <div class="wrapper">
+    <es-action-heading class="wrapper__heading" [title]="text" color="accent"> </es-action-heading>
+  </div>
   `
 };

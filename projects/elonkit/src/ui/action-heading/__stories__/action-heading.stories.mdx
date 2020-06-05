@@ -21,6 +21,12 @@ import {
   ACTION_HEADING_STORY_CUSTOMIZATION_SOURCE
 } from './action-heading-story-customization';
 
+import {
+  ActionHeadingStoryClickComponent,
+  ActionHeadingStoryClickModule,
+  ACTION_HEADING_STORY_CLICK_SOURCE
+} from './action-heading-story-click';
+
 <Meta title='UI/ActionHeading' decorators={[withA11y, withKnobs]} />
 
 # Action Heading
@@ -50,6 +56,19 @@ This is an example of a component wraped into a container component, which overr
       component: ActionHeadingStoryCustomizationComponent,
       moduleMetadata: {
         imports: [ActionHeadingStoryCustomizationModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+This is an example of action click.
+
+<Preview source={ACTION_HEADING_STORY_CLICK_SOURCE}>
+  <Story name='Click' height='110px'>
+    {{
+      component: ActionHeadingStoryClickComponent,
+      moduleMetadata: {
+        imports: [ActionHeadingStoryClickModule]
       }
     }}
   </Story>
