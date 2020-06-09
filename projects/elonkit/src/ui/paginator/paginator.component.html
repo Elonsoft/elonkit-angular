@@ -1,0 +1,69 @@
+<div class="es-paginator">
+  <div class="es-paginator__size mat-caption">
+    <span>Показывать по:</span>
+    <mat-select
+      class="es-paginator__select"
+      size="sm"
+      [ngModel]="pageSize"
+      (ngModelChange)="onPageSizeChange($event)"
+    >
+      <mat-option *ngFor="let size of pageSizes" [value]="size">
+        {{ size }}
+      </mat-option>
+    </mat-select>
+
+    <span class="es-paginator__pages">{{ countStart }} - {{ countEnd }} из {{ count }}</span>
+  </div>
+
+  <div *ngIf="count" class="es-paginator__items">
+    <button
+      class="es-paginator__item es-paginator__item_arrow"
+      mat-icon-button
+      [disabled]="page === 0"
+      (click)="onPrevPage()"
+      aria-label="Предыдущая страница"
+    >
+      <mat-icon> chevron_left </mat-icon>
+    </button>
+
+    <ng-container *ngFor="let i of pages">
+      <button
+        *ngIf="i !== null"
+        class="es-paginator__item"
+        [ngClass]="{ 'es-paginator__item_active': i - 1 === page }"
+        mat-icon-button
+        [disabled]="i - 1 === page"
+        (click)="onPageClick(i - 1)"
+      >
+        {{ i }}
+      </button>
+      <div *ngIf="i === null" class="es-paginator__item es-paginator__item_gap">
+        &hellip;
+      </div>
+    </ng-container>
+
+    <button
+      class="es-paginator__item es-paginator__item_arrow"
+      mat-icon-button
+      [disabled]="page === pagesCount - 1"
+      (click)="onNextPage()"
+      aria-label="Следующая страница"
+    >
+      <mat-icon> chevron_right </mat-icon>
+    </button>
+
+    <form class="es-paginator__form" novalidate (submit)="onSubmit($event)">
+      <mat-form-field class="es-paginator__input" appearance="outline">
+        <input
+          matInput
+          [(ngModel)]="pageGoTo"
+          name="pageGoTo"
+          type="number"
+          min="1"
+          [max]="pagesCount"
+          placeholder="{{ page + 1 }} стр"
+        />
+      </mat-form-field>
+    </form>
+  </div>
+</div>

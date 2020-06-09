@@ -1,0 +1,112 @@
+.es-paginator {
+  color: rgba(0, 0, 0, 0.54);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  padding-bottom: 0;
+  white-space: nowrap;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &__size {
+    align-items: center;
+    display: flex;
+    margin-bottom: 16px;
+
+    @media (min-width: 600px) {
+      margin-right: 24px;
+    }
+  }
+
+  &__select {
+    display: block;
+    margin-left: 4px;
+    margin-right: 24px;
+
+    &.mat-select {
+      width: 40px;
+    }
+  }
+
+  &__pages {
+    margin-left: auto;
+  }
+
+  &__form {
+    margin-left: auto;
+
+    @media (min-width: 600px) {
+      margin-left: 20px;
+    }
+  }
+
+  &__input {
+    width: 80px;
+
+    &.mat-form-field-appearance-outline .mat-form-field-wrapper {
+      margin-bottom: 0;
+      margin-top: 0;
+      padding-bottom: 0;
+
+      .mat-form-field-infix {
+        border: 0;
+        font-size: 12px;
+        padding-bottom: 9px;
+        padding-top: 14px;
+      }
+    }
+
+    .mat-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+
+  &__items {
+    align-items: center;
+    display: flex;
+    margin-bottom: 16px;
+    margin-left: -10px;
+  }
+
+  &__item {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 2px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 24px;
+    }
+
+    &_active {
+      background-color: rgba(0, 0, 0, 0.04);
+      font-weight: 600;
+
+      &.mat-icon-button:disabled {
+        color: #000;
+      }
+    }
+
+    &_arrow {
+      padding: 0;
+
+      &:disabled {
+        opacity: 0.3;
+      }
+    }
+
+    &_gap {
+      &:hover {
+        background: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, number } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESPaginatorComponent } from '..';
+
+import {
+  PaginatorStoryBasicModule,
+  PaginatorStoryBasicComponent,
+  PAGINATOR_STORY_BASIC_SOURCE
+} from './paginator-story-basic';
+
+<Meta title='UI/Paginator' decorators={[withA11y, withKnobs]} />
+
+# Paginator
+
+The pagination allows the user to select a specific page from a range of pages.
+
+## Demos
+
+<Preview source={PAGINATOR_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='110px'>
+    {{
+      component: PaginatorStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, PaginatorStoryBasicModule]
+      },
+      props: {
+        count: number('count', 100)
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESPaginatorComponent} />
