@@ -25,12 +25,12 @@ import {
 
 # Paginator
 
-The pagination allows the user to select a specific page from a range of pages.
+The paginator allows the user to select a specific page from a range of pages.
 
 ## Demos
 
 <Preview source={PAGINATOR_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='110px'>
+  <Story name='Basic' height='200px'>
     {{
       component: PaginatorStoryBasicComponent,
       moduleMetadata: {
@@ -48,7 +48,7 @@ The pagination allows the user to select a specific page from a range of pages.
 We can override default locale.
 
 <Preview source={PAGINATOR_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='110px'>
+  <Story name='Locale' height='200px'>
     {{
       component: PaginatorStoryLocaleComponent,
       moduleMetadata: {
@@ -56,9 +56,7 @@ We can override default locale.
         providers: [{ provide: ESPaginatorLocale, useClass: ESPaginatorLocaleRU }]
       },
       props: {
-        count: number('count', 100),
-        siblingCount: number('siblingCount', 2),
-        boundaryCount: number('boundaryCount', 1)
+        count: 100
       }
     }}
   </Story>
@@ -67,3 +65,34 @@ We can override default locale.
 ## API
 
 <Props of={ESPaginatorComponent} />
+
+## Interfaces
+
+```ts
+interface ESPaginatorDefaultOptions {
+  pageSizeOptions?: number[];
+  siblingCount?: number;
+  boundaryCount?: number;
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_PAGINATOR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/paginator';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_PAGINATOR_DEFAULT_OPTIONS,
+      useValue: {
+        pageSizeOptions: [5, 10, 25, 50, 100, 250, 500],
+        siblingCount: 2,
+        boundaryCount: 1
+      }
+    }
+  ]
+})
+```
