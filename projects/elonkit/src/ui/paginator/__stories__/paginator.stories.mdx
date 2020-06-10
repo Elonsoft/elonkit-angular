@@ -7,13 +7,19 @@ import { withKnobs, number } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ESPaginatorComponent } from '..';
+import { ESPaginatorComponent, ESPaginatorLocale, ESPaginatorLocaleRU } from '..';
 
 import {
   PaginatorStoryBasicModule,
   PaginatorStoryBasicComponent,
   PAGINATOR_STORY_BASIC_SOURCE
 } from './paginator-story-basic';
+
+import {
+  PaginatorStoryLocaleModule,
+  PaginatorStoryLocaleComponent,
+  PAGINATOR_STORY_LOCALE_SOURCE
+} from './paginator-story-locale';
 
 <Meta title='UI/Paginator' decorators={[withA11y, withKnobs]} />
 
@@ -29,6 +35,25 @@ The pagination allows the user to select a specific page from a range of pages.
       component: PaginatorStoryBasicComponent,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, PaginatorStoryBasicModule]
+      },
+      props: {
+        count: number('count', 100),
+        siblingCount: number('siblingCount', 2),
+        boundaryCount: number('boundaryCount', 1)
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale.
+
+<Preview source={PAGINATOR_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='110px'>
+    {{
+      component: PaginatorStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, PaginatorStoryLocaleModule],
+        providers: [{ provide: ESPaginatorLocale, useClass: ESPaginatorLocaleRU }]
       },
       props: {
         count: number('count', 100),

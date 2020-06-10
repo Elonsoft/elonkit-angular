@@ -7,6 +7,8 @@ import {
   EventEmitter
 } from '@angular/core';
 
+import { ESPaginatorLocale } from './paginator.component.locale';
+
 function range(start: number, end: number) {
   const length = end - start + 1;
   return Array.from({ length }, (_, i) => start + i);
@@ -44,6 +46,8 @@ export class ESPaginatorComponent {
   @Output() pageSizeChange = new EventEmitter<number>();
 
   pageGoTo = '';
+
+  constructor(public locale: ESPaginatorLocale) {}
 
   get countStart() {
     return (this.page - 1) * this.pageSize + (this.count ? 1 : 0);
