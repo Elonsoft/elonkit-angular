@@ -7,7 +7,7 @@
       [ngModel]="pageSize"
       (ngModelChange)="onPageSizeChange($event)"
     >
-      <mat-option *ngFor="let size of pageSizes" [value]="size">
+      <mat-option *ngFor="let size of pageSizeOptions" [value]="size">
         {{ size }}
       </mat-option>
     </mat-select>
@@ -19,7 +19,7 @@
     <button
       class="es-paginator__item es-paginator__item_arrow"
       mat-icon-button
-      [disabled]="page === 0"
+      [disabled]="page === 1"
       (click)="onPrevPage()"
       aria-label="Предыдущая страница"
     >
@@ -30,10 +30,10 @@
       <button
         *ngIf="i !== null"
         class="es-paginator__item"
-        [ngClass]="{ 'es-paginator__item_active': i - 1 === page }"
+        [ngClass]="{ 'es-paginator__item_active': i === page }"
         mat-icon-button
-        [disabled]="i - 1 === page"
-        (click)="onPageClick(i - 1)"
+        [disabled]="i === page"
+        (click)="onPageClick(i)"
       >
         {{ i }}
       </button>
@@ -45,7 +45,7 @@
     <button
       class="es-paginator__item es-paginator__item_arrow"
       mat-icon-button
-      [disabled]="page === pagesCount - 1"
+      [disabled]="page === pagesCount"
       (click)="onNextPage()"
       aria-label="Следующая страница"
     >
@@ -61,9 +61,11 @@
           type="number"
           min="1"
           [max]="pagesCount"
-          placeholder="{{ page + 1 }} стр"
+          placeholder="{{ page }} стр"
         />
       </mat-form-field>
     </form>
   </div>
 </div>
+
+{{ page }}

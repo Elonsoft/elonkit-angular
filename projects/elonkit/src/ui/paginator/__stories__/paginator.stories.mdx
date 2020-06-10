@@ -31,7 +31,9 @@ The pagination allows the user to select a specific page from a range of pages.
         imports: [BrowserAnimationsModule, PaginatorStoryBasicModule]
       },
       props: {
-        count: number('count', 100)
+        count: number('count', 100),
+        siblingCount: number('siblingCount', 2),
+        boundaryCount: number('boundaryCount', 1)
       }
     }}
   </Story>

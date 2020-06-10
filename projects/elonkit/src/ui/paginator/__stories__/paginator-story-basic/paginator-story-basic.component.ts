@@ -11,13 +11,16 @@ export class PaginatorStoryBasicComponent {
   @Input()
   set count(value: number) {
     this._count = value;
-    this.page = 0;
+    this.page = 1;
   }
   get count() {
     return this._count;
   }
 
-  page = 0;
+  @Input() siblingCount;
+  @Input() boundaryCount;
+
+  page = 1;
   pageSize = 5;
 
   onPageChange(page: number) {
@@ -26,5 +29,6 @@ export class PaginatorStoryBasicComponent {
 
   onPageSizeChange(pageSize: number) {
     this.pageSize = pageSize;
+    this.page = 1;
   }
 }

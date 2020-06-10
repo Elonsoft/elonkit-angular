@@ -20,37 +20,37 @@ function range(start: number, end: number) {
   encapsulation: ViewEncapsulation.None
 })
 export class ESPaginatorComponent {
-  @Input() count!: number;
+  @Input() count: number;
 
   // tslint:disable-next-line
-  private _page!: number;
+  private _page: number;
 
   @Input()
   set page(page: number) {
-    if (this._page !== page) {
-      this.pageGoTo = '';
-    }
+    this.pageGoTo = '';
     this._page = page;
   }
   get page() {
     return this._page;
   }
 
-  @Input() pageSize!: number;
+  @Input() pageSize: number;
+  @Input() pageSizeOptions: number[] = [5, 10, 25, 50, 100, 250, 500];
+
   @Input() siblingCount = 2;
+  @Input() boundaryCount = 1;
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() pageSizeChange = new EventEmitter<number>();
 
-  pageSizes = [5, 10, 25, 50, 100, 250, 500];
   pageGoTo = '';
 
   get countStart() {
-    return this.page * this.pageSize + (this.count ? 1 : 0);
+    return (this.page - 1) * this.pageSize + (this.count ? 1 : 0);
   }
 
   get countEnd() {
-    return Math.min((this.page + 1) * this.pageSize, this.count);
+    return Math.min(this.page * this.pageSize, this.count);
   }
 
   get pagesCount() {
@@ -58,32 +58,29 @@ export class ESPaginatorComponent {
   }
 
   get pages() {
-    const naturalPage = this.page + 1;
-    const boundaryCount = 1;
-
-    const startPages = range(1, Math.min(boundaryCount, this.pagesCount));
+    const startPages = range(1, Math.min(this.boundaryCount, this.pagesCount));
     const endPages = range(
-      Math.max(this.pagesCount - boundaryCount + 1, boundaryCount + 1),
+      Math.max(this.pagesCount - this.boundaryCount + 1, this.boundaryCount + 1),
       this.pagesCount
     );
 
     const siblingsStart = Math.max(
       Math.min(
         // Natural start
-        naturalPage - this.siblingCount,
+        this.page - this.siblingCount,
         // Lower boundary when page is high
-        this.pagesCount - boundaryCount - this.siblingCount * 2 - 1
+        this.pagesCount - this.boundaryCount - this.siblingCount * 2 - 1
       ),
       // Greater than startPages
-      boundaryCount + 2
+      this.boundaryCount + 2
     );
 
     const siblingsEnd = Math.min(
       Math.max(
         // Natural end
-        naturalPage + this.siblingCount,
+        this.page + this.siblingCount,
         // Upper boundary when page is low
-        boundaryCount + this.siblingCount * 2 + 2
+        this.boundaryCount + this.siblingCount * 2 + 2
       ),
       // Less than endPages
       endPages[0] - 2
@@ -93,22 +90,20 @@ export class ESPaginatorComponent {
       ...startPages,
 
       // Start ellipsis
-      // eslint-disable-next-line no-nested-ternary
-      ...(siblingsStart > boundaryCount + 2
+      ...(siblingsStart > this.boundaryCount + 2
         ? [null]
-        : boundaryCount + 1 < this.pagesCount - boundaryCount
-        ? [boundaryCount + 1]
+        : this.boundaryCount + 1 < this.pagesCount - this.boundaryCount
+        ? [this.boundaryCount + 1]
         : []),
 
       // Sibling pages
       ...range(siblingsStart, siblingsEnd),
 
       // End ellipsis
-      // eslint-disable-next-line no-nested-ternary
-      ...(siblingsEnd < this.pagesCount - boundaryCount - 1
+      ...(siblingsEnd < this.pagesCount - this.boundaryCount - 1
         ? [null]
-        : this.pagesCount - boundaryCount > boundaryCount
-        ? [this.pagesCount - boundaryCount]
+        : this.pagesCount - this.boundaryCount > this.boundaryCount
+        ? [this.pagesCount - this.boundaryCount]
         : []),
 
       ...endPages
@@ -126,17 +121,17 @@ export class ESPaginatorComponent {
   }
 
   onNextPage() {
-    this.pageChange.emit(Math.min(this.page + 1, this.pagesCount - 1));
+    this.pageChange.emit(Math.min(this.page + 1, this.pagesCount));
   }
 
   onPrevPage() {
-    this.pageChange.emit(Math.max(0, this.page - 1));
+    this.pageChange.emit(Math.max(1, this.page - 1));
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
     if (this.pageGoTo) {
-      const page = Math.max(1, Math.min(+this.pageGoTo, this.pagesCount)) - 1;
+      const page = Math.max(1, Math.min(+this.pageGoTo, this.pagesCount));
       this.pageChange.emit(page);
     }
   }
