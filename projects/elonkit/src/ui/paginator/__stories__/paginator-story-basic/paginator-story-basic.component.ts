@@ -17,8 +17,9 @@ export class PaginatorStoryBasicComponent {
     return this._count;
   }
 
-  @Input() siblingCount;
-  @Input() boundaryCount;
+  @Input() siblingCount: number;
+  @Input() boundaryCount: number;
+  @Input() pageSizeOptions: number[];
 
   page = 1;
   pageSize = 5;

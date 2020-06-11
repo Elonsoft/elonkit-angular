@@ -116,6 +116,10 @@ export class ESPaginatorComponent {
    */
   pageGoTo = '';
 
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(
     /**
      * @internal

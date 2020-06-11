@@ -21,6 +21,12 @@ import {
   PAGINATOR_STORY_LOCALE_SOURCE
 } from './paginator-story-locale';
 
+import {
+  PaginatorStoryPageSizeOptionsModule,
+  PaginatorStoryPageSizeOptionsComponent,
+  PAGINATOR_STORY_PAGE_SIZE_OPTIONS_SOURCE
+} from './paginator-story-page-size-options';
+
 <Meta title='UI/Paginator' decorators={[withA11y, withKnobs]} />
 
 # Paginator
@@ -30,7 +36,7 @@ The paginator allows the user to select a specific page from a range of pages.
 ## Demos
 
 <Preview source={PAGINATOR_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='200px'>
+  <Story name='Basic' height='270px'>
     {{
       component: PaginatorStoryBasicComponent,
       moduleMetadata: {
@@ -48,7 +54,7 @@ The paginator allows the user to select a specific page from a range of pages.
 We can override default locale.
 
 <Preview source={PAGINATOR_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='200px'>
+  <Story name='Locale' height='270px'>
     {{
       component: PaginatorStoryLocaleComponent,
       moduleMetadata: {
@@ -57,6 +63,23 @@ We can override default locale.
       },
       props: {
         count: 100
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default page size options.
+
+<Preview source={PAGINATOR_STORY_PAGE_SIZE_OPTIONS_SOURCE}>
+  <Story name='Page size options' height='250px'>
+    {{
+      component: PaginatorStoryPageSizeOptionsComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, PaginatorStoryPageSizeOptionsModule]
+      },
+      props: {
+        count: 100,
+        pageSizeOptions: [5, 6, 7, 8, 9, 10]
       }
     }}
   </Story>
