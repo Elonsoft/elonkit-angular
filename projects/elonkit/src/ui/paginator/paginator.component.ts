@@ -66,12 +66,12 @@ export class ESPaginatorComponent {
    * The set of provided page size options to display to the user.
    */
   @Input()
-  get pageSizeOptions(): number[] {
-    return this._pageSizeOptions;
-  }
   set pageSizeOptions(value: number[]) {
     this._pageSizeOptions = value ||
       this.defaultOptions?.pageSizeOptions || [5, 10, 25, 50, 100, 250, 500];
+  }
+  get pageSizeOptions(): number[] {
+    return this._pageSizeOptions;
   }
 
   private _siblingCount: number;
@@ -80,11 +80,11 @@ export class ESPaginatorComponent {
    * Number of always visible pages before and after the current page.
    */
   @Input()
-  get siblingCount(): number {
-    return this._siblingCount;
-  }
   set siblingCount(value: number) {
     this._siblingCount = value ?? this.defaultOptions?.siblingCount ?? 2;
+  }
+  get siblingCount(): number {
+    return this._siblingCount;
   }
 
   private _boundaryCount: number;
@@ -93,11 +93,11 @@ export class ESPaginatorComponent {
    * Number of always visible pages at the beginning and end.
    */
   @Input()
-  get boundaryCount(): number {
-    return this._boundaryCount;
-  }
   set boundaryCount(value: number) {
     this._boundaryCount = value ?? this.defaultOptions?.boundaryCount ?? 1;
+  }
+  get boundaryCount(): number {
+    return this._boundaryCount;
   }
 
   /**
@@ -128,15 +128,9 @@ export class ESPaginatorComponent {
     @Inject(ES_PAGINATOR_DEFAULT_OPTIONS)
     private defaultOptions: ESPaginatorDefaultOptions
   ) {
-    if (this.defaultOptions?.pageSizeOptions) {
-      this.pageSizeOptions = this.defaultOptions.pageSizeOptions;
-    }
-    if (this.defaultOptions?.siblingCount) {
-      this.siblingCount = this.defaultOptions.siblingCount;
-    }
-    if (this.defaultOptions?.boundaryCount) {
-      this.boundaryCount = this.defaultOptions.boundaryCount;
-    }
+    this.pageSizeOptions = this.defaultOptions?.pageSizeOptions;
+    this.siblingCount = this.defaultOptions?.siblingCount;
+    this.boundaryCount = this.defaultOptions?.boundaryCount;
   }
 
   /**
@@ -235,6 +229,7 @@ export class ESPaginatorComponent {
    * @ignore
    */
   onPageClick(page: number) {
+    console.log(this.pageSizeOptions);
     this.pageChange.emit(page);
   }
 

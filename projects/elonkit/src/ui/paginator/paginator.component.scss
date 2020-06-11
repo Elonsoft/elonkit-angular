@@ -1,25 +1,16 @@
 .es-paginator {
   color: rgba(0, 0, 0, 0.54);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
-  padding: 24px;
-  padding-bottom: 0;
   white-space: nowrap;
-
-  @media (min-width: 600px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
 
   &__size {
     align-items: center;
     display: flex;
     margin-bottom: 16px;
-
-    @media (min-width: 600px) {
-      margin-right: 24px;
-    }
+    margin-right: 24px;
   }
 
   &__select {
@@ -37,11 +28,7 @@
   }
 
   &__form {
-    margin-left: auto;
-
-    @media (min-width: 600px) {
-      margin-left: 20px;
-    }
+    margin-left: 20px;
   }
 
   &__input {
@@ -69,14 +56,18 @@
     align-items: center;
     display: flex;
     margin-bottom: 16px;
-    margin-left: -10px;
+    margin-left: -12px;
   }
 
   &__item {
     align-items: center;
     display: flex;
     justify-content: center;
-    margin: 0 2px;
+
+    &,
+    &.mat-icon-button {
+      margin: 0 2px;
+    }
 
     &:first-child {
       margin-left: 0;
@@ -104,6 +95,8 @@
     }
 
     &_gap {
+      width: 40px;
+
       &:hover {
         background: none;
       }
