@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   ViewEncapsulation,
   Input,
   Output,
@@ -124,6 +125,10 @@ export class ESPaginatorComponent {
     /**
      * @internal
      */
+    public changeDetector: ChangeDetectorRef,
+    /**
+     * @internal
+     */
     public locale: ESPaginatorLocale,
     /**
      * @internal
@@ -233,7 +238,6 @@ export class ESPaginatorComponent {
    * @ignore
    */
   onPageClick(page: number) {
-    console.log(this.pageSizeOptions);
     this.pageChange.emit(page);
   }
 
