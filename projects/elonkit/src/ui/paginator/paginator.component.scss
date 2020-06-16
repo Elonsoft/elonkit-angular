@@ -62,10 +62,12 @@
   &__item {
     align-items: center;
     display: flex;
+    font-size: 12px;
     justify-content: center;
 
     &,
     &.mat-icon-button {
+      line-height: unset;
       margin: 0 2px;
     }
 
@@ -78,12 +80,7 @@
     }
 
     &_active {
-      background-color: rgba(0, 0, 0, 0.04);
       font-weight: 600;
-
-      &.mat-icon-button:disabled {
-        color: #000;
-      }
     }
 
     &_arrow {
