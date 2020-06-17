@@ -30,11 +30,19 @@
       </div>
     </ng-container>
   </div>
-  <div (click)="scrollToRight()" *ngIf="isRightButton()" class="image-scroller__arrow image-scroller__arrow_right">
+  <div
+    (click)="scrollToRight()"
+    *ngIf="isRightButton()"
+    class="image-scroller__arrow image-scroller__arrow_right"
+  >
     <mat-icon>arrow_forward</mat-icon>
   </div>
 
-  <div (click)="scrollToLeft()" *ngIf="isLeftButton()" class="image-scroller__arrow image-scroller__arrow_left">
+  <div
+    (click)="scrollToLeft()"
+    *ngIf="isLeftButton()"
+    class="image-scroller__arrow image-scroller__arrow_left"
+  >
     <mat-icon>arrow_back</mat-icon>
   </div>
 </div>

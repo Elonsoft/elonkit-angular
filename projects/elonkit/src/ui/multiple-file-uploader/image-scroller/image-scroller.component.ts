@@ -5,8 +5,9 @@ import {
   ElementRef,
   Output,
   EventEmitter,
-  AfterViewInit,
-  ChangeDetectorRef
+  AfterViewChecked,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -22,9 +23,10 @@ import {
 @Component({
   selector: 'es-image-scroller',
   templateUrl: './image-scroller.component.html',
-  styleUrls: ['./image-scroller.component.scss']
+  styleUrls: ['./image-scroller.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ESImageScrollerComponent implements AfterViewInit {
+export class ESImageScrollerComponent implements AfterViewChecked {
   public IMAGE_TYPES = IMAGE_TYPES;
 
   @Input()
@@ -55,8 +57,8 @@ export class ESImageScrollerComponent implements AfterViewInit {
     private cdRef: ChangeDetectorRef
   ) {}
 
-  public ngAfterViewInit() {
-    this.cdRef.detectChanges();
+  public ngAfterViewChecked(): void {
+    this.cdRef.markForCheck();
   }
 
   public getImage(file: IESMultipleUploaderFile) {
