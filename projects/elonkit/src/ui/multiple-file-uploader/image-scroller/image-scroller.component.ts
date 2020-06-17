@@ -9,7 +9,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 import { CustomDialogService } from '../custom-dialog';
 import { ImageDialogComponent } from '../custom-dialog/image-dialog/image-dialog.component';
@@ -30,7 +30,7 @@ export class ESImageScrollerComponent implements AfterViewChecked {
   public IMAGE_TYPES = IMAGE_TYPES;
 
   @Input()
-  public files: any[];
+  public files: IESMultipleUploaderFile[];
 
   @Input()
   public imgHeight = '160px';
@@ -61,19 +61,15 @@ export class ESImageScrollerComponent implements AfterViewChecked {
     this.cdRef.markForCheck();
   }
 
-  public getImage(file: IESMultipleUploaderFile) {
-    if (file.id) {
-      return file.file;
-    } else {
-      return file.base64;
-    }
+  public getImage(file: IESMultipleUploaderFile): string {
+    return file.id ? file.file : file.base64;
   }
 
-  public getSanitizedImage(file: IESMultipleUploaderFile) {
+  public getSanitizedImage(file: IESMultipleUploaderFile): SafeStyle {
     return this.sanitizer.bypassSecurityTrustStyle(`url('${this.getImage(file)}')`);
   }
 
-  public scrollToRight() {
+  public scrollToRight(): void {
     const scrollValues = this.getValuesToScroll();
     if (this.isRightButton()) {
       let left = +this.pruneString(scrollValues.el.style.left);
@@ -97,18 +93,18 @@ export class ESImageScrollerComponent implements AfterViewChecked {
     }
   }
 
-  public isRightButton() {
+  public isRightButton(): boolean {
     const el = this.scroller.nativeElement;
     const left = Math.abs(+this.pruneString(el.style.left)) + el.offsetWidth;
     return left !== el.scrollWidth;
   }
 
-  public isLeftButton() {
+  public isLeftButton(): boolean {
     const el = this.scroller.nativeElement;
     return +this.pruneString(el.style.left) !== 0;
   }
 
-  public scrollToLeft() {
+  public scrollToLeft(): void {
     const scrollValues = this.getValuesToScroll();
 
     if (this.isLeftButton()) {
@@ -129,26 +125,26 @@ export class ESImageScrollerComponent implements AfterViewChecked {
     }
   }
 
-  public removeFile(obj: { file: IESMultipleUploaderFile; index: number }) {
-    this.remove.emit(obj);
+  public removeFile(file: IESMultipleUploaderRemoveAction): void {
+    this.remove.emit(file);
   }
 
-  public openImageDialog(file) {
-    const dialogRef = this.customDialogService.open(ImageDialogComponent, {
+  public openImageDialog(file: IESMultipleUploaderFile): void {
+    this.customDialogService.open(ImageDialogComponent, {
       data: {
         imageUrl: this.getImage(file)
       }
     });
   }
 
-  public downloadFile(file: IESMultipleUploaderFile) {
+  public downloadFile(file: IESMultipleUploaderFile): void {
     if (!file.file) {
       return;
     }
-    this.documentLinkService.saveAs(file.file, file.name).subscribe();
+    this.documentLinkService.saveAs(file.file, file.name);
   }
 
-  private pruneString(val): string {
+  private pruneString(val: string): string {
     return val.replace(/[а-я]|[a-z]?\s*/g, '');
   }
 
