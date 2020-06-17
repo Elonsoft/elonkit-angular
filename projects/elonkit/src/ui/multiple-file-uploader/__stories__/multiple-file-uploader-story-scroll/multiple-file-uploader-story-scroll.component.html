@@ -1,0 +1,14 @@
+<form class="form" [formGroup]="form">
+  <es-multiple-file-uploader
+    chooseText="CHOOSE FILES"
+    maxSize="50"
+    dragText="or drag files in this area (max size: 50 MB)"
+    formControlName="docs"
+    hint="This is an example of a hint message"
+    [showImages]="true"
+    (remove)="onRemoveFile($event)"
+    accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+    application/pdf, image/jpg,image/jpeg,image/png"
+    type="binary"
+  ></es-multiple-file-uploader>
+</form>

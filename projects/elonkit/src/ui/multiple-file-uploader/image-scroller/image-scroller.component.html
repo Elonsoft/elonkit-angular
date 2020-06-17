@@ -1,0 +1,40 @@
+<div class="image-scroller">
+  <div class="image-scroller__items" #scroller>
+    <ng-container *ngFor="let file of files; let i = index">
+      <div
+        *ngIf="IMAGE_TYPES.includes(file.type) && !file.deleted"
+        class="image-scroller__item"
+        [style.width]="imgWidth"
+        [style.height]="imgHeight"
+        [style.backgroundImage]="getSanitizedImage(file)"
+      >
+        <div
+          *ngIf="canRemove"
+          (click)="removeFile({ file: file, index: i })"
+          class="image-scroller__item-icon image-scroller__item-icon_close"
+        >
+          <mat-icon>close</mat-icon>
+        </div>
+
+        <div
+          *ngIf="canDownload"
+          (click)="downloadFile(file)"
+          class="image-scroller__item-icon image-scroller__item-icon_download"
+        >
+          <mat-icon svgIcon="download_outline"></mat-icon>
+        </div>
+        <div class="image-scroller__item-download"></div>
+        <div (click)="openImageDialog(file)" class="image-scroller__item-view">
+          <mat-icon>remove_red_eye</mat-icon>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div (click)="scrollToRight()" *ngIf="isRightButton()" class="image-scroller__arrow image-scroller__arrow_right">
+    <mat-icon>arrow_forward</mat-icon>
+  </div>
+
+  <div (click)="scrollToLeft()" *ngIf="isLeftButton()" class="image-scroller__arrow image-scroller__arrow_left">
+    <mat-icon>arrow_back</mat-icon>
+  </div>
+</div>

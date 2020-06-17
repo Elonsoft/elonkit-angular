@@ -1,0 +1,60 @@
+:host {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  top: 0;
+}
+
+.image-modal {
+  display: block;
+  height: 60%;
+  justify-content: center;
+  position: absolute;
+  width: 30%;
+
+  &__image {
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+  }
+
+  &__loading {
+    z-index: 1;
+  }
+
+  &__close {
+    background: rgba(0, 0, 0, 0.54);
+    border-radius: 4px;
+    color: #fff;
+    height: 48px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 48px;
+  }
+}
+
+.actions {
+  bottom: 48px;
+  margin: auto;
+  position: absolute;
+  z-index: 1;
+
+  &__action {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.54);
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-family: Roboto;
+    padding: 8px 16px;
+  }
+
+  &__delete-icon {
+    margin-right: 8px;
+  }
+}

@@ -1,0 +1,41 @@
+<div *ngIf="files && files.length" class="file-list">
+  <ng-container *ngFor="let file of files; let i = index">
+    <ng-container *ngIf="showImages || (!showImages && !IMAGE_TYPES.includes(file.type))">
+      <div *ngIf="!file.deleted" class="file-list__file">
+        <div class="file-list__file-icon-wrapper">
+          <mat-icon *ngIf="!canDownload" class="file-list__file-icon" svgIcon="doc"></mat-icon>
+          <mat-icon
+            *ngIf="canDownload"
+            class="file-list__file-icon file-list__file-icon_download"
+            svgIcon="doc_download"
+            (click)="downloadFile(file)"
+          ></mat-icon>
+        </div>
+        <div class="file-list__file-info">
+          <div class="file-list__file-info-title">
+            <div class="mat-body-1 file-list__file-info-title-name">{{ file.name }}</div>
+            <button
+              *ngIf="canRemove"
+              type="button"
+              (click)="removeFile({ file: file, index: i })"
+              mat-icon-button
+              class="file-list__file-info-title-remove"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="file-list__file-sub-title">
+            <div class="mat-body-1 file-list__file-sub-title-size">{{ getFileSize(file) }}</div>
+            <ng-container *ngIf="file.updatedAt">
+              <div class="file-list__file-sub-title-point">•</div>
+              <div class="mat-body-1 file-list__file-sub-title-datetime">
+                {{ file.updatedAt | date: 'dd MMM' | lowercase }} at
+                {{ file.updatedAt | date: 'HH:mm:ss' }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

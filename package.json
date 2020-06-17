@@ -33,6 +33,7 @@
     "@angular/platform-browser-dynamic": "~9.0.2",
     "@angular/router": "~9.0.2",
     "angular2-text-mask": "^9.0.0",
+    "file-saver": "^2.0.2",
     "rxjs": "~6.5.4",
     "text-mask-addons": "^3.8.0",
     "tslib": "^1.11.0",

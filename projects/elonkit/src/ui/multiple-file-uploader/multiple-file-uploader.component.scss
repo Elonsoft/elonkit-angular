@@ -1,0 +1,166 @@
+.dragndrop {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 1px dashed rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  width: 100%;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  &__files-input {
+    display: none;
+  }
+
+  &__title-icon {
+    margin-right: 8px;
+  }
+
+  &__title {
+    align-items: center;
+    color: #469582;
+    display: flex;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    line-height: 16px;
+    margin-bottom: 4px;
+  }
+
+  &__description {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+  }
+
+  &__choose {
+    color: rgba(0, 0, 0, 0.54);
+    letter-spacing: 0.5px;
+  }
+
+  &__choose-btn-text {
+    align-items: center;
+    display: flex;
+  }
+
+  &__choose-icon {
+    margin-right: 8px;
+  }
+
+  &__files-description {
+    color: #757575;
+    font-size: 12px;
+  }
+
+  &__files-remove {
+    background: rgba(0, 0, 0, 0.38);
+    border-radius: 4px;
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+
+  &__files-remove-icon {
+    color: #fff;
+  }
+
+  &__hint {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    line-height: 16px;
+    margin-top: 8px;
+    padding: 0 12px;
+  }
+}
+
+.list {
+  margin-top: 24px;
+}
+
+.dragover {
+  background: #eee;
+  border: dotted 1px #aaa;
+}
+
+.dragover * {
+  pointer-events: none;
+}
+
+.file-uploader {
+  margin-top: 24px;
+
+  &__img {
+    background: 100% 100% no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 4px;
+    height: 96px;
+    position: relative;
+    width: 96px;
+  }
+
+  &__button {
+    margin-bottom: 8px;
+  }
+
+  &__file {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__file-icon {
+    height: 40px;
+    margin-right: 12px;
+    width: 32px;
+  }
+
+  &__file-info-title {
+    display: flex;
+  }
+
+  &__file-info-title-remove {
+    $size: 20px;
+    height: $size;
+    line-height: $size;
+    width: $size;
+
+    mat-icon {
+      color: rgba(0, 0, 0, 0.24);
+      font-size: $size;
+      height: $size;
+      line-height: $size;
+      width: $size;
+    }
+  }
+
+  &__file-info-title-name {
+    line-height: 20px;
+    margin-bottom: 2px;
+    margin-right: 8px;
+  }
+
+  &__file-sub-title {
+    align-items: center;
+    color: rgba(0, 0, 0, 0.38);
+    display: flex;
+    font-size: 12px;
+    line-height: 16px;
+
+    &-point {
+      font-size: 12px;
+      margin: 0 8px;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+<div
+  #dragndrop
+  class="dragndrop"
+  (drop)="onDrop($event)"
+  (dragover)="onDragover($event)"
+  (dragleave)="onDragleave($event)"
+  (dragend)="onDragend($event)"
+  (click)="fileInput.click()"
+>
+  <div class="mat-h2 dragndrop__title">
+    <mat-icon svgIcon="upload" class="dragndrop__choose-icon"></mat-icon>
+    {{ chooseText }}
+  </div>
+  <div class="mat-body-1 dragndrop__description">
+    {{ dragText }}
+  </div>
+</div>
+<div *ngIf="hint" class="mat-body-1 dragndrop__hint">
+  {{ hint }}
+</div>
+<input
+  class="dragndrop__files-input"
+  [accept]="accept"
+  type="file"
+  (change)="onChange($event)"
+  #fileInput
+  multiple
+/>
+
+<div *ngIf="isShowImageScroller()" class="file-uploader">
+  <es-image-scroller (remove)="removeFile($event)" [files]="files"></es-image-scroller>
+</div>
+<div *ngIf="files && files.length" class="file-uploader">
+  <es-file-list
+    [showImages]="!showImages"
+    [files]="files"
+    (remove)="removeFile($event)"
+  ></es-file-list>
+</div>

@@ -1,0 +1,73 @@
+.file-list {
+  margin-top: 24px;
+
+  &__img {
+    background: 100% 100% no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 4px;
+    height: 96px;
+    position: relative;
+    width: 96px;
+  }
+
+  &__button {
+    margin-bottom: 8px;
+  }
+
+  &__file {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__file-icon {
+    height: 40px;
+    margin-right: 12px;
+    width: 32px;
+
+    &_download {
+      cursor: pointer;
+    }
+  }
+
+  &__file-info-title {
+    display: flex;
+  }
+
+  &__file-info-title-remove {
+    $size: 20px;
+    height: $size;
+    line-height: $size;
+    width: $size;
+
+    mat-icon {
+      color: rgba(0, 0, 0, 0.24);
+      font-size: $size;
+      height: $size;
+      line-height: $size;
+      width: $size;
+    }
+  }
+
+  &__file-info-title-name {
+    line-height: 20px;
+    margin-bottom: 2px;
+    margin-right: 8px;
+  }
+
+  &__file-sub-title {
+    align-items: center;
+    color: rgba(0, 0, 0, 0.38);
+    display: flex;
+    font-size: 12px;
+    line-height: 16px;
+
+    &-point {
+      font-size: 12px;
+      margin: 0 8px;
+    }
+  }
+}

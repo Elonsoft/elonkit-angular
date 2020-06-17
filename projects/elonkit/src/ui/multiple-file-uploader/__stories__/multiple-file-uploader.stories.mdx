@@ -1,0 +1,74 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESMultipleFileUploaderComponent } from '..';
+
+import {
+  MultipleFileUploaderStoryBasicModule,
+  MultipleFileUploaderStoryBasicComponent,
+  MULTIPLE_FILE_UPLOADER_STORY_BASIC_SOURCE
+} from './multiple-file-uploader-story-basic';
+
+import {
+  MultipleFileUploaderStoryLocaleModule,
+  MultipleFileUploaderStoryLocaleComponent,
+  MULTIPLE_FILE_UPLOADER_STORY_LOCALE_SOURCE
+} from './multiple-file-uploader-story-locale';
+
+import {
+  MultipleFileUploaderStoryScrollModule,
+  MultipleFileUploaderStoryScrollComponent,
+  MULTIPLE_FILE_UPLOADER_STORY_SCROLL_SOURCE
+} from './multiple-file-uploader-story-scroll';
+
+<Meta title='UI/Multiple File Uploader' decorators={[withA11y, withKnobs]} />
+
+# Multiple File Uploader
+
+This component allows to upload multiple files. Requires a `formControlName` as an Input.
+Removed files are emitted through `removeFile` Output.
+
+## Demos
+
+<Preview source={MULTIPLE_FILE_UPLOADER_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='350px'>
+    {{
+      component: MultipleFileUploaderStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, MultipleFileUploaderStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale which is used to display file size units
+
+<Preview source={MULTIPLE_FILE_UPLOADER_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='350px'>
+    {{
+      component: MultipleFileUploaderStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, MultipleFileUploaderStoryLocaleModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can enable image-scroller by sending `showImages="true"` as an input
+
+<Preview source={MULTIPLE_FILE_UPLOADER_STORY_SCROLL_SOURCE}>
+  <Story name='Scroll' height='350px'>
+    {{
+      component: MultipleFileUploaderStoryScrollComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, MultipleFileUploaderStoryScrollModule]
+      }
+    }}
+  </Story>
+</Preview>
