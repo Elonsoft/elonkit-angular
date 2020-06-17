@@ -28,11 +28,17 @@
 />
 
 <div *ngIf="isShowImageScroller()" class="file-uploader">
-  <es-image-scroller (remove)="removeFile($event)" [files]="files"></es-image-scroller>
+  <es-image-scroller
+    [canDownload]="true"
+    [canRemove]="false"
+    (remove)="removeFile($event)"
+    [files]="files"
+  ></es-image-scroller>
 </div>
 <div *ngIf="files && files.length" class="file-uploader">
   <es-file-list
     [showImages]="!showImages"
+    [canDownload]="true"
     [files]="files"
     (remove)="removeFile($event)"
   ></es-file-list>

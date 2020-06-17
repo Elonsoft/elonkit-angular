@@ -141,7 +141,7 @@ export class ESImageScrollerComponent implements AfterViewChecked {
     if (!file.file) {
       return;
     }
-    this.documentLinkService.saveAs(file.file, file.name);
+    this.documentLinkService.saveAs(file.file, file.name).subscribe();
   }
 
   private pruneString(val: string): string {
