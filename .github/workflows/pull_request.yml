@@ -16,6 +16,8 @@ jobs:
         uses: actions/checkout@v1
       - name: Install dependencies
         run: yarn install
+      - name: Lint commit messages
+        uses: wagoid/commitlint-github-action@v1
       - name: Lint code
         run: yarn run lint:tslint
       - name: Lint styles
