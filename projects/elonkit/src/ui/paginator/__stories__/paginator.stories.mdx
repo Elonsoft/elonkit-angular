@@ -1,0 +1,121 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, number } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESPaginatorComponent, ESPaginatorLocale, ESPaginatorLocaleRU } from '..';
+
+import {
+  PaginatorStoryBasicModule,
+  PaginatorStoryBasicComponent,
+  PAGINATOR_STORY_BASIC_SOURCE
+} from './paginator-story-basic';
+
+import {
+  PaginatorStoryLocaleModule,
+  PaginatorStoryLocaleComponent,
+  PAGINATOR_STORY_LOCALE_SOURCE
+} from './paginator-story-locale';
+
+import {
+  PaginatorStoryPageSizeOptionsModule,
+  PaginatorStoryPageSizeOptionsComponent,
+  PAGINATOR_STORY_PAGE_SIZE_OPTIONS_SOURCE
+} from './paginator-story-page-size-options';
+
+<Meta title='UI/Paginator' decorators={[withA11y, withKnobs]} />
+
+# Paginator
+
+The paginator allows the user to select a specific page from a range of pages.
+
+## Demos
+
+<Preview source={PAGINATOR_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='270px'>
+    {{
+      component: PaginatorStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, PaginatorStoryBasicModule]
+      },
+      props: {
+        count: number('count', 100),
+        siblingCount: number('siblingCount', 2),
+        boundaryCount: number('boundaryCount', 1)
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale.
+
+<Preview source={PAGINATOR_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='270px'>
+    {{
+      component: PaginatorStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, PaginatorStoryLocaleModule],
+        providers: [{ provide: ESPaginatorLocale, useClass: ESPaginatorLocaleRU }]
+      },
+      props: {
+        count: 100
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default page size options.
+
+<Preview source={PAGINATOR_STORY_PAGE_SIZE_OPTIONS_SOURCE}>
+  <Story name='Page size options' height='250px'>
+    {{
+      component: PaginatorStoryPageSizeOptionsComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, PaginatorStoryPageSizeOptionsModule]
+      },
+      props: {
+        count: 100,
+        pageSizeOptions: [5, 6, 7, 8, 9, 10]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESPaginatorComponent} />
+
+## Interfaces
+
+```ts
+interface ESPaginatorDefaultOptions {
+  pageSizeOptions?: number[];
+  siblingCount?: number;
+  boundaryCount?: number;
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_PAGINATOR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/paginator';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_PAGINATOR_DEFAULT_OPTIONS,
+      useValue: {
+        pageSizeOptions: [5, 10, 25, 50, 100, 250, 500],
+        siblingCount: 2,
+        boundaryCount: 1
+      }
+    }
+  ]
+})
+```

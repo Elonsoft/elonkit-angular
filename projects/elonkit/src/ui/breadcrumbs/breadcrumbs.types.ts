@@ -2,11 +2,13 @@ export interface ESBreadcrumbData {
   icon?: string;
   svgIcon?: string;
   label?: string;
+  ariaLabel?: string;
   breadcrumbs?: Array<{
     path: string | number;
     icon?: string;
     svgIcon?: string;
     label?: string;
+    ariaLabel?: string;
   }>;
 }
 

@@ -1,0 +1,16 @@
+@mixin es-paginator-theme($theme) {
+  $primary: mat-color(map-get($theme, primary));
+
+  .es-paginator {
+    &__item {
+      &_active {
+        background-color: rgb($primary, 0.04);
+        font-weight: 600;
+
+        &.mat-icon-button:disabled {
+          color: $primary;
+        }
+      }
+    }
+  }
+}

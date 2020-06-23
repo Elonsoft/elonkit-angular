@@ -1,5 +1,7 @@
 @import './ui/counter/counter.component.theme';
+@import './ui/paginator/paginator.component.theme';
 
 @mixin elonkit-theme($theme) {
   @include es-counter-theme($theme);
+  @include es-paginator-theme($theme);
 }

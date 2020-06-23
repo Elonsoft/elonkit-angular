@@ -1,5 +1,6 @@
 import { render, RenderResult } from '@testing-library/angular';
 
+import { NgZone } from '@angular/core';
 import { inject } from '@angular/core/testing';
 import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -22,7 +23,6 @@ import {
   ItemsShowResolver,
   ItemsShowBreadcrumbsResolver
 } from './breadcrumbs.spec.resolver';
-import { NgZone } from '@angular/core';
 
 const setWidth = (
   component: RenderResult<BreadcrumbsRootComponent, BreadcrumbsRootComponent>,

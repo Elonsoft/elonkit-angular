@@ -1,0 +1,73 @@
+<div class="es-paginator">
+  <div class="es-paginator__size mat-caption">
+    <span>{{ locale.labelItemsPerPage }}:</span>
+    <mat-select
+      class="es-paginator__select"
+      size="sm"
+      [aria-label]="locale.labelItemsPerPage"
+      [ngModel]="pageSize"
+      (ngModelChange)="onPageSizeChange($event)"
+    >
+      <mat-option *ngFor="let size of pageSizeOptions" [value]="size">
+        {{ size }}
+      </mat-option>
+    </mat-select>
+
+    <span class="es-paginator__pages">
+      {{ countStart }} - {{ countEnd }} {{ locale.labelOf }} {{ count }}
+    </span>
+  </div>
+
+  <div *ngIf="count" class="es-paginator__items">
+    <button
+      class="es-paginator__item es-paginator__item_arrow"
+      mat-icon-button
+      [disabled]="page === 1"
+      (click)="onPrevPage()"
+      [attr.aria-label]="locale.labelPrev"
+    >
+      <mat-icon> chevron_left </mat-icon>
+    </button>
+
+    <ng-container *ngFor="let i of pages">
+      <button
+        *ngIf="i !== null"
+        class="es-paginator__item"
+        [ngClass]="{ 'es-paginator__item_active': i === page }"
+        mat-icon-button
+        [disabled]="i === page"
+        (click)="onPageClick(i)"
+      >
+        {{ i }}
+      </button>
+      <div *ngIf="i === null" class="es-paginator__item es-paginator__item_gap">
+        &hellip;
+      </div>
+    </ng-container>
+
+    <button
+      class="es-paginator__item es-paginator__item_arrow"
+      mat-icon-button
+      [disabled]="page === pagesCount"
+      (click)="onNextPage()"
+      [attr.aria-label]="locale.labelNext"
+    >
+      <mat-icon> chevron_right </mat-icon>
+    </button>
+
+    <form class="es-paginator__form" novalidate (submit)="onSubmit($event)">
+      <mat-form-field class="es-paginator__input" appearance="outline">
+        <input
+          [attr.aria-label]="locale.labelGoTo"
+          matInput
+          [(ngModel)]="pageGoTo"
+          name="pageGoTo"
+          type="number"
+          min="1"
+          [max]="pagesCount"
+          placeholder="{{ page }} {{ locale.labelPage }}"
+        />
+      </mat-form-field>
+    </form>
+  </div>
+</div>
