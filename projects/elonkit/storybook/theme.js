@@ -3,7 +3,7 @@ import { create } from '@storybook/theming/create';
 export default create({
   base: 'light',
 
-  fontBase: '"Courier New", monospace',
+  fontBase: '"Roboto", sans-serif',
   fontCode: 'monospace',
 
   brandTitle: 'Elonsoft',
