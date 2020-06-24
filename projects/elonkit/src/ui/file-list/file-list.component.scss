@@ -1,0 +1,61 @@
+.file-list {
+  margin-top: 24px;
+
+  &__file {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__icon {
+    &.mat-icon {
+      height: 40px;
+      margin-right: 12px;
+      width: 32px;
+    }
+
+    &_download.mat-icon {
+      cursor: pointer;
+    }
+  }
+
+  &__title {
+    display: flex;
+  }
+
+  &__remove.mat-icon-button {
+    $size: 20px;
+    height: $size;
+    line-height: $size;
+    width: $size;
+
+    mat-icon {
+      color: rgba(0, 0, 0, 0.24);
+      font-size: $size;
+      height: $size;
+      line-height: $size;
+      width: $size;
+    }
+  }
+
+  &__name {
+    line-height: 20px;
+    margin-bottom: 2px;
+    margin-right: 8px;
+  }
+
+  &__subtitle {
+    align-items: center;
+    color: rgba(0, 0, 0, 0.38);
+    display: flex;
+    font-size: 12px;
+    line-height: 16px;
+
+    &-point {
+      font-size: 12px;
+      margin: 0 8px;
+    }
+  }
+}

@@ -1,0 +1,86 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESFileListComponent } from '..';
+
+import {
+  FileListStoryBasicComponent,
+  FileListStoryBasicModule,
+  FILE_LIST_STORY_BASIC_SOURCE
+} from './file-list-story-basic';
+
+import {
+  FileListStoryLocaleComponent,
+  FileListStoryLocaleModule,
+  FILE_LIST_STORY_LOCALE_SOURCE
+} from './file-list-story-locale';
+
+<Meta title='UI/File List' decorators={[withA11y, withKnobs]} />
+
+# File List
+
+This component displays a list of files.
+
+## Demos
+
+<Preview source={FILE_LIST_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='270px'>
+    {{
+      component: FileListStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, FileListStoryBasicModule]
+      },
+      props: {
+        canRemove: boolean('canRemove', false),
+        canDownload: boolean('canDownload', false),
+        hideImages: boolean('hideImages', false),
+        onRemove: action('onRemove')
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale which is used for file size units.
+
+<Preview source={FILE_LIST_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='270px'>
+    {{
+      component: FileListStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, FileListStoryLocaleModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESFileListComponent} />
+
+## Interfaces
+
+```ts
+interface ESFileListFile {
+  id?: number;
+  deleted?: boolean;
+  type?: string;
+  base64?: string;
+  file?: string;
+  name: string;
+  size: number;
+  content: File;
+}
+```
+
+```ts
+interface ESFileListRemoveAction {
+  file: IESFileListFile;
+  index: number;
+}
+```
