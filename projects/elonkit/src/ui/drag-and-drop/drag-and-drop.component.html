@@ -1,0 +1,29 @@
+<div
+  class="es-drag-and-drop"
+  [ngClass]="{ 'es-drag-and-drop_dragover': isDragover }"
+  (drop)="onDrop($event)"
+  (dragover)="onDragover($event)"
+  (dragleave)="onDragleave($event)"
+  (dragend)="onDragend($event)"
+  (click)="openSelectFileDialog()"
+>
+  <div class="mat-h2 es-drag-and-drop__title">
+    <mat-icon svgIcon="upload" class="es-drag-and-drop__choose-icon"></mat-icon>
+    {{ title }}
+  </div>
+  <div class="mat-body-1 es-drag-and-drop__description">
+    {{ description }}
+  </div>
+</div>
+<div class="es-drag-and-drop__hint mat-caption">
+  <ng-content *ngIf="!invalid" select="mat-hint"></ng-content>
+  <ng-content *ngIf="invalid" select="mat-error"></ng-content>
+</div>
+<input
+  #fileInput
+  class="es-drag-and-drop__input"
+  [accept]="accept"
+  type="file"
+  (change)="onChange($event)"
+  multiple
+/>
