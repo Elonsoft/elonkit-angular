@@ -1,0 +1,71 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESDragAndDropComponent } from '..';
+
+import {
+  DragAndDropStoryBasicModule,
+  DragAndDropStoryBasicComponent,
+  DRAG_AND_DROP_STORY_BASIC_SOURCE
+} from './drag-and-drop-story-basic';
+
+import {
+  DragAndDropStoryRequiredModule,
+  DragAndDropStoryRequiredComponent,
+  DRAG_AND_DROP_STORY_REQUIRED_SOURCE
+} from './drag-and-drop-story-required';
+
+<Meta title='UI/Drag And Drop' decorators={[withA11y]} />
+
+# Drag And Drop
+
+This component allows to select files on click or by drag and drop. Requires a `formControlName` as an Input.
+
+## Demos
+
+<Preview source={DRAG_AND_DROP_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='150px'>
+    {{
+      component: DragAndDropStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, DragAndDropStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can make Form Control required by adding a Validator.
+
+<Preview source={DRAG_AND_DROP_STORY_REQUIRED_SOURCE}>
+  <Story name='Required' height='200px'>
+    {{
+      component: DragAndDropStoryRequiredComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, DragAndDropStoryRequiredModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESDragAndDropComponent} />
+
+## Interfaces
+
+```ts
+interface ESDragAndDropFile {
+  id?: number;
+  deleted?: boolean;
+  type?: string;
+  base64?: string;
+  file?: string;
+  name: string;
+  size: number;
+  content: File;
+}
+```

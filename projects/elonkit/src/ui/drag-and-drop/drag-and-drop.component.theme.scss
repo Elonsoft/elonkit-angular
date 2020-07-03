@@ -1,0 +1,10 @@
+@mixin es-drag-and-drop-theme($theme) {
+  $primary: mat-color(map-get($theme, primary));
+  $accent: mat-color(map-get($theme, accent));
+
+  .es-drag-and-drop {
+    &__title {
+      color: $primary;
+    }
+  }
+}

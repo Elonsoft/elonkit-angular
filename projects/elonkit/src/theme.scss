@@ -1,6 +1,7 @@
 @import './ui/alert/alert.component.theme';
 @import './ui/inline-form-field/inline-form-field.component.theme';
 @import './ui/paginator/paginator.component.theme';
+@import './ui/drag-and-drop/drag-and-drop.component.theme';
 
 $elonkit-default-theme: (
   info:
@@ -114,4 +115,5 @@ $elonkit-default-theme: (
   @include es-alert-theme($theme, $elonkit-theme);
   @include es-inline-form-field-theme($theme, $elonkit-theme);
   @include es-paginator-theme($theme, $elonkit-theme);
+  @include es-drag-and-drop-theme($theme);
 }
