@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { ESFileListLocale } from './file-list.component.locale';
-import { ESFileListFile, ESFileListRemoveAction } from './file-list.types';
+import { ESFileListFile, ESFileListRemoveAction, ESFileListOptions } from './file-list.types';
 
 @Component({
   selector: 'es-file-list',
@@ -18,29 +18,24 @@ import { ESFileListFile, ESFileListRemoveAction } from './file-list.types';
   encapsulation: ViewEncapsulation.None
 })
 export class ESFileListComponent {
-  /**
-   * Array of file types to be considered an image.
-   */
-  @Input()
-  public imageTypes: string[] = ['image/png', 'image/jpg', 'image/jpeg', 'image'];
+  private readonly DEFAULT_OPTIONS = {
+    imageTypes: ['image/png', 'image/jpg', 'image/jpeg', 'image'],
+    hideImages: false,
+    canRemove: false,
+    canDownload: false
+  };
+  private _options: ESFileListOptions = this.DEFAULT_OPTIONS;
 
   /**
-   * Hide image files from the list.
+   * Options object to apply to component.
    */
   @Input()
-  public hideImages: boolean;
-
-  /**
-   * Can remove files from the list.
-   */
-  @Input()
-  public canRemove: boolean;
-
-  /**
-   * Can download files from the list.
-   */
-  @Input()
-  public canDownload: boolean;
+  public get options(): ESFileListOptions {
+    return this._options;
+  }
+  public set options(value: ESFileListOptions) {
+    this._options = { ...this.DEFAULT_OPTIONS, ...value };
+  }
 
   /**
    * Array of files to display.

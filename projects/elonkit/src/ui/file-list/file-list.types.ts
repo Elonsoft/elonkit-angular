@@ -13,3 +13,10 @@ export interface ESFileListRemoveAction {
   file: ESFileListFile;
   index: number;
 }
+
+export interface ESFileListOptions {
+  imageTypes?: string[];
+  hideImages?: boolean;
+  canRemove?: boolean;
+  canDownload?: boolean;
+}
