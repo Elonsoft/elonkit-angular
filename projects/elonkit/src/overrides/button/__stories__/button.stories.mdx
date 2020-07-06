@@ -1,0 +1,25 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ButtonStoryBasicModule, ButtonStoryBasicComponent } from './button-story-basic';
+
+<Meta title='Overrides/Button' decorators={[withA11y, withKnobs]} />
+
+# Button
+
+<Preview>
+  <Story name='Basic' height='170px'>
+    {{
+      component: ButtonStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ButtonStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>

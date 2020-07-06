@@ -1,0 +1,8 @@
+{
+  "bundlerOptions": {
+    "entryFile": "./projects/elonkit/src/overrides.scss",
+    "rootDir": "./projects/src",
+    "outFile": "./dist/elonkit/overrides.scss",
+    "logLevel": "error"
+  }
+}

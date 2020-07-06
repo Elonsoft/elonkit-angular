@@ -1,0 +1,5 @@
+@mixin es-button-overrides($theme) {
+  .mat-button-base {
+    text-transform: uppercase;
+  }
+}

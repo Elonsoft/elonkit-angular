@@ -2,7 +2,7 @@
   "name": "elonsoft",
   "version": "0.0.1",
   "scripts": {
-    "build": "ng build --prod && scss-bundle && cp README.md dist/elonkit",
+    "build": "ng build --prod && scss-bundle --config scss-bundle.config.theme.json && scss-bundle --config scss-bundle.config.overrides.json && cp README.md dist/elonkit",
     "test": "ng test",
     "test:watch": "ng test --watch",
     "lint:tslint": "tslint -c tslint.json --project tsconfig.json 'projects/**/*.ts'",
@@ -73,7 +73,7 @@
     "react-is": "~16.13.1",
     "sass": "^1.26.8",
     "sass-loader": "^8.0.2",
-    "scss-bundle": "~3.0.2",
+    "scss-bundle": "~3.1.2",
     "stylelint": "~13.6.0",
     "stylelint-config-sass-guidelines": "~7.0.0",
     "stylelint-order": "~4.1.0",

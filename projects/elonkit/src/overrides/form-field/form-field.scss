@@ -1,0 +1,9 @@
+@mixin es-form-field-overrides($theme) {
+  .mat-form-field-appearance-outline {
+    width: 100%;
+
+    .mat-form-field-subscript-wrapper {
+      position: static;
+    }
+  }
+}
