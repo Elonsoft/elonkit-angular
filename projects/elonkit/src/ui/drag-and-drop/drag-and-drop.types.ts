@@ -6,5 +6,5 @@ export interface ESDragAndDropFile {
   file?: string;
   name: string;
   size: number;
-  content: File;
+  content: File | string;
 }

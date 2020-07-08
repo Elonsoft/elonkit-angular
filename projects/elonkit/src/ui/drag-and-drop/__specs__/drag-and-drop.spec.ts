@@ -1,4 +1,4 @@
-import { render } from '@testing-library/angular';
+import { render, fireEvent } from '@testing-library/angular';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { Component } from '@angular/core';
 import {
@@ -10,34 +10,12 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { By } from '@angular/platform-browser';
 
 import { ESDragAndDropModule } from '../drag-and-drop.module';
 
 const TEXT_TITLE = 'CHOOSE FILES';
 const TEXT_HINT = 'This is an example of a hint';
 const TEXT_ERROR = 'This is an example of an error';
-
-const filesFixture = [
-  {
-    name: 'name1',
-    size: 123,
-    content: null,
-    type: 'image/jpg'
-  },
-  {
-    name: 'name2',
-    size: 456,
-    content: null,
-    type: 'image/jpg'
-  },
-  {
-    name: 'name3',
-    size: 789,
-    content: null,
-    type: 'image/jpg'
-  }
-];
 
 @Component({
   template: `
@@ -120,27 +98,19 @@ describe('Drag And Drop', () => {
         MatIconTestingModule
       ]
     });
-    const dragAndDropEl = component.fixture.debugElement.query(By.css('.es-drag-and-drop'));
 
-    dragAndDropEl.triggerEventHandler('dragover', {
-      preventDefault: () => {},
-      stopPropagation: () => {}
-    });
-    component.fixture.detectChanges();
+    fireEvent.dragOver(component.getByText(TEXT_TITLE));
     expect(component.container.querySelector('.es-drag-and-drop_dragover')).toBeInTheDocument();
 
-    dragAndDropEl.triggerEventHandler('drop', {
-      preventDefault: () => {},
-      stopPropagation: () => {},
+    fireEvent.drop(component.getByText(TEXT_TITLE), {
       dataTransfer: {
-        files: []
+        files: {}
       }
     });
-    component.fixture.detectChanges();
     expect(component.container.querySelector('.es-drag-and-drop_dragover')).toBeNull();
   });
 
-  it('Should add files to FormControl on drop', async () => {
+  it('Should add files to FormControl on drop', async done => {
     const component = await render(DragAndDropWrapperComponent, {
       imports: [
         FormsModule,
@@ -151,37 +121,86 @@ describe('Drag And Drop', () => {
         MatIconTestingModule
       ]
     });
-    spyOn(window.FileReader.prototype, 'onload').and.callFake(() => {
-      this.files = [...filesFixture];
-      this.cdRef.detectChanges();
-      this.propagateChange(this.files);
-    });
 
-    const dragAndDropEl = component.fixture.debugElement.query(By.css('.es-drag-and-drop'));
+    const fileFixture = {
+      name: 'filename.png',
+      type: 'image/png'
+    };
+    const file = new File([''], fileFixture.name, { type: fileFixture.type });
 
-    dragAndDropEl.triggerEventHandler('drop', {
-      preventDefault: () => {},
-      stopPropagation: () => {},
+    fireEvent.drop(component.getByText(TEXT_TITLE), {
       dataTransfer: {
         files: {
-          0: filesFixture[0],
-          1: filesFixture[1],
-          2: filesFixture[2],
-          length: 3,
+          0: file,
+          length: 1,
           item(i: number) {
             return this[i];
           }
         }
       }
     });
-    component.fixture.detectChanges();
 
     const componentInstance = component.fixture.componentInstance;
-    spyOn(componentInstance, 'onSubmit');
+    componentInstance.form.valueChanges.subscribe(res => {
+      expect(res).toEqual({
+        docs: [
+          {
+            base64: 'data:image/png;base64,',
+            content: file,
+            name: fileFixture.name,
+            size: 0,
+            type: fileFixture.type
+          }
+        ]
+      });
+      done();
+    });
+  });
 
-    const submitButton = component.container.querySelector('#submit-btn');
-    component.click(submitButton);
+  it('Should add files to FormControl on change', async done => {
+    const component = await render(DragAndDropWrapperComponent, {
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MatFormFieldModule,
+        ESDragAndDropModule,
+        MatIconTestingModule
+      ]
+    });
 
-    expect(componentInstance.onSubmit).toHaveBeenCalledWith({ docs: [...filesFixture] });
+    const fileFixture = {
+      name: 'filename.png',
+      type: 'image/png'
+    };
+    const file = new File([''], fileFixture.name, { type: fileFixture.type });
+
+    fireEvent.change(component.container.querySelector('.es-drag-and-drop__input'), {
+      target: {
+        files: {
+          0: file,
+          length: 1,
+          item(i: number) {
+            return this[i];
+          }
+        }
+      }
+    });
+
+    const componentInstance = component.fixture.componentInstance;
+    componentInstance.form.valueChanges.subscribe(res => {
+      expect(res).toEqual({
+        docs: [
+          {
+            base64: 'data:image/png;base64,',
+            content: file,
+            name: fileFixture.name,
+            size: 0,
+            type: fileFixture.type
+          }
+        ]
+      });
+      done();
+    });
   });
 });

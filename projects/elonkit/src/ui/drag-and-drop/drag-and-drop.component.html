@@ -1,5 +1,6 @@
-<div
+<button
   class="es-drag-and-drop"
+  matRipple
   [ngClass]="{ 'es-drag-and-drop_dragover': isDragover }"
   (drop)="onDrop($event)"
   (dragover)="onDragover($event)"
@@ -14,7 +15,7 @@
   <div class="mat-body-1 es-drag-and-drop__description">
     {{ description }}
   </div>
-</div>
+</button>
 <div class="es-drag-and-drop__hint mat-caption">
   <ng-content *ngIf="!invalid" select="mat-hint"></ng-content>
   <ng-content *ngIf="invalid" select="mat-error"></ng-content>

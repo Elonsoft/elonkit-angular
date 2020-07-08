@@ -21,7 +21,5 @@ export class DragAndDropStoryRequiredComponent {
     );
   }
 
-  public onSubmit(form: any) {
-    console.log(form);
-  }
+  public onSubmit(form: any) {}
 }
