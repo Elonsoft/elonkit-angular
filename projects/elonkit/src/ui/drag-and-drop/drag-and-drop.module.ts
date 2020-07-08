@@ -6,10 +6,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ESDragAndDropComponent } from './drag-and-drop.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [ESDragAndDropComponent],
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatSnackBarModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatRippleModule,
+    HttpClientModule
+  ],
   exports: [ESDragAndDropComponent]
 })
 export class ESDragAndDropModule {}

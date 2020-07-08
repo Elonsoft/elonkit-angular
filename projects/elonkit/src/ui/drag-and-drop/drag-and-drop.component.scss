@@ -12,11 +12,17 @@
   width: 100%;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  &:active,
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.12);
+    outline: 0;
   }
 
   &_dragover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.12);
     border: 1px dotted rgba(0, 0, 0, 0.12);
 
     * {

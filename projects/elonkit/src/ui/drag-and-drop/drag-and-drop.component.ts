@@ -22,6 +22,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ESDragAndDropFile } from './drag-and-drop.types';
 
+const toFile = (type: string, file: File) =>
+  new Promise<ESDragAndDropFile>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const targetFile = {
+        content: type === 'binary' ? file : (reader.result as string),
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        base64: reader.result as string
+      };
+      resolve(targetFile);
+    };
+    reader.onerror = error => reject(error);
+  });
+
 @Component({
   selector: 'es-drag-and-drop',
   templateUrl: './drag-and-drop.component.html',
@@ -201,13 +218,13 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
     input.click();
   }
 
-  /**
+  /**07
    * @internal
    * @ignore
    */
-  public onChange(event: any): void {
-    event.stopPropagation();
-    const files = event.target.files as FileList;
+  public onChange(e: any): void {
+    e.stopPropagation();
+    const files = e.target.files as FileList;
     for (let i = 0; i < files.length; i++) {
       this.setFile(files.item(i));
     }
@@ -223,25 +240,15 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
     return (control.touched || (form && form.submitted)) && control.invalid;
   }
 
-  private setFile(file: File): void {
+  private async setFile(file: File) {
     if (!this.validateFileType(file) || !this.validateFileSize(file)) {
       return;
     }
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = ({ target: { result } }: any) => {
-      const targetFile = {
-        content: this.type === 'binary' ? file : result,
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        base64: result
-      };
-      this.files = [...this.files, targetFile];
-      this.cdRef.detectChanges();
-      this.propagateChange(this.files);
-    };
+    const targetFile = await toFile(this.type, file);
+    this.files = [...this.files, targetFile];
+    this.cdRef.detectChanges();
+    this.propagateChange(this.files);
   }
 
   private getMaxSizeInBytes(): number {
