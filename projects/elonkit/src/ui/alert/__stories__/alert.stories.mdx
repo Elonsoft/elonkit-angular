@@ -1,0 +1,87 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text, select } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESAlertModule, ESAlertComponent } from '..';
+
+import { ALERT_STORY_BASIC_SOURCE } from './alert-story-basic';
+import { ALERT_STORY_CLOSABLE_SOURCE } from './alert-story-closable';
+import { ALERT_STORY_ACTIONS_SOURCE } from './alert-story-actions';
+
+<Meta title='UI/Alert' decorators={[withA11y, withKnobs]} />
+
+# Alert
+
+An alert displays a short, important message in a way that attracts the user's attention without
+interrupting the user's task.
+
+## Demos
+
+<Preview source={ALERT_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='100px'>
+    {{
+      template: `<es-alert [variant]="variant">{{content}}</es-alert>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESAlertModule]
+      },
+      props: {
+        content: text('content', 'Alert message for a user'),
+        variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'info')
+      }
+    }}
+  </Story>
+</Preview>
+
+We can make alert closable.
+
+<Preview source={ALERT_STORY_CLOSABLE_SOURCE}>
+  <Story name='Closable' height='100px'>
+    {{
+      template: `<es-alert [variant]="variant" closable (closed)="onClose()">{{content}}</es-alert>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESAlertModule]
+      },
+      props: {
+        content: text('content', 'Alert message for a user'),
+        variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'error'),
+        onClose: action('onClose')
+      }
+    }}
+  </Story>
+</Preview>
+
+We can add actions.
+
+<Preview source={ALERT_STORY_CLOSABLE_SOURCE}>
+  <Story name='Actions' height='200px'>
+    {{
+      template: `
+        <es-alert [variant]="variant">
+          {{content}}
+          <es-alert-actions>
+            <button mat-flat-button (click)="onAction()">Action</button>
+            <button mat-button (click)="onCancel()">Cancel</button>
+          </es-alert-actions>
+        </es-alert>
+      `,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESAlertModule]
+      },
+      props: {
+        content: text('content', 'Alert message for a user'),
+        variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'success'),
+        onAction: action('onAction'),
+        onCancel: action('onCancel')
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESAlertComponent} />
