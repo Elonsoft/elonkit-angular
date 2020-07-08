@@ -5,12 +5,35 @@ import {
   ViewEncapsulation,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  InjectionToken,
+  Optional,
+  Inject
 } from '@angular/core';
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { ESAlertVariant } from './alert.types';
+import { ESAlertLocale } from './alert.component.locale';
+
+export interface ESAlertDefaultOptions {
+  typography?: string;
+  iconMapping?: { [key in ESAlertVariant]?: { icon: string } | { svgIcon: string } };
+}
+
+const DEFAULT_TYPOGRAPHY = 'mat-body-1';
+
+const DEFAULT_ICON_MAPPING = {
+  default: { icon: 'info' },
+  info: { icon: 'info' },
+  success: { icon: 'check_circle' },
+  warning: { icon: 'warning' },
+  error: { icon: 'error' }
+};
+
+export const ES_ALERT_DEFAULT_OPTIONS = new InjectionToken<ESAlertDefaultOptions>(
+  'ES_ALERT_DEFAULT_OPTIONS'
+);
 
 @Component({
   selector: 'es-alert',
@@ -20,11 +43,32 @@ import { ESAlertVariant } from './alert.types';
   encapsulation: ViewEncapsulation.None
 })
 export class ESAlertComponent {
+  private iconMapping: { [key in ESAlertVariant]: { icon: string } | { svgIcon: string } };
+
+  /**
+   * The variant of the alert. This defines the color and icon used.
+   */
   @Input() variant: ESAlertVariant = 'default';
-  @Input() typography = 'mat-body-1';
+
+  private _typography;
+
+  /**
+   * Class applied to text.
+   */
+  @Input()
+  get typography(): string {
+    return this._typography;
+  }
+  set typography(value: string) {
+    this._typography =
+      value || (this.defaultOptions && this.defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
+  }
 
   private _closable = false;
 
+  /**
+   * Show close button.
+   */
   @Input()
   get closable(): boolean {
     return this._closable;
@@ -33,18 +77,45 @@ export class ESAlertComponent {
     this._closable = coerceBooleanProperty(closable);
   }
 
+  /**
+   * Override the icon displayed before the text.
+   * Unless provided, the icon is mapped to the value of the variant input.
+   */
   @Input() icon?: string;
+
+  /**
+   * Override the icon displayed before the text.
+   * Unless provided, the icon is mapped to the value of the variant input.
+   */
   @Input() svgIcon?: string;
 
+  /**
+   * Event emitted when user clicks close button.
+   */
   @Output() closed = new EventEmitter();
 
   /**
    * @ignore
    */
   constructor(
-    // We need to make changeDetector public in order to be able to use it in tests.
-    public changeDetector: ChangeDetectorRef
-  ) {}
+    /**
+     * @internal
+     */
+    public changeDetector: ChangeDetectorRef,
+    /**
+     * @internal
+     */
+    public locale: ESAlertLocale,
+    /**
+     * @internal
+     */
+    @Optional()
+    @Inject(ES_ALERT_DEFAULT_OPTIONS)
+    private defaultOptions: ESAlertDefaultOptions
+  ) {
+    this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
+    this.iconMapping = { ...DEFAULT_ICON_MAPPING, ...defaultOptions?.iconMapping };
+  }
 
   /**
    * @internal
@@ -54,28 +125,13 @@ export class ESAlertComponent {
     this.closed.emit();
   }
 
-  /**
-   * @internal
-   * @ignore
-   */
-  get iconText() {
+  get currentIcon() {
     if (this.icon) {
-      return this.icon;
+      return { icon: this.icon };
     }
     if (this.svgIcon) {
-      return '';
+      return { svgIcon: this.svgIcon };
     }
-    switch (this.variant) {
-      case 'default':
-        return 'info';
-      case 'info':
-        return 'info';
-      case 'success':
-        return 'check_circle';
-      case 'warning':
-        return 'warning';
-      case 'error':
-        return 'error';
-    }
+    return this.iconMapping[this.variant];
   }
 }

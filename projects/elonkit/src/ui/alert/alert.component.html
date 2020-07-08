@@ -3,9 +3,9 @@
     <mat-icon
       class="es-alert__icon es-alert__icon_display"
       [ngClass]="'es-alert__icon_variant_' + variant"
-      [svgIcon]="svgIcon"
+      [svgIcon]="currentIcon.svgIcon"
     >
-      {{ iconText }}
+      {{ currentIcon.icon || '' }}
     </mat-icon>
     <div class="es-alert__text" [ngClass]="typography">
       <ng-content></ng-content>
@@ -16,6 +16,7 @@
       [ngClass]="'es-alert__icon_variant_' + variant"
       mat-icon-button
       type="button"
+      [attr.aria-label]="locale.labelClose"
       (click)="onClose()"
     >
       <mat-icon>close</mat-icon>

@@ -12,6 +12,16 @@ import { ESAlertModule, ESAlertComponent } from '..';
 import { ALERT_STORY_BASIC_SOURCE } from './alert-story-basic';
 import { ALERT_STORY_CLOSABLE_SOURCE } from './alert-story-closable';
 import { ALERT_STORY_ACTIONS_SOURCE } from './alert-story-actions';
+import {
+  AlertStoryIconMappingModule,
+  AlertStoryIconMappingComponent,
+  ALERT_STORY_ICON_MAPPING_SOURCE
+} from './alert-story-icon-mapping';
+import {
+  AlertStoryLocaleModule,
+  AlertStoryLocaleComponent,
+  ALERT_STORY_LOCALE_SOURCE
+} from './alert-story-locale';
 
 <Meta title='UI/Alert' decorators={[withA11y, withKnobs]} />
 
@@ -30,7 +40,7 @@ interrupting the user's task.
         imports: [BrowserAnimationsModule, ESAlertModule]
       },
       props: {
-        content: text('content', 'Alert message for a user'),
+        content: text('content', 'Message'),
         variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'info')
       }
     }}
@@ -47,7 +57,7 @@ We can make alert closable.
         imports: [BrowserAnimationsModule, ESAlertModule]
       },
       props: {
-        content: text('content', 'Alert message for a user'),
+        content: text('content', 'Message'),
         variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'error'),
         onClose: action('onClose')
       }
@@ -73,7 +83,7 @@ We can add actions.
         imports: [BrowserAnimationsModule, ESAlertModule]
       },
       props: {
-        content: text('content', 'Alert message for a user'),
+        content: text('content', 'Message'),
         variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'success'),
         onAction: action('onAction'),
         onCancel: action('onCancel')
@@ -82,6 +92,65 @@ We can add actions.
   </Story>
 </Preview>
 
+We can override default icon mapping and individual icons.
+
+<Preview source={ALERT_STORY_ICON_MAPPING_SOURCE}>
+  <Story name='Icon mapping' height='400px'>
+    {{
+      component: AlertStoryIconMappingComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, AlertStoryIconMappingModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale which is used for close button.
+
+<Preview source={ALERT_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='200px'>
+    {{
+      component: AlertStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, AlertStoryLocaleModule]
+      }
+    }}
+  </Story>
+</Preview>
+
 ## API
 
 <Props of={ESAlertComponent} />
+
+```ts
+interface ESAlertDefaultOptions {
+  typography?: string;
+  iconMapping?: { [key in ESAlertVariant]?: { icon: string } | { svgIcon: string } };
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_ALERT_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/alert';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_ALERT_DEFAULT_OPTIONS,
+      useValue: {
+        typography: 'mat-body-1',
+        iconMapping: {
+          default: { icon: 'info' },
+          info: { icon: 'info' },
+          success: { icon: 'check_circle' },
+          warning: { icon: 'warning' },
+          error: { icon: 'error' }
+        }
+      }
+    }
+  ]
+})
+```
