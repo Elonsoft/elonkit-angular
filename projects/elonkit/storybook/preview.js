@@ -9,6 +9,15 @@ import theme from './theme';
 
 addParameters({
   options: {
-    theme
+    theme,
+    storySort: (a, b) => {
+      if (a[1].kind.split('/')[0] !== b[1].kind.split('/')[0]) {
+        return a[1].kind.startsWith('UI') ? -1 : 1;
+      }
+
+      return a[1].kind === b[1].kind
+        ? 0
+        : a[1].id.localeCompare(b[1].id, undefined, { numeric: true });
+    }
   }
 });

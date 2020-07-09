@@ -11,3 +11,7 @@ $theme: mat-light-theme($primary, $accent);
 // In production it's "@elonsoft/elonkit/theme"
 @import '../src/theme';
 @include elonkit-theme($theme);
+
+// In production it's "@elonsoft/elonkit/overrides"
+@import '../src/overrides';
+@include elonkit-overrides($theme);
