@@ -1,0 +1,93 @@
+.image-scroller {
+  overflow: hidden;
+  position: relative;
+
+  &__items {
+    left: 0;
+    position: relative;
+    transition: all 1s;
+    white-space: nowrap;
+  }
+
+  &__item {
+    background-position: center;
+    background-size: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 100%;
+    min-width: 0;
+    position: relative;
+
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+
+    &-view {
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.54);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      height: 48px;
+      justify-content: center;
+      left: calc(50% - 24px);
+      position: absolute;
+      top: calc(50% - 24px);
+      visibility: hidden;
+      width: 48px;
+
+      .mat-icon {
+        color: #fff;
+      }
+    }
+
+    &-icon {
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.38);
+      border-radius: 6px;
+      display: flex;
+      height: 32px;
+      justify-content: center;
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      visibility: hidden;
+      width: 32px;
+
+      .mat-icon {
+        color: #fff;
+      }
+    }
+
+    &:hover &-icon,
+    &:hover &-view {
+      visibility: visible !important;
+    }
+  }
+
+  &__arrow {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.54);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    position: absolute;
+    top: calc(50% - 40px / 2);
+    width: 40px;
+
+    &_left {
+      left: 16px;
+    }
+
+    &_right {
+      right: 16px;
+    }
+
+    .mat-icon {
+      color: #fff;
+    }
+  }
+}
