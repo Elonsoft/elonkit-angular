@@ -20,21 +20,20 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ESDragAndDropFile } from './drag-and-drop.types';
+import { ESDragAndDropFile, ESDragAndDropOptions } from './drag-and-drop.types';
 
 const toFile = (type: string, file: File) =>
   new Promise<ESDragAndDropFile>((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      const targetFile = {
+      resolve({
         content: type === 'binary' ? file : (reader.result as string),
         name: file.name,
         size: file.size,
         type: file.type,
         base64: reader.result as string
-      };
-      resolve(targetFile);
+      });
     };
     reader.onerror = error => reject(error);
   });
@@ -65,6 +64,13 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
    */
   public isDragover: boolean;
 
+  private readonly DEFAULT_OPTIONS = {
+    accept:
+      '.doc,.docx,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf, image/jpg,image/jpeg,image/png',
+    maxSize: 50,
+    type: 'base64'
+  };
+  private _options: ESDragAndDropOptions = this.DEFAULT_OPTIONS;
   private formControl: AbstractControl;
   private SNACK_BAR_CONFIG = { duration: 3000 };
 
@@ -81,30 +87,21 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
   public description: string;
 
   /**
-   * String of file types to accept as valid file type.
-   */
-  @Input()
-  // tslint:disable-next-line: no-inferrable-types
-  public accept: string =
-    '.doc,.docx,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf, image/jpg,image/jpeg,image/png';
-
-  /**
-   * Max file size to accept in MB.
-   */
-  @Input()
-  public maxSize: number;
-
-  /**
    * Name of a formControl.
    */
   @Input()
   public formControlName: string;
 
   /**
-   * File type.
+   * Component options.
    */
   @Input()
-  public type: 'binary' | 'base64' = 'base64';
+  public set options(val: ESDragAndDropOptions) {
+    this._options = { ...this.DEFAULT_OPTIONS, ...val };
+  }
+  public get options(): ESDragAndDropOptions {
+    return this._options;
+  }
 
   /**
    * @internal
@@ -120,9 +117,9 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
     @Host()
     @SkipSelf()
     private controlContainer: ControlContainer,
-    @Optional() private ngForm: FormGroupDirective,
     private snackBar: MatSnackBar,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    @Optional() public ngForm: FormGroupDirective
   ) {}
 
   /**
@@ -237,7 +234,11 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
   public get invalid(): boolean {
     const control = this.formControl;
     const form = this.ngForm;
-    return (control.touched || (form && form.submitted)) && control.invalid;
+    this.cdRef.markForCheck();
+    if (control) {
+      return control.invalid && (control.touched || (form && form.submitted));
+    }
+    return false;
   }
 
   private async setFile(file: File) {
@@ -245,19 +246,19 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
       return;
     }
 
-    const targetFile = await toFile(this.type, file);
+    const targetFile = await toFile(this.options.type, file);
     this.files = [...this.files, targetFile];
     this.cdRef.detectChanges();
     this.propagateChange(this.files);
   }
 
   private getMaxSizeInBytes(): number {
-    return this.maxSize * 1024 * 1024;
+    return this.options.maxSize * 1024 * 1024;
   }
 
   private validateFileSize(file: File): boolean {
     if (file.size > this.getMaxSizeInBytes()) {
-      this.showSnackBar(`File size is over upload limit of ${this.maxSize} MB`);
+      this.showSnackBar(`File size is over upload limit of ${this.options.maxSize} MB`);
       return false;
     }
 
@@ -265,7 +266,7 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
   }
 
   private validateFileType(file: File): boolean {
-    if (!this.accept.includes(file.type)) {
+    if (!this.options.accept.includes(file.type)) {
       this.showSnackBar('This file type is not supported');
       return false;
     }

@@ -8,3 +8,9 @@ export interface ESDragAndDropFile {
   size: number;
   content: File | string;
 }
+
+export interface ESDragAndDropOptions {
+  accept?: string;
+  maxSize?: number;
+  type?: string;
+}

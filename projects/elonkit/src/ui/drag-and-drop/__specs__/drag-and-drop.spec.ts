@@ -23,10 +23,11 @@ const TEXT_ERROR = 'This is an example of an error';
       <es-drag-and-drop
         title="${TEXT_TITLE}"
         description="description"
-        maxSize="50"
         formControlName="docs"
-        accept="image/jpg,image/jpeg,image/png"
-        type="binary"
+        [options]="{
+          accept: 'image/jpg,image/jpeg,image/png',
+          type: 'binary'
+        }"
       >
         <mat-hint>${TEXT_HINT}</mat-hint>
         <mat-error>${TEXT_ERROR}</mat-error>
