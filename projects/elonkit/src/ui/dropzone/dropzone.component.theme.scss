@@ -1,8 +1,8 @@
-@mixin es-drag-and-drop-theme($theme) {
+@mixin es-dropzone-theme($theme) {
   $primary: mat-color(map-get($theme, primary));
   $accent: mat-color(map-get($theme, accent));
 
-  .es-drag-and-drop {
+  .es-dropzone {
     &__title {
       color: $primary;
     }

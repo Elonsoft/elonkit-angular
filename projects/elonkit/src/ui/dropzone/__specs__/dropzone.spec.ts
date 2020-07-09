@@ -11,7 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { ESDragAndDropModule } from '../drag-and-drop.module';
+import { ESDropzoneModule } from '../dropzone.module';
 
 const TEXT_TITLE = 'CHOOSE FILES';
 const TEXT_HINT = 'This is an example of a hint';
@@ -20,7 +20,7 @@ const TEXT_ERROR = 'This is an example of an error';
 @Component({
   template: `
     <form #f="ngForm" [formGroup]="form" (ngSubmit)="onSubmit(f.value)">
-      <es-drag-and-drop
+      <es-dropzone
         title="${TEXT_TITLE}"
         description="description"
         formControlName="docs"
@@ -31,12 +31,12 @@ const TEXT_ERROR = 'This is an example of an error';
       >
         <mat-hint>${TEXT_HINT}</mat-hint>
         <mat-error>${TEXT_ERROR}</mat-error>
-      </es-drag-and-drop>
+      </es-dropzone>
       <button id="submit-btn" type="submit">Submit</button>
     </form>
   `
 })
-class DragAndDropWrapperComponent {
+class DropzoneWrapperComponent {
   public form = new FormGroup({
     docs: new FormControl([], Validators.required)
   });
@@ -45,13 +45,13 @@ class DragAndDropWrapperComponent {
 
 describe('Drag And Drop', () => {
   it('Should render component', async () => {
-    const component = await render(DragAndDropWrapperComponent, {
+    const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
         MatFormFieldModule,
-        ESDragAndDropModule,
+        ESDropzoneModule,
         MatIconTestingModule
       ]
     });
@@ -59,13 +59,13 @@ describe('Drag And Drop', () => {
   });
 
   it('Should show hint', async () => {
-    const component = await render(DragAndDropWrapperComponent, {
+    const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
         MatFormFieldModule,
-        ESDragAndDropModule,
+        ESDropzoneModule,
         MatIconTestingModule
       ]
     });
@@ -73,13 +73,13 @@ describe('Drag And Drop', () => {
   });
 
   it('Should show error', async () => {
-    const component = await render(DragAndDropWrapperComponent, {
+    const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
         MatFormFieldModule,
-        ESDragAndDropModule,
+        ESDropzoneModule,
         MatIconTestingModule
       ]
     });
@@ -89,36 +89,36 @@ describe('Drag And Drop', () => {
   });
 
   it('Should add class on dragover and remove on drop', async () => {
-    const component = await render(DragAndDropWrapperComponent, {
+    const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
         MatFormFieldModule,
-        ESDragAndDropModule,
+        ESDropzoneModule,
         MatIconTestingModule
       ]
     });
 
     fireEvent.dragOver(component.getByText(TEXT_TITLE));
-    expect(component.container.querySelector('.es-drag-and-drop_dragover')).toBeInTheDocument();
+    expect(component.container.querySelector('.es-dropzone_dragover')).toBeInTheDocument();
 
     fireEvent.drop(component.getByText(TEXT_TITLE), {
       dataTransfer: {
         files: {}
       }
     });
-    expect(component.container.querySelector('.es-drag-and-drop_dragover')).toBeNull();
+    expect(component.container.querySelector('.es-dropzone_dragover')).toBeNull();
   });
 
   it('Should add files to FormControl on drop', async done => {
-    const component = await render(DragAndDropWrapperComponent, {
+    const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
         MatFormFieldModule,
-        ESDragAndDropModule,
+        ESDropzoneModule,
         MatIconTestingModule
       ]
     });
@@ -159,13 +159,13 @@ describe('Drag And Drop', () => {
   });
 
   it('Should add files to FormControl on change', async done => {
-    const component = await render(DragAndDropWrapperComponent, {
+    const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
         MatFormFieldModule,
-        ESDragAndDropModule,
+        ESDropzoneModule,
         MatIconTestingModule
       ]
     });
@@ -176,7 +176,7 @@ describe('Drag And Drop', () => {
     };
     const file = new File([''], fileFixture.name, { type: fileFixture.type });
 
-    fireEvent.change(component.container.querySelector('.es-drag-and-drop__input'), {
+    fireEvent.change(component.container.querySelector('.es-dropzone__input'), {
       target: {
         files: {
           0: file,

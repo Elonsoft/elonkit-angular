@@ -1,4 +1,4 @@
-export const DRAG_AND_DROP_STORY_BASIC_SOURCE = {
+export const DROPZONE_STORY_BASIC_SOURCE = {
   ts: `
   export class AppComponent {
     public form = new FormGroup({
@@ -8,7 +8,7 @@ export const DRAG_AND_DROP_STORY_BASIC_SOURCE = {
   `,
   html: `
   <form class="form" [formGroup]="form">
-    <es-drag-and-drop
+    <es-dropzone
       title="CHOOSE FILES"
       description="or drag files in this area (max size: 50 MB)"
       formControlName="docs"
@@ -21,7 +21,7 @@ export const DRAG_AND_DROP_STORY_BASIC_SOURCE = {
       }"
     >
       <mat-hint>This is an example of a hint message</mat-hint>
-    </es-drag-and-drop>
+    </es-dropzone>
   </form>
   `
 };

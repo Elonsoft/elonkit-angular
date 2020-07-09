@@ -1,4 +1,4 @@
-export const DRAG_AND_DROP_STORY_REQUIRED_SOURCE = {
+export const DROPZONE_STORY_REQUIRED_SOURCE = {
   ts: `
   export class AppComponent {
     public form = new FormGroup({
@@ -10,7 +10,7 @@ export const DRAG_AND_DROP_STORY_REQUIRED_SOURCE = {
   `,
   html: `
   <form #f="ngForm" class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)">
-    <es-drag-and-drop
+    <es-dropzone
       title="CHOOSE FILES"
       description="or drag files in this area (max size: 50 MB)"
       formControlName="docs"
@@ -20,7 +20,7 @@ export const DRAG_AND_DROP_STORY_REQUIRED_SOURCE = {
     >
       <mat-hint>This is an example of a hint message</mat-hint>
       <mat-error>Select at least one file</mat-error>
-    </es-drag-and-drop>
+    </es-dropzone>
     <button class="form__submit" color="primary" mat-raised-button type="submit">Submit</button>
   </form>
   `,
