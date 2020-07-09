@@ -4,19 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { DragAndDropStoryRequiredComponent } from './drag-and-drop-story-required.component';
-import { ESDragAndDropModule } from '../..';
+import { DropzoneStoryRequiredComponent } from './dropzone-story-required.component';
+import { ESDropzoneModule } from '../..';
 
 @NgModule({
-  declarations: [DragAndDropStoryRequiredComponent],
+  declarations: [DropzoneStoryRequiredComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     CommonModule,
     MatFormFieldModule,
-    ESDragAndDropModule
+    ESDropzoneModule
   ],
-  exports: [DragAndDropStoryRequiredComponent]
+  exports: [DropzoneStoryRequiredComponent]
 })
-export class DragAndDropStoryRequiredModule {}
+export class DropzoneStoryRequiredModule {}

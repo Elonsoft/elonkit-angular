@@ -1,4 +1,4 @@
-export interface ESDragAndDropFile {
+export interface ESDropzoneFile {
   id?: number;
   deleted?: boolean;
   type?: string;
@@ -9,7 +9,7 @@ export interface ESDragAndDropFile {
   content: File | string;
 }
 
-export interface ESDragAndDropOptions {
+export interface ESDropzoneOptions {
   accept?: string;
   maxSize?: number;
   type?: string;

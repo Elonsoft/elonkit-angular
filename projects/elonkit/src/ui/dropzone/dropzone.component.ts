@@ -20,10 +20,10 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ESDragAndDropFile, ESDragAndDropOptions } from './drag-and-drop.types';
+import { ESDropzoneFile, ESDropzoneOptions } from './dropzones.types';
 
 const toFile = (type: string, file: File) =>
-  new Promise<ESDragAndDropFile>((resolve, reject) => {
+  new Promise<ESDropzoneFile>((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -39,24 +39,24 @@ const toFile = (type: string, file: File) =>
   });
 
 @Component({
-  selector: 'es-drag-and-drop',
-  templateUrl: './drag-and-drop.component.html',
-  styleUrls: ['./drag-and-drop.component.scss'],
+  selector: 'es-dropzone',
+  templateUrl: './dropzone.component.html',
+  styleUrls: ['./dropzone.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ESDragAndDropComponent),
+      useExisting: forwardRef(() => ESDropzoneComponent),
       multi: true
     }
   ]
 })
-export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
+export class ESDropzoneComponent implements ControlValueAccessor, OnInit {
   /**
    * @internal
    * @ignore
    */
-  public files: ESDragAndDropFile[];
+  public files: ESDropzoneFile[];
 
   /**
    * @internal
@@ -70,7 +70,7 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
     maxSize: 50,
     type: 'base64'
   };
-  private _options: ESDragAndDropOptions = this.DEFAULT_OPTIONS;
+  private _options: ESDropzoneOptions = this.DEFAULT_OPTIONS;
   private formControl: AbstractControl;
   private SNACK_BAR_CONFIG = { duration: 3000 };
 
@@ -96,10 +96,10 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
    * Component options.
    */
   @Input()
-  public set options(val: ESDragAndDropOptions) {
+  public set options(val: ESDropzoneOptions) {
     this._options = { ...this.DEFAULT_OPTIONS, ...val };
   }
-  public get options(): ESDragAndDropOptions {
+  public get options(): ESDropzoneOptions {
     return this._options;
   }
 
@@ -149,7 +149,7 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
    * @internal
    * @ignore
    */
-  public writeValue(files: ESDragAndDropFile[]): void {
+  public writeValue(files: ESDropzoneFile[]): void {
     this.files = files;
   }
 

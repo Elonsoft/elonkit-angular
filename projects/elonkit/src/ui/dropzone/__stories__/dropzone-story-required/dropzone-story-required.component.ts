@@ -4,12 +4,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
-  selector: 'es-drag-and-drop-required',
-  templateUrl: './drag-and-drop-story-required.component.html',
-  styleUrls: ['./drag-and-drop-story-required.component.scss'],
+  selector: 'es-dropzone-required',
+  templateUrl: './dropzone-story-required.component.html',
+  styleUrls: ['./dropzone-story-required.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DragAndDropStoryRequiredComponent {
+export class DropzoneStoryRequiredComponent {
   public form = new FormGroup({
     docs: new FormControl([], Validators.required)
   });

@@ -4,12 +4,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
-  selector: 'es-drag-and-drop-basic',
-  templateUrl: './drag-and-drop-story-basic.component.html',
-  styleUrls: ['./drag-and-drop-story-basic.component.scss'],
+  selector: 'es-dropzone-basic',
+  templateUrl: './dropzone-story-basic.component.html',
+  styleUrls: ['./dropzone-story-basic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DragAndDropStoryBasicComponent {
+export class DropzoneStoryBasicComponent {
   public form = new FormGroup({
     docs: new FormControl([])
   });

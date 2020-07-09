@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-import { ESDragAndDropComponent } from './drag-and-drop.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatRippleModule } from '@angular/material/core';
 
+import { ESDropzoneComponent } from './dropzone.component';
+
 @NgModule({
-  declarations: [ESDragAndDropComponent],
+  declarations: [ESDropzoneComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -18,6 +18,6 @@ import { MatRippleModule } from '@angular/material/core';
     MatRippleModule,
     HttpClientModule
   ],
-  exports: [ESDragAndDropComponent]
+  exports: [ESDropzoneComponent]
 })
-export class ESDragAndDropModule {}
+export class ESDropzoneModule {}
