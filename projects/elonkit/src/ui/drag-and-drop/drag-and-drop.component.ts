@@ -112,6 +112,10 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
 
   private propagateChange = (_: any) => {};
 
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(
     @Optional()
     @Host()
@@ -119,6 +123,9 @@ export class ESDragAndDropComponent implements ControlValueAccessor, OnInit {
     private controlContainer: ControlContainer,
     private snackBar: MatSnackBar,
     private cdRef: ChangeDetectorRef,
+    /**
+     * @internal
+     */
     @Optional() public ngForm: FormGroupDirective
   ) {}
 
