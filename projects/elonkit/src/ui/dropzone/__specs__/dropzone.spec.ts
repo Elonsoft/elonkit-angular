@@ -14,15 +14,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ESDropzoneModule } from '../dropzone.module';
 
 const TEXT_TITLE = 'CHOOSE FILES';
+const TEXT_DESCRIPTION = 'This is an example of a description';
 const TEXT_HINT = 'This is an example of a hint';
 const TEXT_ERROR = 'This is an example of an error';
+const TEXT_SUBMIT = 'Submit';
 
 @Component({
   template: `
     <form #f="ngForm" [formGroup]="form" (ngSubmit)="onSubmit(f.value)">
       <es-dropzone
-        title="${TEXT_TITLE}"
-        description="description"
+        chooseText="${TEXT_TITLE}"
+        dragText="${TEXT_DESCRIPTION}"
         formControlName="docs"
         [options]="{
           accept: 'image/jpg,image/jpeg,image/png',
@@ -32,7 +34,7 @@ const TEXT_ERROR = 'This is an example of an error';
         <mat-hint>${TEXT_HINT}</mat-hint>
         <mat-error>${TEXT_ERROR}</mat-error>
       </es-dropzone>
-      <button id="submit-btn" type="submit">Submit</button>
+      <button id="submit-btn" type="submit">${TEXT_SUBMIT}</button>
     </form>
   `
 })
@@ -56,6 +58,7 @@ describe('Drag And Drop', () => {
       ]
     });
     expect(component.getByText(TEXT_TITLE)).toBeInTheDocument();
+    expect(component.getByText(TEXT_DESCRIPTION)).toBeInTheDocument();
   });
 
   it('Should show hint', async () => {
@@ -83,7 +86,7 @@ describe('Drag And Drop', () => {
         MatIconTestingModule
       ]
     });
-    const submitButton = component.container.querySelector('#submit-btn');
+    const submitButton = component.getByText(TEXT_SUBMIT);
     component.click(submitButton);
     expect(component.getByText(TEXT_ERROR)).toBeInTheDocument();
   });
@@ -100,15 +103,15 @@ describe('Drag And Drop', () => {
       ]
     });
 
-    fireEvent.dragOver(component.getByText(TEXT_TITLE));
-    expect(component.container.querySelector('.es-dropzone_dragover')).toBeInTheDocument();
+    component.dragOver(component.getByText(TEXT_TITLE));
+    expect(component.getByTestId('root')).toHaveClass('es-dropzone_dragover');
 
-    fireEvent.drop(component.getByText(TEXT_TITLE), {
+    component.drop(component.getByText(TEXT_TITLE), {
       dataTransfer: {
         files: {}
       }
     });
-    expect(component.container.querySelector('.es-dropzone_dragover')).toBeNull();
+    expect(component.getByTestId('root')).not.toHaveClass('es-dropzone_dragover');
   });
 
   it('Should add files to FormControl on drop', async done => {
@@ -129,7 +132,7 @@ describe('Drag And Drop', () => {
     };
     const file = new File([''], fileFixture.name, { type: fileFixture.type });
 
-    fireEvent.drop(component.getByText(TEXT_TITLE), {
+    component.drop(component.getByText(TEXT_TITLE), {
       dataTransfer: {
         files: {
           0: file,
@@ -176,7 +179,7 @@ describe('Drag And Drop', () => {
     };
     const file = new File([''], fileFixture.name, { type: fileFixture.type });
 
-    fireEvent.change(component.container.querySelector('.es-dropzone__input'), {
+    component.change(component.getByTestId('input'), {
       target: {
         files: {
           0: file,

@@ -1,14 +1,12 @@
-<form #f="ngForm" class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)">
+<form class="form" [formGroup]="form">
   <es-dropzone
     chooseText="CHOOSE FILES"
     dragText="or drag files in this area (max size: 50 MB)"
     formControlName="docs"
     [options]="{
-      type: 'binary'
+      svgIcon: 'upload'
     }"
   >
     <mat-hint>This is an example of a hint message</mat-hint>
-    <mat-error>Select at least one file</mat-error>
   </es-dropzone>
-  <button class="form__submit" color="primary" mat-raised-button type="submit">Submit</button>
 </form>

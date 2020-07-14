@@ -1,7 +1,14 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+import { ESDropzoneFile } from '../../dropzones.types';
 
 @Component({
   selector: 'es-dropzone-basic',
@@ -9,15 +16,30 @@ import { MatIconRegistry } from '@angular/material/icon';
   styleUrls: ['./dropzone-story-basic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DropzoneStoryBasicComponent {
-  public form = new FormGroup({
-    docs: new FormControl([])
-  });
+export class DropzoneStoryBasicComponent implements OnInit {
+  @Input()
+  public chooseText: string;
 
-  constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'upload',
-      sanitizer.bypassSecurityTrustResourceUrl('/icons/upload.svg')
-    );
+  @Input()
+  public dragText: string;
+
+  @Input()
+  public accept: string;
+
+  @Input()
+  public maxSize: number;
+
+  @Input()
+  public type: 'base64' | 'binary';
+
+  @Output()
+  public changeFiles = new EventEmitter<ESDropzoneFile[]>();
+
+  public docs = new FormControl([]);
+
+  public ngOnInit(): void {
+    this.docs.valueChanges.subscribe(val => {
+      this.changeFiles.emit(val);
+    });
   }
 }

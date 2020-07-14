@@ -1,26 +1,24 @@
 import {
   Component,
   Input,
-  forwardRef,
   Optional,
-  Host,
-  SkipSelf,
-  OnInit,
   ViewChild,
   ElementRef,
   ChangeDetectorRef,
-  ViewEncapsulation
+  ViewEncapsulation,
+  InjectionToken,
+  Inject,
+  Self
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  ControlContainer,
-  AbstractControl,
-  FormGroupDirective
-} from '@angular/forms';
+import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ESDropzoneFile, ESDropzoneOptions } from './dropzones.types';
+import { ESDropzoneLocale } from './dropzone.component.locale';
+
+export const ES_DROPZONE_DEFAULT_OPTIONS = new InjectionToken<ESDropzoneOptions>(
+  'ES_DROPZONE_DEFAULT_OPTIONS'
+);
 
 const toFile = (type: string, file: File) =>
   new Promise<ESDropzoneFile>((resolve, reject) => {
@@ -42,16 +40,9 @@ const toFile = (type: string, file: File) =>
   selector: 'es-dropzone',
   templateUrl: './dropzone.component.html',
   styleUrls: ['./dropzone.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ESDropzoneComponent),
-      multi: true
-    }
-  ]
+  encapsulation: ViewEncapsulation.None
 })
-export class ESDropzoneComponent implements ControlValueAccessor, OnInit {
+export class ESDropzoneComponent implements ControlValueAccessor {
   /**
    * @internal
    * @ignore
@@ -64,40 +55,32 @@ export class ESDropzoneComponent implements ControlValueAccessor, OnInit {
    */
   public isDragover: boolean;
 
-  private readonly DEFAULT_OPTIONS = {
-    accept:
-      '.doc,.docx,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf, image/jpg,image/jpeg,image/png',
-    maxSize: 50,
+  private readonly DEFAULT_OPTIONS: ESDropzoneOptions = {
+    accept: '*',
+    svgIcon: null,
+    maxSize: null,
     type: 'base64'
   };
-  private _options: ESDropzoneOptions = this.DEFAULT_OPTIONS;
-  private formControl: AbstractControl;
-  private SNACK_BAR_CONFIG = { duration: 3000 };
+  private _options: ESDropzoneOptions;
 
   /**
-   * Title Label.
+   * Choose text Label.
    */
   @Input()
-  public title: string;
+  public chooseText: string;
 
   /**
-   * Description Label.
+   * Drag text Label.
    */
   @Input()
-  public description: string;
-
-  /**
-   * Name of a formControl.
-   */
-  @Input()
-  public formControlName: string;
+  public dragText: string;
 
   /**
    * Component options.
    */
   @Input()
   public set options(val: ESDropzoneOptions) {
-    this._options = { ...this.DEFAULT_OPTIONS, ...val };
+    this._options = { ...this.DEFAULT_OPTIONS, ...this.defaultOptions, ...val };
   }
   public get options(): ESDropzoneOptions {
     return this._options;
@@ -117,32 +100,27 @@ export class ESDropzoneComponent implements ControlValueAccessor, OnInit {
    * @ignore
    */
   constructor(
-    @Optional()
-    @Host()
-    @SkipSelf()
-    private controlContainer: ControlContainer,
     private snackBar: MatSnackBar,
     private cdRef: ChangeDetectorRef,
+    private locale: ESDropzoneLocale,
+    @Optional()
+    @Inject(ES_DROPZONE_DEFAULT_OPTIONS)
+    private defaultOptions: ESDropzoneOptions,
+    /**
+     * @internal
+     */
+    @Optional()
+    @Self()
+    public ngControl: NgControl,
     /**
      * @internal
      */
     @Optional() public ngForm: FormGroupDirective
-  ) {}
-
-  /**
-   * @internal
-   * @ignore
-   */
-  public ngOnInit(): void {
-    if (this.controlContainer) {
-      if (this.formControlName) {
-        this.formControl = this.controlContainer.control.get(this.formControlName);
-      } else {
-        console.warn('Missing FormControlName directive from host element of the component');
-      }
-    } else {
-      console.warn('Cant find parent FormGroup directive');
+  ) {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
     }
+    this.options = { ...this.DEFAULT_OPTIONS, ...defaultOptions };
   }
 
   /**
@@ -239,9 +217,8 @@ export class ESDropzoneComponent implements ControlValueAccessor, OnInit {
    * @ignore
    */
   public get invalid(): boolean {
-    const control = this.formControl;
+    const control = this.ngControl;
     const form = this.ngForm;
-    this.cdRef.markForCheck();
     if (control) {
       return control.invalid && (control.touched || (form && form.submitted));
     }
@@ -255,7 +232,7 @@ export class ESDropzoneComponent implements ControlValueAccessor, OnInit {
 
     const targetFile = await toFile(this.options.type, file);
     this.files = [...this.files, targetFile];
-    this.cdRef.detectChanges();
+    this.cdRef.markForCheck();
     this.propagateChange(this.files);
   }
 
@@ -264,24 +241,41 @@ export class ESDropzoneComponent implements ControlValueAccessor, OnInit {
   }
 
   private validateFileSize(file: File): boolean {
-    if (file.size > this.getMaxSizeInBytes()) {
-      this.showSnackBar(`File size is over upload limit of ${this.options.maxSize} MB`);
+    const { labelOverUploadLimit, labelMB } = this.locale;
+    if (this.options.maxSize && file.size > this.getMaxSizeInBytes()) {
+      this.showSnackBar(`${labelOverUploadLimit} ${this.options.maxSize} ${labelMB}`);
       return false;
     }
-
     return true;
   }
 
   private validateFileType(file: File): boolean {
-    if (!this.options.accept.includes(file.type)) {
-      this.showSnackBar('This file type is not supported');
-      return false;
+    const { labelNotSupported } = this.locale;
+    const types = this.options.accept.split(',').map(v => v.trim());
+
+    if (types.includes('*')) {
+      return true;
     }
 
-    return true;
+    for (const type of types) {
+      if (type.charAt(0) === '.' && file.name.toLowerCase().endsWith(type)) {
+        return true;
+      }
+
+      if (type.endsWith('/*') && file.type.startsWith(type.replace(/\/.*$/, ''))) {
+        return true;
+      }
+
+      if (file.type === type) {
+        return true;
+      }
+    }
+
+    this.showSnackBar(labelNotSupported);
+    return false;
   }
 
   private showSnackBar(text: string): void {
-    this.snackBar.open(text, 'OK', this.SNACK_BAR_CONFIG);
+    this.snackBar.open(text, 'OK');
   }
 }

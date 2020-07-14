@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { DropzoneStoryBasicComponent } from './dropzone-story-basic.component';
+import { DropzoneStoryCustomIconComponent } from './dropzone-story-custom-icon.component';
 
 import { ESDropzoneModule } from '../..';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [DropzoneStoryBasicComponent],
+  declarations: [DropzoneStoryCustomIconComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -18,7 +18,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     MatFormFieldModule,
     ESDropzoneModule
   ],
-  exports: [DropzoneStoryBasicComponent],
+  exports: [DropzoneStoryCustomIconComponent],
   providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } }]
 })
-export class DropzoneStoryBasicModule {}
+export class DropzoneStoryCustomIconModule {}

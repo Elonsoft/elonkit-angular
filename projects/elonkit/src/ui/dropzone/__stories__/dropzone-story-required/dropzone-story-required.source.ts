@@ -26,7 +26,7 @@ export const DROPZONE_STORY_REQUIRED_SOURCE = {
   `,
   scss: `
   .form {
-    max-width: 744px;
+    max-width: 400px;
 
     &__submit {
       margin-top: 15px;
