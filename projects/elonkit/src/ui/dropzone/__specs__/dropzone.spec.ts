@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/angular';
+import { render } from '@testing-library/angular';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { Component } from '@angular/core';
 import {
