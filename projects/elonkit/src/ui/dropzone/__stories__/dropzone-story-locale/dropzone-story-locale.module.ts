@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { DropzoneStoryBasicComponent } from './dropzone-story-basic.component';
+import { DropzoneStoryLocaleComponent } from './dropzone-story-locale.component';
 
 import { ESDropzoneModule } from '../..';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { ESDropzoneLocale, ESDropzoneLocaleRU } from '../../dropzone.component.locale';
 
 @NgModule({
-  declarations: [DropzoneStoryBasicComponent],
+  declarations: [DropzoneStoryLocaleComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -18,7 +18,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     MatFormFieldModule,
     ESDropzoneModule
   ],
-  exports: [DropzoneStoryBasicComponent],
-  providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } }]
+  exports: [DropzoneStoryLocaleComponent],
+  providers: [{ provide: ESDropzoneLocale, useClass: ESDropzoneLocaleRU }]
 })
-export class DropzoneStoryBasicModule {}
+export class DropzoneStoryLocaleModule {}

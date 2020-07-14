@@ -1,9 +1,7 @@
 export interface ESDropzoneFile {
   id?: number;
-  deleted?: boolean;
   type?: string;
   base64?: string;
-  file?: string;
   name: string;
   size: number;
   content: File | string;
@@ -11,6 +9,7 @@ export interface ESDropzoneFile {
 
 export interface ESDropzoneOptions {
   accept?: string;
+  svgIcon?: string;
   maxSize?: number;
-  type?: string;
+  type?: 'base64' | 'binary';
 }

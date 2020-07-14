@@ -1,6 +1,7 @@
 <button
   class="es-dropzone"
   matRipple
+  data-testid="root"
   [ngClass]="{ 'es-dropzone_dragover': isDragover }"
   (drop)="onDrop($event)"
   (dragover)="onDragover($event)"
@@ -9,11 +10,16 @@
   (click)="openSelectFileDialog()"
 >
   <div class="mat-h2 es-dropzone__title">
-    <mat-icon svgIcon="upload" class="es-dropzone__choose-icon"></mat-icon>
-    {{ title }}
+    <mat-icon *ngIf="!options.svgIcon" class="es-dropzone__choose-icon">cloud_upload</mat-icon>
+    <mat-icon
+      *ngIf="options.svgIcon"
+      [svgIcon]="options.svgIcon"
+      class="es-dropzone__choose-icon"
+    ></mat-icon>
+    {{ chooseText }}
   </div>
   <div class="mat-body-1 es-dropzone__description">
-    {{ description }}
+    {{ dragText }}
   </div>
 </button>
 <div class="es-dropzone__hint mat-caption">
@@ -22,6 +28,7 @@
 </div>
 <input
   #fileInput
+  data-testid="input"
   class="es-dropzone__input"
   [accept]="accept"
   type="file"
