@@ -1,0 +1,26 @@
+<div class="es-alert" [ngClass]="'es-alert_variant_' + variant" data-testid="root">
+  <div class="es-alert__content">
+    <mat-icon
+      class="es-alert__icon es-alert__icon_display"
+      [ngClass]="'es-alert__icon_variant_' + variant"
+      [svgIcon]="currentIcon.svgIcon"
+    >
+      {{ currentIcon.icon || '' }}
+    </mat-icon>
+    <div class="es-alert__text" [ngClass]="typography">
+      <ng-content></ng-content>
+    </div>
+    <button
+      *ngIf="closable"
+      class="es-alert__icon es-alert__icon_close"
+      [ngClass]="'es-alert__icon_variant_' + variant"
+      mat-icon-button
+      type="button"
+      [attr.aria-label]="locale.labelClose"
+      (click)="onClose()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <ng-content select="es-alert-actions"></ng-content>
+</div>
