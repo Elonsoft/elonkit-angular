@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   ViewEncapsulation,
   Input,
   InjectionToken,
@@ -88,6 +89,10 @@ export class ESEmptyStateComponent {
    * @ignore
    */
   constructor(
+    /**
+     * @internal
+     */
+    public changeDetector: ChangeDetectorRef,
     /**
      * @internal
      */
