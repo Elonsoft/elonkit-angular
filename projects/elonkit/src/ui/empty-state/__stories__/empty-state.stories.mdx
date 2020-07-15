@@ -1,0 +1,129 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text, select } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+
+import { ESEmptyStateModule, ESEmptyStateComponent } from '..';
+
+import { EMPTY_STATE_STORY_BASIC_SOURCE } from './empty-state-story-basic';
+import { EMPTY_STATE_STORY_BUTTON_SOURCE } from './empty-state-story-button';
+import {
+  EmptyStateStoryTypographyModule,
+  EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE
+} from './empty-state-story-typography';
+
+<Meta title='UI/Empty State' decorators={[withA11y, withKnobs]} />
+
+# Empty State
+
+A placeholder to use on pages without content.
+
+## Demos
+
+<Preview source={EMPTY_STATE_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='170px'>
+    {{
+      template: `<es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading"></es-empty-state>`,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESEmptyStateModule]
+      },
+      props: {
+        icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
+        heading: text('heading', 'There are no entities yet'),
+        subheading: text(
+          'subheading',
+          'There are no entities yet. Do you want to create the first entity?'
+        )
+      }
+    }}
+  </Story>
+</Preview>
+
+We can include action button.
+
+<Preview source={EMPTY_STATE_STORY_BUTTON_SOURCE}>
+  <Story name='Button' height='200px'>
+    {{
+      template: `
+        <es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading">
+          <button mat-stroked-button color="primary">NEW ENTITY</button>
+        </es-empty-state>
+      `,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, MatButtonModule, ESEmptyStateModule]
+      },
+      props: {
+        icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
+        heading: text('heading', 'There are no entities yet'),
+        subheading: text(
+          'subheading',
+          'There are no entities yet. Do you want to create the first entity?'
+        )
+      }
+    }}
+  </Story>
+</Preview>
+
+We can use typography inputs in order to change text presentation.
+
+<Preview source={EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE}>
+  <Story name='Typography' height='170px'>
+    {{
+      template: `
+        <es-empty-state-story-typography [icon]="icon" [heading]="heading" [subheading]="subheading">
+        </es-empty-state-story-typography>
+      `,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, EmptyStateStoryTypographyModule]
+      },
+      props: {
+        icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
+        heading: text('heading', 'There are no entities yet'),
+        subheading: text(
+          'subheading',
+          'There are no entities yet. Do you want to create the first entity?'
+        )
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESEmptyStateComponent} />
+
+## Interfaces
+
+```ts
+interface ESEmptyStateDefaultOptions {
+  icon?: 'box' | 'chat' | 'face' | 'file' | 'search';
+  headingTypography?: string;
+  subheadingTypography?: string;
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_EMPTY_STATE_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/empty-state';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_EMPTY_STATE_DEFAULT_OPTIONS,
+      useValue: {
+        icon: 'box',
+        headingTypography: 'mat-h4',
+        subheadingTypography: 'mat-caption'
+      }
+    }
+  ]
+})
+```
