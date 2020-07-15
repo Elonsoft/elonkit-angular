@@ -18,7 +18,7 @@ import { ESAlertLocale } from './alert.component.locale';
 
 export interface ESAlertDefaultOptions {
   typography?: string;
-  iconMapping?: { [key in ESAlertVariant]?: { icon: string } | { svgIcon: string } };
+  iconMapping?: { [key in ESAlertVariant]?: { icon?: string; svgIcon?: string } };
 }
 
 const DEFAULT_TYPOGRAPHY = 'mat-body-1';
@@ -43,7 +43,7 @@ export const ES_ALERT_DEFAULT_OPTIONS = new InjectionToken<ESAlertDefaultOptions
   encapsulation: ViewEncapsulation.None
 })
 export class ESAlertComponent {
-  private iconMapping: { [key in ESAlertVariant]: { icon: string } | { svgIcon: string } };
+  private iconMapping: { [key in ESAlertVariant]: { icon?: string; svgIcon?: string } };
 
   /**
    * The variant of the alert. This defines the color and icon used.
