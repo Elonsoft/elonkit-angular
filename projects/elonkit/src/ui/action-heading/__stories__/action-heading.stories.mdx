@@ -1,0 +1,79 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESActionHeadingModule, ESActionHeadingComponent } from '..';
+
+import {
+  ActionHeadingStoryBasicComponent,
+  ActionHeadingStoryBasicModule,
+  ACTION_HEADING_STORY_BASIC_SOURCE
+} from './action-heading-story-basic';
+
+import {
+  ActionHeadingStoryCustomizationComponent,
+  ActionHeadingStoryCustomizationModule,
+  ACTION_HEADING_STORY_CUSTOMIZATION_SOURCE
+} from './action-heading-story-customization';
+
+import {
+  ActionHeadingStoryClickComponent,
+  ActionHeadingStoryClickModule,
+  ACTION_HEADING_STORY_CLICK_SOURCE
+} from './action-heading-story-click';
+
+<Meta title='UI/ActionHeading' decorators={[withA11y, withKnobs]} />
+
+# Action Heading
+
+The action heading component.
+
+## Demos
+
+This is an example of a basic component.
+
+<Preview source={ACTION_HEADING_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='110px'>
+    {{
+      component: ActionHeadingStoryBasicComponent,
+      moduleMetadata: {
+        imports: [ActionHeadingStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+This is an example of a component wraped into a container component, which overrides some styles of nested component.
+
+<Preview source={ACTION_HEADING_STORY_CUSTOMIZATION_SOURCE}>
+  <Story name='Customization' height='110px'>
+    {{
+      component: ActionHeadingStoryCustomizationComponent,
+      moduleMetadata: {
+        imports: [ActionHeadingStoryCustomizationModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+This is an example of action click.
+
+<Preview source={ACTION_HEADING_STORY_CLICK_SOURCE}>
+  <Story name='Click' height='110px'>
+    {{
+      component: ActionHeadingStoryClickComponent,
+      moduleMetadata: {
+        imports: [ActionHeadingStoryClickModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESActionHeadingComponent} />
