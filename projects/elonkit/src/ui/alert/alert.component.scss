@@ -1,41 +1,8 @@
 .es-alert {
-  $cl-default: rgba(0, 0, 0, 0.38);
-  $cl-info: #47a3ff;
-  $cl-success: #37c995;
-  $cl-warning: #ee9225;
-  $cl-error: #f44336;
-
   border-radius: 6px;
   border-style: solid;
   border-width: 1px;
   padding: 18px;
-
-  &_variant {
-    &_default {
-      background-color: rgb($cl-default, 0.04);
-      border-color: rgb($cl-default, 0.08);
-    }
-
-    &_info {
-      background-color: rgb($cl-info, 0.08);
-      border-color: rgb($cl-info, 0.16);
-    }
-
-    &_success {
-      background-color: rgb($cl-success, 0.08);
-      border-color: rgb($cl-success, 0.16);
-    }
-
-    &_warning {
-      background-color: rgb($cl-warning, 0.08);
-      border-color: rgb($cl-warning, 0.16);
-    }
-
-    &_error {
-      background-color: rgb($cl-error, 0.08);
-      border-color: rgb($cl-error, 0.16);
-    }
-  }
 
   &__content {
     display: flex;
@@ -58,28 +25,6 @@
     &_close.mat-icon-button {
       margin: -8px;
       margin-left: auto;
-    }
-
-    &_variant {
-      &_default {
-        color: $cl-default;
-      }
-
-      &_info {
-        color: $cl-info;
-      }
-
-      &_success {
-        color: $cl-success;
-      }
-
-      &_warning {
-        color: $cl-warning;
-      }
-
-      &_error {
-        color: $cl-error;
-      }
     }
   }
 }

@@ -1,0 +1,60 @@
+@mixin es-alert-theme($theme, $elonkit-theme) {
+  $cl-default: rgba(0, 0, 0, 0.38);
+  $cl-info: mat-color(map-get($elonkit-theme, info));
+  $cl-success: mat-color(map-get($elonkit-theme, success));
+  $cl-warning: mat-color(map-get($elonkit-theme, danger));
+  $cl-error: mat-color(map-get($theme, warn));
+
+  .es-alert {
+    &_variant {
+      &_default {
+        background-color: rgb($cl-default, 0.04);
+        border-color: rgb($cl-default, 0.08);
+      }
+
+      &_info {
+        background-color: rgb($cl-info, 0.08);
+        border-color: rgb($cl-info, 0.16);
+      }
+
+      &_success {
+        background-color: rgb($cl-success, 0.08);
+        border-color: rgb($cl-success, 0.16);
+      }
+
+      &_warning {
+        background-color: rgb($cl-warning, 0.08);
+        border-color: rgb($cl-warning, 0.16);
+      }
+
+      &_error {
+        background-color: rgb($cl-error, 0.08);
+        border-color: rgb($cl-error, 0.16);
+      }
+    }
+
+    &__icon {
+      &_variant {
+        &_default {
+          color: $cl-default;
+        }
+
+        &_info {
+          color: $cl-info;
+        }
+
+        &_success {
+          color: $cl-success;
+        }
+
+        &_warning {
+          color: $cl-warning;
+        }
+
+        &_error {
+          color: $cl-error;
+        }
+      }
+    }
+  }
+}

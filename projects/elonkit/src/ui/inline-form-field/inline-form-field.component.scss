@@ -1,5 +1,3 @@
-$root: '.hidden-field';
-
 .es-inline-form-field {
   margin: 0;
   width: 100%;
@@ -150,12 +148,6 @@ $root: '.hidden-field';
 
       .mat-icon {
         font-size: 18px;
-      }
-    }
-
-    &_save {
-      .mat-icon {
-        color: #37c995;
       }
     }
   }
