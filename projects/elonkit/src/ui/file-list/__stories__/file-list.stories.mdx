@@ -3,7 +3,7 @@ import { Preview } from '~storybook/components';
 
 import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -25,7 +25,8 @@ import {
 
 # File List
 
-This component displays a list of files.
+This component displays a list of files. Requires `file` and `file_download` svg icons to display
+an icon next to file name.
 
 ## Demos
 
@@ -40,7 +41,9 @@ This component displays a list of files.
         canRemove: boolean('canRemove', false),
         canDownload: boolean('canDownload', false),
         hideImages: boolean('hideImages', false),
-        onRemove: action('onRemove')
+        imageTypes: text('imageTypes', 'image/png,image/jpg,image/jpeg'),
+        onRemove: action('onRemove'),
+        onDownload: action('onDownload')
       }
     }}
   </Story>
@@ -74,7 +77,7 @@ interface ESFileListFile {
   file?: string;
   name: string;
   size: number;
-  content: File;
+  content: File | string;
 }
 ```
 
@@ -85,11 +88,43 @@ interface ESFileListRemoveAction {
 }
 ```
 
+Image types string should contain types separated by a comma, e.g. `image/png,image/jpg,image/jpeg`
+
 ```ts
 interface ESFileListOptions {
-  imageTypes: string[];
-  hideImages: boolean;
-  canRemove: boolean;
-  canDownload: boolean;
+  imageTypes?: string;
+  hideImages?: boolean;
+  canRemove?: boolean;
+  canDownload?: boolean;
 }
+```
+
+## Constants
+
+Default options for component are applied when none are passed.
+
+```ts
+readonly DEFAULT_OPTIONS = {
+  imageTypes: 'image/*',
+  hideImages: false,
+  canRemove: false,
+  canDownload: false
+};
+```
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_FILE_LIST_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/file-list';
+@NgModule({
+  providers: [
+    {
+      provide: ES_FILE_LIST_DEFAULT_OPTIONS,
+      useValue: {
+        imageTypes: 'image/png',
+        hideImages: true
+      }
+    }
+  ]
+})
 ```

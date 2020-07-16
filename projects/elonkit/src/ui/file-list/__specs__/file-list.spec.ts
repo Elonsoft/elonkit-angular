@@ -15,9 +15,7 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    expect(component.container.querySelectorAll('.file-list__file')).toHaveLength(
-      filesFixture.length
-    );
+    expect(component.getAllByTestId('file')).toHaveLength(filesFixture.length);
   });
 
   it('Should render remove button on canRemove input', async () => {
@@ -31,7 +29,7 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    expect(component.container.querySelector('.file-list__remove')).toBeInTheDocument();
+    expect(component.getAllByLabelText('Remove')).toHaveLength(filesFixture.length);
   });
 
   it('Should remove file on remove button click', async () => {
@@ -49,9 +47,11 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    const removeButton = component.container.querySelector('.file-list__remove');
-    component.click(removeButton);
-    expect(onRemove).toHaveBeenCalled();
+    const removeButtons = component.getAllByLabelText('Remove');
+    removeButtons.forEach(btn => {
+      component.click(btn);
+    });
+    expect(onRemove).toHaveBeenCalledTimes(filesFixture.length);
   });
 
   it('Should render download icon on canDownload input', async () => {
@@ -65,24 +65,29 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    expect(component.container.querySelector('.file-list__icon_download')).toBeInTheDocument();
+    expect(component.getAllByLabelText('Download')).toHaveLength(filesFixture.length);
   });
 
   it('Should download file on download icon click', async () => {
+    const onDownload = jest.fn();
     const component = await render(ESFileListComponent, {
       componentProperties: {
         files: filesFixture,
         options: {
           canDownload: true
-        }
+        },
+        download: {
+          emit: onDownload
+        } as any
       },
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    const componentInstance = component.fixture.componentInstance;
-    spyOn(componentInstance, 'downloadFile').and.returnValue(true);
-    component.click(component.container.querySelector('.file-list__icon_download'));
-    expect(componentInstance.downloadFile).toHaveBeenCalled();
+    const downloadButtons = component.getAllByLabelText('Download');
+    downloadButtons.forEach(btn => {
+      component.click(btn);
+    });
+    expect(onDownload).toHaveBeenCalledTimes(filesFixture.length);
   });
 
   it('Should not render image files on hideImages input', async () => {
@@ -96,7 +101,8 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    expect(component.container.querySelectorAll('.file-list__file')).toHaveLength(1);
+    const nonImageFixture = filesFixture.filter(file => !file.type.startsWith('image'));
+    expect(component.getAllByTestId('file')).toHaveLength(nonImageFixture.length);
   });
 
   it('Should change locale', async () => {
@@ -108,8 +114,6 @@ describe('File List', () => {
       providers: [{ provide: ESFileListLocale, useClass: ESFileListLocaleRU }],
       excludeComponentDeclaration: true
     });
-    expect(
-      component.container.querySelector('.file-list__subtitle-size').textContent.includes('КБ')
-    ).toBeTruthy();
+    expect(component.getAllByText('КБ', { exact: false })).toHaveLength(filesFixture.length);
   });
 });

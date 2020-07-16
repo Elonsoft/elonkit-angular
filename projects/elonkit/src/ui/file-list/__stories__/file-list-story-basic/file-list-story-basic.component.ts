@@ -17,17 +17,19 @@ export class FileListStoryBasicComponent {
   public canDownload: boolean;
   @Input()
   public hideImages: boolean;
+  @Input()
+  public imageTypes: string;
 
   public files: ESFileListFile[] = filesFixture;
 
   private icons = [
     {
-      name: 'doc',
-      url: '/icons/doc.svg'
+      name: 'file',
+      url: '/icons/file.svg'
     },
     {
-      name: 'doc_download',
-      url: '/icons/doc_download.svg'
+      name: 'file_download',
+      url: '/icons/file_download.svg'
     }
   ];
 

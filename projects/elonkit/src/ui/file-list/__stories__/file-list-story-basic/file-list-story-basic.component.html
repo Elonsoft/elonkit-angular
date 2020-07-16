@@ -2,8 +2,10 @@
   [options]="{
     canRemove: canRemove,
     canDownload: canDownload,
-    hideImages: hideImages
+    hideImages: hideImages,
+    imageTypes: imageTypes
   }"
   [files]="files"
   (remove)="onRemove($event)"
+  (download)="onDownload($event)"
 ></es-file-list>

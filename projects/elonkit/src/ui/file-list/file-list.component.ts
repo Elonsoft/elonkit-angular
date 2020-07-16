@@ -4,11 +4,18 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
-  ViewEncapsulation
+  ViewEncapsulation,
+  InjectionToken,
+  Optional,
+  Inject
 } from '@angular/core';
 
 import { ESFileListLocale } from './file-list.component.locale';
 import { ESFileListFile, ESFileListRemoveAction, ESFileListOptions } from './file-list.types';
+
+export const ES_FILE_LIST_DEFAULT_OPTIONS = new InjectionToken<ESFileListOptions>(
+  'ES_FILE_LIST_DEFAULT_OPTIONS'
+);
 
 @Component({
   selector: 'es-file-list',
@@ -18,13 +25,13 @@ import { ESFileListFile, ESFileListRemoveAction, ESFileListOptions } from './fil
   encapsulation: ViewEncapsulation.None
 })
 export class ESFileListComponent {
-  private readonly DEFAULT_OPTIONS = {
-    imageTypes: ['image/png', 'image/jpg', 'image/jpeg', 'image'],
+  private readonly DEFAULT_OPTIONS: ESFileListOptions = {
+    imageTypes: 'image/*',
     hideImages: false,
     canRemove: false,
     canDownload: false
   };
-  private _options: ESFileListOptions = this.DEFAULT_OPTIONS;
+  private _options: ESFileListOptions;
 
   /**
    * Options object to apply to component.
@@ -34,7 +41,7 @@ export class ESFileListComponent {
     return this._options;
   }
   public set options(value: ESFileListOptions) {
-    this._options = { ...this.DEFAULT_OPTIONS, ...value };
+    this._options = { ...this.DEFAULT_OPTIONS, ...this.defaultOptions, ...value };
   }
 
   /**
@@ -49,7 +56,20 @@ export class ESFileListComponent {
   @Output()
   public remove: EventEmitter<ESFileListRemoveAction> = new EventEmitter();
 
-  constructor(private locale: ESFileListLocale) {}
+  /**
+   * File is emitted on download.
+   */
+  @Output()
+  public download: EventEmitter<ESFileListFile> = new EventEmitter();
+
+  constructor(
+    private locale: ESFileListLocale,
+    @Optional()
+    @Inject(ES_FILE_LIST_DEFAULT_OPTIONS)
+    private defaultOptions: ESFileListOptions
+  ) {
+    this.options = { ...this.DEFAULT_OPTIONS, ...defaultOptions };
+  }
 
   /**
    * @internal
@@ -75,15 +95,33 @@ export class ESFileListComponent {
    * @ignore
    */
   public downloadFile(file: ESFileListFile): void {
-    this.save(file.file, file.name);
+    this.download.emit(file);
   }
 
-  private save(file: Blob | string, name?: string): void {
-    const url = typeof file === 'string' ? file : URL.createObjectURL(file);
-    const downloadLink = document.createElement('a');
-    downloadLink.setAttribute('href', url);
-    downloadLink.setAttribute('target', '_self');
-    downloadLink.setAttribute('download', name ? name : '');
-    downloadLink.click();
+  /**
+   * @internal
+   * @ignore
+   */
+  public validateFileType(file: ESFileListFile): boolean {
+    const types = this.options.imageTypes.split(',').map(v => v.trim());
+
+    if (types.includes('*')) {
+      return true;
+    }
+
+    for (const type of types) {
+      if (type.charAt(0) === '.' && file.name.toLowerCase().endsWith(type)) {
+        return true;
+      }
+
+      if (type.endsWith('/*') && file.type.startsWith(type.replace(/\/.*$/, ''))) {
+        return true;
+      }
+
+      if (file.type === type) {
+        return true;
+      }
+    }
+    return false;
   }
 }

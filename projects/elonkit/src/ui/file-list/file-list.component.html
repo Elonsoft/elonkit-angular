@@ -1,36 +1,40 @@
-<div *ngIf="files && files.length" class="file-list">
+<div *ngIf="files && files.length" class="es-file-list">
   <ng-container *ngFor="let file of files; let i = index">
-    <ng-container
-      *ngIf="!options.hideImages || (options.hideImages && !options.imageTypes.includes(file.type))"
-    >
-      <div *ngIf="!file.deleted" class="file-list__file">
-        <div class="file-list__icon-wrapper">
-          <mat-icon *ngIf="!options.canDownload" class="file-list__icon" svgIcon="doc"></mat-icon>
+    <ng-container *ngIf="!options.hideImages || (options.hideImages && !validateFileType(file))">
+      <div *ngIf="!file.deleted" class="es-file-list__file" data-testid="file">
+        <div class="es-file-list__icon-wrapper">
+          <mat-icon
+            *ngIf="!options.canDownload"
+            class="es-file-list__icon"
+            svgIcon="file"
+          ></mat-icon>
           <mat-icon
             *ngIf="options.canDownload"
-            class="file-list__icon file-list__icon_download"
-            svgIcon="doc_download"
+            class="es-file-list__icon es-file-list__icon_download"
+            svgIcon="file_download"
+            aria-label="Download"
             (click)="downloadFile(file)"
           ></mat-icon>
         </div>
-        <div class="file-list__info">
-          <div class="file-list__title">
-            <div class="mat-body-1 file-list__name">{{ file.name }}</div>
+        <div class="es-file-list__info">
+          <div class="es-file-list__title">
+            <div class="mat-body-1 es-file-list__name">{{ file.name }}</div>
             <button
               *ngIf="options.canRemove"
               type="button"
               (click)="removeFile({ file: file, index: i })"
               mat-icon-button
-              class="file-list__remove"
+              class="es-file-list__remove"
+              aria-label="Remove"
             >
               <mat-icon>close</mat-icon>
             </button>
           </div>
-          <div class="file-list__subtitle">
-            <div class="mat-body-1 file-list__subtitle-size">{{ getFileSize(file) }}</div>
+          <div class="es-file-list__subtitle">
+            <div class="mat-body-1 es-file-list__subtitle-size">{{ getFileSize(file) }}</div>
             <ng-container *ngIf="file.updatedAt">
-              <div class="file-list__subtitle-point">•</div>
-              <div class="mat-body-1 file-list__subtitle-datetime">
+              <div class="es-file-list__subtitle-point">•</div>
+              <div class="mat-body-1 es-file-list__subtitle-datetime">
                 {{ file.updatedAt | date: 'dd MMM' | lowercase }} at
                 {{ file.updatedAt | date: 'HH:mm:ss' }}
               </div>

@@ -7,7 +7,7 @@ export const FILE_LIST_STORY_BASIC_SOURCE = {
     public files: ESFileListFile[] = [
       {
         id: 1,
-        type: 'image',
+        type: 'image/jpg',
         file: 'https://dummyimage.com/400x400/405ed6/fff.jpg&text=ES',
         name: 'FileName1.jpg',
         size: 45678,
@@ -15,7 +15,7 @@ export const FILE_LIST_STORY_BASIC_SOURCE = {
       },
       {
         id: 2,
-        type: 'image',
+        type: 'image/jpg',
         file: 'https://dummyimage.com/400x400/228a0f/fff.jpg&text=ES',
         name: 'FileName2.jpg',
         size: 456789,
@@ -31,7 +31,7 @@ export const FILE_LIST_STORY_BASIC_SOURCE = {
       },
       {
         id: 4,
-        type: 'image',
+        type: 'image/jpg',
         file: 'https://dummyimage.com/400x400/2dbdb8/fff.jpg&text=ES',
         name: 'FileName4.jpg',
         size: 456,
@@ -45,10 +45,12 @@ export const FILE_LIST_STORY_BASIC_SOURCE = {
     [options]="{
       canRemove: canRemove,
       canDownload: canDownload,
-      hideImages: hideImages
+      hideImages: hideImages,
+      imageTypes: imageTypes
     }"
     [files]="files"
     (remove)="onRemove($event)"
+    (download)="onDownload($event)"
   ></es-file-list>
   `
 };

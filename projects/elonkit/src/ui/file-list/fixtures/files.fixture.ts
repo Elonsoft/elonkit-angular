@@ -3,7 +3,7 @@ import { ESFileListFile } from '../file-list.types';
 export const filesFixture: ESFileListFile[] = [
   {
     id: 1,
-    type: 'image',
+    type: 'image/jpg',
     file: 'https://dummyimage.com/400x400/405ed6/fff.jpg&text=ES',
     name: 'FileName1.jpg',
     size: 45678,
@@ -11,7 +11,7 @@ export const filesFixture: ESFileListFile[] = [
   },
   {
     id: 2,
-    type: 'image',
+    type: 'image/jpg',
     file: 'https://dummyimage.com/400x400/228a0f/fff.jpg&text=ES',
     name: 'FileName2.jpg',
     size: 456789,
@@ -27,7 +27,7 @@ export const filesFixture: ESFileListFile[] = [
   },
   {
     id: 4,
-    type: 'image',
+    type: 'image/jpg',
     file: 'https://dummyimage.com/400x400/2dbdb8/fff.jpg&text=ES',
     name: 'FileName4.jpg',
     size: 456,

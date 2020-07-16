@@ -6,7 +6,7 @@ export interface ESFileListFile {
   file?: string;
   name: string;
   size: number;
-  content: File;
+  content: File | string;
 }
 
 export interface ESFileListRemoveAction {
@@ -15,7 +15,7 @@ export interface ESFileListRemoveAction {
 }
 
 export interface ESFileListOptions {
-  imageTypes?: string[];
+  imageTypes?: string;
   hideImages?: boolean;
   canRemove?: boolean;
   canDownload?: boolean;
