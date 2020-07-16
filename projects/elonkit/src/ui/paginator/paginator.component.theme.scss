@@ -1,4 +1,4 @@
-@mixin es-paginator-theme($theme) {
+@mixin es-paginator-theme($theme, $elonkit-theme) {
   $primary: mat-color(map-get($theme, primary));
 
   .es-paginator {
