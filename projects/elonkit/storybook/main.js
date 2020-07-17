@@ -18,6 +18,7 @@ module.exports = {
   ],
   webpackFinal: async config => {
     config.resolve.alias['~storybook'] = path.resolve(__dirname);
+    config.resolve.alias['~utils'] = path.resolve(__dirname, '../src/utils');
     return config;
   }
 };

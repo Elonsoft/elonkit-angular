@@ -10,6 +10,7 @@ import {
   Inject
 } from '@angular/core';
 
+import { validateFileType } from '~utils/validate-file-type';
 import { ESFileListLocale } from './file-list.component.locale';
 import { ESFileListFile, ESFileListRemoveAction, ESFileListOptions } from './file-list.types';
 
@@ -62,8 +63,12 @@ export class ESFileListComponent {
   @Output()
   public download: EventEmitter<ESFileListFile> = new EventEmitter();
 
+  public fileTypeValid(file: ESFileListFile): boolean {
+    return validateFileType(file, this.options.imageTypes);
+  }
+
   constructor(
-    private locale: ESFileListLocale,
+    public locale: ESFileListLocale,
     @Optional()
     @Inject(ES_FILE_LIST_DEFAULT_OPTIONS)
     private defaultOptions: ESFileListOptions
@@ -96,32 +101,5 @@ export class ESFileListComponent {
    */
   public downloadFile(file: ESFileListFile): void {
     this.download.emit(file);
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  public validateFileType(file: ESFileListFile): boolean {
-    const types = this.options.imageTypes.split(',').map(v => v.trim());
-
-    if (types.includes('*')) {
-      return true;
-    }
-
-    for (const type of types) {
-      if (type.charAt(0) === '.' && file.name.toLowerCase().endsWith(type)) {
-        return true;
-      }
-
-      if (type.endsWith('/*') && file.type.startsWith(type.replace(/\/.*$/, ''))) {
-        return true;
-      }
-
-      if (file.type === type) {
-        return true;
-      }
-    }
-    return false;
   }
 }

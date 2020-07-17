@@ -1,6 +1,6 @@
 <div *ngIf="files && files.length" class="es-file-list">
   <ng-container *ngFor="let file of files; let i = index">
-    <ng-container *ngIf="!options.hideImages || (options.hideImages && !validateFileType(file))">
+    <ng-container *ngIf="!options.hideImages || (options.hideImages && !fileTypeValid(file))">
       <div *ngIf="!file.deleted" class="es-file-list__file" data-testid="file">
         <div class="es-file-list__icon-wrapper">
           <mat-icon
@@ -12,7 +12,7 @@
             *ngIf="options.canDownload"
             class="es-file-list__icon es-file-list__icon_download"
             svgIcon="file_download"
-            aria-label="Download"
+            [attr.aria-label]="locale.labelDownload"
             (click)="downloadFile(file)"
           ></mat-icon>
         </div>
@@ -25,7 +25,7 @@
               (click)="removeFile({ file: file, index: i })"
               mat-icon-button
               class="es-file-list__remove"
-              aria-label="Remove"
+              [attr.aria-label]="locale.labelRemove"
             >
               <mat-icon>close</mat-icon>
             </button>
