@@ -13,6 +13,7 @@ import {
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { validateFileType } from '~utils/validate-file-type';
 import { ESDropzoneFile, ESDropzoneOptions } from './dropzones.types';
 import { ESDropzoneLocale } from './dropzone.component.locale';
 
@@ -226,7 +227,7 @@ export class ESDropzoneComponent implements ControlValueAccessor {
   }
 
   private async setFile(file: File) {
-    if (!this.validateFileType(file) || !this.validateFileSize(file)) {
+    if (!this.fileTypeValid(file) || !this.validateFileSize(file)) {
       return;
     }
 
@@ -234,6 +235,14 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     this.files = [...this.files, targetFile];
     this.cdRef.markForCheck();
     this.propagateChange(this.files);
+  }
+
+  public fileTypeValid(file: File): boolean {
+    if (validateFileType(file, this.options.accept)) {
+      return true;
+    }
+    this.showSnackBar(this.locale.labelNotSupported);
+    return false;
   }
 
   private getMaxSizeInBytes(): number {
@@ -247,32 +256,6 @@ export class ESDropzoneComponent implements ControlValueAccessor {
       return false;
     }
     return true;
-  }
-
-  private validateFileType(file: File): boolean {
-    const { labelNotSupported } = this.locale;
-    const types = this.options.accept.split(',').map(v => v.trim());
-
-    if (types.includes('*')) {
-      return true;
-    }
-
-    for (const type of types) {
-      if (type.charAt(0) === '.' && file.name.toLowerCase().endsWith(type)) {
-        return true;
-      }
-
-      if (type.endsWith('/*') && file.type.startsWith(type.replace(/\/.*$/, ''))) {
-        return true;
-      }
-
-      if (file.type === type) {
-        return true;
-      }
-    }
-
-    this.showSnackBar(labelNotSupported);
-    return false;
   }
 
   private showSnackBar(text: string): void {
