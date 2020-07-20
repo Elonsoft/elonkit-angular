@@ -1,0 +1,1 @@
+export const IMAGE_CAROUSEL_STORY_BASIC_SOURCE = {};

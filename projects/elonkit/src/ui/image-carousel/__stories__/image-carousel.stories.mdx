@@ -1,0 +1,58 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESImageCarouselComponent } from '..';
+
+import {
+  ImageCarouselStoryBasicModule,
+  ImageCarouselStoryBasicComponent,
+  IMAGE_CAROUSEL_STORY_BASIC_SOURCE
+} from './image-carousel-story-basic';
+
+<Meta title='UI/Image Carousel' decorators={[withA11y, withKnobs]} />
+
+# Inline Form Field
+
+This component allows inline switching between display value and input.
+
+## Demos
+
+<Preview source={IMAGE_CAROUSEL_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='50px'>
+    {{
+      component: ImageCarouselStoryBasicComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ImageCarouselStoryBasicModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESImageCarouselComponent} />
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/inline-form-field';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        typography: 'mat-body-1'
+      }
+    }
+  ]
+})
+```
