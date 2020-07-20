@@ -6,5 +6,5 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimepickerStoryBasicComponent {
-  date = new Date();
+  date = new Date(0);
 }

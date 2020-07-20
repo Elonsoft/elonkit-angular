@@ -8,5 +8,5 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 export class TimepickerStoryRequiredComponent {
   @Input() required;
 
-  date = new Date();
+  date = new Date(0);
 }
