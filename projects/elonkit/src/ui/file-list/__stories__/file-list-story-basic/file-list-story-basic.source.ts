@@ -42,12 +42,10 @@ export const FILE_LIST_STORY_BASIC_SOURCE = {
   `,
   html: `
   <es-file-list
-    [options]="{
-      canRemove: canRemove,
-      canDownload: canDownload,
-      hideImages: hideImages,
-      imageTypes: imageTypes
-    }"
+    [imageTypes]="imageTypes"
+    [hideImages]="hideImages"
+    [canRemove]="canRemove"
+    [canDownload]="canDownload"
     [files]="files"
     (remove)="onRemove($event)"
     (download)="onDownload($event)"

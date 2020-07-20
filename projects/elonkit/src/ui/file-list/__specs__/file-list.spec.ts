@@ -22,9 +22,7 @@ describe('File List', () => {
     const component = await render(ESFileListComponent, {
       componentProperties: {
         files: filesFixture,
-        options: {
-          canRemove: true
-        }
+        canRemove: true
       },
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
@@ -37,9 +35,7 @@ describe('File List', () => {
     const component = await render(ESFileListComponent, {
       componentProperties: {
         files: filesFixture,
-        options: {
-          canRemove: true
-        },
+        canRemove: true,
         remove: {
           emit: onRemove
         } as any
@@ -58,9 +54,7 @@ describe('File List', () => {
     const component = await render(ESFileListComponent, {
       componentProperties: {
         files: filesFixture,
-        options: {
-          canDownload: true
-        }
+        canDownload: true
       },
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
@@ -73,9 +67,7 @@ describe('File List', () => {
     const component = await render(ESFileListComponent, {
       componentProperties: {
         files: filesFixture,
-        options: {
-          canDownload: true
-        },
+        canDownload: true,
         download: {
           emit: onDownload
         } as any
@@ -94,9 +86,7 @@ describe('File List', () => {
     const component = await render(ESFileListComponent, {
       componentProperties: {
         files: filesFixture,
-        options: {
-          hideImages: true
-        }
+        hideImages: true
       },
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true

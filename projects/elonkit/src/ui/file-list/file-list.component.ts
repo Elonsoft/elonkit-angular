@@ -13,6 +13,7 @@ import {
 import { validateFileType } from '~utils/validate-file-type';
 import { ESFileListLocale } from './file-list.component.locale';
 import { ESFileListFile, ESFileListRemoveAction, ESFileListOptions } from './file-list.types';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 export const ES_FILE_LIST_DEFAULT_OPTIONS = new InjectionToken<ESFileListOptions>(
   'ES_FILE_LIST_DEFAULT_OPTIONS'
@@ -26,24 +27,54 @@ export const ES_FILE_LIST_DEFAULT_OPTIONS = new InjectionToken<ESFileListOptions
   encapsulation: ViewEncapsulation.None
 })
 export class ESFileListComponent {
-  private readonly DEFAULT_OPTIONS: ESFileListOptions = {
-    imageTypes: 'image/*',
-    hideImages: false,
-    canRemove: false,
-    canDownload: false
-  };
-  private _options: ESFileListOptions;
-
   /**
-   * Options object to apply to component.
+   * File types to be considered as image separated by a comma, e.g. `image/png,image/jpg,image/jpeg`.
+   * Defaults to `image/*`
    */
   @Input()
-  public get options(): ESFileListOptions {
-    return this._options;
+  public get imageTypes(): string {
+    return this._imageTypes;
   }
-  public set options(value: ESFileListOptions) {
-    this._options = { ...this.DEFAULT_OPTIONS, ...this.defaultOptions, ...value };
+  public set imageTypes(value: string) {
+    this._imageTypes = value ?? this.defaultOptions?.imageTypes ?? 'image/*';
   }
+  private _imageTypes: string;
+
+  /**
+   * Defines whether component should render images in a list.
+   */
+  @Input()
+  public get hideImages(): boolean {
+    return this._hideImages;
+  }
+  public set hideImages(value: boolean) {
+    this._hideImages = coerceBooleanProperty(value);
+  }
+  private _hideImages: boolean;
+
+  /**
+   * Defines whether remove buttons should be rendered for files.
+   */
+  @Input()
+  public get canRemove(): boolean {
+    return this._canRemove;
+  }
+  public set canRemove(value: boolean) {
+    this._canRemove = coerceBooleanProperty(value);
+  }
+  private _canRemove: boolean;
+
+  /**
+   * Defines whether download file icon should be rendered for files.
+   */
+  @Input()
+  public get canDownload(): boolean {
+    return this._canDownload;
+  }
+  public set canDownload(value: boolean) {
+    this._canDownload = coerceBooleanProperty(value);
+  }
+  private _canDownload: boolean;
 
   /**
    * Array of files to display.
@@ -63,17 +94,20 @@ export class ESFileListComponent {
   @Output()
   public download: EventEmitter<ESFileListFile> = new EventEmitter();
 
-  public fileTypeValid(file: ESFileListFile): boolean {
-    return validateFileType(file, this.options.imageTypes);
-  }
-
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(
     public locale: ESFileListLocale,
     @Optional()
     @Inject(ES_FILE_LIST_DEFAULT_OPTIONS)
     private defaultOptions: ESFileListOptions
   ) {
-    this.options = { ...this.DEFAULT_OPTIONS, ...defaultOptions };
+    this.imageTypes = this.defaultOptions?.imageTypes;
+    this.hideImages = this.defaultOptions?.hideImages;
+    this.canDownload = this.defaultOptions?.canDownload;
+    this.canRemove = this.defaultOptions?.canRemove;
   }
 
   /**
@@ -85,6 +119,14 @@ export class ESFileListComponent {
     const sizeKB = file.size / 1024;
     const sizeMB = file.size / 1024 / 1024;
     return sizeKB < 1024 ? `${sizeKB.toFixed(1)} ${labelKB}` : `${sizeMB.toFixed(1)} ${labelMB}`;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public fileTypeValid(file: ESFileListFile): boolean {
+    return validateFileType(file, this.imageTypes);
   }
 
   /**
