@@ -9,12 +9,10 @@ export const DROPZONE_STORY_BASIC_SOURCE = {
     <es-dropzone
       [chooseText]="chooseText"
       [dragText]="dragText"
+      [maxSize]="maxSize"
+      [accept]="accept"
+      [type]="type"
       [formControl]="docs"
-      [options]="{
-        maxSize: maxSize,
-        accept: accept,
-        type: type
-      }"
     >
       <mat-hint>This is an example of a hint message</mat-hint>
     </es-dropzone>

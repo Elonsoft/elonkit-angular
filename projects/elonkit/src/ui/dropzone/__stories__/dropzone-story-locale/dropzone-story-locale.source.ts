@@ -12,14 +12,10 @@ export const DROPZONE_STORY_LOCALE_SOURCE = {
     <es-dropzone
       chooseText="ВЫБЕРИТЕ ФАЙЛЫ"
       dragText=" или перетащите файлы в эту область (не более 50 мб)"
+      maxSize="50"
+      accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+      application/pdf, image/jpg,image/jpeg,image/png"
       formControlName="docs"
-      [options]="{
-        maxSize: 50,
-        accept:
-          '.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-        application/pdf, image/jpg,image/jpeg,image/png',
-        type: 'binary'
-      }"
     >
       <mat-hint>Пример текста подсказки</mat-hint>
     </es-dropzone>

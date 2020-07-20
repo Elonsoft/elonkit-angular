@@ -129,15 +129,13 @@ interface ESDropzoneOptions {
 
 ## Constants
 
-Default options for component are applied when none are passed.
-
 ```ts
-readonly DEFAULT_OPTIONS: ESDropzoneOptions = {
-  accept: '*',
-  svgIcon: null,
-  maxSize: null,
-  type: 'base64'
-};
+class ESDropzoneLocale {
+  labelNotSupported = 'This file type is not supported';
+  labelOverUploadLimit = 'File size is over upload limit of';
+  labelKB = 'KB';
+  labelMB = 'MB';
+}
 ```
 
 Injection token that can be used to configure the default options for all components within an app.

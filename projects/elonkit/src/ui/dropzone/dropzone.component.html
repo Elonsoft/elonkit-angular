@@ -10,12 +10,8 @@
   (click)="openSelectFileDialog()"
 >
   <div class="mat-h2 es-dropzone__title">
-    <mat-icon *ngIf="!options.svgIcon" class="es-dropzone__choose-icon">cloud_upload</mat-icon>
-    <mat-icon
-      *ngIf="options.svgIcon"
-      [svgIcon]="options.svgIcon"
-      class="es-dropzone__choose-icon"
-    ></mat-icon>
+    <mat-icon *ngIf="!svgIcon" class="es-dropzone__choose-icon">cloud_upload</mat-icon>
+    <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon" class="es-dropzone__choose-icon"></mat-icon>
     {{ chooseText }}
   </div>
   <div class="mat-body-1 es-dropzone__description">

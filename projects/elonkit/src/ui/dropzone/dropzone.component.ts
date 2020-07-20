@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 import { validateFileType } from '~utils/validate-file-type';
 import { ESDropzoneFile, ESDropzoneOptions } from './dropzones.types';
@@ -56,36 +57,65 @@ export class ESDropzoneComponent implements ControlValueAccessor {
    */
   public isDragover: boolean;
 
-  private readonly DEFAULT_OPTIONS: ESDropzoneOptions = {
-    accept: '*',
-    svgIcon: null,
-    maxSize: null,
-    type: 'base64'
-  };
-  private _options: ESDropzoneOptions;
-
   /**
-   * Choose text Label.
+   * Defines Choose Text Label.
    */
   @Input()
   public chooseText: string;
 
   /**
-   * Drag text Label.
+   * Defines Drag Text Label.
    */
   @Input()
   public dragText: string;
 
   /**
-   * Component options.
+   * File types to accept separated by a comma, e.g. `image/png,image/jpg,image/jpeg`
    */
   @Input()
-  public set options(val: ESDropzoneOptions) {
-    this._options = { ...this.DEFAULT_OPTIONS, ...this.defaultOptions, ...val };
+  public get accept(): string {
+    return this._accept;
   }
-  public get options(): ESDropzoneOptions {
-    return this._options;
+  public set accept(value: string) {
+    this._accept = value ?? this.defaultOptions?.accept ?? '*';
   }
+  private _accept: string;
+
+  /**
+   * Custom svg icon to render with `chooseText`.
+   */
+  @Input()
+  public get svgIcon(): string {
+    return this._svgIcon;
+  }
+  public set svgIcon(value: string) {
+    this._svgIcon = value ?? this.defaultOptions?.svgIcon;
+  }
+  private _svgIcon: string;
+
+  /**
+   * Max accepted file size in megabytes.
+   */
+  @Input()
+  public get maxSize(): number {
+    return this._maxSize;
+  }
+  public set maxSize(value: number) {
+    this._maxSize = coerceNumberProperty(value, 0) ?? this.defaultOptions?.maxSize;
+  }
+  private _maxSize: number;
+
+  /**
+   * Defines if ESDropzoneFile `content` property will be `base64` or `binary` format.
+   */
+  @Input()
+  public get type(): 'base64' | 'binary' {
+    return this._type;
+  }
+  public set type(value: 'base64' | 'binary') {
+    this._type = value ?? this.defaultOptions?.type ?? 'binary';
+  }
+  private _type: 'base64' | 'binary';
 
   /**
    * @internal
@@ -121,7 +151,10 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
     }
-    this.options = { ...this.DEFAULT_OPTIONS, ...defaultOptions };
+    this.accept = this.defaultOptions?.accept;
+    this.svgIcon = this.defaultOptions?.svgIcon;
+    this.maxSize = this.defaultOptions?.maxSize;
+    this.type = this.defaultOptions?.type;
   }
 
   /**
@@ -231,14 +264,14 @@ export class ESDropzoneComponent implements ControlValueAccessor {
       return;
     }
 
-    const targetFile = await toFile(this.options.type, file);
+    const targetFile = await toFile(this.type, file);
     this.files = [...this.files, targetFile];
     this.cdRef.markForCheck();
     this.propagateChange(this.files);
   }
 
-  public fileTypeValid(file: File): boolean {
-    if (validateFileType(file, this.options.accept)) {
+  private fileTypeValid(file: File): boolean {
+    if (validateFileType(file, this.accept)) {
       return true;
     }
     this.showSnackBar(this.locale.labelNotSupported);
@@ -246,13 +279,13 @@ export class ESDropzoneComponent implements ControlValueAccessor {
   }
 
   private getMaxSizeInBytes(): number {
-    return this.options.maxSize * 1024 * 1024;
+    return +this.maxSize * 1024 * 1024;
   }
 
   private validateFileSize(file: File): boolean {
     const { labelOverUploadLimit, labelMB } = this.locale;
-    if (this.options.maxSize && file.size > this.getMaxSizeInBytes()) {
-      this.showSnackBar(`${labelOverUploadLimit} ${this.options.maxSize} ${labelMB}`);
+    if (this.maxSize && file.size > this.getMaxSizeInBytes()) {
+      this.showSnackBar(`${labelOverUploadLimit} ${this.maxSize} ${labelMB}`);
       return false;
     }
     return true;

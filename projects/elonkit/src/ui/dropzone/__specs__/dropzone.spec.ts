@@ -26,10 +26,7 @@ const TEXT_SUBMIT = 'Submit';
         chooseText="${TEXT_TITLE}"
         dragText="${TEXT_DESCRIPTION}"
         formControlName="docs"
-        [options]="{
-          accept: 'image/jpg,image/jpeg,image/png',
-          type: 'binary'
-        }"
+        accept="image/jpg,image/jpeg,image/png"
       >
         <mat-hint>${TEXT_HINT}</mat-hint>
         <mat-error>${TEXT_ERROR}</mat-error>

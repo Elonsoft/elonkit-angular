@@ -11,12 +11,9 @@ export const DROPZONE_STORY_REQUIRED_SOURCE = {
   html: `
   <form #f="ngForm" class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)">
     <es-dropzone
-      title="CHOOSE FILES"
-      description="or drag files in this area (max size: 50 MB)"
+      chooseText="CHOOSE FILES"
+      dragText="or drag files in this area (max size: 50 MB)"
       formControlName="docs"
-      [options]="{
-        type: 'binary'
-      }"
     >
       <mat-hint>This is an example of a hint message</mat-hint>
       <mat-error>Select at least one file</mat-error>
