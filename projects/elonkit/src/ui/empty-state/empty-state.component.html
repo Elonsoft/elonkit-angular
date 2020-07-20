@@ -1,0 +1,6 @@
+<div class="es-empty-state">
+  <img class="es-empty-state__image" [src]="src" data-testid="img" />
+  <div class="es-empty-state__heading" [ngClass]="headingTypography">{{ heading }}</div>
+  <div class="es-empty-state__subheading" [ngClass]="subheadingTypography">{{ subheading }}</div>
+  <ng-content></ng-content>
+</div>

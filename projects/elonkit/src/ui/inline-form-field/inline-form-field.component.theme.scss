@@ -1,0 +1,12 @@
+@mixin es-inline-form-field-theme($theme, $elonkit-theme) {
+  .es-inline-form-field {
+    &__button {
+      // stylelint-disable-next-line
+      &.es-inline-form-field__button_save {
+        .mat-icon {
+          color: mat-color(map-get($elonkit-theme, success));
+        }
+      }
+    }
+  }
+}

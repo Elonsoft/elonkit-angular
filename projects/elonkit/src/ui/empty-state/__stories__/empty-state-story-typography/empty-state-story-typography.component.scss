@@ -1,0 +1,15 @@
+.typography {
+  &-body-1 {
+    color: rgba(0, 0, 0, 0.88);
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &-caption {
+    color: rgba(0, 0, 0, 0.54);
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+  }
+}

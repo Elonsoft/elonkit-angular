@@ -1,0 +1,30 @@
+.es-alert {
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 18px;
+
+  &__content {
+    display: flex;
+  }
+
+  &__text {
+    position: relative;
+    top: 2px;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  &__icon {
+    &_display {
+      margin-right: 10px;
+    }
+
+    &_close.mat-icon-button {
+      margin: -8px;
+      margin-left: auto;
+    }
+  }
+}

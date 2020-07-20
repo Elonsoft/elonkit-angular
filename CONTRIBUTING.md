@@ -6,7 +6,7 @@ This project uses Gitflow Workflow.
 
 ### Feature branches
 
-Each new feature should reside in its own branch. But, instead of branching off of master, feature branches use **develop** as their parent branch. When a feature is complete, it gets merged back into develop. Features should never interact directly with master.
+Each new feature should reside in its own branch. But, instead of branching off of master, feature branches use `develop` as their parent branch. When a feature is complete, it gets merged back into develop. Features should never interact directly with master.
 
 ```bash
 git checkout -b feature/branch_name
@@ -20,7 +20,28 @@ Similar to feature branches but, instead of introducing a new feature, they are 
 git checkout -b bugfix/branch_name
 ```
 
-## Coding style
+## Development Guide
+
+### Prerequisites
+
+Please have the latest stable versions of the following on your machine:
+
+```
+node
+yarn
+```
+
+### Development Workflow
+
+After cloning Elonkit, run `yarn` to fetch its dependencies. Then, you can run several commands:
+
+- `yarn start` starts the storybook.
+- `yarn test` runs the complete test suite.
+- `yarn test:watch` runs an interactive test watcher.
+- `yarn lint` checks the code style.
+- `yarn build` builds component library and storybook.
+
+### Coding style
 
 Please follow the coding style of the project. We use tslint, prettier and stylelint, so if possible, enable linting in your editor to get real-time feedback. When you submit a Pull Request, they are run again by our continuous integration tools.
 
@@ -36,6 +57,14 @@ If a commit introduces a breaking change it should append a `!` after the type/s
 
 ```
 refactor!: drop support for Node 6
+```
+
+Another examples of a valid commit message:
+
+```
+feat(paginator): introduce new component
+fix(paginator): fix some bug
+docs: update LICENSE date
 ```
 
 ### Type

@@ -1,0 +1,5 @@
+<h1 *ngIf="type === 'h1'" class="title">{{ title }}</h1>
+<h2 *ngIf="type === 'h2'" class="title">{{ title }}</h2>
+<button type="button" mat-mini-fab [color]="color" class="add-button" (click)="action.emit(true)">
+  <mat-icon>add</mat-icon>
+</button>
