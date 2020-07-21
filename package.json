@@ -5,6 +5,7 @@
   "scripts": {
     "start": "yarn workspace @elonsoft/elonkit start",
     "build": "ng build --prod && scss-bundle && cp README.md dist/elonkit",
+    "build:storybook": "yarn workspace @elonsoft/elonkit build",
     "test": "ng test",
     "test:watch": "ng test --watch",
     "lint": "yarn run lint:tslint && yarn run lint:stylelint",
@@ -65,6 +66,7 @@
     "@types/jest": "~26.0.0",
     "@types/node": "^14.0.13",
     "babel-loader": "~8.1.0",
+    "chromatic": "^5.0.0",
     "codelyzer": "^5.2.2",
     "copy-webpack-plugin": "~6.0.3",
     "css-loader": "~3.5.3",
