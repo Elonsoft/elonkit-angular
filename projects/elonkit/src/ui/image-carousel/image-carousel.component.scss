@@ -6,7 +6,6 @@
 
   &__items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 160px);
     transition: transform 1s ease-in-out;
   }
 

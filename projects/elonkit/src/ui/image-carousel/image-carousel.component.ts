@@ -10,7 +10,8 @@ import {
   OnInit,
   InjectionToken,
   Optional,
-  Inject
+  Inject,
+  HostListener
 } from '@angular/core';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 
@@ -154,6 +155,17 @@ export class ESImageCarouselComponent implements OnInit {
    * @internal
    * @ignore
    */
+  @HostListener('window:resize') onResize() {
+    const fitInViewCount = Math.floor(
+      this.carousel.nativeElement.clientWidth / (this.imageWidth + this.gap)
+    );
+    this.maxSlideCount = this.files.length - fitInViewCount;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(
     @Optional()
     @Inject(ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS)
@@ -194,7 +206,7 @@ export class ESImageCarouselComponent implements OnInit {
    */
   public slideRight(): void {
     this.slideCount++;
-    this.carouselPosition = this.carouselPosition - 176;
+    this.carouselPosition = this.carouselPosition - (this.imageWidth + this.gap);
   }
 
   /**
@@ -203,7 +215,7 @@ export class ESImageCarouselComponent implements OnInit {
    */
   public slideLeft(): void {
     this.slideCount--;
-    this.carouselPosition = this.carouselPosition + 176;
+    this.carouselPosition = this.carouselPosition + (this.imageWidth + this.gap);
   }
 
   /**
@@ -215,6 +227,14 @@ export class ESImageCarouselComponent implements OnInit {
     const gapWidth = (this.files.length - 1) * this.gap;
     const totalWidth = this.files.length * this.imageWidth + gapWidth;
     return totalWidth;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get gridColumns(): string {
+    return `repeat(auto-fit, ${this.imageWidth}px)`;
   }
 
   /**
@@ -245,7 +265,7 @@ export class ESImageCarouselComponent implements OnInit {
    * @internal
    * @ignore
    */
-  public viewFile(file: ESImageCarouselAction): void {
+  public viewImage(file: ESImageCarouselAction): void {
     this.view.emit(file);
   }
 
@@ -253,7 +273,7 @@ export class ESImageCarouselComponent implements OnInit {
    * @internal
    * @ignore
    */
-  public removeFile(file: ESImageCarouselAction): void {
+  public removeImage(file: ESImageCarouselAction): void {
     this.remove.emit(file);
   }
 }

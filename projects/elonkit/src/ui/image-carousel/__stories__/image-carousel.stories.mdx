@@ -3,7 +3,7 @@ import { Preview } from '~storybook/components';
 
 import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, number, boolean } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -17,18 +17,28 @@ import {
 
 <Meta title='UI/Image Carousel' decorators={[withA11y, withKnobs]} />
 
-# Inline Form Field
+# Image Carousel
 
-This component allows inline switching between display value and input.
+This component displays images and allows to slide them.
 
 ## Demos
 
 <Preview source={IMAGE_CAROUSEL_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='50px'>
+  <Story name='Basic' height='200px'>
     {{
       component: ImageCarouselStoryBasicComponent,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, ImageCarouselStoryBasicModule]
+      },
+      props: {
+        imageHeight: number('imageHeight', 160),
+        imageWidth: number('imageWidth', 160),
+        gap: number('gap', 16),
+        canView: boolean('canView', true),
+        canRemove: boolean('canRemove', true),
+        imageTypes: text('imageTypes', 'image/png,image/jpg,image/jpeg'),
+        onView: action('onView'),
+        onRemove: action('onRemove')
       }
     }}
   </Story>
@@ -38,19 +48,66 @@ This component allows inline switching between display value and input.
 
 <Props of={ESImageCarouselComponent} />
 
+## Interfaces
+
+```ts
+interface ESImageCarouselFile {
+  id?: number;
+  deleted?: boolean;
+  type?: string;
+  base64?: string;
+  file?: string;
+  name: string;
+  size: number;
+  content: File | string;
+}
+```
+
+```ts
+interface ESImageCarouselAction {
+  file: ESImageCarouselFile;
+  index: number;
+}
+```
+
+Image types string should contain types separated by a comma, e.g. `image/png,image/jpg,image/jpeg`
+
+```ts
+interface ESImageCarouselOptions {
+  imageTypes?: string;
+  imageHeight?: number;
+  imageWidth?: number;
+  gap?: number;
+  canRemove?: boolean;
+  canView?: boolean;
+  viewSvgIcon?: string;
+}
+```
+
 ## Constants
+
+```ts
+class ESImageCarouselLocale {
+  labelView = 'View';
+  labelRemove = 'Remove';
+  labelSlideRight = 'Slide right';
+  labelSlideLeft = 'Slide left';
+}
+```
 
 Injection token that can be used to configure the default options for all components within an app.
 
 ```ts
-import { ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/inline-form-field';
+import { ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/image-carousel';
 
 @NgModule({
   providers: [
     {
-      provide: ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS,
+      provide: ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS,
       useValue: {
-        typography: 'mat-body-1'
+        imageHeight: 200,
+        imageWidth: 200,
+        gap: 20
       }
     }
   ]

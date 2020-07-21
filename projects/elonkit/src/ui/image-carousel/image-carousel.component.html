@@ -1,7 +1,12 @@
 <div #carousel class="es-image-carousel">
   <div
     class="es-image-carousel__items"
-    [ngStyle]="{ 'width.px': carouselWidth, 'gap.px': gap, transform: getTranslateX }"
+    [ngStyle]="{
+      'width.px': carouselWidth,
+      'gap.px': gap,
+      'grid-template-columns': gridColumns,
+      transform: getTranslateX
+    }"
   >
     <ng-container *ngFor="let file of files; let i = index">
       <div
@@ -39,6 +44,7 @@
   <button
     mat-icon-button
     (click)="slideRight()"
+    [attr.aria-label]="locale.labelSlideRight"
     class="es-image-carousel__arrow es-image-carousel__arrow_right"
     [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollRight }"
   >
@@ -48,6 +54,7 @@
   <button
     mat-icon-button
     (click)="slideLeft()"
+    [attr.aria-label]="locale.labelSlideLeft"
     class="es-image-carousel__arrow es-image-carousel__arrow_left"
     [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollLeft }"
   >
