@@ -6,10 +6,20 @@ export interface ESImageCarouselFile {
   file?: string;
   name: string;
   size: number;
-  content: File;
+  content: File | string;
 }
 
-export interface ESImageCarouselRemoveAction {
+export interface ESImageCarouselAction {
   file: ESImageCarouselFile;
   index: number;
+}
+
+export interface ESImageCarouselOptions {
+  imageTypes?: string;
+  imageHeight?: number;
+  imageWidth?: number;
+  gap?: number;
+  canRemove?: boolean;
+  canView?: boolean;
+  viewSvgIcon?: string;
 }

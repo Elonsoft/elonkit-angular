@@ -1,3 +1,6 @@
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig');
+
 module.exports = {
   setupFilesAfterEnv: ['./jest.setup.ts'],
   globals: {
@@ -5,5 +8,8 @@ module.exports = {
       diagnostics: false
     }
   },
-  testPathIgnorePatterns: ['<rootDir>/dist/']
+  testPathIgnorePatterns: ['<rootDir>/dist/'],
+  roots: ['<rootDir>'],
+  modulePaths: ['<rootDir>'],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths)
 };

@@ -5,16 +5,26 @@ import {
   ElementRef,
   Output,
   EventEmitter,
-  AfterViewChecked,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
-  ViewEncapsulation
+  ViewEncapsulation,
+  OnInit,
+  InjectionToken,
+  Optional,
+  Inject
 } from '@angular/core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 
-import { CustomDialogService } from './custom-dialog';
-import { ImageDialogComponent } from './custom-dialog/image-dialog/image-dialog.component';
-import { ESImageCarouselFile, ESImageCarouselRemoveAction } from './image-carousel.types';
+import {
+  ESImageCarouselFile,
+  ESImageCarouselAction,
+  ESImageCarouselOptions
+} from './image-carousel.types';
+import { ESImageCarouselLocale } from './image-carousel.component.locale';
+import { validateFileType } from '~utils/validate-file-type';
+
+export const ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS = new InjectionToken<ESImageCarouselOptions>(
+  'ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS'
+);
 
 @Component({
   selector: 'es-image-carousel',
@@ -23,156 +33,227 @@ import { ESImageCarouselFile, ESImageCarouselRemoveAction } from './image-carous
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ESImageCarouselComponent implements AfterViewChecked {
-  public imageTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image'];
-
+export class ESImageCarouselComponent implements OnInit {
+  /**
+   * Array of files to display.
+   */
   @Input()
-  public files: ESImageCarouselFile[];
+  public get files(): ESImageCarouselFile[] {
+    return this._files;
+  }
+  public set files(value: ESImageCarouselFile[]) {
+    this._files = value.filter(file => validateFileType(file, this.imageTypes));
+  }
+  private _files: ESImageCarouselFile[];
 
+  /**
+   * File types to be considered as image separatedby a comma, e.g. `image/png,image/jpg,image/jpeg`.
+   * Defaults to `image/*`.
+   */
   @Input()
-  public imgHeight = '160px';
+  public get imageTypes(): string {
+    return this._imageTypes;
+  }
+  public set imageTypes(value: string) {
+    this._imageTypes = value ?? this.defaultOptions?.imageTypes ?? 'image/*';
+  }
+  private _imageTypes: string;
 
+  /**
+   * Defines height of each image in pixels.
+   */
   @Input()
-  public imgWidth = '160px';
+  public get imageHeight(): number {
+    return this._imageHeight;
+  }
+  public set imageHeight(value: number) {
+    this._imageHeight = coerceNumberProperty(value, 160);
+  }
+  private _imageHeight: number;
 
+  /**
+   * Defines width of each image in pixels.
+   */
   @Input()
-  public canRemove = true;
+  public get imageWidth(): number {
+    return this._imageWidth;
+  }
+  public set imageWidth(value: number) {
+    this._imageWidth = coerceNumberProperty(value, 160);
+  }
+  private _imageWidth: number;
 
+  /**
+   * Defines gap between images in pixels.
+   */
   @Input()
-  public canDownload = false;
+  public get gap(): number {
+    return this._gap;
+  }
+  public set gap(value: number) {
+    this._gap = coerceNumberProperty(value, 16);
+  }
+  private _gap: number;
 
+  /**
+   * Defines whether remove buttons should be rendered for images.
+   */
+  @Input()
+  public get canRemove(): boolean {
+    return this._canRemove;
+  }
+  public set canRemove(value: boolean) {
+    this._canRemove = coerceBooleanProperty(value);
+  }
+  private _canRemove: boolean;
+
+  /**
+   * Defines whether view buttons should be rendered for images.
+   */
+  @Input()
+  public get canView(): boolean {
+    return this._canView;
+  }
+  public set canView(value: boolean) {
+    this._canView = coerceBooleanProperty(value);
+  }
+  private _canView: boolean;
+
+  /**
+   * Defines custom svg icon to render for view buttons.
+   */
+  @Input()
+  public get viewSvgIcon(): string {
+    return this._viewSvgIcon;
+  }
+  public set viewSvgIcon(value: string) {
+    this._viewSvgIcon = value ?? this.defaultOptions?.viewSvgIcon;
+  }
+  private _viewSvgIcon: string;
+
+  /**
+   * Object with `ESImageCarouselAction` type is emitted.
+   */
   @Output()
-  public remove: EventEmitter<ESImageCarouselRemoveAction> = new EventEmitter();
+  public view: EventEmitter<ESImageCarouselAction> = new EventEmitter();
 
-  @ViewChild('scroller', { static: true })
-  public scroller: ElementRef<HTMLElement>;
+  /**
+   * Object with `ESImageCarouselAction` type is emitted.
+   */
+  @Output()
+  public remove: EventEmitter<ESImageCarouselAction> = new EventEmitter();
 
+  @ViewChild('carousel', { static: true })
+  private carousel: ElementRef<HTMLElement>;
+
+  private carouselPosition = 0;
+  private slideCount = 0;
+  private maxSlideCount: number;
+
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(
-    private customDialogService: CustomDialogService,
-    private sanitizer: DomSanitizer,
-    private cdRef: ChangeDetectorRef
-  ) {}
-
-  public ngAfterViewChecked(): void {
-    this.cdRef.markForCheck();
-  }
-
-  public getImage(file: ESImageCarouselFile): string {
-    return file.id ? file.file : file.base64;
-  }
-
-  public getSanitizedImage(file: ESImageCarouselFile): SafeStyle {
-    return this.sanitizer.bypassSecurityTrustStyle(`url('${this.getImage(file)}')`);
-  }
-
-  public scrollToRight(): void {
-    const scrollValues = this.getValuesToScroll();
-    if (this.isRightButton()) {
-      let left = +this.pruneString(scrollValues.el.style.left);
-      if (scrollValues.countOfElOutView > scrollValues.el.clientWidth) {
-        left =
-          left -
-          (scrollValues.countOfElOutView + scrollValues.restOfCountInView) * scrollValues.imgWidth;
-      } else {
-        left =
-          left -
-          (scrollValues.countOfElInView + scrollValues.restOfCountInView) * scrollValues.imgWidth +
-          scrollValues.margin;
-      }
-
-      left =
-        Math.abs(left) + scrollValues.el.clientWidth > scrollValues.el.scrollWidth
-          ? -(scrollValues.el.scrollWidth - scrollValues.el.clientWidth)
-          : left;
-
-      scrollValues.el.style.left = `${left}px`;
-    }
-  }
-
-  public isRightButton(): boolean {
-    const el = this.scroller.nativeElement;
-    const left = Math.abs(+this.pruneString(el.style.left)) + el.offsetWidth;
-    return left !== el.scrollWidth;
-  }
-
-  public isLeftButton(): boolean {
-    const el = this.scroller.nativeElement;
-    return +this.pruneString(el.style.left) !== 0;
-  }
-
-  public scrollToLeft(): void {
-    const scrollValues = this.getValuesToScroll();
-
-    if (this.isLeftButton()) {
-      let left = +this.pruneString(scrollValues.el.style.left);
-      if (left > scrollValues.el.clientWidth) {
-        left =
-          left +
-          (scrollValues.countOfElOutView + scrollValues.restOfCountInView) * scrollValues.imgWidth;
-      } else {
-        left =
-          left +
-          (scrollValues.countOfElInView + scrollValues.restOfCountInView) * scrollValues.imgWidth -
-          scrollValues.margin;
-      }
-
-      left = left > 0 ? 0 : left;
-      scrollValues.el.style.left = `${left}px`;
-    }
-  }
-
-  public removeFile(file: ESImageCarouselRemoveAction): void {
-    this.remove.emit(file);
-  }
-
-  public openImageDialog(file: ESImageCarouselFile): void {
-    this.customDialogService.open(ImageDialogComponent, {
-      data: {
-        imageUrl: this.getImage(file)
-      }
-    });
+    @Optional()
+    @Inject(ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS)
+    private defaultOptions: ESImageCarouselOptions,
+    public locale: ESImageCarouselLocale
+  ) {
+    this.gap = this.defaultOptions?.gap;
+    this.imageHeight = this.defaultOptions?.imageHeight;
+    this.imageWidth = this.defaultOptions?.imageWidth;
+    this.imageTypes = this.defaultOptions?.imageTypes;
+    this.canRemove = this.defaultOptions?.canRemove;
+    this.canView = this.defaultOptions?.canView;
+    this.viewSvgIcon = this.defaultOptions?.viewSvgIcon;
   }
 
   /**
    * @internal
    * @ignore
    */
-  public downloadFile(file: ESImageCarouselFile): void {
-    this.save(file.file, file.name);
+  public ngOnInit(): void {
+    const fitInViewCount = Math.floor(
+      this.carousel.nativeElement.clientWidth / (this.imageWidth + this.gap)
+    );
+    this.maxSlideCount = this.files.length - fitInViewCount;
   }
 
-  private save(file: Blob | string, name?: string): void {
-    const url = typeof file === 'string' ? file : URL.createObjectURL(file);
-    const downloadLink = document.createElement('a');
-    downloadLink.setAttribute('href', url);
-    downloadLink.setAttribute('target', '_self');
-    downloadLink.setAttribute('download', name ? name : '');
-    downloadLink.click();
+  /**
+   * @internal
+   * @ignore
+   */
+  public getImage(file: ESImageCarouselFile): string {
+    return file.id ? file.file : file.base64;
   }
 
-  private pruneString(val: string): string {
-    return val.replace(/[а-я]|[a-z]?\s*/g, '');
+  /**
+   * @internal
+   * @ignore
+   */
+  public slideRight(): void {
+    this.slideCount++;
+    this.carouselPosition = this.carouselPosition - 176;
   }
 
-  private getValuesToScroll() {
-    const el = this.scroller.nativeElement;
-    const margin = 16;
-    const imgWidth = +this.pruneString(this.imgWidth);
-    const countOfElInView = Math.floor(el.clientWidth / (imgWidth + margin));
-    const doubleCountInView = el.clientWidth / (imgWidth + margin);
-    const doubleCountAllView = el.scrollWidth / (imgWidth + margin);
-    const countOfElOutView = doubleCountAllView - doubleCountInView;
-    const restOfCountInView = Math.ceil(doubleCountInView) - doubleCountInView;
+  /**
+   * @internal
+   * @ignore
+   */
+  public slideLeft(): void {
+    this.slideCount--;
+    this.carouselPosition = this.carouselPosition + 176;
+  }
 
-    return {
-      el,
-      margin,
-      imgWidth,
-      countOfElInView,
-      doubleCountInView,
-      doubleCountAllView,
-      countOfElOutView,
-      restOfCountInView
-    };
+  /**
+   * @internal
+   * @ignore
+   */
+  public get carouselWidth(): number {
+    // Last file doesn't have a gap
+    const gapWidth = (this.files.length - 1) * this.gap;
+    const totalWidth = this.files.length * this.imageWidth + gapWidth;
+    return totalWidth;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get getTranslateX(): string {
+    return `translateX(${this.carouselPosition}px)`;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get canScrollRight(): boolean {
+    return this.slideCount < this.maxSlideCount;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get canScrollLeft(): boolean {
+    return Math.abs(this.carouselPosition) >= this.imageWidth + this.gap;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public viewFile(file: ESImageCarouselAction): void {
+    this.view.emit(file);
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public removeFile(file: ESImageCarouselAction): void {
+    this.remove.emit(file);
   }
 }

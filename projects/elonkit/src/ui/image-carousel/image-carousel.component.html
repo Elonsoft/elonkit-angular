@@ -1,49 +1,56 @@
-<div class="image-scroller">
-  <div class="image-scroller__items" #scroller>
+<div #carousel class="es-image-carousel">
+  <div
+    class="es-image-carousel__items"
+    [ngStyle]="{ 'width.px': carouselWidth, 'gap.px': gap, transform: getTranslateX }"
+  >
     <ng-container *ngFor="let file of files; let i = index">
       <div
-        *ngIf="IMAGE_TYPES.includes(file.type) && !file.deleted"
-        class="image-scroller__item"
-        [style.width]="imgWidth"
-        [style.height]="imgHeight"
-        [style.backgroundImage]="getSanitizedImage(file)"
+        *ngIf="!file.deleted"
+        class="es-image-carousel__item"
+        [ngStyle]="{
+          'width.px': imageWidth,
+          'height.px': imageHeight,
+          backgroundImage: 'url(' + getImage(file) + ')'
+        }"
       >
-        <div
+        <button
           *ngIf="canRemove"
-          (click)="removeFile({ file: file, index: i })"
-          class="image-scroller__item-icon image-scroller__item-icon_close"
+          mat-icon-button
+          [attr.aria-label]="locale.labelRemove"
+          (click)="removeImage({ file: file, index: i })"
+          class="es-image-carousel__item-remove"
         >
           <mat-icon>close</mat-icon>
-        </div>
+        </button>
 
-        <div
-          *ngIf="canDownload"
-          (click)="downloadFile(file)"
-          class="image-scroller__item-icon image-scroller__item-icon_download"
+        <button
+          *ngIf="canView"
+          mat-icon-button
+          [attr.aria-label]="locale.labelView"
+          class="es-image-carousel__item-view"
+          (click)="viewImage({ file: file, index: i })"
         >
-          <!-- <mat-icon svgIcon="download_outline"></mat-icon> -->
-          <mat-icon>download</mat-icon>
-        </div>
-        <div class="image-scroller__item-download"></div>
-        <div (click)="openImageDialog(file)" class="image-scroller__item-view">
-          <mat-icon>remove_red_eye</mat-icon>
-        </div>
+          <mat-icon *ngIf="viewSvgIcon" svgIcon="viewSvgIcon"></mat-icon>
+          <mat-icon *ngIf="!viewSvgIcon">visibility</mat-icon>
+        </button>
       </div>
     </ng-container>
   </div>
-  <div
-    (click)="scrollToRight()"
-    *ngIf="isRightButton()"
-    class="image-scroller__arrow image-scroller__arrow_right"
+  <button
+    mat-icon-button
+    (click)="slideRight()"
+    class="es-image-carousel__arrow es-image-carousel__arrow_right"
+    [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollRight }"
   >
     <mat-icon>arrow_forward</mat-icon>
-  </div>
+  </button>
 
-  <div
-    (click)="scrollToLeft()"
-    *ngIf="isLeftButton()"
-    class="image-scroller__arrow image-scroller__arrow_left"
+  <button
+    mat-icon-button
+    (click)="slideLeft()"
+    class="es-image-carousel__arrow es-image-carousel__arrow_left"
+    [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollLeft }"
   >
     <mat-icon>arrow_back</mat-icon>
-  </div>
+  </button>
 </div>
