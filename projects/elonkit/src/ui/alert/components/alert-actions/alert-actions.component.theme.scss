@@ -1,0 +1,13 @@
+@mixin es-alert-actions-theme($theme, $elonkit-theme) {
+  $mono-a: map-get($elonkit-theme, mono-a);
+
+  .es-alert-actions {
+    .mat-button-base {
+      color: mat-color($mono-a, A700);
+    }
+
+    .mat-flat-button {
+      background-color: mat-color($mono-a, A100);
+    }
+  }
+}

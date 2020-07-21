@@ -1,14 +1,16 @@
 @mixin es-paginator-theme($theme, $elonkit-theme) {
-  $primary: mat-color(map-get($theme, primary));
+  $accent: map-get($theme, accent);
 
   .es-paginator {
+    color: mat-color(map-get($elonkit-theme, mono-a), A600);
+
     &__item {
       &_active {
-        background-color: rgb($primary, 0.04);
+        background-color: mat-color($accent, A100);
         font-weight: 600;
 
         &.mat-icon-button:disabled {
-          color: $primary;
+          color: mat-color($accent);
         }
       }
     }

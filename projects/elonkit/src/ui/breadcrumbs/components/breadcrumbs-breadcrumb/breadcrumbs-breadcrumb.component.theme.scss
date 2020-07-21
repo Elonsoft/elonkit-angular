@@ -1,0 +1,31 @@
+@mixin es-breadcrumbs-breadcrumb-theme($theme, $elonkit-theme) {
+  .es-breadcrumbs-breadcrumb {
+    $root: '.es-breadcrumbs-breadcrumb';
+
+    &__link {
+      color: mat-color(map-get($elonkit-theme, mono-a), A900);
+
+      &_last {
+        color: mat-color(map-get($elonkit-theme, mono-a), A500);
+      }
+
+      &:not(&_last) {
+        &:hover,
+        &:focus {
+          background-color: mat-color(map-get($elonkit-theme, mono-a), A50);
+        }
+      }
+    }
+
+    &__menu {
+      color: mat-color(map-get($elonkit-theme, mono-a), A500);
+
+      &.mat-icon-button {
+        &:hover,
+        &:focus {
+          background-color: mat-color(map-get($elonkit-theme, mono-a), A50);
+        }
+      }
+    }
+  }
+}
