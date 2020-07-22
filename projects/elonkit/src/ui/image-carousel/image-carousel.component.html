@@ -35,7 +35,7 @@
           class="es-image-carousel__item-view"
           (click)="viewImage({ file: file, index: i })"
         >
-          <mat-icon *ngIf="viewSvgIcon" svgIcon="viewSvgIcon"></mat-icon>
+          <mat-icon *ngIf="viewSvgIcon" [svgIcon]="viewSvgIcon"></mat-icon>
           <mat-icon *ngIf="!viewSvgIcon">visibility</mat-icon>
         </button>
       </div>

@@ -15,6 +15,18 @@ import {
   IMAGE_CAROUSEL_STORY_BASIC_SOURCE
 } from './image-carousel-story-basic';
 
+import {
+  ImageCarouselStoryCustomIconModule,
+  ImageCarouselStoryCustomIconComponent,
+  IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE
+} from './image-carousel-story-custom-icon';
+
+import {
+  ImageCarouselStoryLocaleModule,
+  ImageCarouselStoryLocaleComponent,
+  IMAGE_CAROUSEL_STORY_LOCALE_SOURCE
+} from './image-carousel-story-locale';
+
 <Meta title='UI/Image Carousel' decorators={[withA11y, withKnobs]} />
 
 # Image Carousel
@@ -39,6 +51,32 @@ This component displays images and allows to slide them.
         imageTypes: text('imageTypes', 'image/png,image/jpg,image/jpeg'),
         onView: action('onView'),
         onRemove: action('onRemove')
+      }
+    }}
+  </Story>
+</Preview>
+
+We can pass `viewSvgIcon` to use custom icon for view button.
+
+<Preview source={IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE}>
+  <Story name='Custom Icon' height='200px'>
+    {{
+      component: ImageCarouselStoryCustomIconComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ImageCarouselStoryCustomIconModule]
+      }
+    }}
+  </Story>
+</Preview>
+
+We can override default locale which is used for buttons aria labels.
+
+<Preview source={IMAGE_CAROUSEL_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='200px'>
+    {{
+      component: ImageCarouselStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ImageCarouselStoryLocaleModule]
       }
     }}
   </Story>
