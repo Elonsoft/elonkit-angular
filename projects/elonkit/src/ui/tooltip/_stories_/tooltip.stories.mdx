@@ -1,0 +1,87 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+
+import { ESTooltipModule, ESTooltipDirective } from '..';
+
+<Meta title='UI/Tooltip' decorators={[withA11y, withKnobs]} />
+
+# Timepicker
+
+The tooltip provides a text label that is displayed when the user hovers over or longpresses an element.
+This is a copy of Angular Material tooltip with added support for arrows and complex content inside a tooltip.
+
+## Demos
+
+<Preview>
+  <Story name='Basic' height='110px'>
+    {{
+      template: `
+        <div style="padding: 10px">
+          <button
+            mat-flat-button
+            color="primary"
+            esTooltip="Information about the action"
+            esTooltipPosition="after"
+            [esTooltipArrow]="esTooltipArrow"
+          >
+            Button
+          </button>
+        </div>
+      `,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, MatButtonModule, ESTooltipModule]
+      },
+      props: {
+        esTooltipArrow: boolean('esTooltipArrow', true)
+      }
+    }}
+  </Story>
+</Preview>
+
+Interactive:
+
+<Preview>
+  <Story name='Interactive' height='150px'>
+    {{
+      template: `
+        <div style="padding: 10px">
+          <button
+            style="margin-right: 8px;"
+            mat-flat-button
+            color="primary"
+            esTooltip
+            [esTooltipContent]="content"
+            esTooltipPosition="after"
+            esTooltipInteractive
+            [esTooltipArrow]="esTooltipArrow"
+          >
+            Button
+          </button>
+          <ng-template #content>
+            This is tooltip with an interactive content
+            <br /><br />
+            <button mat-flat-button>Action</button>
+          </ng-template>
+          <button mat-flat-button color="accent">Extra Button</button>
+        </div>
+      `,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, MatButtonModule, ESTooltipModule]
+      },
+      props: {
+        esTooltipArrow: boolean('esTooltipArrow', true)
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESTooltipDirective} />

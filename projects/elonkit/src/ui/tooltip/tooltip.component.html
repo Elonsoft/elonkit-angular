@@ -1,0 +1,26 @@
+<div
+  class="es-tooltip"
+  [ngClass]="tooltipClass"
+  [@state]="visibility"
+  (@state.start)="animationStart()"
+  (@state.done)="animationDone($event)"
+>
+  <div class="es-tooltip__content">
+    <ng-container *ngIf="content; else messageTemplate">
+      <ng-container *ngTemplateOutlet="content"></ng-container>
+    </ng-container>
+    <ng-template #messageTemplate>
+      {{ message }}
+    </ng-template>
+  </div>
+
+  <div
+    *ngIf="arrow"
+    class="es-tooltip__arrow"
+    [ngClass]="'es-tooltip__arrow_' + arrow.position"
+    [ngStyle]="{
+      'top.px': arrow.offsetY,
+      'left.px': arrow.offsetX
+    }"
+  ></div>
+</div>

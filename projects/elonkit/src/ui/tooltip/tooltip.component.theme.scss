@@ -1,0 +1,27 @@
+$mat-tooltip-handset-font-size: 16px;
+
+@mixin es-tooltip-theme($theme, $elonkit-theme) {
+  .es-tooltip {
+    backdrop-filter: blur(40px);
+    background: rgba(0, 0, 0, 0.54);
+    color: #fff;
+
+    &__arrow {
+      &_top {
+        border-color: transparent transparent rgba(0, 0, 0, 0.54) transparent;
+      }
+
+      &_bottom {
+        border-color: rgba(0, 0, 0, 0.54) transparent transparent;
+      }
+
+      &_left {
+        border-color: transparent rgba(0, 0, 0, 0.54) transparent transparent;
+      }
+
+      &_right {
+        border-color: transparent transparent transparent rgba(0, 0, 0, 0.54);
+      }
+    }
+  }
+}

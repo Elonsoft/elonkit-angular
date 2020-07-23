@@ -1,0 +1,63 @@
+$es-tooltip-max-width: 250px;
+$es-tooltip-margin: 14px;
+
+.es-tooltip-panel {
+  // The overlay reference updates the pointer-events style property directly on the HTMLElement
+  // depending on the state of the overlay. For tooltips the overlay panel should never enable
+  // pointer events. To overwrite the inline CSS from the overlay reference `!important` is needed.
+  pointer-events: none !important;
+}
+
+.es-tooltip {
+  border-radius: 4px;
+  font-family: Roboto;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  line-height: 16px;
+  margin: $es-tooltip-margin;
+  max-width: $es-tooltip-max-width;
+  padding: 8px;
+  position: relative;
+
+  &__content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__arrow {
+    border-style: solid;
+    height: 0;
+    position: absolute;
+    width: 0;
+
+    &_top {
+      border-width: 0 10px 8px;
+      top: -8px;
+    }
+
+    &_bottom {
+      border-width: 8px 10px 0;
+      bottom: -8px;
+    }
+
+    &_left {
+      border-width: 5px 8px 5px 0;
+      left: -8px;
+    }
+
+    &_right {
+      border-width: 5px 0 5px 8px;
+      right: -8px;
+    }
+
+    &_top,
+    &_bottom {
+      transform: translateX(-50%);
+    }
+
+    &_left,
+    &_right {
+      transform: translateY(-50%);
+    }
+  }
+}
