@@ -6,6 +6,7 @@
     "start": "yarn workspace @elonsoft/elonkit start",
     "build": "ng build --prod && scss-bundle && cp README.md dist/elonkit",
     "build:storybook": "yarn workspace @elonsoft/elonkit build",
+    "build-storybook": "yarn run build:storybook",
     "test": "ng test",
     "test:watch": "ng test --watch",
     "lint": "yarn run lint:tslint && yarn run lint:stylelint",
