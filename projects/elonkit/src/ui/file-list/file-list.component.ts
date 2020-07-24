@@ -77,6 +77,30 @@ export class ESFileListComponent {
   private _canDownload: boolean;
 
   /**
+   * Class applied to file name text.
+   */
+  @Input()
+  public get fileNameTypography(): string {
+    return this._fileNameTypography;
+  }
+  public set fileNameTypography(value: string) {
+    this._fileNameTypography = value || this.defaultOptions?.fileNameTypography || 'mat-body-1';
+  }
+  private _fileNameTypography: string;
+
+  /**
+   * Class applied to file size text.
+   */
+  @Input()
+  public get fileSizeTypography(): string {
+    return this._fileSizeTypography;
+  }
+  public set fileSizeTypography(value: string) {
+    this._fileSizeTypography = value || this.defaultOptions?.fileSizeTypography || 'mat-caption';
+  }
+  private _fileSizeTypography: string;
+
+  /**
    * Array of files to display.
    */
   @Input()
@@ -108,6 +132,8 @@ export class ESFileListComponent {
     this.hideImages = this.defaultOptions?.hideImages;
     this.canDownload = this.defaultOptions?.canDownload;
     this.canRemove = this.defaultOptions?.canRemove;
+    this.fileNameTypography = this.defaultOptions?.fileNameTypography;
+    this.fileSizeTypography = this.defaultOptions?.fileSizeTypography;
   }
 
   /**
@@ -141,7 +167,24 @@ export class ESFileListComponent {
    * @internal
    * @ignore
    */
-  public downloadFile(file: ESFileListFile): void {
+  public downloadFile(e: MouseEvent, file: ESFileListFile): void {
+    e.preventDefault();
     this.download.emit(file);
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get src(): string {
+    return './assets/elonkit/file-list/file.svg';
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get srcDownload(): string {
+    return './assets/elonkit/file-list/file_download.svg';
   }
 }

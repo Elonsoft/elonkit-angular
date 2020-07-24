@@ -2,6 +2,7 @@
   margin-top: 24px;
 
   &__file {
+    align-items: center;
     display: flex;
 
     &:not(:last-child) {
@@ -9,17 +10,13 @@
     }
   }
 
-  &__icon {
-    &.mat-icon {
-      font-size: 40px;
-      height: 40px;
-      margin-right: 12px;
-      width: 32px;
-    }
+  &__icon-wrapper {
+    margin-right: 12px;
+  }
 
-    &_download.mat-icon {
-      cursor: pointer;
-    }
+  &__icon {
+    height: 48px;
+    width: 36px;
   }
 
   &__title {
@@ -27,22 +24,20 @@
   }
 
   &__remove.mat-icon-button {
-    $size: 20px;
-    height: $size;
-    line-height: $size;
-    width: $size;
+    height: 22px;
+    line-height: 22px;
+    width: 22px;
+  }
 
-    mat-icon {
-      color: rgba(0, 0, 0, 0.24);
-      font-size: $size;
-      height: $size;
-      line-height: $size;
-      width: $size;
-    }
+  &__remove &__remove-icon.mat-icon {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 20px;
+    height: 20px;
+    line-height: 19px;
+    width: 20px;
   }
 
   &__name {
-    line-height: 20px;
     margin-bottom: 2px;
     margin-right: 8px;
   }
@@ -51,11 +46,8 @@
     align-items: center;
     color: rgba(0, 0, 0, 0.38);
     display: flex;
-    font-size: 12px;
-    line-height: 16px;
 
     &-point {
-      font-size: 12px;
       margin: 0 8px;
     }
   }

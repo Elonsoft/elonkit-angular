@@ -19,4 +19,6 @@ export interface ESFileListOptions {
   hideImages?: boolean;
   canRemove?: boolean;
   canDownload?: boolean;
+  fileNameTypography?: string;
+  fileSizeTypography?: string;
 }
