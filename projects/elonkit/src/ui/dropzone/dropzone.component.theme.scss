@@ -3,7 +3,7 @@
   $accent: mat-color(map-get($theme, accent));
 
   .es-dropzone {
-    &__title {
+    &__heading {
       color: $primary;
     }
   }

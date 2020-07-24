@@ -13,18 +13,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { ESDropzoneModule } from '../dropzone.module';
 
-const TEXT_TITLE = 'CHOOSE FILES';
-const TEXT_DESCRIPTION = 'This is an example of a description';
+const TEXT_HEADING = 'CHOOSE FILES';
+const TEXT_SUBHEADING = 'This is an example of a description';
 const TEXT_HINT = 'This is an example of a hint';
 const TEXT_ERROR = 'This is an example of an error';
 const TEXT_SUBMIT = 'Submit';
+
+const CLASS_HEADING = 'app-body-1';
+const CLASS_SUBHEADING = 'app-caption';
 
 @Component({
   template: `
     <form #f="ngForm" [formGroup]="form" (ngSubmit)="onSubmit(f.value)">
       <es-dropzone
-        chooseText="${TEXT_TITLE}"
-        dragText="${TEXT_DESCRIPTION}"
+        heading="${TEXT_HEADING}"
+        subheading="${TEXT_SUBHEADING}"
+        headingTypography="${CLASS_HEADING}"
+        subheadingTypography="${CLASS_SUBHEADING}"
         formControlName="docs"
         accept="image/jpg,image/jpeg,image/png"
       >
@@ -54,8 +59,8 @@ describe('Drag And Drop', () => {
         MatIconTestingModule
       ]
     });
-    expect(component.getByText(TEXT_TITLE)).toBeInTheDocument();
-    expect(component.getByText(TEXT_DESCRIPTION)).toBeInTheDocument();
+    expect(component.getByText(TEXT_HEADING)).toBeInTheDocument();
+    expect(component.getByText(TEXT_SUBHEADING)).toBeInTheDocument();
   });
 
   it('Should show hint', async () => {
@@ -88,6 +93,21 @@ describe('Drag And Drop', () => {
     expect(component.getByText(TEXT_ERROR)).toBeInTheDocument();
   });
 
+  it('Should accept typography classes', async () => {
+    const component = await render(DropzoneWrapperComponent, {
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MatFormFieldModule,
+        ESDropzoneModule,
+        MatIconTestingModule
+      ]
+    });
+    expect(component.getByText(TEXT_HEADING)).toHaveClass(CLASS_HEADING);
+    expect(component.getByText(TEXT_SUBHEADING)).toHaveClass(CLASS_SUBHEADING);
+  });
+
   it('Should add class on dragover and remove on drop', async () => {
     const component = await render(DropzoneWrapperComponent, {
       imports: [
@@ -100,10 +120,10 @@ describe('Drag And Drop', () => {
       ]
     });
 
-    component.dragOver(component.getByText(TEXT_TITLE));
+    component.dragOver(component.getByText(TEXT_HEADING));
     expect(component.getByTestId('root')).toHaveClass('es-dropzone_dragover');
 
-    component.drop(component.getByText(TEXT_TITLE), {
+    component.drop(component.getByText(TEXT_HEADING), {
       dataTransfer: {
         files: {}
       }
@@ -129,7 +149,7 @@ describe('Drag And Drop', () => {
     };
     const file = new File([''], fileFixture.name, { type: fileFixture.type });
 
-    component.drop(component.getByText(TEXT_TITLE), {
+    component.drop(component.getByText(TEXT_HEADING), {
       dataTransfer: {
         files: {
           0: file,

@@ -12,4 +12,6 @@ export interface ESDropzoneOptions {
   svgIcon?: string;
   maxSize?: number;
   type?: 'base64' | 'binary';
+  headingTypography?: string;
+  subheadingTypography?: string;
 }

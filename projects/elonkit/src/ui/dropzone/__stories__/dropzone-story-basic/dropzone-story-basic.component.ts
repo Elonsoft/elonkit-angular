@@ -20,10 +20,10 @@ import { Subscription } from 'rxjs';
 })
 export class DropzoneStoryBasicComponent implements OnInit, OnDestroy {
   @Input()
-  public chooseText: string;
+  public heading: string;
 
   @Input()
-  public dragText: string;
+  public subheading: string;
 
   @Input()
   public accept: string;

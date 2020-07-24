@@ -3,12 +3,17 @@ export const DROPZONE_STORY_BASIC_SOURCE = {
   export class AppComponent {
     public docs = new FormControl([]);
   }
+  ...
+  @NgModule({
+    ...
+    providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } }]
+  })
   `,
   html: `
   <div class="dropzone">
     <es-dropzone
-      [chooseText]="chooseText"
-      [dragText]="dragText"
+      [heading]="heading"
+      [subheading]="subheading"
       [maxSize]="maxSize"
       [accept]="accept"
       [type]="type"

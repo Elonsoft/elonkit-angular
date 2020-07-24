@@ -9,13 +9,13 @@
   (dragend)="onDragend($event)"
   (click)="openSelectFileDialog()"
 >
-  <div class="mat-h2 es-dropzone__title">
+  <div class="es-dropzone__heading" [ngClass]="headingTypography">
     <mat-icon *ngIf="!svgIcon" class="es-dropzone__choose-icon">cloud_upload</mat-icon>
     <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon" class="es-dropzone__choose-icon"></mat-icon>
-    {{ chooseText }}
+    {{ heading }}
   </div>
-  <div class="mat-body-1 es-dropzone__description">
-    {{ dragText }}
+  <div class="es-dropzone__subheading">
+    <span [ngClass]="subheadingTypography">{{ subheading }}</span>
   </div>
 </button>
 <div class="es-dropzone__hint mat-caption">

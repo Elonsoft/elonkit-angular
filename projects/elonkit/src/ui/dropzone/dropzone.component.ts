@@ -61,13 +61,13 @@ export class ESDropzoneComponent implements ControlValueAccessor {
    * Defines Choose Text Label.
    */
   @Input()
-  public chooseText: string;
+  public heading: string;
 
   /**
    * Defines Drag Text Label.
    */
   @Input()
-  public dragText: string;
+  public subheading: string;
 
   /**
    * File types to accept separated by a comma, e.g. `image/png,image/jpg,image/jpeg`
@@ -77,7 +77,7 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     return this._accept;
   }
   public set accept(value: string) {
-    this._accept = value ?? this.defaultOptions?.accept ?? '*';
+    this._accept = value || this.defaultOptions?.accept || '*';
   }
   private _accept: string;
 
@@ -89,7 +89,7 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     return this._svgIcon;
   }
   public set svgIcon(value: string) {
-    this._svgIcon = value ?? this.defaultOptions?.svgIcon;
+    this._svgIcon = value || this.defaultOptions?.svgIcon;
   }
   private _svgIcon: string;
 
@@ -113,9 +113,34 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     return this._type;
   }
   public set type(value: 'base64' | 'binary') {
-    this._type = value ?? this.defaultOptions?.type ?? 'binary';
+    this._type = value || this.defaultOptions?.type || 'binary';
   }
   private _type: 'base64' | 'binary';
+
+  /**
+   * Class applied to heading text.
+   */
+  @Input()
+  get headingTypography(): string {
+    return this._headingTypography;
+  }
+  set headingTypography(value: string) {
+    this._headingTypography = value || this.defaultOptions?.headingTypography || 'mat-body-2';
+  }
+  private _headingTypography: string;
+
+  /**
+   * Class applied to subheading text.
+   */
+  @Input()
+  get subheadingTypography(): string {
+    return this._subheadingTypography;
+  }
+  set subheadingTypography(value: string) {
+    this._subheadingTypography =
+      value || this.defaultOptions?.subheadingTypography || 'mat-caption';
+  }
+  private _subheadingTypography: string;
 
   /**
    * @internal
@@ -155,6 +180,8 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     this.svgIcon = this.defaultOptions?.svgIcon;
     this.maxSize = this.defaultOptions?.maxSize;
     this.type = this.defaultOptions?.type;
+    this.headingTypography = this.defaultOptions?.headingTypography;
+    this.subheadingTypography = this.defaultOptions?.subheadingTypography;
   }
 
   /**
