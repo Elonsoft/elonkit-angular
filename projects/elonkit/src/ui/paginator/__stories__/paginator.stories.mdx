@@ -85,6 +85,7 @@ interface ESPaginatorDefaultOptions {
   pageSizeOptions?: number[];
   siblingCount?: number;
   boundaryCount?: number;
+  typography?: string;
 }
 ```
 
@@ -102,7 +103,8 @@ import { ES_PAGINATOR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/paginator';
       useValue: {
         pageSizeOptions: [5, 10, 25, 50, 100, 250, 500],
         siblingCount: 2,
-        boundaryCount: 1
+        boundaryCount: 1,
+        typography: 'mat-caption'
       }
     }
   ]

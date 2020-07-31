@@ -1,0 +1,52 @@
+$font-family: 'Roboto, "Helvetica Neue", sans-serif';
+
+$es-typography: (
+  0: (
+    h1: mat-typography-level(40px, 48px, 600, $font-family, $letter-spacing: 0.2px),
+    h2: mat-typography-level(34px, 40px, 600, $font-family, $letter-spacing: 0.1px),
+    h3: mat-typography-level(28px, 36px, 600, $font-family, $letter-spacing: 0),
+    h4: mat-typography-level(24px, 28px, 500, $font-family, $letter-spacing: 0.15px),
+    h5: mat-typography-level(20px, 24px, 500, $font-family, $letter-spacing: 0.2px),
+    h6: mat-typography-level(18px, 24px, 500, $font-family, $letter-spacing: 0.15px),
+    subtitle-1: mat-typography-level(16px, 20px, 400, $font-family, $letter-spacing: 0.15px),
+    subtitle-2: mat-typography-level(14px, 16px, 500, $font-family, $letter-spacing: 0.1px),
+    body-m: mat-typography-level(16px, 24px, 400, $font-family, $letter-spacing: 0.5px),
+    body-s: mat-typography-level(14px, 20px, 400, $font-family, $letter-spacing: 0.25px),
+    caption: mat-typography-level(12px, 16px, 400, $font-family, $letter-spacing: 0.4px)
+  )
+);
+
+@function get-mat-typography-class($name) {
+  $mapping: (
+    h1: '.mat-h1',
+    h2: '.mat-h2',
+    subtitle-1: '.mat-subheading-1',
+    subtitle-2: '.mat-subheading-2',
+    body-m: '.mat-body-1',
+    body-s: '.mat-body-2',
+    caption: '.caption'
+  );
+
+  @if map-has-key($mapping, $name) {
+    @return ',#{map-get($mapping, $name)}';
+  }
+  @return '';
+}
+
+@mixin es-typography() {
+  @each $name, $level in map-get($es-typography, 0) {
+    .es-#{$name}#{get-mat-typography-class($name)} {
+      margin: 0;
+
+      @each $breakpoint, $levels in $es-typography {
+        @if $breakpoint == 0 {
+          @include mat-typography-level-to-styles($levels, $name);
+        } @else {
+          @media (min-width: #{$breakpoint}px) {
+            @include mat-typography-level-to-styles($levels, $name);
+          }
+        }
+      }
+    }
+  }
+}

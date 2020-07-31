@@ -6,7 +6,12 @@
 @import './preview-theme-dark';
 @import './preview-theme-light';
 
+// In production it's "@elonsoft/elonkit/theme"
+@import '../src/theme';
+@import '../src/typography';
+
 @include mat-core();
+@include es-typography();
 
 @include light-theme();
 

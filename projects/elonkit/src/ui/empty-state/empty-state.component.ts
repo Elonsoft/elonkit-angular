@@ -62,7 +62,7 @@ export class ESEmptyStateComponent {
     return this._headingTypography;
   }
   public set headingTypography(value: string) {
-    this._headingTypography = value || this.defaultOptions?.headingTypography || 'mat-h4';
+    this._headingTypography = value || this.defaultOptions?.headingTypography || 'mat-body-1';
   }
 
   /**

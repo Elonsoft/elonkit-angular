@@ -1,0 +1,28 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+<Meta title='UI/Typography' />
+
+# Typography
+
+<Preview>
+  <Story name='All variants' height='500px'>
+    {{
+      template: `
+        <div style="display: grid; gap: 16px">
+          <h1 class="es-h1">Heading 1</h1>
+          <h2 class="es-h2">Heading 2</h2>
+          <h3 class="es-h3">Heading 3</h3>
+          <h4 class="es-h4">Heading 4</h4>
+          <h5 class="es-h5">Heading 5</h5>
+          <h6 class="es-h6">Heading 6</h6>
+          <div class="es-subtitle-1">Subtitle 1</div>
+          <div class="es-subtitle-2">Subtitle 2</div>
+          <div class="es-body-m">Body M</div>
+          <div class="es-body-s">Body S</div>
+          <div class="es-caption">Caption</div>
+        </div>
+      `
+    }}
+  </Story>
+</Preview>

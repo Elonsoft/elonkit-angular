@@ -23,7 +23,7 @@ export interface ESAlertDefaultOptions {
   iconMapping?: { [key in ESAlertVariant]?: { icon?: string; svgIcon?: string } };
 }
 
-const DEFAULT_TYPOGRAPHY = 'mat-body-1';
+const DEFAULT_TYPOGRAPHY = 'mat-body-2';
 
 const DEFAULT_ICON_MAPPING = {
   default: { icon: 'info' },

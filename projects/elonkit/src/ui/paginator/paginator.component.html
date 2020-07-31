@@ -1,6 +1,6 @@
 <div *ngIf="locale$ | async as locale" class="es-paginator">
-  <div class="es-paginator__size mat-caption">
-    <span>{{ locale.paginator.labelItemsPerPage }}:</span>
+  <div class="es-paginator__size" [ngClass]="typography">
+    <span>{{ locale.labelItemsPerPage }}:</span>
     <mat-select
       class="es-paginator__select"
       size="sm"

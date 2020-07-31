@@ -24,6 +24,7 @@ export interface ESPaginatorDefaultOptions {
   pageSizeOptions?: number[];
   siblingCount?: number;
   boundaryCount?: number;
+  typography?: string;
 }
 
 export const ES_PAGINATOR_DEFAULT_OPTIONS = new InjectionToken<ESPaginatorDefaultOptions>(
@@ -103,6 +104,19 @@ export class ESPaginatorComponent {
     return this._boundaryCount;
   }
 
+  private _typography;
+
+  /**
+   * Class applied to text.
+   */
+  @Input()
+  get typography(): string {
+    return this._typography;
+  }
+  set typography(value: string) {
+    this._typography = value || this.defaultOptions?.typography || 'mat-caption';
+  }
+
   /**
    * Event emitted when the paginator changes the page index.
    */
@@ -150,6 +164,7 @@ export class ESPaginatorComponent {
     this.pageSizeOptions = this.defaultOptions?.pageSizeOptions;
     this.siblingCount = this.defaultOptions?.siblingCount;
     this.boundaryCount = this.defaultOptions?.boundaryCount;
+    this.typography = this.defaultOptions?.typography;
   }
 
   /**
