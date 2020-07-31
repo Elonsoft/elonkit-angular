@@ -9014,6 +9014,11 @@ fancy-log@^1.3.2, fancy-log@^1.3.3:
     parse-node-version "^1.0.0"
     time-stamp "^1.0.0"
 
+fast-deep-equal@^3.0.0:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
+  integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
+
 fast-deep-equal@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
@@ -17343,6 +17348,14 @@ store2@^2.7.1:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.10.0.tgz#46b82bb91878daf1b0d56dec2f1d41e54d5103cf"
   integrity sha512-tWEpK0snS2RPUq1i3R6OahfJNjWCQYNxq0+by1amCSuw0mXtymJpzmZIeYpA1UAa+7B0grCpNYIbDcd7AgTbFg==
+
+storybook-dark-mode@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/storybook-dark-mode/-/storybook-dark-mode-1.0.0.tgz#9b14d62b5de64fb5d2b3c2f080ee9b770d45d884"
+  integrity sha512-Iecx+fF20gIHY6g4hnYS/JkHf1DdcpMk2FoQOkuS3tQZfmnj3Xp5IziTZPXQ2onmz8To+yXfijLCP8T+k/leRQ==
+  dependencies:
+    fast-deep-equal "^3.0.0"
+    memoizerific "^1.11.3"
 
 stream-browserify@^2.0.1:
   version "2.0.2"

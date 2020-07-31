@@ -82,6 +82,7 @@
     "sass": "^1.26.8",
     "sass-loader": "^8.0.2",
     "scss-bundle": "~3.0.2",
+    "storybook-dark-mode": "^1.0.0",
     "stylelint": "~13.6.0",
     "stylelint-config-sass-guidelines": "~7.0.0",
     "stylelint-order": "~4.1.0",

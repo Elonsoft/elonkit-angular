@@ -1,8 +1,8 @@
 {
   "bundlerOptions": {
-    "entryFile": "./projects/elonkit/src/theme.scss",
+    "entryFile": "./projects/elonkit/src/theming.scss",
     "rootDir": "./projects/src",
-    "outFile": "./dist/elonkit/theme.scss",
+    "outFile": "./dist/elonkit/theming.scss",
     "logLevel": "error"
   }
 }

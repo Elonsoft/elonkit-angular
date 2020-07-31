@@ -1,0 +1,13 @@
+@mixin es-empty-state-theme($theme, $elonkit-theme) {
+  $mono-a: map-get($elonkit-theme, mono-a);
+
+  .es-empty-state {
+    &__heading {
+      color: mat-color($mono-a, A900);
+    }
+
+    &__subheading {
+      color: mat-color($mono-a, A600);
+    }
+  }
+}

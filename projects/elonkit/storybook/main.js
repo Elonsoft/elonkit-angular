@@ -9,7 +9,8 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-viewport',
     '@storybook/addon-docs',
-    '@storybook/addon-toolbars'
+    '@storybook/addon-toolbars',
+    'storybook-dark-mode/register'
   ],
   webpackFinal: async (config) => {
     config.resolve.alias['~storybook'] = path.resolve(__dirname);
