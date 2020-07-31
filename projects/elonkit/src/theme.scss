@@ -1,5 +1,6 @@
 @import './ui/alert/alert.component.theme';
 @import './ui/breadcrumbs/breadcrumbs.component.theme';
+@import './ui/empty-state/empty-state.component.theme';
 @import './ui/inline-form-field/inline-form-field.component.theme';
 @import './ui/paginator/paginator.component.theme';
 
@@ -159,10 +160,11 @@ $elonkit-default-theme: (
 );
 
 @mixin elonkit-theme($theme, $elonkit-theme: $elonkit-default-theme) {
-  $elonkit-final-theme: map-merge($elonkit-theme, $elonkit-default-theme);
+  $elonkit-final-theme: map-merge($elonkit-default-theme, $elonkit-theme);
 
   @include es-alert-theme($theme, $elonkit-final-theme);
   @include es-breadcrumbs-theme($theme, $elonkit-final-theme);
+  @include es-empty-state-theme($theme, $elonkit-final-theme);
   @include es-inline-form-field-theme($theme, $elonkit-final-theme);
   @include es-paginator-theme($theme, $elonkit-final-theme);
 }

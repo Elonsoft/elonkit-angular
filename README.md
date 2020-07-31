@@ -11,7 +11,6 @@
 yarn add @elonsoft/elonkit angular2-text-mask text-mask-addons
 ```
 
-
 ## Usage
 
 In your global styles import components theme and include it with Angular Material theme as an argument.

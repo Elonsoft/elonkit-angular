@@ -5,10 +5,16 @@ import docJson from '../documentation.json';
 setCompodocJson(docJson);
 
 import { addParameters } from '@storybook/angular';
-import theme from './theme';
+import { light, dark } from './theme';
 
 addParameters({
-  options: {
-    theme
+  // options: {
+  //   theme
+  // },
+  darkMode: {
+    dark,
+    light,
+    current: 'light',
+    stylePreview: true
   }
 });

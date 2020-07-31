@@ -8,6 +8,7 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-a11y',
     '@storybook/addon-viewport',
+    'storybook-dark-mode/register',
     {
       name: '@storybook/addon-docs',
       options: {
