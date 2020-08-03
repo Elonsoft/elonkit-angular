@@ -7,6 +7,12 @@
 
   &__image {
     margin-bottom: 12px;
+
+    &.mat-icon {
+      display: block;
+      height: 56px;
+      width: 56px;
+    }
   }
 
   &__heading {

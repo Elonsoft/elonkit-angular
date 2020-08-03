@@ -1,4 +1,5 @@
 import { render } from '@testing-library/angular';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 import { ESEmptyStateModule, ESEmptyStateComponent, ESEmptyStateIIcon } from '..';
 
@@ -8,7 +9,7 @@ const TEXT_SUBHEADING = 'SUBHEADING';
 describe('EmptyState', () => {
   it('Should display heading and subheading', async () => {
     const component = await render(ESEmptyStateComponent, {
-      imports: [ESEmptyStateModule],
+      imports: [MatIconTestingModule, ESEmptyStateModule],
       excludeComponentDeclaration: true,
       componentProperties: {
         heading: TEXT_HEADING,
@@ -22,7 +23,7 @@ describe('EmptyState', () => {
 
   it('Should accept typography classes', async () => {
     const component = await render(ESEmptyStateComponent, {
-      imports: [ESEmptyStateModule],
+      imports: [MatIconTestingModule, ESEmptyStateModule],
       excludeComponentDeclaration: true,
       componentProperties: {
         heading: TEXT_HEADING,
@@ -38,7 +39,7 @@ describe('EmptyState', () => {
 
   it('Should display correct prebuilt icon', async () => {
     const component = await render(ESEmptyStateComponent, {
-      imports: [ESEmptyStateModule],
+      imports: [MatIconTestingModule, ESEmptyStateModule],
       excludeComponentDeclaration: true,
       componentProperties: {
         heading: TEXT_HEADING,
@@ -46,23 +47,23 @@ describe('EmptyState', () => {
       }
     });
 
-    for (const icon of ['box', 'chat', 'face', 'file', 'search']) {
+    for (const icon of ['box', 'chat', 'face', 'file', 'lock', 'search']) {
       component.fixture.componentInstance.icon = icon as ESEmptyStateIIcon;
       component.fixture.componentInstance.changeDetector.detectChanges();
 
-      expect(component.getByTestId('img')).toHaveAttribute(
-        'src',
-        `./assets/elonkit/empty-state/${icon}.svg`
+      expect(component.getByTestId('svg')).toHaveAttribute(
+        'ng-reflect-svg-icon',
+        `es-empty-state:${icon}`
       );
     }
   });
 
   it('Should accept custom icon', async () => {
     const component = await render(ESEmptyStateComponent, {
-      imports: [ESEmptyStateModule],
+      imports: [MatIconTestingModule, ESEmptyStateModule],
       excludeComponentDeclaration: true,
       componentProperties: {
-        iconSrc: 'www.example.com/image.png',
+        src: 'www.example.com/image.png',
         heading: TEXT_HEADING,
         subheading: TEXT_SUBHEADING
       }

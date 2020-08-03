@@ -1,1 +1,1 @@
-export type ESEmptyStateIIcon = 'box' | 'chat' | 'face' | 'file' | 'search';
+export type ESEmptyStateIIcon = 'box' | 'chat' | 'face' | 'file' | 'lock' | 'search';

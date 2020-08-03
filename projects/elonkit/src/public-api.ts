@@ -8,4 +8,5 @@ export * from './ui/paginator';
 export * from './ui/timepicker';
 export * from './ui/action-heading';
 
+export * from './ui/core';
 export * from './ui/locale';

@@ -2,6 +2,18 @@
   $mono-a: map-get($elonkit-theme, mono-a);
 
   .es-empty-state {
+    &__image {
+      // stylelint-disable-next-line selector-no-qualifying-type
+      path[data-mono-a='A50'] {
+        fill: mat-color($mono-a, A50);
+      }
+
+      // stylelint-disable-next-line selector-no-qualifying-type
+      path[data-mono-a='A400'] {
+        fill: mat-color($mono-a, A400);
+      }
+    }
+
     &__heading {
       color: mat-color($mono-a, A900);
     }
