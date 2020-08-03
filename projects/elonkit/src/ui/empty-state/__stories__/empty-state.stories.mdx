@@ -5,9 +5,11 @@ import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, select } from '@storybook/addon-knobs';
 
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 
+import { ESCoreModule } from '../../core';
 import { ESEmptyStateModule, ESEmptyStateComponent } from '..';
 
 import { EMPTY_STATE_STORY_BASIC_SOURCE } from './empty-state-story-basic';
@@ -30,10 +32,10 @@ A placeholder to use on pages without content.
     {{
       template: `<es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading"></es-empty-state>`,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, ESEmptyStateModule]
+        imports: [HttpClientModule, BrowserAnimationsModule, ESCoreModule, ESEmptyStateModule]
       },
       props: {
-        icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
+        icon: select('icon', ['box', 'chat', 'face', 'file', 'lock', 'search'], 'box'),
         heading: text('heading', 'There are no entities yet'),
         subheading: text(
           'subheading',
@@ -55,10 +57,16 @@ We can include action button.
         </es-empty-state>
       `,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, MatButtonModule, ESEmptyStateModule]
+        imports: [
+          HttpClientModule,
+          BrowserAnimationsModule,
+          MatButtonModule,
+          ESCoreModule,
+          ESEmptyStateModule
+        ]
       },
       props: {
-        icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
+        icon: select('icon', ['box', 'chat', 'face', 'file', 'lock', 'search'], 'box'),
         heading: text('heading', 'There are no entities yet'),
         subheading: text(
           'subheading',
@@ -79,10 +87,15 @@ We can use typography inputs in order to change text presentation.
         </es-empty-state-story-typography>
       `,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, EmptyStateStoryTypographyModule]
+        imports: [
+          HttpClientModule,
+          BrowserAnimationsModule,
+          ESCoreModule,
+          EmptyStateStoryTypographyModule
+        ]
       },
       props: {
-        icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
+        icon: select('icon', ['box', 'chat', 'face', 'file', 'lock', 'search'], 'box'),
         heading: text('heading', 'There are no entities yet'),
         subheading: text(
           'subheading',

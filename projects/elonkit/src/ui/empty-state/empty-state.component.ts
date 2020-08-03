@@ -45,7 +45,7 @@ export class ESEmptyStateComponent {
   /**
    * Path to image to display instead of the prebuilt icon.
    */
-  @Input() iconSrc?: string;
+  @Input() src?: string;
 
   /**
    * Heading text.
@@ -103,13 +103,5 @@ export class ESEmptyStateComponent {
     this.icon = this.defaultOptions?.icon;
     this.headingTypography = this.defaultOptions?.headingTypography;
     this.subheadingTypography = this.defaultOptions?.subheadingTypography;
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  get src() {
-    return this.iconSrc || `./assets/elonkit/empty-state/${this.icon}.svg`;
   }
 }
