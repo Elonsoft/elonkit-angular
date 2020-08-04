@@ -1,0 +1,11 @@
+@import '../../tooltip.component.theme';
+
+.es-tooltip {
+  &_purple {
+    @include es-tooltip-color(#9b78ff, #fff);
+  }
+
+  &_marine {
+    @include es-tooltip-color(#3acac0, #fff);
+  }
+}

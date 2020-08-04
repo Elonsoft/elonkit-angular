@@ -10,6 +10,14 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ESTooltipModule, ESTooltipDirective } from '..';
 
+import { TOOLTIP_STORY_BASIC_SOURCE } from './tooltip-story-basic';
+import { TOOLTIP_STORY_INTERACTIVE_SOURCE } from './tooltip-story-interactive';
+import {
+  TooltipStoryThemingModule,
+  TooltipStoryThemingComponent,
+  TOOLTIP_STORY_THEMING_SOURCE
+} from './tooltip-story-theming';
+
 <Meta title='UI/Tooltip' decorators={[withA11y, withKnobs]} />
 
 # Timepicker
@@ -19,7 +27,7 @@ This is a copy of Angular Material tooltip with added support for arrows and com
 
 ## Demos
 
-<Preview>
+<Preview source={TOOLTIP_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='110px'>
     {{
       template: `
@@ -45,9 +53,9 @@ This is a copy of Angular Material tooltip with added support for arrows and com
   </Story>
 </Preview>
 
-Interactive:
+We can place interactive content inside a tooltip.
 
-<Preview>
+<Preview source={TOOLTIP_STORY_INTERACTIVE_SOURCE}>
   <Story name='Interactive' height='150px'>
     {{
       template: `
@@ -65,7 +73,7 @@ Interactive:
             Button
           </button>
           <ng-template #content>
-            This is tooltip with an interactive content
+            This is a tooltip with an interactive content
             <br /><br />
             <button mat-flat-button>Action</button>
           </ng-template>
@@ -74,6 +82,22 @@ Interactive:
       `,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, MatButtonModule, ESTooltipModule]
+      },
+      props: {
+        esTooltipArrow: boolean('esTooltipArrow', true)
+      }
+    }}
+  </Story>
+</Preview>
+
+We can use `es-tooltip-color` mixin to easily change tooltip colors.
+
+<Preview source={TOOLTIP_STORY_THEMING_SOURCE}>
+  <Story name='Theming' height='150px'>
+    {{
+      component: TooltipStoryThemingComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TooltipStoryThemingModule]
       },
       props: {
         esTooltipArrow: boolean('esTooltipArrow', true)

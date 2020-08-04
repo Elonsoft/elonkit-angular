@@ -1,13 +1,19 @@
-$mat-tooltip-handset-font-size: 16px;
+@mixin es-tooltip-color($background, $color, $blur: false) {
+  background: $background;
+  color: $color;
+
+  @if $blur {
+    backdrop-filter: blur($blur);
+  }
+
+  // stylelint-disable-next-line selector-class-pattern
+  .es-tooltip__arrow {
+    background: linear-gradient(-45deg, $background 50%, transparent 50%);
+  }
+}
 
 @mixin es-tooltip-theme($theme, $elonkit-theme) {
   .es-tooltip {
-    backdrop-filter: blur(40px);
-    background: rgba(0, 0, 0, 0.54);
-    color: #fff;
-
-    &__arrow {
-      background: linear-gradient(-45deg, rgba(0, 0, 0, 0.54) 50%, transparent 50%);
-    }
+    @include es-tooltip-color(rgba(0, 0, 0, 0.54), #fff, 40px);
   }
 }

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $es-tooltip-max-width: 250px;
 $es-tooltip-margin: 14px;
 
@@ -25,33 +27,36 @@ $es-tooltip-margin: 14px;
   }
 
   &__arrow {
-    $width: 12;
-    $height: 8;
+    $base: 12; // Triangle base
+    $height: 8; // Triangle height
 
-    border-bottom-right-radius: 3px;
-    height: #{$width}px;
-    margin: 0;
+    $size: math.round($base / math.sqrt(2)); // Square side size
+    $scale: $height / ($base / 2);
+    $offset: -#{$size / 2}px;
+
+    border-bottom-right-radius: 2px;
+    height: #{$size}px;
     position: absolute;
-    width: #{$width}px;
+    width: #{$size}px;
 
     &_bottom {
-      bottom: -#{$width / 2}px;
-      transform: scaleY($height / ($width / 2)) translateX(-50%) rotate(45deg);
+      bottom: $offset;
+      transform: scaleY($scale) translateX(-50%) rotate(45deg);
     }
 
     &_left {
-      left: -#{$width / 2}px;
-      transform: scaleX($height / ($width / 2)) translateY(-50%) rotate(135deg);
+      left: $offset;
+      transform: scaleX($scale) translateY(-50%) rotate(135deg);
     }
 
     &_top {
-      top: -#{$width / 2}px;
-      transform: scaleY($height / ($width / 2)) translateX(-50%) rotate(225deg);
+      top: $offset;
+      transform: scaleY($scale) translateX(-50%) rotate(225deg);
     }
 
     &_right {
-      right: -#{$width / 2}px;
-      transform: scaleX($height / ($width / 2)) translateY(-50%) rotate(315deg);
+      right: $offset;
+      transform: scaleX($scale) translateY(-50%) rotate(315deg);
     }
   }
 }
