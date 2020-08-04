@@ -25,39 +25,33 @@ $es-tooltip-margin: 14px;
   }
 
   &__arrow {
-    border-style: solid;
-    height: 0;
-    position: absolute;
-    width: 0;
+    $width: 12;
+    $height: 8;
 
-    &_top {
-      border-width: 0 10px 8px;
-      top: -8px;
-    }
+    border-bottom-right-radius: 3px;
+    height: #{$width}px;
+    margin: 0;
+    position: absolute;
+    width: #{$width}px;
 
     &_bottom {
-      border-width: 8px 10px 0;
-      bottom: -8px;
+      bottom: -#{$width / 2}px;
+      transform: scaleY($height / ($width / 2)) translateX(-50%) rotate(45deg);
     }
 
     &_left {
-      border-width: 5px 8px 5px 0;
-      left: -8px;
+      left: -#{$width / 2}px;
+      transform: scaleX($height / ($width / 2)) translateY(-50%) rotate(135deg);
+    }
+
+    &_top {
+      top: -#{$width / 2}px;
+      transform: scaleY($height / ($width / 2)) translateX(-50%) rotate(225deg);
     }
 
     &_right {
-      border-width: 5px 0 5px 8px;
-      right: -8px;
-    }
-
-    &_top,
-    &_bottom {
-      transform: translateX(-50%);
-    }
-
-    &_left,
-    &_right {
-      transform: translateY(-50%);
+      right: -#{$width / 2}px;
+      transform: scaleX($height / ($width / 2)) translateY(-50%) rotate(315deg);
     }
   }
 }
