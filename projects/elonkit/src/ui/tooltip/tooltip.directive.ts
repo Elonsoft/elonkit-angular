@@ -20,6 +20,7 @@ import {
   NgZone,
   OnDestroy,
   Optional,
+  InjectionToken,
   ViewContainerRef,
   AfterViewInit,
   HostBinding,
@@ -72,6 +73,14 @@ const passiveListenerOptions = normalizePassiveListenerOptions({ passive: true }
  * trigger and the long press event being fired.
  */
 const LONGPRESS_DELAY = 500;
+
+export interface ESTooltipDefaultOptions {
+  arrow?: boolean;
+}
+
+export const ES_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<ESTooltipDefaultOptions>(
+  'ES_TOOLTIP_DEFAULT_OPTIONS'
+);
 
 @Directive({
   selector: '[esTooltip]',
@@ -155,13 +164,13 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * The default delay in ms before showing the tooltip after show is called.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipShowDelay') showDelay: number = this.defaultOptions.showDelay;
+  @Input('esTooltipShowDelay') showDelay: number = this.defaultOptions?.showDelay;
 
   /**
    * The default delay in ms before hiding the tooltip after hide is called.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipHideDelay') hideDelay: number = this.defaultOptions.hideDelay;
+  @Input('esTooltipHideDelay') hideDelay: number = this.defaultOptions?.hideDelay;
 
   /**
    * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
@@ -180,7 +189,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   // tslint:disable-next-line:no-input-rename
   @Input('esTooltipTouchGestures') touchGestures: TooltipTouchGestures = 'auto';
 
-  private _arrow = false;
+  private _arrow = this.esDefaultOptions?.arrow ?? false;
 
   /**
    * If true, adds an arrow to the tooltip.
@@ -364,7 +373,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
     @Optional() private dir: Directionality,
     @Optional()
     @Inject(MAT_TOOLTIP_DEFAULT_OPTIONS)
-    private defaultOptions: MatTooltipDefaultOptions
+    private defaultOptions: MatTooltipDefaultOptions,
+    @Optional()
+    @Inject(ES_TOOLTIP_DEFAULT_OPTIONS)
+    private esDefaultOptions: ESTooltipDefaultOptions
   ) {
     this.scrollStrategy = scrollStrategy;
 

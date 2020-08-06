@@ -109,3 +109,22 @@ We can disable open and close listeners.
 ## API
 
 <Props of={ESTooltipDirective} />
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_TOOLTIP_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/tooltip';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_TOOLTIP_DEFAULT_OPTIONS,
+      useValue: {
+        arrow: false
+      }
+    }
+  ]
+})
+```
