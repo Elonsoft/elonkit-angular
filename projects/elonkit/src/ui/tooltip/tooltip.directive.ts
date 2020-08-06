@@ -81,6 +81,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   @HostBinding('class.es-tooltip-trigger') class = true;
 
   @HostListener('focusout', ['$event']) onFocusOut(event: FocusEvent) {
+    if (this.disableFocusListener) {
+      return;
+    }
+
     if (this.tooltipInstance) {
       if (this.interactive) {
         const isNext =
@@ -282,6 +286,36 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   }
 
   /**
+   * Do not respond to focus events.
+   */
+  // tslint:disable-next-line:no-input-rename
+  @Input('esTooltipDisableFocusListener') disableFocusListener = false;
+
+  /**
+   * Do not respond to hover events.
+   */
+  // tslint:disable-next-line:no-input-rename
+  @Input('esTooltipDisableHoverListener') disableHoverListener = false;
+
+  /**
+   * Do not respond to focus events after tooltip is opened.
+   */
+  // tslint:disable-next-line:no-input-rename
+  @Input('esTooltipDisableCloseFocusListener') disableCloseFocusListener: boolean;
+
+  /**
+   * Do not respond to hover events after tooltip is opened.
+   */
+  // tslint:disable-next-line:no-input-rename
+  @Input('esTooltipDisableCloseHoverListener') disableCloseHoverListener: boolean;
+
+  /**
+   * Do not respond to body click events.
+   */
+  // tslint:disable-next-line:no-input-rename
+  @Input('esTooltipDisableCloseClickListener') disableCloseClickListener = false;
+
+  /**
    * @internal
    * @ignore
    */
@@ -362,6 +396,9 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
       .monitor(this.elementRef)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(origin => {
+        if (this.disableFocusListener) {
+          return;
+        }
         // Note that the focus monitor runs outside the Angular zone.
         if (origin === 'keyboard') {
           this.ngZone.run(() => this.show());
@@ -423,6 +460,12 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
     this.setTooltipClass(this._tooltipClass);
     this.tooltipInstance.parentElementRef = this.elementRef;
     this.tooltipInstance.interactive = this.interactive;
+
+    this.tooltipInstance.disableCloseFocusListener =
+      this.disableCloseFocusListener ?? this.disableFocusListener;
+    this.tooltipInstance.disableCloseHoverListener =
+      this.disableCloseHoverListener ?? this.disableHoverListener;
+    this.tooltipInstance.disableCloseClickListener = this.disableCloseClickListener;
 
     this.updateTooltipMessage();
     this.tooltipInstance.show(delay);
@@ -724,8 +767,18 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
     // first tap from firing its click event or can cause the tooltip to open for clicks.
     if (!this.platform.IOS && !this.platform.ANDROID) {
       this.passiveListeners
-        .set('mouseenter', () => this.show())
+        .set('mouseenter', () => {
+          if (this.disableHoverListener) {
+            return;
+          }
+
+          this.show();
+        })
         .set('mouseleave', (event: MouseEvent) => {
+          if (this.disableCloseHoverListener ?? this.disableHoverListener) {
+            return;
+          }
+
           if (
             !this.interactive ||
             (this.tooltipInstance &&

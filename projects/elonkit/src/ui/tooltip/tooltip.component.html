@@ -7,7 +7,7 @@
 >
   <div class="es-tooltip__content">
     <ng-container *ngIf="content; else messageTemplate">
-      <ng-container *ngTemplateOutlet="content"></ng-container>
+      <ng-container *ngTemplateOutlet="content; context: { hide: hide }"></ng-container>
     </ng-container>
     <ng-template #messageTemplate>
       {{ message }}

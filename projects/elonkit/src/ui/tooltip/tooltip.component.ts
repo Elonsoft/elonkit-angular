@@ -52,11 +52,15 @@ export class ESTooltipComponent implements OnDestroy {
   }
 
   @HostListener('body:click', ['$event']) onBodyClick(event: Event) {
+    if (this.disableCloseClickListener) {
+      return;
+    }
+
     const isContainer =
       this.elementRef.nativeElement.contains(event.target as HTMLElement) ||
       this.parentElementRef.nativeElement.contains(event.target as HTMLElement);
 
-    if (this.closeOnInteraction && !(this.interactive && isContainer)) {
+    if ((true || this.closeOnInteraction) && !(this.interactive && isContainer)) {
       this.hide(0);
     }
   }
@@ -73,12 +77,20 @@ export class ESTooltipComponent implements OnDestroy {
   }
 
   @HostListener('mouseleave', ['$event']) onMouseLeave(event: MouseEvent) {
+    if (this.disableCloseHoverListener) {
+      return;
+    }
+
     if (this.interactive && event.relatedTarget !== this.parentElementRef.nativeElement) {
       this.hide(0);
     }
   }
 
   @HostListener('focusout', ['$event']) onFocusOut(event: FocusEvent) {
+    if (this.disableCloseFocusListener) {
+      return;
+    }
+
     // Timeout for correct document.hasFocus detection
     setTimeout(() => {
       if (this.interactive) {
@@ -138,6 +150,27 @@ export class ESTooltipComponent implements OnDestroy {
    * The arrow postition.
    */
   arrow: { position: string; offsetX?: number; offsetY?: number } | null = null;
+
+  /**
+   * @internal
+   * @ignore
+   * Do not respond to focus events.
+   */
+  disableCloseFocusListener = false;
+
+  /**
+   * @internal
+   * @ignore
+   * Do not respond to hover events.
+   */
+  disableCloseHoverListener = false;
+
+  /**
+   * @internal
+   * @ignore
+   * Do not respond to backdrop click events.
+   */
+  disableCloseClickListener = false;
 
   /**
    * @internal
@@ -233,7 +266,7 @@ export class ESTooltipComponent implements OnDestroy {
    * Begins the animation to hide the tooltip after the provided delay in ms.
    * @param delay Amount of milliseconds to delay showing the tooltip.
    */
-  hide(delay: number) {
+  hide = (delay: number = 0) => {
     // Cancel the delayed show if it is scheduled
     if (this.showTimeoutId) {
       clearTimeout(this.showTimeoutId);
@@ -248,7 +281,7 @@ export class ESTooltipComponent implements OnDestroy {
       // ChangeDetectionStrategy to OnPush it will be checked anyways
       this.markForCheck();
     }, delay);
-  }
+  };
 
   /**
    * Returns an observable that notifies when the tooltip has been hidden from view.

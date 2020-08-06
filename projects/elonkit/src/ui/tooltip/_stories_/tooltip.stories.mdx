@@ -6,21 +6,33 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
 
 import { ESTooltipModule, ESTooltipDirective } from '..';
 
-import { TOOLTIP_STORY_BASIC_SOURCE } from './tooltip-story-basic';
-import { TOOLTIP_STORY_INTERACTIVE_SOURCE } from './tooltip-story-interactive';
+import {
+  TooltipStoryBasicModule,
+  TooltipStoryBasicComponent,
+  TOOLTIP_STORY_BASIC_SOURCE
+} from './tooltip-story-basic';
+import {
+  TooltipStoryInteractiveModule,
+  TooltipStoryInteractiveComponent,
+  TOOLTIP_STORY_INTERACTIVE_SOURCE
+} from './tooltip-story-interactive';
 import {
   TooltipStoryThemingModule,
   TooltipStoryThemingComponent,
   TOOLTIP_STORY_THEMING_SOURCE
 } from './tooltip-story-theming';
+import {
+  TooltipStoryListenersModule,
+  TooltipStoryListenersComponent,
+  TOOLTIP_STORY_LISTENERS_SOURCE
+} from './tooltip-story-listeners';
 
 <Meta title='UI/Tooltip' decorators={[withA11y, withKnobs]} />
 
-# Timepicker
+# Tooltip
 
 The tooltip provides a text label that is displayed when the user hovers over or longpresses an element.
 This is a copy of Angular Material tooltip with added support for arrows and complex content inside a tooltip.
@@ -30,21 +42,9 @@ This is a copy of Angular Material tooltip with added support for arrows and com
 <Preview source={TOOLTIP_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='110px'>
     {{
-      template: `
-        <div style="padding: 10px">
-          <button
-            mat-flat-button
-            color="primary"
-            esTooltip="Information about the action"
-            esTooltipPosition="after"
-            [esTooltipArrow]="esTooltipArrow"
-          >
-            Button
-          </button>
-        </div>
-      `,
+      component: TooltipStoryBasicComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, MatButtonModule, ESTooltipModule]
+        imports: [BrowserAnimationsModule, TooltipStoryBasicModule]
       },
       props: {
         esTooltipArrow: boolean('esTooltipArrow', true)
@@ -58,30 +58,9 @@ We can place interactive content inside a tooltip.
 <Preview source={TOOLTIP_STORY_INTERACTIVE_SOURCE}>
   <Story name='Interactive' height='150px'>
     {{
-      template: `
-        <div style="padding: 10px">
-          <button
-            style="margin-right: 8px;"
-            mat-flat-button
-            color="primary"
-            esTooltip
-            [esTooltipContent]="content"
-            esTooltipPosition="after"
-            esTooltipInteractive
-            [esTooltipArrow]="esTooltipArrow"
-          >
-            Button
-          </button>
-          <ng-template #content>
-            This is a tooltip with an interactive content
-            <br /><br />
-            <button mat-flat-button>Action</button>
-          </ng-template>
-          <button mat-flat-button color="accent">Extra Button</button>
-        </div>
-      `,
+      component: TooltipStoryInteractiveComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, MatButtonModule, ESTooltipModule]
+        imports: [BrowserAnimationsModule, TooltipStoryInteractiveModule]
       },
       props: {
         esTooltipArrow: boolean('esTooltipArrow', true)
@@ -101,6 +80,27 @@ We can use `es-tooltip-color` mixin to easily change tooltip colors.
       },
       props: {
         esTooltipArrow: boolean('esTooltipArrow', true)
+      }
+    }}
+  </Story>
+</Preview>
+
+We can disable open and close listeners.
+
+<Preview source={TOOLTIP_STORY_LISTENERS_SOURCE}>
+  <Story name='Listeners' height='150px'>
+    {{
+      component: TooltipStoryListenersComponent,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, TooltipStoryListenersModule]
+      },
+      props: {
+        esTooltipArrow: boolean('esTooltipArrow', true),
+        esTooltipDisableFocusListener: boolean('esTooltipDisableFocusListener', true),
+        esTooltipDisableHoverListener: boolean('esTooltipDisableHoverListener', false),
+        esTooltipDisableCloseFocusListener: boolean('esTooltipDisableCloseFocusListener', true),
+        esTooltipDisableCloseHoverListener: boolean('esTooltipDisableCloseHoverListener', true),
+        esTooltipDisableCloseClickListener: boolean('esTooltipDisableCloseClickListener', true)
       }
     }}
   </Story>

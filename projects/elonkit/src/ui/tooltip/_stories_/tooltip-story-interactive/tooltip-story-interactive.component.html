@@ -1,0 +1,20 @@
+<div style="padding: 10px">
+  <button
+    style="margin-right: 8px;"
+    mat-flat-button
+    color="primary"
+    esTooltip
+    [esTooltipContent]="content"
+    esTooltipPosition="after"
+    esTooltipInteractive
+    [esTooltipArrow]="esTooltipArrow"
+  >
+    Button
+  </button>
+  <ng-template #content>
+    This is a tooltip with an interactive content.
+    <br /><br />
+    <button mat-flat-button>Action</button>
+  </ng-template>
+  <button mat-flat-button color="accent">Extra Button</button>
+</div>
