@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { fakeAsync, tick, flush, inject } from '@angular/core/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
@@ -39,6 +39,8 @@ class TooltipWrapperComponent {
   @Input() esTooltipDisableCloseFocusListener: boolean;
   @Input() esTooltipDisableCloseHoverListener: boolean;
   @Input() esTooltipDisableCloseClickListener: boolean;
+
+  constructor(public changeDetector: ChangeDetectorRef) {}
 }
 
 describe('Tooltip', () => {
@@ -66,8 +68,6 @@ describe('Tooltip', () => {
   }));
 
   it('Should display a template', async () => {
-    component.fixture.componentInstance.esTooltipArrow = true;
-
     component.mouseEnter(component.getByText(BUTTON_TEXT));
     expect(queryByText(overlayElement, TOOLTIP_TEXT)).toBeInTheDocument();
   });
@@ -79,13 +79,18 @@ describe('Tooltip', () => {
     expect(overlayElement.querySelector('.es-tooltip__arrow')).toBeInTheDocument();
   });
 
-  // it('Should close tooltip by a close button click', fakeAsync(async () => {
-  //   component.fixture.componentInstance.esTooltipArrow = true;
+  it('Should close tooltip by a close button click', fakeAsync(async () => {
+    component.mouseEnter(component.getByText(BUTTON_TEXT));
+    expect(queryByText(overlayElement, TOOLTIP_TEXT)).toBeInTheDocument();
 
-  //   component.mouseEnter(component.getByText(BUTTON_TEXT));
-  //   expect(queryByText(overlayElement, TOOLTIP_TEXT)).toBeInTheDocument();
+    component.click(getByText(overlayElement, BUTTON_CLOSE_TEXT));
 
-  //   component.click(getByText(overlayElement, BUTTON_CLOSE_TEXT));
-  //   expect(queryByText(overlayElement, TOOLTIP_TEXT)).not.toBeInTheDocument();
-  // }));
+    // Through trial and error...
+    tick();
+    component.fixture.componentInstance.changeDetector.detectChanges();
+    tick();
+    component.fixture.componentInstance.changeDetector.detectChanges();
+
+    expect(queryByText(overlayElement, TOOLTIP_TEXT)).not.toBeInTheDocument();
+  }));
 });
