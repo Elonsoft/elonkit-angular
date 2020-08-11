@@ -34,6 +34,9 @@ import { matTooltipAnimations, TooltipVisibility } from '@angular/material/toolt
 
 import { Subject } from 'rxjs';
 
+import { ESTooltipDirective } from './tooltip.directive';
+import { ESTooltipService } from './tooltip.service';
+
 @Component({
   selector: 'es-tooltip-component',
   templateUrl: './tooltip.component.html',
@@ -74,6 +77,10 @@ export class ESTooltipComponent implements OnDestroy {
       this.hide(0);
       this.focusMonitor.focusVia(this.parentElementRef, 'program');
     }
+  }
+
+  @HostListener('mouseenter', ['$event']) onMouseEnter() {
+    this.parent.cancelPossiblyHide();
   }
 
   @HostListener('mouseleave', ['$event']) onMouseLeave(event: MouseEvent) {
@@ -175,6 +182,13 @@ export class ESTooltipComponent implements OnDestroy {
   /**
    * @internal
    * @ignore
+   * Directive's host element class instance.
+   */
+  parent: ESTooltipDirective;
+
+  /**
+   * @internal
+   * @ignore
    * Directive's host element reference.
    */
   parentElementRef: ElementRef<HTMLElement>;
@@ -225,6 +239,7 @@ export class ESTooltipComponent implements OnDestroy {
     private changeDetector: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     private focusMonitor: FocusMonitor,
+    private tooltipService: ESTooltipService,
     /**
      * @internal
      */
@@ -314,6 +329,7 @@ export class ESTooltipComponent implements OnDestroy {
 
     if (toState === 'hidden' && !this.isVisible()) {
       this.onHide$.next();
+      this.tooltipService.closed$.next();
     }
 
     if (toState === 'visible' || toState === 'hidden') {

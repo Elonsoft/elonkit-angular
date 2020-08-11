@@ -58,9 +58,10 @@ import {
 } from '@angular/material/tooltip';
 
 import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { take, takeUntil, delay as delayPipe } from 'rxjs/operators';
 
 import { ESTooltipComponent } from './tooltip.component';
+import { ESTooltipService } from './tooltip.service';
 
 /** CSS class that will be attached to the overlay panel. */
 const TOOLTIP_PANEL_CLASS = 'es-tooltip-panel';
@@ -74,6 +75,16 @@ const passiveListenerOptions = normalizePassiveListenerOptions({ passive: true }
  */
 const LONGPRESS_DELAY = 500;
 
+/**
+ * Number of past mouse locations to track.
+ */
+const MOUSE_LOCATIONS_TRACKED = 3;
+
+/**
+ * Delay in ms before closing a tooltip when mouse moves outside of component.
+ */
+const MOUSE_HIDE_DELAY = 300;
+
 export interface ESTooltipDefaultOptions {
   arrow?: boolean;
 }
@@ -82,12 +93,29 @@ export const ES_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<ESTooltipDefaultOpt
   'ES_TOOLTIP_DEFAULT_OPTIONS'
 );
 
+interface ESTooltipMouseLocation {
+  x: number;
+  y: number;
+}
+
+function slope(a: ESTooltipMouseLocation, b: ESTooltipMouseLocation) {
+  return (b.y - a.y) / (b.x - a.x);
+}
+
 @Directive({
   selector: '[esTooltip]',
   exportAs: 'esTooltip'
 })
 export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   @HostBinding('class.es-tooltip-trigger') class = true;
+
+  @HostListener('document:mousemove', ['$event']) onMouseMove(event: MouseEvent) {
+    this.mouseLocations.push({ x: event.pageX, y: event.pageY });
+
+    if (this.mouseLocations.length > MOUSE_LOCATIONS_TRACKED) {
+      this.mouseLocations.shift();
+    }
+  }
 
   @HostListener('focusout', ['$event']) onFocusOut(event: FocusEvent) {
     if (this.disableFocusListener) {
@@ -341,6 +369,13 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   private scrollStrategy: () => ScrollStrategy;
   private viewInitialized = false;
 
+  private isHovered = false;
+  private mouseLocations: Array<ESTooltipMouseLocation> = [];
+  private mouseLastDelayLocation: ESTooltipMouseLocation;
+  private mouseMoveTimeoutId: number;
+
+  private overlayPosition: 'right' | 'left' | 'top' | 'bottom';
+
   /**
    * Manually-bound passive event listeners.
    */
@@ -369,6 +404,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
     private platform: Platform,
     private ariaDescriber: AriaDescriber,
     private focusMonitor: FocusMonitor,
+    private tooltipService: ESTooltipService,
     @Inject(MAT_TOOLTIP_SCROLL_STRATEGY) scrollStrategy: any,
     @Optional() private dir: Directionality,
     @Optional()
@@ -470,6 +506,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => this.detach());
     this.setTooltipClass(this._tooltipClass);
+    this.tooltipInstance.parent = this;
     this.tooltipInstance.parentElementRef = this.elementRef;
     this.tooltipInstance.interactive = this.interactive;
 
@@ -488,6 +525,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    */
   hide(delay: number = this.hideDelay) {
     if (this.tooltipInstance) {
+      this.cancelPossiblyHide();
       this.tooltipInstance.hide(delay);
     }
   }
@@ -705,21 +743,25 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
       const offsetY = Math.ceil(diffY + this.elementRef.nativeElement.clientHeight / 2);
 
       if (change.connectionPair.originX === 'end') {
+        this.overlayPosition = 'right';
         this.tooltipInstance.arrow = {
           position: 'left',
           offsetY
         };
       } else if (change.connectionPair.originX === 'start') {
+        this.overlayPosition = 'left';
         this.tooltipInstance.arrow = {
           position: 'right',
           offsetY
         };
       } else if (change.connectionPair.originY === 'top') {
+        this.overlayPosition = 'top';
         this.tooltipInstance.arrow = {
           position: 'bottom',
           offsetX
         };
       } else if (change.connectionPair.originY === 'bottom') {
+        this.overlayPosition = 'bottom';
         this.tooltipInstance.arrow = {
           position: 'top',
           offsetX
@@ -775,30 +817,45 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
       return;
     }
 
+    const onMouseEnter = () => {
+      this.isHovered = true;
+
+      if (this.disableHoverListener) {
+        return;
+      }
+
+      const tooltip = document.querySelector('.es-tooltip');
+      if (tooltip) {
+        this.tooltipService.closed$.pipe(take(1), delayPipe(1)).subscribe(() => {
+          if (this.isHovered) {
+            onMouseEnter();
+          }
+        });
+
+        return;
+      }
+
+      this.show();
+    };
+
     // The mouse events shouldn't be bound on mobile devices, because they can prevent the
     // first tap from firing its click event or can cause the tooltip to open for clicks.
     if (!this.platform.IOS && !this.platform.ANDROID) {
-      this.passiveListeners
-        .set('mouseenter', () => {
-          if (this.disableHoverListener) {
-            return;
-          }
+      this.passiveListeners.set('mouseenter', onMouseEnter).set('mouseleave', () => {
+        this.isHovered = false;
 
-          this.show();
-        })
-        .set('mouseleave', (event: MouseEvent) => {
-          if (this.disableCloseHoverListener ?? this.disableHoverListener) {
-            return;
-          }
+        if (this.disableCloseHoverListener ?? this.disableHoverListener) {
+          return;
+        }
 
-          if (
-            !this.interactive ||
-            (this.tooltipInstance &&
-              this.tooltipInstance.elementRef.nativeElement !== event.relatedTarget)
-          ) {
-            this.hide();
+        if (this.interactive) {
+          if (this.tooltipInstance) {
+            this.possiblyHide();
           }
-        });
+        } else {
+          this.hide();
+        }
+      });
     } else if (this.touchGestures !== 'off') {
       this.disableNativeGesturesIfNecessary();
       const touchendListener = () => {
@@ -848,6 +905,98 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
       style.webkitTapHighlightColor = 'transparent';
     }
   }
+
+  public cancelPossiblyHide = () => {
+    if (this.mouseMoveTimeoutId) {
+      clearTimeout(this.mouseMoveTimeoutId);
+    }
+  };
+
+  private possiblyHide = () => {
+    const delay = this.getHideDelay();
+
+    if (delay) {
+      this.mouseMoveTimeoutId = setTimeout(() => {
+        this.possiblyHide();
+      }, delay);
+    } else {
+      this.hide(0);
+    }
+  };
+
+  private getHideDelay = () => {
+    const tooltip = this.tooltipInstance.elementRef.nativeElement;
+    const tooltipRect = tooltip.getBoundingClientRect();
+
+    const offset = {
+      top: tooltipRect.top + window.scrollY,
+      left: tooltipRect.left + window.scrollX
+    };
+
+    const upperLeft = {
+      x: offset.left,
+      y: offset.top
+    };
+    const upperRight = {
+      x: offset.left + tooltip.offsetWidth,
+      y: upperLeft.y
+    };
+    const lowerLeft = {
+      x: offset.left,
+      y: offset.top + tooltip.offsetHeight
+    };
+    const lowerRight = {
+      x: offset.left + tooltip.offsetWidth,
+      y: lowerLeft.y
+    };
+
+    const location = this.mouseLocations[this.mouseLocations.length - 1];
+    let previousLocation = this.mouseLocations[0];
+
+    if (!location) {
+      return 0;
+    }
+
+    if (!previousLocation) {
+      previousLocation = location;
+    }
+
+    if (
+      this.mouseLastDelayLocation &&
+      location.x === this.mouseLastDelayLocation.x &&
+      location.y === this.mouseLastDelayLocation.y
+    ) {
+      // If the mouse hasn't moved since the last time we checked, immediately hide.
+      return 0;
+    }
+
+    let decreasingCorner = upperLeft;
+    let increasingCorner = lowerLeft;
+
+    if (this.overlayPosition === 'left') {
+      decreasingCorner = lowerRight;
+      increasingCorner = upperRight;
+    } else if (this.overlayPosition === 'bottom') {
+      decreasingCorner = upperRight;
+      increasingCorner = upperLeft;
+    } else if (this.overlayPosition === 'top') {
+      decreasingCorner = lowerLeft;
+      increasingCorner = lowerRight;
+    }
+
+    const decreasingSlope = slope(location, decreasingCorner);
+    const increasingSlope = slope(location, increasingCorner);
+    const prevDecreasingSlope = slope(previousLocation, decreasingCorner);
+    const prevIncreasingSlope = slope(previousLocation, increasingCorner);
+
+    if (decreasingSlope < prevDecreasingSlope && increasingSlope > prevIncreasingSlope) {
+      this.mouseLastDelayLocation = location;
+      return MOUSE_HIDE_DELAY;
+    }
+
+    this.mouseLastDelayLocation = null;
+    return 0;
+  };
 
   /**
    * @internal
