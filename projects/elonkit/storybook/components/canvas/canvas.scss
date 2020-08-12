@@ -1,4 +1,4 @@
-.storybook-preview {
+.storybook-canvas {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0 !important;
@@ -44,5 +44,9 @@
         outline: 0 none;
       }
     }
+  }
+
+  .sb-show-main {
+    padding: 8px !important;
   }
 }

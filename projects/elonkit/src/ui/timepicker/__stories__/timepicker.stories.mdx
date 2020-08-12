@@ -1,7 +1,6 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 
@@ -33,7 +32,7 @@ import {
   TIMEPICKER_STORY_REQUIRED_SOURCE
 } from './timepicker-story-required';
 
-<Meta title='UI/Timepicker' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Timepicker' decorators={[withKnobs]} />
 
 # Timepicker
 
@@ -42,7 +41,7 @@ This component named `picker` instead of `input` in case we'll implement an actu
 
 ## Demos
 
-<Preview source={TIMEPICKER_STORY_BASIC_SOURCE}>
+<Canvas source={TIMEPICKER_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='110px'>
     {{
       component: TimepickerStoryBasicComponent,
@@ -51,11 +50,11 @@ This component named `picker` instead of `input` in case we'll implement an actu
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can use `withSeconds` in order to display seconds input.
 
-<Preview source={TIMEPICKER_STORY_SECONDS_SOURCE}>
+<Canvas source={TIMEPICKER_STORY_SECONDS_SOURCE}>
   <Story name='Seconds' height='110px'>
     {{
       component: TimepickerStorySecondsComponent,
@@ -64,11 +63,11 @@ We can use `withSeconds` in order to display seconds input.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default locale which is used for input placeholder.
 
-<Preview source={TIMEPICKER_STORY_LOCALE_SOURCE}>
+<Canvas source={TIMEPICKER_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='110px'>
     {{
       component: TimepickerStoryLocaleComponent,
@@ -77,11 +76,11 @@ We can override default locale which is used for input placeholder.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 When input is required it won't allow to clear existing value.
 
-<Preview source={TIMEPICKER_STORY_REQUIRED_SOURCE}>
+<Canvas source={TIMEPICKER_STORY_REQUIRED_SOURCE}>
   <Story name='Required' height='110px'>
     {{
       component: TimepickerStoryRequiredComponent,
@@ -93,8 +92,8 @@ When input is required it won't allow to clear existing value.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESTimepickerComponent} />
+<ArgsTable of={ESTimepickerComponent} />

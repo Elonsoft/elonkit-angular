@@ -1,7 +1,6 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text } from '@storybook/addon-knobs';
 
@@ -27,7 +26,7 @@ import {
   ACTION_HEADING_STORY_CLICK_SOURCE
 } from './action-heading-story-click';
 
-<Meta title='UI/ActionHeading' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/ActionHeading' decorators={[withKnobs]} />
 
 # Action Heading
 
@@ -37,7 +36,7 @@ The action heading component.
 
 This is an example of a basic component.
 
-<Preview source={ACTION_HEADING_STORY_BASIC_SOURCE}>
+<Canvas source={ACTION_HEADING_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='110px'>
     {{
       component: ActionHeadingStoryBasicComponent,
@@ -46,11 +45,11 @@ This is an example of a basic component.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 This is an example of a component wraped into a container component, which overrides some styles of nested component.
 
-<Preview source={ACTION_HEADING_STORY_CUSTOMIZATION_SOURCE}>
+<Canvas source={ACTION_HEADING_STORY_CUSTOMIZATION_SOURCE}>
   <Story name='Customization' height='110px'>
     {{
       component: ActionHeadingStoryCustomizationComponent,
@@ -59,11 +58,11 @@ This is an example of a component wraped into a container component, which overr
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 This is an example of action click.
 
-<Preview source={ACTION_HEADING_STORY_CLICK_SOURCE}>
+<Canvas source={ACTION_HEADING_STORY_CLICK_SOURCE}>
   <Story name='Click' height='110px'>
     {{
       component: ActionHeadingStoryClickComponent,
@@ -72,8 +71,8 @@ This is an example of action click.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESActionHeadingComponent} />
+<ArgsTable of={ESActionHeadingComponent} />

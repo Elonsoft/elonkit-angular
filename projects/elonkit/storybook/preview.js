@@ -8,7 +8,7 @@ import { addParameters } from '@storybook/angular';
 import theme from './theme';
 
 addParameters({
-  options: {
+  docs: {
     theme
   }
 });

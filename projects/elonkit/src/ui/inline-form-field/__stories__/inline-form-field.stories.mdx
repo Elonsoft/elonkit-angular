@@ -1,7 +1,6 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text } from '@storybook/addon-knobs';
 
@@ -39,7 +38,7 @@ import {
   INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE
 } from './inline-form-field-story-validation';
 
-<Meta title='UI/Inline Form Field' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Inline Form Field' decorators={[withKnobs]} />
 
 # Inline Form Field
 
@@ -47,7 +46,7 @@ This component allows inline switching between display value and input.
 
 ## Demos
 
-<Preview source={INLINE_FORM_FIELD_STORY_BASIC_SOURCE}>
+<Canvas source={INLINE_FORM_FIELD_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='50px'>
     {{
       component: InlineFormFieldStoryBasicComponent,
@@ -56,11 +55,11 @@ This component allows inline switching between display value and input.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can use `typography` input in order to change text presentation.
 
-<Preview source={INLINE_FORM_FIELD_STORY_TYPOGRAPHY_SOURCE}>
+<Canvas source={INLINE_FORM_FIELD_STORY_TYPOGRAPHY_SOURCE}>
   <Story name='Typography' height='170px'>
     {{
       component: InlineFormFieldStoryTypographyComponent,
@@ -72,11 +71,11 @@ We can use `typography` input in order to change text presentation.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 This component is compatible with any\* Angular Material form field feature.
 
-<Preview source={INLINE_FORM_FIELD_STORY_COMPOSITION_SOURCE}>
+<Canvas source={INLINE_FORM_FIELD_STORY_COMPOSITION_SOURCE}>
   <Story name='Composition' height='380px'>
     {{
       component: InlineFormFieldStoryCompositionComponent,
@@ -85,11 +84,11 @@ This component is compatible with any\* Angular Material form field feature.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default locale which is used for `aria-label`'s on buttons.
 
-<Preview source={INLINE_FORM_FIELD_STORY_LOCALE_SOURCE}>
+<Canvas source={INLINE_FORM_FIELD_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='50px'>
     {{
       component: InlineFormFieldStoryLocaleComponent,
@@ -98,12 +97,12 @@ We can override default locale which is used for `aria-label`'s on buttons.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 Synchronous validations for template-driven and reactive forms are supported out of the box.
 If there are any server-side validations you should take advantage of `manualSave` input.
 
-<Preview source={INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE}>
+<Canvas source={INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE}>
   <Story name='Validation' height='100px'>
     {{
       component: InlineFormFieldStoryValidationComponent,
@@ -112,11 +111,11 @@ If there are any server-side validations you should take advantage of `manualSav
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESInlineFormFieldComponent} />
+<ArgsTable of={ESInlineFormFieldComponent} />
 
 ## Constants
 

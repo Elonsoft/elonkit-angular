@@ -1,7 +1,6 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, select } from '@storybook/addon-knobs';
 
@@ -17,7 +16,7 @@ import {
   EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE
 } from './empty-state-story-typography';
 
-<Meta title='UI/Empty State' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Empty State' decorators={[withKnobs]} />
 
 # Empty State
 
@@ -25,7 +24,7 @@ A placeholder to use on pages without content.
 
 ## Demos
 
-<Preview source={EMPTY_STATE_STORY_BASIC_SOURCE}>
+<Canvas source={EMPTY_STATE_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='170px'>
     {{
       template: `<es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading"></es-empty-state>`,
@@ -42,11 +41,11 @@ A placeholder to use on pages without content.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can include action button.
 
-<Preview source={EMPTY_STATE_STORY_BUTTON_SOURCE}>
+<Canvas source={EMPTY_STATE_STORY_BUTTON_SOURCE}>
   <Story name='Button' height='200px'>
     {{
       template: `
@@ -67,11 +66,11 @@ We can include action button.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can use typography inputs in order to change text presentation.
 
-<Preview source={EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE}>
+<Canvas source={EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE}>
   <Story name='Typography' height='170px'>
     {{
       template: `
@@ -91,11 +90,11 @@ We can use typography inputs in order to change text presentation.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESEmptyStateComponent} />
+<ArgsTable of={ESEmptyStateComponent} />
 
 ## Interfaces
 
