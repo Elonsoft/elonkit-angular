@@ -81,12 +81,13 @@ const LONGPRESS_DELAY = 500;
 const MOUSE_LOCATIONS_TRACKED = 3;
 
 /**
- * Delay in ms before closing a tooltip when mouse moves outside of component.
+ * Delay in ms before closing a tooltip when mouse moves towards the component.
  */
-const MOUSE_HIDE_DELAY = 300;
+const MOUSE_AIM_DELAY = 300;
 
 export interface ESTooltipDefaultOptions {
   arrow?: boolean;
+  mouseAimDelay?: number;
 }
 
 export const ES_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<ESTooltipDefaultOptions>(
@@ -199,6 +200,13 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    */
   // tslint:disable-next-line:no-input-rename
   @Input('esTooltipHideDelay') hideDelay: number = this.defaultOptions?.hideDelay;
+
+  /**
+   * Delay in ms before closing a tooltip when mouse stops moving towards the tooltip.
+   */
+  // tslint:disable-next-line:no-input-rename
+  @Input('esTooltipMouseAimDelay') mouseAimDelay: number =
+    this.esDefaultOptions?.mouseAimDelay || MOUSE_AIM_DELAY;
 
   /**
    * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
@@ -991,7 +999,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
 
     if (decreasingSlope < prevDecreasingSlope && increasingSlope > prevIncreasingSlope) {
       this.mouseLastDelayLocation = location;
-      return MOUSE_HIDE_DELAY;
+      return this.mouseAimDelay;
     }
 
     this.mouseLastDelayLocation = null;
@@ -1015,6 +1023,12 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * @ignore
    */
   static ngAcceptInputType_showDelay: NumberInput;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  static ngAcceptInputType_mouseAimDelay: NumberInput;
 
   /**
    * @internal
