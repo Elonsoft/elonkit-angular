@@ -1,7 +1,7 @@
 @use 'sass:math';
 
 $es-tooltip-max-width: 250px;
-$es-tooltip-margin: 14px;
+$es-tooltip-margin: 12px;
 
 .es-tooltip-panel {
   // The overlay reference updates the pointer-events style property directly on the HTMLElement
