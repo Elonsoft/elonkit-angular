@@ -1,0 +1,109 @@
+.es-audio-player-volume {
+  &__button {
+    height: 24px;
+    width: 24px;
+
+    .mat-button-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &__slider {
+    &.mat-slider {
+      padding: 0;
+      width: 40px;
+
+      &:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,
+      &:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb,
+      &:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,
+      .cdk-mouse-focused .mat-slider-thumb,
+      .mat-slider-thumb {
+        background: #fff;
+        border: 0;
+        height: 18px;
+        right: -10px;
+        transform: scale(0.7);
+        width: 18px;
+      }
+
+      &.mat-slider-vertical {
+        .mat-slider-wrapper {
+          left: 18px;
+        }
+
+        .mat-slider-track-fill,
+        .mat-slider-track-wrapper,
+        .mat-slider-track-background {
+          background: #fff;
+          width: 4px;
+        }
+
+        .mat-slider-track-wrapper,
+        .mat-slider-track-background {
+          background: #ababab;
+        }
+      }
+
+      .mat-slider-track-fill,
+      .mat-slider-track-wrapper,
+      .mat-slider-track-background {
+        border-radius: 16px;
+      }
+    }
+  }
+
+  &__menu {
+    box-shadow: none;
+    color: #fff;
+
+    font-family: 'Roboto';
+    font-size: 12px;
+    left: 15px;
+    letter-spacing: 0.4px;
+    line-height: 16px;
+
+    &.mat-menu-panel {
+      background: #747474;
+      height: 156px;
+      min-width: 40px;
+      overflow: hidden;
+    }
+
+    .mat-menu-content {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 40px;
+    }
+
+    &.mat-menu-below {
+      &::before {
+        background: #747474;
+        content: '';
+        display: block;
+        height: 8px;
+        left: 15px;
+        position: absolute;
+        top: -3px;
+        transform: rotate(45deg);
+        width: 12px;
+      }
+    }
+
+    &.mat-menu-above {
+      &::after {
+        background: #747474;
+        content: '';
+        display: block;
+        height: 8px;
+        left: 12px;
+        position: absolute;
+        top: 151px;
+        transform: rotate(45deg);
+        width: 12px;
+      }
+    }
+  }
+}

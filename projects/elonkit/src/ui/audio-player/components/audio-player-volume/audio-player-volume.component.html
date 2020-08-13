@@ -1,0 +1,23 @@
+<button
+  mat-icon-button
+  class="es-audio-player-volume__button"
+  disableRipple="true"
+  [matMenuTriggerFor]="menu"
+>
+  <img [src]="src" />
+</button>
+
+<mat-menu #menu="matMenu" yPosition="above" class="es-audio-player-volume__menu">
+  <mat-slider
+    #sliderVolume
+    class="es-audio-player-volume__slider"
+    color="primary"
+    min="0"
+    step="1"
+    max="100"
+    [value]="volume"
+    vertical="true"
+    (input)="onChangeVolume($event)"
+  ></mat-slider>
+  <label>{{ sliderVolume.value }}</label>
+</mat-menu>

@@ -1,0 +1,35 @@
+<div class="es-audio-player">
+  <button
+    mat-icon-button
+    isIconButton="true"
+    class="es-audio-player__button"
+    disableRipple="true"
+    (click)="onPlayback()"
+  >
+    <img [src]="src" />
+  </button>
+  <mat-slider
+    #timeLine
+    class="es-audio-player__slider"
+    color="primary"
+    step="1"
+    [max]="audio.duration"
+    [(ngModel)]="audioCurrentTime"
+    (change)="onSeekTo($event)"
+  ></mat-slider>
+  <label class="es-audio-player__label"> {{ audioTimeLeft }}</label>
+
+  <es-audio-player-volume
+    class="es-audio-player__volume"
+    [volume]="volume"
+    (changeVolume)="onSetVolume($event)"
+  ></es-audio-player-volume>
+
+  <es-audio-player-options
+    class="es-audio-player__options"
+    [src]="audio?.src"
+    [rates]="rates"
+    (changePlaybackRate)="onSetPlaybackRate($event)"
+    (audioDownload)="audioDownload.emit()"
+  ></es-audio-player-options>
+</div>

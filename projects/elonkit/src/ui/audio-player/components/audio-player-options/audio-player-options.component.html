@@ -1,0 +1,72 @@
+<button
+  class="es-audio-player-options__button"
+  mat-icon-button
+  disableRipple
+  [matMenuTriggerFor]="menu"
+>
+  <img src="./assets/elonkit/audio-player/more-vert.svg" />
+</button>
+
+<mat-menu
+  #menu="matMenu"
+  yPosition="below"
+  xPosition="before"
+  class="es-audio-player-options__menu"
+  (closed)="onClosedMenu()"
+>
+  <ng-container *ngIf="!showSelectRatePage; else rateOptions">
+    <button
+      class="es-audio-player-options__menu-item"
+      mat-menu-item
+      disableRipple
+      (click)="onChangeMenuPage($event)"
+    >
+      <img
+        class="es-audio-player-options__action-img"
+        src="./assets/elonkit/audio-player/speed.svg"
+      />
+      <div>
+        <label>{{ locale.labelSpeed }}</label>
+        <label>{{ currentRate === 1 ? locale.labelNormal : currentRate }}</label>
+      </div>
+      <img src="./assets/elonkit/audio-player/chevron-right.svg" />
+    </button>
+    <button
+      mat-menu-item
+      class="es-audio-player-options__menu-item"
+      disableRipple
+      [disabled]="!src"
+      (click)="audioDownload.emit()"
+    >
+      <img
+        class="es-audio-player-options__action-img"
+        src="./assets/elonkit/audio-player/download.svg"
+      />
+      <label>{{ locale.labelDownload }}</label>
+    </button>
+  </ng-container>
+</mat-menu>
+
+<ng-template #rateOptions>
+  <button
+    mat-menu-item
+    class="es-audio-player-options__menu-item"
+    disableRipple
+    (click)="onChangeMenuPage($event)"
+  >
+    <img src="./assets/elonkit/audio-player/chevron-left.svg" />
+    <label>{{ locale.labelBack }}</label>
+  </button>
+  <mat-divider class="es-audio-player-options__divider"></mat-divider>
+  <ng-container *ngFor="let rate of rates">
+    <button
+      mat-menu-item
+      class="es-audio-player-options__menu-item es-audio-player-options__rate-item"
+      disableRipple
+      (click)="onChangePlaybackRate($event, rate)"
+    >
+      <label>{{ rate === 1 ? locale.labelNormal : rate }}</label>
+      <img *ngIf="rate === currentRate" src="./assets/elonkit/audio-player/check.svg" />
+    </button>
+  </ng-container>
+</ng-template>
