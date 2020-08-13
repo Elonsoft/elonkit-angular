@@ -2,9 +2,7 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { boolean } from '@storybook/addon-knobs';
 
 import { ESTimepickerComponent } from '..';
 
@@ -32,7 +30,7 @@ import {
   TIMEPICKER_STORY_REQUIRED_SOURCE
 } from './timepicker-story-required';
 
-<Meta title='UI/Timepicker' decorators={[withKnobs]} />
+<Meta title='UI/Timepicker' component={ESTimepickerComponent} />
 
 # Timepicker
 
@@ -46,7 +44,7 @@ This component named `picker` instead of `input` in case we'll implement an actu
     {{
       component: TimepickerStoryBasicComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, TimepickerStoryBasicModule]
+        imports: [TimepickerStoryBasicModule]
       }
     }}
   </Story>
@@ -59,7 +57,7 @@ We can use `withSeconds` in order to display seconds input.
     {{
       component: TimepickerStorySecondsComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, TimepickerStorySecondsModule]
+        imports: [TimepickerStorySecondsModule]
       }
     }}
   </Story>
@@ -72,7 +70,7 @@ We can override default locale which is used for input placeholder.
     {{
       component: TimepickerStoryLocaleComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, TimepickerStoryLocaleModule]
+        imports: [TimepickerStoryLocaleModule]
       }
     }}
   </Story>
@@ -85,7 +83,7 @@ When input is required it won't allow to clear existing value.
     {{
       component: TimepickerStoryRequiredComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, TimepickerStoryRequiredModule]
+        imports: [TimepickerStoryRequiredModule]
       },
       props: {
         required: boolean('required', true)
@@ -96,4 +94,4 @@ When input is required it won't allow to clear existing value.
 
 ## API
 
-<ArgsTable of={ESTimepickerComponent} />
+<ArgsTable />

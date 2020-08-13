@@ -2,9 +2,7 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text } from '@storybook/addon-knobs';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { text } from '@storybook/addon-knobs';
 
 import { ESActionHeadingModule, ESActionHeadingComponent } from '..';
 
@@ -26,7 +24,7 @@ import {
   ACTION_HEADING_STORY_CLICK_SOURCE
 } from './action-heading-story-click';
 
-<Meta title='UI/ActionHeading' decorators={[withKnobs]} />
+<Meta title='UI/ActionHeading' component={ESActionHeadingComponent} />
 
 # Action Heading
 
@@ -75,4 +73,4 @@ This is an example of action click.
 
 ## API
 
-<ArgsTable of={ESActionHeadingComponent} />
+<ArgsTable />

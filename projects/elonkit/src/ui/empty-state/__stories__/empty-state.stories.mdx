@@ -2,9 +2,8 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text, select } from '@storybook/addon-knobs';
+import { text, select } from '@storybook/addon-knobs';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 
 import { ESEmptyStateModule, ESEmptyStateComponent } from '..';
@@ -16,7 +15,7 @@ import {
   EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE
 } from './empty-state-story-typography';
 
-<Meta title='UI/Empty State' decorators={[withKnobs]} />
+<Meta title='UI/Empty State' component={ESEmptyStateComponent} />
 
 # Empty State
 
@@ -29,7 +28,7 @@ A placeholder to use on pages without content.
     {{
       template: `<es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading"></es-empty-state>`,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, ESEmptyStateModule]
+        imports: [ESEmptyStateModule]
       },
       props: {
         icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
@@ -54,7 +53,7 @@ We can include action button.
         </es-empty-state>
       `,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, MatButtonModule, ESEmptyStateModule]
+        imports: [MatButtonModule, ESEmptyStateModule]
       },
       props: {
         icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
@@ -78,7 +77,7 @@ We can use typography inputs in order to change text presentation.
         </es-empty-state-story-typography>
       `,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, EmptyStateStoryTypographyModule]
+        imports: [EmptyStateStoryTypographyModule]
       },
       props: {
         icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
@@ -94,7 +93,7 @@ We can use typography inputs in order to change text presentation.
 
 ## API
 
-<ArgsTable of={ESEmptyStateComponent} />
+<ArgsTable />
 
 ## Interfaces
 
