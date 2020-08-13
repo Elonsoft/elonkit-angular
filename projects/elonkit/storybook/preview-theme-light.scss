@@ -116,7 +116,7 @@
   $theme: mat-light-theme($primary, $accent, $warn);
 
   @include angular-material-theme($theme);
-  @include elonkit-theme($theme);
+  @include es-theme($theme);
 
   // color: mat-color(map-get($theme, foreground), text);
 }

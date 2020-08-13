@@ -17,7 +17,7 @@ In your global styles import components theme and include it with Angular Materi
 
 ```scss
 @import '@elonsoft/elonkit/theme';
-@include elonkit-theme($theme);
+@include es-theme($theme);
 ```
 
 Add library assets to your `angular.json` config:
