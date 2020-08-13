@@ -43,7 +43,7 @@ export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
       }
     },
     {
-      provide: MAT_LABEL_GLOBAL_OPTIONS,
+      provide: MAT_LABEL_GLOBAL_OPTIONS, // tslint:disable-line deprecation
       useValue: {
         float: 'never'
       }

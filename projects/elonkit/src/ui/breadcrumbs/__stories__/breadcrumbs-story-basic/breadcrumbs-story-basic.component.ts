@@ -124,9 +124,7 @@ export class BreadcrumbsStoryBasicItemsShowComponent {
 
 @Component({
   selector: 'es-breadcrumbs-basic-items-edit',
-  template: `
-    <h1 class="mat-h1">Edit {{ item.title }}</h1>
-  `,
+  template: ` <h1 class="mat-h1">Edit {{ item.title }}</h1> `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsStoryBasicItemsEditComponent {

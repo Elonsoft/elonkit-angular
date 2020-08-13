@@ -203,7 +203,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   public ngOnInit() {
     this.breadcrumbsService.breadcrumbs$
       .pipe(takeUntil(this.destroyed$), delay(1))
-      .subscribe(breadcrumbs => {
+      .subscribe((breadcrumbs) => {
         this.breadcrumbs = breadcrumbs;
         this.onResize();
         this.changeDetector.detectChanges();
