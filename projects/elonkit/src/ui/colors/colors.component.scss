@@ -1,0 +1,13 @@
+.es-colors {
+  margin: -8px;
+
+  &__palette {
+    display: flex;
+  }
+
+  &__color {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+  }
+}

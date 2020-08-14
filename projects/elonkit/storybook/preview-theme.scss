@@ -1,6 +1,7 @@
 @import '~@angular/material/theming';
 // In production it's "@elonsoft/elonkit/theme"
 @import '../src/theme';
+@import '../src/ui/colors/colors.component.theme';
 
 @import './preview-theme-dark';
 @import './preview-theme-light';

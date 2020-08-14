@@ -20,8 +20,8 @@ $es-light-theme: (
           A200: #fff,
           A300: #fff,
           A400: #fff,
-          A500: #fff,
-        ),
+          A500: #fff
+        )
       ),
       500,
       500,
@@ -48,8 +48,8 @@ $es-light-theme: (
           A200: #fff,
           A300: #fff,
           A400: #fff,
-          A500: #fff,
-        ),
+          A500: #fff
+        )
       ),
       500,
       500,
@@ -76,8 +76,8 @@ $es-light-theme: (
           A200: #fff,
           A300: #fff,
           A400: #fff,
-          A500: #fff,
-        ),
+          A500: #fff
+        )
       ),
       500,
       500,
@@ -110,8 +110,8 @@ $es-light-theme: (
           A600: #fff,
           A700: #fff,
           A800: #fff,
-          A900: #fff,
-        ),
+          A900: #fff
+        )
       ),
       500,
       500,
@@ -144,8 +144,8 @@ $es-light-theme: (
           A600: #fff,
           A700: #fff,
           A800: #fff,
-          A900: #fff,
-        ),
+          A900: #fff
+        )
       ),
       500,
       500,
@@ -176,8 +176,13 @@ $es-light-theme: (
           12: #000,
           16: #000,
           24: #000,
-          on: #000,
-        ),
+          on: #000
+        )
       )
     ),
+  common: (
+    background: #f5f7fa,
+    link: #1c75e7,
+    switch: #fafafa
+  )
 );

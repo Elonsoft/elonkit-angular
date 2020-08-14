@@ -117,6 +117,7 @@
 
   @include angular-material-theme($theme);
   @include es-theme($theme);
+  @include es-colors-theme($theme, $es-dark-theme);
 
   // color: mat-color(map-get($theme, foreground), text);
 }

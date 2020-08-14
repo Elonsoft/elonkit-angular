@@ -1,0 +1,19 @@
+@mixin es-colors-theme($theme, $elonkit-theme) {
+  .es-colors {
+    &__color {
+      &_common {
+        &_background {
+          background-color: mat-color(map-get($elonkit-theme, common), background);
+        }
+
+        &_link {
+          background-color: mat-color(map-get($elonkit-theme, common), link);
+        }
+
+        &_switch {
+          background-color: mat-color(map-get($elonkit-theme, common), switch);
+        }
+      }
+    }
+  }
+}
