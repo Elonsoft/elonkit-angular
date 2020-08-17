@@ -99,7 +99,7 @@ $es-dark-theme: (
         A800: rgba(255, 255, 255, 0.7),
         A900: rgba(255, 255, 255, 0.86),
         contrast: (
-          500: #000,
+          500: #fff,
           A50: #fff,
           A100: #fff,
           A150: #fff,
@@ -133,7 +133,7 @@ $es-dark-theme: (
         A800: rgba(0, 0, 0, 0.72),
         A900: rgba(0, 0, 0, 0.88),
         contrast: (
-          500: #000,
+          500: #fff,
           A50: #fff,
           A100: #fff,
           A150: #fff,
@@ -180,9 +180,17 @@ $es-dark-theme: (
         )
       )
     ),
-  common: (
-    background: #18181a,
-    link: #4891ed,
-    switch: #fafafa
-  )
+  common:
+    mat-palette(
+      (
+        background: #18181a,
+        link: #4891ed,
+        switch: #fafafa,
+        contrast: (
+          background: #fff,
+          link: #fff,
+          switch: #000
+        )
+      )
+    )
 );

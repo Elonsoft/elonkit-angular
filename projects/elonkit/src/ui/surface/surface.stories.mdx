@@ -1,5 +1,5 @@
 import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Canvas } from '~storybook/components';
 
 import { SURFACE_SOURCE } from './surface.source';
 
@@ -7,7 +7,7 @@ import { SURFACE_SOURCE } from './surface.source';
 
 # Surface
 
-<Preview source={SURFACE_SOURCE}>
+<Canvas source={SURFACE_SOURCE}>
   <Story name='All' height='600px'>
     {{
       template: `
@@ -27,4 +27,4 @@ import { SURFACE_SOURCE } from './surface.source';
       `
     }}
   </Story>
-</Preview>
+</Canvas>

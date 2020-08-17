@@ -20,24 +20,24 @@
       A400: rgba(63, 81, 181, 0.24),
       A500: rgba(63, 81, 181, 0.32),
       contrast: (
-        50: #fff,
-        100: #fff,
-        200: #fff,
-        300: #fff,
-        400: #fff,
+        50: #000,
+        100: #000,
+        200: #000,
+        300: #000,
+        400: #000,
         500: #fff,
         600: #fff,
         700: #fff,
         800: #fff,
         900: #fff,
-        A50: #fff,
-        A75: #fff,
-        A100: #fff,
-        A150: #fff,
-        A200: #fff,
-        A300: #fff,
-        A400: #fff,
-        A500: #fff
+        A50: #000,
+        A75: #000,
+        A100: #000,
+        A150: #000,
+        A200: #000,
+        A300: #000,
+        A400: #000,
+        A500: #000
       )
     )
   );
@@ -63,24 +63,24 @@
       A400: rgba(0, 150, 136, 0.24),
       A500: rgba(0, 150, 136, 0.32),
       contrast: (
-        50: #fff,
-        100: #fff,
-        200: #fff,
-        300: #fff,
-        400: #fff,
+        50: #000,
+        100: #000,
+        200: #000,
+        300: #000,
+        400: #000,
         500: #fff,
         600: #fff,
         700: #fff,
         800: #fff,
         900: #fff,
-        A50: #fff,
-        A75: #fff,
-        A100: #fff,
-        A150: #fff,
-        A200: #fff,
-        A300: #fff,
-        A400: #fff,
-        A500: #fff
+        A50: #000,
+        A75: #000,
+        A100: #000,
+        A150: #000,
+        A200: #000,
+        A300: #000,
+        A400: #000,
+        A500: #000
       )
     )
   );
@@ -97,15 +97,15 @@
       A400: rgba(244, 67, 54, 0.24),
       A500: rgba(244, 67, 54, 0.32),
       contrast: (
-        500: #fff,
-        A50: #fff,
-        A75: #fff,
-        A100: #fff,
-        A150: #fff,
-        A200: #fff,
-        A300: #fff,
-        A400: #fff,
-        A500: #fff
+        500: #000,
+        A50: #000,
+        A75: #000,
+        A100: #000,
+        A150: #000,
+        A200: #000,
+        A300: #000,
+        A400: #000,
+        A500: #000
       )
     ),
     500,
@@ -117,7 +117,7 @@
 
   @include angular-material-theme($theme);
   @include es-theme($theme);
-  @include es-colors-theme($theme, $es-dark-theme);
+  @include es-colors-theme($theme, $es-light-theme);
 
   // color: mat-color(map-get($theme, foreground), text);
 }
