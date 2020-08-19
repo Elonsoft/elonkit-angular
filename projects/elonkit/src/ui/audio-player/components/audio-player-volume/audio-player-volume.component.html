@@ -2,22 +2,29 @@
   mat-icon-button
   class="es-audio-player-volume__button"
   disableRipple="true"
-  [matMenuTriggerFor]="menu"
+  esTooltip
+  [esTooltipContent]="content"
+  esTooltipArrow
+  esTooltipInteractive
+  (click)="onMute()"
 >
   <img [src]="src" />
 </button>
 
-<mat-menu #menu="matMenu" yPosition="above" class="es-audio-player-volume__menu">
-  <mat-slider
-    #sliderVolume
-    class="es-audio-player-volume__slider"
-    color="primary"
-    min="0"
-    step="1"
-    max="100"
-    [value]="volume"
-    vertical="true"
-    (input)="onChangeVolume($event)"
-  ></mat-slider>
-  <label>{{ sliderVolume.value }}</label>
-</mat-menu>
+<ng-template #content>
+  <div class="es-audio-player-volume__container">
+    <mat-slider
+      #sliderVolume
+      class="es-audio-player-volume__slider"
+      color="primary"
+      min="0"
+      step="1"
+      max="100"
+      [value]="volume"
+      vertical="true"
+      (change)="onVolumeChanged($event.value)"
+      (input)="onVolumeSliderMove($event.value)"
+    ></mat-slider>
+    <label>{{ sliderVolume.value }}</label>
+  </div>
+</ng-template>

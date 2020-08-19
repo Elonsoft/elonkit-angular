@@ -20,7 +20,6 @@ export class AudioPlayerVolumeComponent {
    */
   @Input()
   set volume(value: number) {
-    this.isMute = !value;
     this._volume = value;
   }
   get volume(): number {
@@ -43,9 +42,57 @@ export class AudioPlayerVolumeComponent {
    * @internal
    * @ignore
    */
-  public onChangeVolume({ value }) {
+  public previuseVolume: number;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public isMoveSlider = false;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public onVolumeChanged(value: number) {
+    this.isMoveSlider = false;
     this.isMute = !value;
+
+    this.volume = value;
+
+    if (!value) {
+      this.previuseVolume = 0;
+    }
+
     this.changeVolume.emit(value / 100);
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public onVolumeSliderMove(value: number) {
+    this.isMoveSlider = true;
+    this.isMute = !value;
+
+    this.changeVolume.emit(value / 100);
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public onMute() {
+    this.isMute = !this.isMute;
+
+    if (this.isMute) {
+      this.previuseVolume = this.volume;
+      this.volume = 0;
+    } else {
+      this.volume = this.previuseVolume;
+    }
+
+    this.changeVolume.emit(this.volume / 100);
   }
 
   get src() {

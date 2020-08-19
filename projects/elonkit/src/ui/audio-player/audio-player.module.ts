@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
 import { AudioPlayerVolumeComponent } from './components/audio-player-volume/audio-player-volume.component';
 import { AudioPlayerOptionsComponent } from './components/audio-player-options/audio-player-options.component';
+import { ESTooltipModule } from '../tooltip';
 
 @NgModule({
   declarations: [ESAudioPlayerComponent, AudioPlayerVolumeComponent, AudioPlayerOptionsComponent],
@@ -20,7 +21,8 @@ import { AudioPlayerOptionsComponent } from './components/audio-player-options/a
     MatSliderModule,
     FormsModule,
     MatMenuModule,
-    MatListModule
+    MatListModule,
+    ESTooltipModule
   ],
   exports: [ESAudioPlayerComponent, AudioPlayerVolumeComponent, AudioPlayerOptionsComponent]
 })
