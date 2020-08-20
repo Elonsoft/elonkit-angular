@@ -25,7 +25,7 @@ export interface ESInlineFormFieldDefaultOptions {
   typography?: string;
 }
 
-const DEFAULT_TYPOGRAPHY = 'mat-body-1';
+const DEFAULT_TYPOGRAPHY = 'es-body-m';
 
 export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
   ESInlineFormFieldDefaultOptions

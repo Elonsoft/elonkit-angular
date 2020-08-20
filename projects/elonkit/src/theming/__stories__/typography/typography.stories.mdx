@@ -1,11 +1,11 @@
 import { Meta, Story } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Canvas } from '~storybook/components';
 
-<Meta title='UI/Typography' />
+<Meta title='THEMING/Typography' />
 
 # Typography
 
-<Preview>
+<Canvas>
   <Story name='All variants' height='500px'>
     {{
       template: `
@@ -18,11 +18,17 @@ import { Preview } from '~storybook/components';
           <h6 class="es-h6">Heading 6</h6>
           <div class="es-subtitle-1">Subtitle 1</div>
           <div class="es-subtitle-2">Subtitle 2</div>
+          <div class="es-body-xl">Body XL</div>
+          <div class="es-body-l">Body L</div>
           <div class="es-body-m">Body M</div>
           <div class="es-body-s">Body S</div>
+          <div class="es-button">BUTTON</div>
           <div class="es-caption">Caption</div>
+          <div class="es-overline">OVERLINE</div>
+          <div class="es-mini-m">Mini M</div>
+          <div class="es-mini-s">MIni S</div>
         </div>
       `
     }}
   </Story>
-</Preview>
+</Canvas>

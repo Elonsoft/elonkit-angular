@@ -1,5 +1,5 @@
-@mixin es-colors-theme($theme, $elonkit-theme) {
-  .es-colors {
+@mixin es-colors-story-theme($theme, $elonkit-theme) {
+  .es-colors-story {
     &__palette {
       &:not(:last-child) {
         margin-bottom: 16px;

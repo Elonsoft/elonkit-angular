@@ -62,7 +62,7 @@ export class ESEmptyStateComponent {
     return this._headingTypography;
   }
   public set headingTypography(value: string) {
-    this._headingTypography = value || this.defaultOptions?.headingTypography || 'mat-body-1';
+    this._headingTypography = value || this.defaultOptions?.headingTypography || 'es-body-m';
   }
 
   /**
@@ -80,8 +80,7 @@ export class ESEmptyStateComponent {
     return this._subheadingTypography;
   }
   public set subheadingTypography(value: string) {
-    this._subheadingTypography =
-      value || this.defaultOptions?.subheadingTypography || 'mat-caption';
+    this._subheadingTypography = value || this.defaultOptions?.subheadingTypography || 'es-caption';
   }
 
   /**

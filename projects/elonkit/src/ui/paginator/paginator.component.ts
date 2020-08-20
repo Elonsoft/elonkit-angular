@@ -114,7 +114,7 @@ export class ESPaginatorComponent {
     return this._typography;
   }
   set typography(value: string) {
-    this._typography = value || this.defaultOptions?.typography || 'mat-caption';
+    this._typography = value || this.defaultOptions?.typography || 'es-caption';
   }
 
   /**
