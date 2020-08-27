@@ -1,6 +1,6 @@
-import { render } from '@testing-library/angular';
+import { render, waitFor } from '@testing-library/angular';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { ESDropzoneModule } from '../dropzone.module';
+import { ESDropzoneValidationError } from '../dropzones.types';
 
 const TEXT_HEADING = 'CHOOSE FILES';
 const TEXT_SUBHEADING = 'This is an example of a description';
@@ -32,6 +33,8 @@ const CLASS_SUBHEADING = 'app-caption';
         subheadingTypography="${CLASS_SUBHEADING}"
         formControlName="docs"
         accept="image/jpg,image/jpeg,image/png"
+        maxSize="0.000001"
+        (validate)="onValidate($event)"
       >
         <mat-hint>${TEXT_HINT}</mat-hint>
         <mat-error>${TEXT_ERROR}</mat-error>
@@ -45,6 +48,7 @@ class DropzoneWrapperComponent {
     docs: new FormControl([], Validators.required)
   });
   public onSubmit(form: any) {}
+  public onValidate(res: ESDropzoneValidationError[]) {}
 }
 
 describe('Drag And Drop', () => {
@@ -221,6 +225,52 @@ describe('Drag And Drop', () => {
           }
         ]
       });
+      done();
+    });
+  });
+
+  it('Should emit validation errors', async done => {
+    const component = await render(DropzoneWrapperComponent, {
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MatFormFieldModule,
+        ESDropzoneModule,
+        MatIconTestingModule
+      ]
+    });
+
+    const fileFixture1 = {
+      name: 'filename1.pdf',
+      type: 'application/pdf'
+    };
+    const fileFixture2 = {
+      name: 'filename2.png',
+      type: 'image/png'
+    };
+    const file1 = new File([''], fileFixture1.name, { type: fileFixture1.type });
+    const file2 = new File(['0123456789'], fileFixture2.name, { type: fileFixture2.type });
+    const spy = jest.spyOn(component.fixture.componentInstance, 'onValidate');
+
+    component.change(component.getByTestId('input'), {
+      target: {
+        files: {
+          0: file1,
+          1: file2,
+          length: 2,
+          item(i: number) {
+            return this[i];
+          }
+        }
+      }
+    });
+
+    await waitFor(() => {
+      expect(spy).toHaveBeenCalledWith([
+        { error: 'FILE_TYPE', fileName: file1.name },
+        { error: 'FILE_SIZE', fileName: file2.name }
+      ]);
       done();
     });
   });
