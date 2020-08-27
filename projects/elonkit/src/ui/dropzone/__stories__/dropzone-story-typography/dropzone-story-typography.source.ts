@@ -6,7 +6,6 @@ export const DROPZONE_STORY_TYPOGRAPHY_SOURCE = {
       subheading="or drag files in this area (max size: 50 MB)"
       headingTypography="typography-body-1"
       subheadingTypography="typography-caption"
-      hintTypography="typography-caption"
       formControlName="docs"
     >
       <mat-hint class="typography-hint">This is an example of a hint message</mat-hint>

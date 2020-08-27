@@ -14,7 +14,7 @@
     <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon" class="es-dropzone__choose-icon"></mat-icon>
     {{ heading }}
   </div>
-  <div class="es-dropzone__subheading">
+  <div *ngIf="!!subheading" class="es-dropzone__subheading">
     <span [ngClass]="subheadingTypography">{{ subheading }}</span>
   </div>
 </button>

@@ -47,7 +47,7 @@ This component allows to select files on click or by drag and drop.
 
 ## Demos
 
-We can provide `MAT_SNACK_BAR_DEFAULT_OPTIONS` to configure default Snackbar options for all components within an app.
+Validation errors are emitted from `validate` output as array of `ESDropzoneValidationError`.
 
 <Preview source={DROPZONE_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='150px'>
@@ -62,7 +62,8 @@ We can provide `MAT_SNACK_BAR_DEFAULT_OPTIONS` to configure default Snackbar opt
         accept: text('accept', 'image/png,image/jpg,image/jpeg'),
         maxSize: number('maxSize', '50'),
         type: select('type', { base64: 'base64', binary: 'binary' }, 'binary'),
-        changeFiles: action('change')
+        changeFiles: action('change'),
+        validate: action('errors')
       }
     }}
   </Story>
@@ -137,10 +138,10 @@ interface ESDropzoneFile {
 }
 ```
 
-ESDropzoneOptions `type` property defines if ESDropzoneFile `content` property will be `base64` or `binary`.
+ESDropzoneDefaultOptions `type` property defines if ESDropzoneFile `content` property will be `base64` or `binary`.
 
 ```ts
-interface ESDropzoneOptions {
+interface ESDropzoneDefaultOptions {
   accept?: string;
   svgIcon?: string;
   maxSize?: number;
@@ -150,14 +151,10 @@ interface ESDropzoneOptions {
 }
 ```
 
-## Constants
-
 ```ts
-class ESDropzoneLocale {
-  labelNotSupported = 'This file type is not supported';
-  labelOverUploadLimit = 'File size is over upload limit of';
-  labelKB = 'KB';
-  labelMB = 'MB';
+interface ESDropzoneValidationError {
+  fileName: string;
+  error: 'FILE_TYPE' | 'FILE_SIZE';
 }
 ```
 

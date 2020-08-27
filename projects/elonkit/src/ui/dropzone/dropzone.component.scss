@@ -38,7 +38,10 @@
     align-items: center;
     display: flex;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
   }
 
   &__subheading {

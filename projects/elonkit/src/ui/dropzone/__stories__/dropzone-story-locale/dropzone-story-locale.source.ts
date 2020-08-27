@@ -1,12 +1,4 @@
 export const DROPZONE_STORY_LOCALE_SOURCE = {
-  ts: `
-  import { ESDropzoneLocale, ESDropzoneLocaleRU } from '@elonsoft/elonkit/ui/dropzone';
-  @NgModule({
-    ...
-    providers: [{ provide: ESDropzoneLocale, useClass: ESDropzoneLocaleRU }]
-  })
-  export class AppModule {}
-  `,
   html: `
   <form class="form" [formGroup]="form">
     <es-dropzone

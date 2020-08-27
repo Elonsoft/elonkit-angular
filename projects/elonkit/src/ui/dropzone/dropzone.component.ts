@@ -8,17 +8,21 @@ import {
   ViewEncapsulation,
   InjectionToken,
   Inject,
-  Self
+  Self,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 import { validateFileType } from '~utils/validate-file-type';
-import { ESDropzoneFile, ESDropzoneOptions } from './dropzones.types';
-import { ESDropzoneLocale } from './dropzone.component.locale';
+import {
+  ESDropzoneFile,
+  ESDropzoneDefaultOptions,
+  ESDropzoneValidationError
+} from './dropzones.types';
 
-export const ES_DROPZONE_DEFAULT_OPTIONS = new InjectionToken<ESDropzoneOptions>(
+export const ES_DROPZONE_DEFAULT_OPTIONS = new InjectionToken<ESDropzoneDefaultOptions>(
   'ES_DROPZONE_DEFAULT_OPTIONS'
 );
 
@@ -101,7 +105,7 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     return this._maxSize;
   }
   public set maxSize(value: number) {
-    this._maxSize = coerceNumberProperty(value, 0) ?? this.defaultOptions?.maxSize;
+    this._maxSize = coerceNumberProperty(value, this.defaultOptions?.maxSize || 0);
   }
   private _maxSize: number;
 
@@ -143,6 +147,14 @@ export class ESDropzoneComponent implements ControlValueAccessor {
   private _subheadingTypography: string;
 
   /**
+   * Array of validation errors is emitted.
+   */
+  @Output()
+  public validate: EventEmitter<ESDropzoneValidationError[]> = new EventEmitter<
+    ESDropzoneValidationError[]
+  >();
+
+  /**
    * @internal
    * @ignore
    */
@@ -150,18 +162,17 @@ export class ESDropzoneComponent implements ControlValueAccessor {
   public fileInput: ElementRef;
 
   private propagateChange = (_: any) => {};
+  private errors: ESDropzoneValidationError[];
 
   /**
    * @internal
    * @ignore
    */
   constructor(
-    private snackBar: MatSnackBar,
     private cdRef: ChangeDetectorRef,
-    private locale: ESDropzoneLocale,
     @Optional()
     @Inject(ES_DROPZONE_DEFAULT_OPTIONS)
-    private defaultOptions: ESDropzoneOptions,
+    private defaultOptions: ESDropzoneDefaultOptions,
     /**
      * @internal
      */
@@ -210,15 +221,18 @@ export class ESDropzoneComponent implements ControlValueAccessor {
    * @internal
    * @ignore
    */
-  public onDrop(e: DragEvent): void {
+  public async onDrop(e: DragEvent) {
     e.preventDefault();
     e.stopPropagation();
+    this.errors = [];
     const files = e.dataTransfer.files as FileList;
     for (let i = 0; i < files.length; i++) {
-      this.setFile(files.item(i));
+      await this.setFile(files.item(i));
     }
-
     this.isDragover = false;
+    this.cdRef.markForCheck();
+    this.propagateChange(this.files);
+    this.validate.emit(this.errors);
   }
 
   /**
@@ -265,12 +279,16 @@ export class ESDropzoneComponent implements ControlValueAccessor {
    * @internal
    * @ignore
    */
-  public onChange(e: any): void {
+  public async onChange(e: any) {
     e.stopPropagation();
+    this.errors = [];
     const files = e.target.files as FileList;
     for (let i = 0; i < files.length; i++) {
-      this.setFile(files.item(i));
+      await this.setFile(files.item(i));
     }
+    this.cdRef.markForCheck();
+    this.propagateChange(this.files);
+    this.validate.emit(this.errors);
   }
 
   /**
@@ -293,32 +311,31 @@ export class ESDropzoneComponent implements ControlValueAccessor {
 
     const targetFile = await toFile(this.type, file);
     this.files = [...this.files, targetFile];
-    this.cdRef.markForCheck();
-    this.propagateChange(this.files);
   }
 
   private fileTypeValid(file: File): boolean {
-    if (validateFileType(file, this.accept)) {
-      return true;
-    }
-    this.showSnackBar(this.locale.labelNotSupported);
-    return false;
-  }
-
-  private getMaxSizeInBytes(): number {
-    return +this.maxSize * 1024 * 1024;
-  }
-
-  private validateFileSize(file: File): boolean {
-    const { labelOverUploadLimit, labelMB } = this.locale;
-    if (this.maxSize && file.size > this.getMaxSizeInBytes()) {
-      this.showSnackBar(`${labelOverUploadLimit} ${this.maxSize} ${labelMB}`);
+    if (!validateFileType(file, this.accept)) {
+      this.errors.push({
+        fileName: file.name,
+        error: 'FILE_TYPE'
+      });
       return false;
     }
     return true;
   }
 
-  private showSnackBar(text: string): void {
-    this.snackBar.open(text, 'OK');
+  private get maxSizeInBytes(): number {
+    return +this.maxSize * 1024 * 1024;
+  }
+
+  private validateFileSize(file: File): boolean {
+    if (this.maxSize && file.size > this.maxSizeInBytes) {
+      this.errors.push({
+        fileName: file.name,
+        error: 'FILE_SIZE'
+      });
+      return false;
+    }
+    return true;
   }
 }

@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { DropzoneStoryLocaleComponent } from './dropzone-story-locale.component';
 
 import { ESDropzoneModule } from '../..';
-import { ESDropzoneLocale, ESDropzoneLocaleRU } from '../../dropzone.component.locale';
 
 @NgModule({
   declarations: [DropzoneStoryLocaleComponent],
@@ -18,7 +17,6 @@ import { ESDropzoneLocale, ESDropzoneLocaleRU } from '../../dropzone.component.l
     MatFormFieldModule,
     ESDropzoneModule
   ],
-  exports: [DropzoneStoryLocaleComponent],
-  providers: [{ provide: ESDropzoneLocale, useClass: ESDropzoneLocaleRU }]
+  exports: [DropzoneStoryLocaleComponent]
 })
 export class DropzoneStoryLocaleModule {}
