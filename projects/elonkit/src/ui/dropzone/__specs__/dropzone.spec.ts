@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/angular';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormGroup,
   FormControl,
