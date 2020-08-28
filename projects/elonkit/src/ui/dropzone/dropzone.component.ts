@@ -10,7 +10,9 @@ import {
   Inject,
   Self,
   Output,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectionStrategy,
+  DoCheck
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
@@ -46,9 +48,10 @@ const toFile = (type: string, file: File) =>
   selector: 'es-dropzone',
   templateUrl: './dropzone.component.html',
   styleUrls: ['./dropzone.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ESDropzoneComponent implements ControlValueAccessor {
+export class ESDropzoneComponent implements ControlValueAccessor, DoCheck {
   /**
    * @internal
    * @ignore
@@ -163,6 +166,8 @@ export class ESDropzoneComponent implements ControlValueAccessor {
 
   private propagateChange = (_: any) => {};
   private errors: ESDropzoneValidationError[];
+  // tslint:disable-next-line: no-inferrable-types
+  private errorState: boolean = false;
 
   /**
    * @internal
@@ -193,6 +198,18 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     this.type = this.defaultOptions?.type;
     this.headingTypography = this.defaultOptions?.headingTypography;
     this.subheadingTypography = this.defaultOptions?.subheadingTypography;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public ngDoCheck(): void {
+    const newErrorState = this.isErrorState();
+    if (this.errorState !== newErrorState) {
+      this.cdRef.markForCheck();
+      this.errorState = newErrorState;
+    }
   }
 
   /**
@@ -275,7 +292,7 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     input.click();
   }
 
-  /**07
+  /**
    * @internal
    * @ignore
    */
@@ -296,12 +313,7 @@ export class ESDropzoneComponent implements ControlValueAccessor {
    * @ignore
    */
   public get invalid(): boolean {
-    const control = this.ngControl;
-    const form = this.ngForm;
-    if (control) {
-      return control.invalid && (control.touched || (form && form.submitted));
-    }
-    return false;
+    return this.errorState;
   }
 
   private async setFile(file: File) {
@@ -337,5 +349,13 @@ export class ESDropzoneComponent implements ControlValueAccessor {
       return false;
     }
     return true;
+  }
+
+  private isErrorState(): boolean {
+    return !!(
+      this.ngControl &&
+      this.ngControl.invalid &&
+      (this.ngControl.touched || (this.ngForm && this.ngForm.submitted))
+    );
   }
 }
