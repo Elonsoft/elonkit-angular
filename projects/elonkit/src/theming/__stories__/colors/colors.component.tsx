@@ -1,40 +1,91 @@
 import * as React from 'react';
 
-const REGEXP = /\.es-colors-story__color_.+_[^{]+/g;
-const BASE_LENGTH = '.es-colors-story__color_'.length;
+const PALETTES = {
+  primary: [
+    '50',
+    '100',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+    '700',
+    '800',
+    '900',
+    'A50',
+    'A75',
+    'A100',
+    'A150',
+    'A200',
+    'A300',
+    'A400',
+    'A500'
+  ],
+  accent: [
+    '50',
+    '100',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+    '700',
+    '800',
+    '900',
+    'A50',
+    'A75',
+    'A100',
+    'A150',
+    'A200',
+    'A300',
+    'A400',
+    'A500'
+  ],
+  warn: ['500', 'A50', 'A75', 'A100', 'A150', 'A200', 'A300', 'A400', 'A500'],
+  info: ['500', 'A50', 'A75', 'A100', 'A150', 'A200', 'A300', 'A400', 'A500'],
+  positive: ['500', 'A50', 'A75', 'A100', 'A150', 'A200', 'A300', 'A400', 'A500'],
+  attention: ['500', 'A50', 'A75', 'A100', 'A150', 'A200', 'A300', 'A400', 'A500'],
+  'mono-a': [
+    '500',
+    'A50',
+    'A100',
+    'A150',
+    'A200',
+    'A300',
+    'A400',
+    'A500',
+    'A600',
+    'A700',
+    'A800',
+    'A900'
+  ],
+  'mono-b': [
+    '500',
+    'A50',
+    'A100',
+    'A150',
+    'A200',
+    'A300',
+    'A400',
+    'A500',
+    'A600',
+    'A700',
+    'A800',
+    'A900'
+  ],
+  greyscale: ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  surface: ['0', '1', '2', '3', '4', '6', '8', '12', '16', '24', 'on'],
+  other: ['background', 'link', 'link-visited', 'switch']
+};
 
 export const Colors: React.FC = () => {
-  const palettes = React.useMemo(() => {
-    const text = Array.from(document.getElementsByTagName('style'))
-      .map((element) => element.textContent)
-      .join();
-
-    const pairs: Array<[string, string]> = Array.from((text as any).matchAll(REGEXP)).map((e) =>
-      e[0].substring(BASE_LENGTH, e[0].length - 1).split('_')
-    );
-
-    const result: { [palette: string]: string[] } = {};
-
-    pairs.forEach(([palette, hue]) => {
-      if (result[palette]) {
-        if (!result[palette].includes(hue)) {
-          result[palette].push(hue);
-        }
-      } else {
-        result[palette] = [hue];
-      }
-    });
-
-    return result;
-  }, []);
-
   return (
     <div className='es-colors-story es-body-m'>
-      {Object.keys(palettes).map((palette) => (
+      {Object.keys(PALETTES).map((palette) => (
         <div key={palette} className='es-colors-story__palette'>
           <h6 className='es-colors-story__title mat-h4'>{palette}</h6>
           <div className='es-colors-story__colors'>
-            {palettes[palette].map((hue) => (
+            {PALETTES[palette].map((hue) => (
               <div
                 key={hue}
                 className={`es-colors-story__color es-colors-story__color_${palette}_${hue}`}
