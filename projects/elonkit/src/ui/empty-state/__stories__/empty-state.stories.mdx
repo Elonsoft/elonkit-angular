@@ -17,7 +17,23 @@ import { EMPTY_STATE_STORY_BUTTON_SOURCE } from './empty-state-story-button';
   args={{ icon: 'box', heading: '', subheading: '' }}
   argTypes={{
     icon: {
-      control: { type: 'select', options: ['box', 'chat', 'face', 'file', 'lock', 'search'] }
+      control: {
+        type: 'select',
+        options: [
+          'bell',
+          'box',
+          'cart',
+          'chat',
+          'face',
+          'file',
+          'filter',
+          'lock',
+          'search',
+          'smile',
+          'wi-fi',
+          'wi-fi-off'
+        ]
+      }
     }
   }}
 />
@@ -90,7 +106,19 @@ We can include action button.
 
 ```ts
 interface ESEmptyStateDefaultOptions {
-  icon?: 'box' | 'chat' | 'face' | 'file' | 'search';
+  icon?:
+    | 'bell'
+    | 'box'
+    | 'cart'
+    | 'chat'
+    | 'face'
+    | 'file'
+    | 'filter'
+    | 'lock'
+    | 'search'
+    | 'smile'
+    | 'wi-fi'
+    | 'wi-fi-off';
   headingTypography?: string;
   subheadingTypography?: string;
 }

@@ -9,11 +9,24 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ESCoreModule {
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
     const assets = {
-      'empty-state': ['box', 'chat', 'face', 'file', 'lock', 'search']
+      'empty-state': [
+        'bell',
+        'box',
+        'cart',
+        'chat',
+        'face',
+        'file',
+        'filter',
+        'lock',
+        'search',
+        'smile',
+        'wi-fi',
+        'wi-fi-off'
+      ]
     };
 
-    Object.keys(assets).forEach(component => {
-      assets[component].forEach(icon => {
+    Object.keys(assets).forEach((component) => {
+      assets[component].forEach((icon) => {
         this.matIconRegistry.addSvgIconInNamespace(
           `es-${component}`,
           `${icon}`,
