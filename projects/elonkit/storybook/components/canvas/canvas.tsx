@@ -1,14 +1,16 @@
-import '!style-loader!css-loader!sass-loader!./preview.scss';
+import '!style-loader!css-loader!sass-loader!./canvas.scss';
 
 import * as React from 'react';
-import { IPreviewProps } from './preview.types';
+import { ICanvasProps } from './canvas.types';
 
 import { Source } from '@storybook/addon-docs/blocks';
 
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 
-export const Preview: React.FC<IPreviewProps> = ({ children, source }) => {
+import dedent from 'ts-dedent';
+
+export function Canvas({ children, source }: ICanvasProps) {
   const [value, setValue] = React.useState(source.ts ? 'ts' : source.html ? 'html' : 'scss');
   const [isSourceVisible, setSourceVisible] = React.useState(false);
 
@@ -25,19 +27,19 @@ export const Preview: React.FC<IPreviewProps> = ({ children, source }) => {
   }, [source]);
 
   return (
-    <div className='storybook-preview'>
+    <div className='storybook-canvas'>
       {children}
       {isSourceAvailable && (
         <div>
-          <button className='storybook-preview__toggle' onClick={onSourceVisibleToggle}>
+          <button className='storybook-canvas__toggle' onClick={onSourceVisibleToggle}>
             {isSourceVisible ? 'Hide code' : 'Show code'}
           </button>
         </div>
       )}
       {isSourceVisible && (
-        <div className='storybook-preview__source'>
+        <div className='storybook-canvas__source'>
           <Tabs
-            className='storybook-preview__tabs'
+            className='storybook-canvas__tabs'
             value={value}
             onChange={onChange}
             textColor='inherit'
@@ -46,15 +48,19 @@ export const Preview: React.FC<IPreviewProps> = ({ children, source }) => {
             {!!source.html && <Tab value='html' label='HTML' />}
             {!!source.scss && <Tab value='scss' label='SCSS' />}
           </Tabs>
-          {!!source.ts && value === 'ts' && <Source dark language='ts' code={source.ts} />}
-          {!!source.html && value === 'html' && <Source dark language='html' code={source.html} />}
-          {!!source.scss && value === 'scss' && <Source dark language='scss' code={source.scss} />}
+          {!!source.ts && value === 'ts' && <Source dark language='ts' code={dedent(source.ts)} />}
+          {!!source.html && value === 'html' && (
+            <Source dark language='html' code={dedent(source.html)} />
+          )}
+          {!!source.scss && value === 'scss' && (
+            <Source dark language='scss' code={dedent(source.scss)} />
+          )}
         </div>
       )}
     </div>
   );
-};
+}
 
-Preview.defaultProps = {
+Canvas.defaultProps = {
   source: {}
 };

@@ -12,3 +12,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 // In production it's "@elonsoft/elonkit/theme"
 @import '../src/theme';
 @include elonkit-theme($theme);
+
+body {
+  padding: 8px !important;
+}

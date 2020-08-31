@@ -72,17 +72,17 @@ export class CategoriesService {
   }
 
   getOne(id: number) {
-    return of(CATEGORIES.find(item => item.id === id));
+    return of(CATEGORIES.find((item) => item.id === id));
   }
 }
 
 @Injectable()
 export class ItemsService {
   getAll(categoryId: number) {
-    return of(ITEMS.filter(item => item.categoryId === categoryId));
+    return of(ITEMS.filter((item) => item.categoryId === categoryId));
   }
 
   getOne(id: number) {
-    return of(ITEMS.find(item => item.id === id));
+    return of(ITEMS.find((item) => item.id === id));
   }
 }
