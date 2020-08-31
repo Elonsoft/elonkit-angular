@@ -46,15 +46,15 @@ import { ESTooltipService } from './tooltip.service';
   animations: [matTooltipAnimations.tooltipState]
 })
 export class ESTooltipComponent implements OnDestroy {
-  @HostBinding('style.zoom') get zoom() {
+  @HostBinding('style.zoom') public get zoom() {
     return this.sanitizer.bypassSecurityTrustStyle(this.visibility === 'visible' ? '1' : null);
   }
 
-  @HostBinding('style.pointer-events') get pointerEvents() {
+  @HostBinding('style.pointer-events') public get pointerEvents() {
     return this.sanitizer.bypassSecurityTrustStyle(this.interactive ? 'auto' : null);
   }
 
-  @HostListener('body:click', ['$event']) onBodyClick(event: Event) {
+  @HostListener('body:click', ['$event']) public onBodyClick(event: Event) {
     if (this.disableCloseClickListener) {
       return;
     }
@@ -68,7 +68,7 @@ export class ESTooltipComponent implements OnDestroy {
     }
   }
 
-  @HostListener('document:keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+  @HostListener('document:keydown', ['$event']) public onKeyDown(event: KeyboardEvent) {
     // tslint:disable-next-line:deprecation
     if (event.keyCode === ESCAPE && !hasModifierKey(event)) {
       event.preventDefault();
@@ -79,11 +79,11 @@ export class ESTooltipComponent implements OnDestroy {
     }
   }
 
-  @HostListener('mouseenter', ['$event']) onMouseEnter() {
+  @HostListener('mouseenter', ['$event']) public onMouseEnter() {
     this.parent.cancelPossiblyHide();
   }
 
-  @HostListener('mouseleave', ['$event']) onMouseLeave(event: MouseEvent) {
+  @HostListener('mouseleave', ['$event']) public onMouseLeave(event: MouseEvent) {
     if (this.disableCloseHoverListener) {
       return;
     }
@@ -93,7 +93,7 @@ export class ESTooltipComponent implements OnDestroy {
     }
   }
 
-  @HostListener('focusout', ['$event']) onFocusOut(event: FocusEvent) {
+  @HostListener('focusout', ['$event']) public onFocusOut(event: FocusEvent) {
     if (this.disableCloseFocusListener) {
       return;
     }
@@ -135,91 +135,91 @@ export class ESTooltipComponent implements OnDestroy {
    * @ignore
    * Message to display in the tooltip.
    */
-  message?: string;
+  public message?: string;
 
   /**
    * @internal
    * @ignore
    * Content to display in the tooltip.
    */
-  content?: ElementRef<HTMLElement>;
+  public content?: ElementRef<HTMLElement>;
 
   /**
    * @internal
    * @ignore
    * Wheter the tooltip interactive.
    */
-  interactive: boolean;
+  public interactive: boolean;
 
   /**
    * @internal
    * @ignore
    * The arrow postition.
    */
-  arrow: { position: string; offsetX?: number; offsetY?: number } | null = null;
+  public arrow: { position: string; offsetX?: number; offsetY?: number } | null = null;
 
   /**
    * @internal
    * @ignore
    * Do not respond to focus events.
    */
-  disableCloseFocusListener = false;
+  public disableCloseFocusListener = false;
 
   /**
    * @internal
    * @ignore
    * Do not respond to hover events.
    */
-  disableCloseHoverListener = false;
+  public disableCloseHoverListener = false;
 
   /**
    * @internal
    * @ignore
    * Do not respond to backdrop click events.
    */
-  disableCloseClickListener = false;
+  public disableCloseClickListener = false;
 
   /**
    * @internal
    * @ignore
    * Directive's host element class instance.
    */
-  parent: ESTooltipDirective;
+  public parent: ESTooltipDirective;
 
   /**
    * @internal
    * @ignore
    * Directive's host element reference.
    */
-  parentElementRef: ElementRef<HTMLElement>;
+  public parentElementRef: ElementRef<HTMLElement>;
 
   /**
    * @internal
    * @ignore
    * Classes to be added to the tooltip. Supports the same syntax as `ngClass`.
    */
-  tooltipClass: string | string[] | Set<string> | { [key: string]: any };
+  public tooltipClass: string | string[] | Set<string> | { [key: string]: any };
 
   /**
    * @internal
    * @ignore
    * The timeout ID of any current timer set to show the tooltip.
    */
-  showTimeoutId: number | null;
+  public showTimeoutId: number | null;
 
   /**
    * @internal
    * @ignore
    * The timeout ID of any current timer set to hide the tooltip.
    */
-  hideTimeoutId: number | null;
+  public hideTimeoutId: number | null;
 
   /**
    * @internal
    * @ignore
    * Property watched by the animation framework to show or hide the tooltip.
    */
-  visibility: TooltipVisibility = 'initial';
+  public visibility: TooltipVisibility = 'initial';
 
   /**
    * Whether interactions on the page should close the tooltip
@@ -250,7 +250,7 @@ export class ESTooltipComponent implements OnDestroy {
    * @internal
    * @ignore
    */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.onHide$.complete();
   }
 
@@ -258,7 +258,7 @@ export class ESTooltipComponent implements OnDestroy {
    * Shows the tooltip with an animation originating from the provided origin.
    * @param delay Amount of milliseconds to the delay showing the tooltip.
    */
-  show(delay: number) {
+  public show(delay: number) {
     // Cancel the delayed hide if it is scheduled
     if (this.hideTimeoutId) {
       clearTimeout(this.hideTimeoutId);
@@ -281,7 +281,7 @@ export class ESTooltipComponent implements OnDestroy {
    * Begins the animation to hide the tooltip after the provided delay in ms.
    * @param delay Amount of milliseconds to delay showing the tooltip.
    */
-  hide = (delay: number = 0) => {
+  public hide = (delay: number = 0) => {
     // Cancel the delayed show if it is scheduled
     if (this.showTimeoutId) {
       clearTimeout(this.showTimeoutId);
@@ -301,14 +301,14 @@ export class ESTooltipComponent implements OnDestroy {
   /**
    * Returns an observable that notifies when the tooltip has been hidden from view.
    */
-  afterHidden() {
+  public afterHidden() {
     return this.onHide$.asObservable();
   }
 
   /**
    * Whether the tooltip is being displayed.
    */
-  isVisible() {
+  public isVisible() {
     return this.visibility === 'visible';
   }
 
@@ -316,7 +316,7 @@ export class ESTooltipComponent implements OnDestroy {
    * @internal
    * @ignore
    */
-  animationStart() {
+  public animationStart() {
     this.closeOnInteraction = false;
   }
 
@@ -324,7 +324,7 @@ export class ESTooltipComponent implements OnDestroy {
    * @internal
    * @ignore
    */
-  animationDone(event: AnimationEvent) {
+  public animationDone(event: AnimationEvent) {
     const toState = event.toState as TooltipVisibility;
 
     if (toState === 'hidden' && !this.isVisible()) {
@@ -344,7 +344,7 @@ export class ESTooltipComponent implements OnDestroy {
    * Mainly used for rendering the initial text before positioning a tooltip, which
    * can be problematic in components with OnPush change detection.
    */
-  markForCheck() {
+  public markForCheck() {
     this.changeDetector.markForCheck();
   }
 }

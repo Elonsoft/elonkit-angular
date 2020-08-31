@@ -1,38 +1,30 @@
 export const FOCUSABLE =
   'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])';
 
-export function getInnerFocusableElement(element: HTMLElement): HTMLElement {
-  const elements = Array.from(element.querySelectorAll(FOCUSABLE)).filter(
-    e => !e.hasAttribute('disabled')
-  );
+export function getFocusableElemets(parent: Document | HTMLElement): HTMLElement[] {
+  return Array.from(parent.querySelectorAll(FOCUSABLE)).filter(
+    (e) => !e.hasAttribute('disabled')
+  ) as HTMLElement[];
+}
+
+export function getInnerFocusableElement(element: HTMLElement) {
+  const elements = getFocusableElemets(element);
 
   return (elements[0] as HTMLElement) || null;
 }
 
-export function getPrevFocusableElement(element: HTMLElement): HTMLElement {
-  const elements = Array.from(document.querySelectorAll(FOCUSABLE)).filter(
-    e => !e.hasAttribute('disabled')
+export function getPrevFocusableElement(element: HTMLElement) {
+  const elements = getFocusableElemets(document);
+
+  return elements.find(
+    (e) => element.compareDocumentPosition(e) === Node.DOCUMENT_POSITION_PRECEDING
   );
-
-  for (const e of elements) {
-    if (element.compareDocumentPosition(e) === Node.DOCUMENT_POSITION_PRECEDING) {
-      return e as HTMLElement;
-    }
-  }
-
-  return null;
 }
 
-export function getNextFocusableElement(element: HTMLElement): HTMLElement {
-  const elements = Array.from(document.querySelectorAll(FOCUSABLE)).filter(
-    e => !e.hasAttribute('disabled')
+export function getNextFocusableElement(element: HTMLElement) {
+  const elements = getFocusableElemets(document);
+
+  return elements.find(
+    (e) => element.compareDocumentPosition(e) === Node.DOCUMENT_POSITION_FOLLOWING
   );
-
-  for (const e of elements) {
-    if (element.compareDocumentPosition(e) === Node.DOCUMENT_POSITION_FOLLOWING) {
-      return e as HTMLElement;
-    }
-  }
-
-  return null;
 }

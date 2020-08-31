@@ -1,9 +1,8 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, number } from '@storybook/addon-knobs';
+import { boolean, number } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -30,7 +29,7 @@ import {
   TOOLTIP_STORY_LISTENERS_SOURCE
 } from './tooltip-story-listeners';
 
-<Meta title='UI/Tooltip' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Tooltip' component={ESTooltipDirective} />
 
 # Tooltip
 
@@ -39,7 +38,7 @@ This is a copy of Angular Material tooltip with added support for arrows and com
 
 ## Demos
 
-<Preview source={TOOLTIP_STORY_BASIC_SOURCE}>
+<Canvas source={TOOLTIP_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='110px'>
     {{
       component: TooltipStoryBasicComponent,
@@ -51,11 +50,11 @@ This is a copy of Angular Material tooltip with added support for arrows and com
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can place interactive content inside a tooltip.
 
-<Preview source={TOOLTIP_STORY_INTERACTIVE_SOURCE}>
+<Canvas source={TOOLTIP_STORY_INTERACTIVE_SOURCE}>
   <Story name='Interactive' height='150px'>
     {{
       component: TooltipStoryInteractiveComponent,
@@ -68,11 +67,11 @@ We can place interactive content inside a tooltip.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can use `es-tooltip-color` mixin to easily change tooltip colors.
 
-<Preview source={TOOLTIP_STORY_THEMING_SOURCE}>
+<Canvas source={TOOLTIP_STORY_THEMING_SOURCE}>
   <Story name='Theming' height='150px'>
     {{
       component: TooltipStoryThemingComponent,
@@ -84,11 +83,11 @@ We can use `es-tooltip-color` mixin to easily change tooltip colors.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can disable open and close listeners.
 
-<Preview source={TOOLTIP_STORY_LISTENERS_SOURCE}>
+<Canvas source={TOOLTIP_STORY_LISTENERS_SOURCE}>
   <Story name='Listeners' height='150px'>
     {{
       component: TooltipStoryListenersComponent,
@@ -105,11 +104,11 @@ We can disable open and close listeners.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESTooltipDirective} />
+<ArgsTable />
 
 ## Constants
 

@@ -33,12 +33,12 @@ const TOOLTIP_TEXT = 'Message';
   `
 })
 class TooltipWrapperComponent {
-  @Input() esTooltipArrow: boolean;
-  @Input() esTooltipDisableFocusListener: boolean;
-  @Input() esTooltipDisableHoverListener: boolean;
-  @Input() esTooltipDisableCloseFocusListener: boolean;
-  @Input() esTooltipDisableCloseHoverListener: boolean;
-  @Input() esTooltipDisableCloseClickListener: boolean;
+  @Input() public esTooltipArrow: boolean;
+  @Input() public esTooltipDisableFocusListener: boolean;
+  @Input() public esTooltipDisableHoverListener: boolean;
+  @Input() public esTooltipDisableCloseFocusListener: boolean;
+  @Input() public esTooltipDisableCloseHoverListener: boolean;
+  @Input() public esTooltipDisableCloseClickListener: boolean;
 
   constructor(public changeDetector: ChangeDetectorRef) {}
 }

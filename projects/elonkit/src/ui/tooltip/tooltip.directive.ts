@@ -66,6 +66,9 @@ import { ESTooltipService } from './tooltip.service';
 /** CSS class that will be attached to the overlay panel. */
 const TOOLTIP_PANEL_CLASS = 'es-tooltip-panel';
 
+/** Margin of .es-tooltip container */
+const TOOLTIP_MARGIN = 12;
+
 /** Options used to bind passive event listeners. */
 const passiveListenerOptions = normalizePassiveListenerOptions({ passive: true });
 
@@ -108,9 +111,9 @@ function slope(a: ESTooltipMouseLocation, b: ESTooltipMouseLocation) {
   exportAs: 'esTooltip'
 })
 export class ESTooltipDirective implements OnDestroy, AfterViewInit {
-  @HostBinding('class.es-tooltip-trigger') class = true;
+  @HostBinding('class.es-tooltip-trigger') public class = true;
 
-  @HostListener('document:mousemove', ['$event']) onMouseMove(event: MouseEvent) {
+  @HostListener('document:mousemove', ['$event']) public onMouseMove(event: MouseEvent) {
     this.mouseLocations.push({ x: event.pageX, y: event.pageY });
 
     if (this.mouseLocations.length > MOUSE_LOCATIONS_TRACKED) {
@@ -118,7 +121,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
     }
   }
 
-  @HostListener('focusout', ['$event']) onFocusOut(event: FocusEvent) {
+  @HostListener('focusout', ['$event']) public onFocusOut(event: FocusEvent) {
     if (this.disableFocusListener) {
       return;
     }
@@ -150,10 +153,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * Allows the user to define the position of the tooltip relative to the parent element.
    */
   @Input('esTooltipPosition')
-  get position(): TooltipPosition {
+  public get position(): TooltipPosition {
     return this._position;
   }
-  set position(value: TooltipPosition) {
+  public set position(value: TooltipPosition) {
     if (value !== this._position) {
       this._position = value;
 
@@ -175,10 +178,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * Disables the display of the tooltip.
    */
   @Input('esTooltipDisabled')
-  get disabled() {
+  public get disabled() {
     return this._disabled;
   }
-  set disabled(value) {
+  public set disabled(value) {
     this._disabled = coerceBooleanProperty(value);
 
     // If tooltip is disabled, hide immediately.
@@ -193,19 +196,19 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * The default delay in ms before showing the tooltip after show is called.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipShowDelay') showDelay: number = this.defaultOptions?.showDelay;
+  @Input('esTooltipShowDelay') public showDelay: number = this.defaultOptions?.showDelay;
 
   /**
    * The default delay in ms before hiding the tooltip after hide is called.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipHideDelay') hideDelay: number = this.defaultOptions?.hideDelay;
+  @Input('esTooltipHideDelay') public hideDelay: number = this.defaultOptions?.hideDelay;
 
   /**
    * Delay in ms before closing a tooltip when mouse stops moving towards the tooltip.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipMouseAimDelay') mouseAimDelay: number =
+  @Input('esTooltipMouseAimDelay') public mouseAimDelay: number =
     this.esDefaultOptions?.mouseAimDelay || MOUSE_AIM_DELAY;
 
   /**
@@ -223,7 +226,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * devices.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipTouchGestures') touchGestures: TooltipTouchGestures = 'auto';
+  @Input('esTooltipTouchGestures') public touchGestures: TooltipTouchGestures = 'auto';
 
   private _arrow = this.esDefaultOptions?.arrow ?? false;
 
@@ -231,10 +234,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * If true, adds an arrow to the tooltip.
    */
   @Input('esTooltipArrow')
-  get arrow() {
+  public get arrow() {
     return this._arrow;
   }
-  set arrow(value) {
+  public set arrow(value) {
     this._arrow = coerceBooleanProperty(value);
   }
 
@@ -244,10 +247,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * Makes a tooltip interactive, i.e. will not close when the user hovers over the tooltip.
    */
   @Input('esTooltipInteractive')
-  get interactive() {
+  public get interactive() {
     return this._interactive;
   }
-  set interactive(value) {
+  public set interactive(value) {
     this._interactive = coerceBooleanProperty(value);
   }
 
@@ -257,10 +260,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * Template to display instead of the message.
    */
   @Input('esTooltipContent')
-  get content() {
+  public get content() {
     return this._content;
   }
-  set content(value) {
+  public set content(value) {
     if (this.message) {
       this.ariaDescriber.removeDescription(this.elementRef.nativeElement, this._message);
     }
@@ -288,10 +291,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * The message to be displayed in the tooltip.
    */
   @Input('esTooltip')
-  get message() {
+  public get message() {
     return this._message;
   }
-  set message(value: string) {
+  public set message(value: string) {
     if (this._message) {
       this.ariaDescriber.removeDescription(this.elementRef.nativeElement, this._message);
     }
@@ -320,10 +323,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
 
   /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
   @Input('esTooltipClass')
-  get tooltipClass() {
+  public get tooltipClass() {
     return this._tooltipClass;
   }
-  set tooltipClass(value: string | string[] | Set<string> | { [key: string]: any }) {
+  public set tooltipClass(value: string | string[] | Set<string> | { [key: string]: any }) {
     this._tooltipClass = value;
     if (this.tooltipInstance) {
       this.setTooltipClass(this._tooltipClass);
@@ -334,43 +337,43 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * Do not respond to focus events.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipDisableFocusListener') disableFocusListener = false;
+  @Input('esTooltipDisableFocusListener') public disableFocusListener = false;
 
   /**
    * Do not respond to hover events.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipDisableHoverListener') disableHoverListener = false;
+  @Input('esTooltipDisableHoverListener') public disableHoverListener = false;
 
   /**
    * Do not respond to focus events after tooltip is opened.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipDisableCloseFocusListener') disableCloseFocusListener: boolean;
+  @Input('esTooltipDisableCloseFocusListener') public disableCloseFocusListener: boolean;
 
   /**
    * Do not respond to hover events after tooltip is opened.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipDisableCloseHoverListener') disableCloseHoverListener: boolean;
+  @Input('esTooltipDisableCloseHoverListener') public disableCloseHoverListener: boolean;
 
   /**
    * Do not respond to body click events.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('esTooltipDisableCloseClickListener') disableCloseClickListener = false;
+  @Input('esTooltipDisableCloseClickListener') public disableCloseClickListener = false;
 
   /**
    * @internal
    * @ignore
    */
-  overlayRef: OverlayRef | null;
+  public overlayRef: OverlayRef | null;
 
   /**
    * @internal
    * @ignore
    */
-  tooltipInstance: ESTooltipComponent | null;
+  public tooltipInstance: ESTooltipComponent | null;
 
   private portal: ComponentPortal<ESTooltipComponent>;
 
@@ -443,7 +446,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * @internal
    * @ignore
    */
-  ngAfterViewInit() {
+  public ngAfterViewInit() {
     // This needs to happen after view init so the initial values for all inputs have been set.
     this.viewInitialized = true;
     this.setupPointerEvents();
@@ -451,7 +454,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
     this.focusMonitor
       .monitor(this.elementRef)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe(origin => {
+      .subscribe((origin) => {
         if (this.disableFocusListener) {
           return;
         }
@@ -467,7 +470,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * @ignore
    * Dispose the tooltip when destroyed.
    */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     const nativeElement = this.elementRef.nativeElement;
 
     clearTimeout(this.touchstartTimeout);
@@ -494,7 +497,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   /**
    * Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input.
    */
-  show(delay: number = this.showDelay): void {
+  public show(delay: number = this.showDelay): void {
     if (
       this.disabled ||
       !(this.message || this.content) ||
@@ -531,7 +534,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   /**
    * Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input.
    */
-  hide(delay: number = this.hideDelay) {
+  public hide(delay: number = this.hideDelay) {
     if (this.tooltipInstance) {
       this.cancelPossiblyHide();
       this.tooltipInstance.hide(delay);
@@ -541,14 +544,14 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   /**
    * Shows/hides the tooltip.
    */
-  toggle() {
+  public toggle() {
     this.isTooltipVisible() ? this.hide() : this.show();
   }
 
   /**
    * Returns true if the tooltip is currently visible to the user.
    */
-  isTooltipVisible() {
+  public isTooltipVisible() {
     return !!this.tooltipInstance && this.tooltipInstance.isVisible();
   }
 
@@ -584,7 +587,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
       .withViewportMargin(8)
       .withScrollableContainers(scrollableAncestors);
 
-    strategy.positionChanges.pipe(takeUntil(this.destroyed$)).subscribe(change => {
+    strategy.positionChanges.pipe(takeUntil(this.destroyed$)).subscribe((change) => {
       if (this.tooltipInstance) {
         if (change.scrollableViewProperties.isOverlayClipped && this.tooltipInstance.isVisible()) {
           // After position changes occur and the overlay is clipped by
@@ -645,7 +648,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * Returns the origin position and a fallback position based on the user's position preference.
    * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
    */
-  getOrigin(): { main: OriginConnectionPosition; fallback: OriginConnectionPosition } {
+  public getOrigin(): { main: OriginConnectionPosition; fallback: OriginConnectionPosition } {
     const isLtr = !this.dir || this.dir.value === 'ltr';
     const position = this.position;
     let originPosition: OriginConnectionPosition;
@@ -681,7 +684,10 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * @ignore
    * Returns the overlay position and a fallback position based on the user's preference.
    */
-  getOverlayPosition(): { main: OverlayConnectionPosition; fallback: OverlayConnectionPosition } {
+  public getOverlayPosition(): {
+    main: OverlayConnectionPosition;
+    fallback: OverlayConnectionPosition;
+  } {
     const isLtr = !this.dir || this.dir.value === 'ltr';
     const position = this.position;
     let overlayPosition: OverlayConnectionPosition;
@@ -744,8 +750,8 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
       const rect = this.elementRef.nativeElement.getBoundingClientRect();
       const rectTooltip = this.tooltipInstance.elementRef.nativeElement.getBoundingClientRect();
 
-      const diffX = rect.left - rectTooltip.left - 14;
-      const diffY = rect.top - rectTooltip.top - 14;
+      const diffX = rect.left - rectTooltip.left - TOOLTIP_MARGIN;
+      const diffY = rect.top - rectTooltip.top - TOOLTIP_MARGIN;
 
       const offsetX = Math.ceil(diffX + this.elementRef.nativeElement.clientWidth / 2);
       const offsetY = Math.ceil(diffY + this.elementRef.nativeElement.clientHeight / 2);
@@ -1010,35 +1016,35 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
    * @internal
    * @ignore
    */
-  static ngAcceptInputType_disabled: BooleanInput;
+  public static ngAcceptInputType_disabled: BooleanInput;
 
   /**
    * @internal
    * @ignore
    */
-  static ngAcceptInputType_hideDelay: NumberInput;
+  public static ngAcceptInputType_hideDelay: NumberInput;
 
   /**
    * @internal
    * @ignore
    */
-  static ngAcceptInputType_showDelay: NumberInput;
+  public static ngAcceptInputType_showDelay: NumberInput;
 
   /**
    * @internal
    * @ignore
    */
-  static ngAcceptInputType_mouseAimDelay: NumberInput;
+  public static ngAcceptInputType_mouseAimDelay: NumberInput;
 
   /**
    * @internal
    * @ignore
    */
-  static ngAcceptInputType_interactive: BooleanInput;
+  public static ngAcceptInputType_interactive: BooleanInput;
 
   /**
    * @internal
    * @ignore
    */
-  static ngAcceptInputType_arrow: BooleanInput;
+  public static ngAcceptInputType_arrow: BooleanInput;
 }

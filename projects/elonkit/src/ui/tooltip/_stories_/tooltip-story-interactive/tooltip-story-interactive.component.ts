@@ -6,6 +6,6 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TooltipStoryInteractiveComponent {
-  @Input() esTooltipArrow: boolean;
-  @Input() esTooltipMouseAimDelay: number;
+  @Input() public esTooltipArrow: boolean;
+  @Input() public esTooltipMouseAimDelay: number;
 }

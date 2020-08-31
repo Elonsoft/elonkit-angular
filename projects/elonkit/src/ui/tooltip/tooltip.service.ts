@@ -4,5 +4,5 @@ import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ESTooltipService {
-  closed$ = new Subject<void>();
+  public closed$ = new Subject<void>();
 }
