@@ -14,9 +14,9 @@ import {
   template: ` <es-timepicker [(ngModel)]="date" [required]="required"></es-timepicker> `
 })
 class TimepickerWrapperComponent {
-  @Input() required: boolean;
+  @Input() public required: boolean;
 
-  date = new Date('10.10.10 10:00:00');
+  public date = new Date('10.10.10 10:00:00');
 }
 
 describe('Timepicker', () => {

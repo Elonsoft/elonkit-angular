@@ -48,10 +48,10 @@ export class ESTimepickerComponent
    * Enable seconds input.
    */
   @Input()
-  get withSeconds(): boolean {
+  public get withSeconds(): boolean {
     return this._withSeconds;
   }
-  set withSeconds(withSeconds: boolean) {
+  public set withSeconds(withSeconds: boolean) {
     this._withSeconds = coerceBooleanProperty(withSeconds);
 
     if (this.withSeconds) {

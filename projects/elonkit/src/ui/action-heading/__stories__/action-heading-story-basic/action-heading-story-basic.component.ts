@@ -7,5 +7,5 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionHeadingStoryBasicComponent {
-  text = 'Hello World';
+  public text = 'Hello World';
 }
