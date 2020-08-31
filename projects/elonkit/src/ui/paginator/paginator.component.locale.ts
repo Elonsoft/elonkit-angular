@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ESPaginatorLocale {
-  labelItemsPerPage = 'Items per page';
-  labelOf = 'of';
-  labelPrev = 'Previous page';
-  labelNext = 'Next page';
-  labelGoTo = 'Go to page';
-  labelPage = 'page';
+  public labelItemsPerPage = 'Items per page';
+  public labelOf = 'of';
+  public labelPrev = 'Previous page';
+  public labelNext = 'Next page';
+  public labelGoTo = 'Go to page';
+  public labelPage = 'page';
 }
 
 @Injectable()
 export class ESPaginatorLocaleRU extends ESPaginatorLocale {
-  labelItemsPerPage = 'Показывать по';
-  labelOf = 'из';
-  labelPrev = 'Предыдущая страница';
-  labelNext = 'Следующая страница';
-  labelGoTo = 'Перейти на страницу';
-  labelPage = 'стр';
+  public labelItemsPerPage = 'Показывать по';
+  public labelOf = 'из';
+  public labelPrev = 'Предыдущая страница';
+  public labelNext = 'Следующая страница';
+  public labelGoTo = 'Перейти на страницу';
+  public labelPage = 'стр';
 }

@@ -9,7 +9,7 @@ import { ESEmptyStateIIcon } from '../../empty-state.types';
   encapsulation: ViewEncapsulation.None
 })
 export class EmptyStateStoryTypographyComponent {
-  @Input() icon: ESEmptyStateIIcon = 'box';
-  @Input() heading: string;
-  @Input() subheading: string;
+  @Input() public icon: ESEmptyStateIIcon = 'box';
+  @Input() public heading: string;
+  @Input() public subheading: string;
 }

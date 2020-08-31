@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimepickerStoryRequiredComponent {
-  @Input() required;
+  @Input() public required;
 
-  date = new Date(0);
+  public date = new Date(0);
 }

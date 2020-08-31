@@ -37,12 +37,12 @@ const TIMEOUT = 100;
   `
 })
 class InlineFormFieldWrapperComponent {
-  @Input() manualSave = false;
-  @Output() save = new EventEmitter<ESInlineFormFieldComponent>();
+  @Input() public manualSave = false;
+  @Output() public save = new EventEmitter<ESInlineFormFieldComponent>();
 
-  text = TEXT_HELLO;
+  public text = TEXT_HELLO;
 
-  onSave(event) {
+  public onSave(event) {
     this.save.emit(event);
   }
 }
@@ -62,7 +62,7 @@ class InlineFormFieldWrapperComponent {
   `
 })
 class InlineFormFieldValidationWrapperComponent {
-  form = new FormGroup({
+  public form = new FormGroup({
     text: new FormControl(TEXT_HELLO, [Validators.required])
   });
 }
@@ -86,13 +86,13 @@ class InlineFormFieldValidationWrapperComponent {
   `
 })
 class InlineFormFieldServerValidationWrapperComponent {
-  form = new FormGroup({
+  public form = new FormGroup({
     text: new FormControl(TEXT_HELLO)
   });
 
   constructor(public changeDetector: ChangeDetectorRef) {}
 
-  onSave(inlineFormField: ESInlineFormFieldComponent) {
+  public onSave(inlineFormField: ESInlineFormFieldComponent) {
     setTimeout(() => {
       if (this.form.get('text').value.length) {
         inlineFormField.setHidden(true);

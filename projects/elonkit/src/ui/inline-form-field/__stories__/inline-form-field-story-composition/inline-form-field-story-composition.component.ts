@@ -8,8 +8,8 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
   encapsulation: ViewEncapsulation.None
 })
 export class InlineFormFieldStoryCompositionComponent {
-  date = new Date();
-  text = 'Prefix & Suffix';
-  select = 'Grape';
-  hint = 'Input with hint';
+  public date = new Date();
+  public text = 'Prefix & Suffix';
+  public select = 'Grape';
+  public hint = 'Input with hint';
 }

@@ -11,8 +11,8 @@ Good Morning World`;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InlineFormFieldStoryTypographyComponent {
-  @Input() typography;
+  @Input() public typography;
 
-  text = TEXT;
-  textMultiline = TEXT_MMULTILINE;
+  public text = TEXT;
+  public textMultiline = TEXT_MMULTILINE;
 }
