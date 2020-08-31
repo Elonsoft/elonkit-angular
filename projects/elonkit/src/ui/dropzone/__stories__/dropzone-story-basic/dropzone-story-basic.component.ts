@@ -38,7 +38,7 @@ export class DropzoneStoryBasicComponent implements OnInit {
   public docs = new FormControl([]);
 
   public ngOnInit(): void {
-    this.docs.valueChanges.subscribe(val => {
+    this.docs.valueChanges.subscribe((val) => {
       this.changeFiles.emit(val);
     });
   }

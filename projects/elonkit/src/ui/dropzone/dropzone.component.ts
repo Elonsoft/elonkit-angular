@@ -33,7 +33,7 @@ const toFile = (type: string, file: File) =>
         base64: reader.result as string
       });
     };
-    reader.onerror = error => reject(error);
+    reader.onerror = (error) => reject(error);
   });
 
 @Component({
@@ -251,7 +251,7 @@ export class ESDropzoneComponent implements ControlValueAccessor {
 
   private validateFileType(file: File): boolean {
     const { labelNotSupported } = this.locale;
-    const types = this.options.accept.split(',').map(v => v.trim());
+    const types = this.options.accept.split(',').map((v) => v.trim());
 
     if (types.includes('*')) {
       return true;
