@@ -265,6 +265,33 @@ $es-dark-theme: (
       500,
       500
     ),
+  greyscale:
+    mat-palette(
+      (
+        50: #262a31,
+        100: #353b45,
+        200: #464c59,
+        300: #555e6d,
+        400: #667185,
+        500: #7f8a9f,
+        600: #a3aec2,
+        700: #c3cbda,
+        800: #dee3ed,
+        900: #f5f7fa,
+        contrast: (
+          50: #fff,
+          100: #fff,
+          200: #fff,
+          300: #fff,
+          400: #fff,
+          500: #000,
+          600: #000,
+          700: #000,
+          800: #000,
+          900: #000
+        )
+      )
+    ),
   surface:
     mat-palette(
       (
@@ -294,15 +321,17 @@ $es-dark-theme: (
         )
       )
     ),
-  common:
+  other:
     mat-palette(
       (
         background: #18181a,
         link: #4891ed,
+        link-visited: #be95ff,
         switch: #fafafa,
         contrast: (
           background: #fff,
           link: #fff,
+          link-visited: #fff,
           switch: #000
         )
       )
