@@ -12,10 +12,14 @@ import {
 
 import { validateFileType } from '~utils/validate-file-type';
 import { ESFileListLocale } from './file-list.component.locale';
-import { ESFileListFile, ESFileListRemoveAction, ESFileListOptions } from './file-list.types';
+import {
+  ESFileListFile,
+  ESFileListRemoveAction,
+  ESFileListDefaultOptions
+} from './file-list.types';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-export const ES_FILE_LIST_DEFAULT_OPTIONS = new InjectionToken<ESFileListOptions>(
+export const ES_FILE_LIST_DEFAULT_OPTIONS = new InjectionToken<ESFileListDefaultOptions>(
   'ES_FILE_LIST_DEFAULT_OPTIONS'
 );
 
@@ -36,7 +40,7 @@ export class ESFileListComponent {
     return this._imageTypes;
   }
   public set imageTypes(value: string) {
-    this._imageTypes = value ?? this.defaultOptions?.imageTypes ?? 'image/*';
+    this._imageTypes = value || this.defaultOptions?.imageTypes || 'image/*';
   }
   private _imageTypes: string;
 
@@ -107,6 +111,11 @@ export class ESFileListComponent {
   public files: ESFileListFile[];
 
   /**
+   * Path to image to display as file icon instead of the prebuilt icon.
+   */
+  @Input() fileIconSrc?: string;
+
+  /**
    * Object with removed file and its index is emitted.
    */
   @Output()
@@ -126,7 +135,7 @@ export class ESFileListComponent {
     public locale: ESFileListLocale,
     @Optional()
     @Inject(ES_FILE_LIST_DEFAULT_OPTIONS)
-    private defaultOptions: ESFileListOptions
+    private defaultOptions: ESFileListDefaultOptions
   ) {
     this.imageTypes = this.defaultOptions?.imageTypes;
     this.hideImages = this.defaultOptions?.hideImages;
@@ -177,7 +186,7 @@ export class ESFileListComponent {
    * @ignore
    */
   public get src(): string {
-    return './assets/elonkit/file-list/file.svg';
+    return this.fileIconSrc || './assets/elonkit/file-list/file.svg';
   }
 
   /**

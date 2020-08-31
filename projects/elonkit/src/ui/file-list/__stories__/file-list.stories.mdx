@@ -1,11 +1,8 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { boolean, text } from '@storybook/addon-knobs';
 
 import { ESFileListComponent } from '..';
 
@@ -22,12 +19,18 @@ import {
 } from './file-list-story-locale';
 
 import {
+  FileListStoryCustomIconComponent,
+  FileListStoryCustomIconModule,
+  FILE_LIST_STORY_CUSTOM_ICON_SOURCE
+} from './file-list-story-custom-icon';
+
+import {
   FileListStoryTypographyComponent,
   FileListStoryTypographyModule,
   FILE_LIST_STORY_TYPOGRAPHY_SOURCE
 } from './file-list-story-typography';
 
-<Meta title='UI/File List' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/File List' component={ESFileListComponent} />
 
 # File List
 
@@ -35,12 +38,12 @@ This component displays a list of files.
 
 ## Demos
 
-<Preview source={FILE_LIST_STORY_BASIC_SOURCE}>
+<Canvas source={FILE_LIST_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='290px'>
     {{
       component: FileListStoryBasicComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, FileListStoryBasicModule]
+        imports: [FileListStoryBasicModule]
       },
       props: {
         canRemove: boolean('canRemove', false),
@@ -52,37 +55,50 @@ This component displays a list of files.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default locale which is used for file size units.
 
-<Preview source={FILE_LIST_STORY_LOCALE_SOURCE}>
+<Canvas source={FILE_LIST_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='290px'>
     {{
       component: FileListStoryLocaleComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, FileListStoryLocaleModule]
+        imports: [FileListStoryLocaleModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
+
+We can use custom icon for files.
+
+<Canvas source={FILE_LIST_STORY_CUSTOM_ICON_SOURCE}>
+  <Story name='Custom Icon' height='290px'>
+    {{
+      component: FileListStoryCustomIconComponent,
+      moduleMetadata: {
+        imports: [FileListStoryCustomIconModule]
+      }
+    }}
+  </Story>
+</Canvas>
 
 We can use typography inputs in order to change text presentation.
 
-<Preview source={FILE_LIST_STORY_TYPOGRAPHY_SOURCE}>
+<Canvas source={FILE_LIST_STORY_TYPOGRAPHY_SOURCE}>
   <Story name='Typography' height='290px'>
     {{
       component: FileListStoryTypographyComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, FileListStoryTypographyModule]
+        imports: [FileListStoryTypographyModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESFileListComponent} />
+<ArgsTable />
 
 ## Interfaces
 
@@ -93,6 +109,7 @@ interface ESFileListFile {
   type?: string;
   base64?: string;
   file?: string;
+  updatedAt?: string;
   name: string;
   size: number;
   content: File | string;
@@ -109,7 +126,7 @@ interface ESFileListRemoveAction {
 Image types string should contain types separated by a comma, e.g. `image/png,image/jpg,image/jpeg`
 
 ```ts
-interface ESFileListOptions {
+interface ESFileListDefaultOptions {
   imageTypes?: string;
   hideImages?: boolean;
   canRemove?: boolean;

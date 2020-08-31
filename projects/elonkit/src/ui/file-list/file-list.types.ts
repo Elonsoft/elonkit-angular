@@ -4,6 +4,7 @@ export interface ESFileListFile {
   type?: string;
   base64?: string;
   file?: string;
+  updatedAt?: string;
   name: string;
   size: number;
   content: File | string;
@@ -14,7 +15,7 @@ export interface ESFileListRemoveAction {
   index: number;
 }
 
-export interface ESFileListOptions {
+export interface ESFileListDefaultOptions {
   imageTypes?: string;
   hideImages?: boolean;
   canRemove?: boolean;

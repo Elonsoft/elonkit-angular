@@ -6,6 +6,7 @@ export class ESFileListLocale {
   labelRemove = 'Remove';
   labelKB = 'KB';
   labelMB = 'MB';
+  labelAt = 'at';
 }
 
 @Injectable()
@@ -14,4 +15,5 @@ export class ESFileListLocaleRU extends ESFileListLocale {
   labelRemove = 'Удалить';
   labelKB = 'КБ';
   labelMB = 'МБ';
+  labelAt = 'в';
 }
