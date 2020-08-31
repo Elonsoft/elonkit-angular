@@ -11,9 +11,7 @@ import {
 } from '..';
 
 @Component({
-  template: `
-    <es-timepicker [(ngModel)]="date" [required]="required"></es-timepicker>
-  `
+  template: ` <es-timepicker [(ngModel)]="date" [required]="required"></es-timepicker> `
 })
 class TimepickerWrapperComponent {
   @Input() required: boolean;

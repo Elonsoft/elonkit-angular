@@ -14,7 +14,7 @@ import { ESInlineFormFieldComponent } from '../..';
 const save = (value: string) =>
   of(value).pipe(
     delay(100),
-    switchMap(v => {
+    switchMap((v) => {
       if (v.length) {
         return of(v);
       }
@@ -46,7 +46,7 @@ export class InlineFormFieldStoryValidationComponent {
       () => {
         inlineFormField.setHidden(true);
       },
-      errors => {
+      (errors) => {
         this.form.get('server').setErrors(errors);
         this.changeDetector.detectChanges();
       }

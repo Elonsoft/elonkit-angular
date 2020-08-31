@@ -8,16 +8,9 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-a11y',
     '@storybook/addon-viewport',
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        configureJSX: true,
-        babelOptions: {},
-        sourceLoaderOptions: null
-      }
-    }
+    '@storybook/addon-docs'
   ],
-  webpackFinal: async config => {
+  webpackFinal: async (config) => {
     config.resolve.alias['~storybook'] = path.resolve(__dirname);
     config.resolve.alias['~utils'] = path.resolve(__dirname, '../src/utils');
 

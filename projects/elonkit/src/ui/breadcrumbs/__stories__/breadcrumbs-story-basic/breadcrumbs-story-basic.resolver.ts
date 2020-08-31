@@ -24,7 +24,7 @@ export class CategoriesShowResolver implements Resolve<any> {
 @Injectable()
 export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot) {
-    const category = route.parent.data.data.find(e => e.id === +route.params.category);
+    const category = route.parent.data.data.find((e) => e.id === +route.params.category);
 
     return {
       label: category.title,

@@ -1,11 +1,8 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, number } from '@storybook/addon-knobs';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { number } from '@storybook/addon-knobs';
 
 import { ESPaginatorComponent, ESPaginatorLocale, ESPaginatorLocaleRU } from '..';
 
@@ -27,7 +24,7 @@ import {
   PAGINATOR_STORY_PAGE_SIZE_OPTIONS_SOURCE
 } from './paginator-story-page-size-options';
 
-<Meta title='UI/Paginator' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Paginator' component={ESPaginatorComponent} />
 
 # Paginator
 
@@ -35,12 +32,12 @@ The paginator allows the user to select a specific page from a range of pages.
 
 ## Demos
 
-<Preview source={PAGINATOR_STORY_BASIC_SOURCE}>
+<Canvas source={PAGINATOR_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='270px'>
     {{
       component: PaginatorStoryBasicComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, PaginatorStoryBasicModule]
+        imports: [PaginatorStoryBasicModule]
       },
       props: {
         count: number('count', 100),
@@ -49,16 +46,16 @@ The paginator allows the user to select a specific page from a range of pages.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default locale.
 
-<Preview source={PAGINATOR_STORY_LOCALE_SOURCE}>
+<Canvas source={PAGINATOR_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='270px'>
     {{
       component: PaginatorStoryLocaleComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, PaginatorStoryLocaleModule],
+        imports: [PaginatorStoryLocaleModule],
         providers: [{ provide: ESPaginatorLocale, useClass: ESPaginatorLocaleRU }]
       },
       props: {
@@ -66,16 +63,16 @@ We can override default locale.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default page size options.
 
-<Preview source={PAGINATOR_STORY_PAGE_SIZE_OPTIONS_SOURCE}>
+<Canvas source={PAGINATOR_STORY_PAGE_SIZE_OPTIONS_SOURCE}>
   <Story name='Page size options' height='250px'>
     {{
       component: PaginatorStoryPageSizeOptionsComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, PaginatorStoryPageSizeOptionsModule]
+        imports: [PaginatorStoryPageSizeOptionsModule]
       },
       props: {
         count: 100,
@@ -83,11 +80,11 @@ We can override default page size options.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESPaginatorComponent} />
+<ArgsTable />
 
 ## Interfaces
 
