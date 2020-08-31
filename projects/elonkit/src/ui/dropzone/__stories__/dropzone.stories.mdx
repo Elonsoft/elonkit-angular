@@ -1,0 +1,158 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { action } from '@storybook/addon-actions';
+import { text, number, select } from '@storybook/addon-knobs';
+
+import { ESDropzoneComponent } from '..';
+
+import {
+  DropzoneStoryBasicModule,
+  DropzoneStoryBasicComponent,
+  DROPZONE_STORY_BASIC_SOURCE
+} from './dropzone-story-basic';
+
+import {
+  DropzoneStoryRequiredModule,
+  DropzoneStoryRequiredComponent,
+  DROPZONE_STORY_REQUIRED_SOURCE
+} from './dropzone-story-required';
+
+import {
+  DropzoneStoryCustomIconModule,
+  DropzoneStoryCustomIconComponent,
+  DROPZONE_STORY_CUSTOM_ICON_SOURCE
+} from './dropzone-story-custom-icon';
+
+import {
+  DropzoneStoryLocaleModule,
+  DropzoneStoryLocaleComponent,
+  DROPZONE_STORY_LOCALE_SOURCE
+} from './dropzone-story-locale';
+
+<Meta title='UI/Dropzone' component={ESDropzoneComponent} />
+
+# Dropzone
+
+This component allows to select files on click or by drag and drop.
+
+## Demos
+
+<Canvas source={DROPZONE_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='150px'>
+    {{
+      component: DropzoneStoryBasicComponent,
+      moduleMetadata: {
+        imports: [DropzoneStoryBasicModule]
+      },
+      props: {
+        chooseText: text('chooseText', 'CHOOSE FILES'),
+        dragText: text('dragText', 'or drag files in this area (max size: 50 MB)'),
+        accept: text('accept', 'image/png,image/jpg,image/jpeg'),
+        maxSize: number('maxSize', '50'),
+        type: select('type', { base64: 'base64', binary: 'binary' }, 'binary'),
+        changeFiles: action('change')
+      }
+    }}
+  </Story>
+</Canvas>
+
+We can make Control required by adding a Validator.
+
+<Canvas source={DROPZONE_STORY_REQUIRED_SOURCE}>
+  <Story name='Required' height='200px'>
+    {{
+      component: DropzoneStoryRequiredComponent,
+      moduleMetadata: {
+        imports: [DropzoneStoryRequiredModule]
+      }
+    }}
+  </Story>
+</Canvas>
+
+We can pass `svgIcon` to use custom upload icon.
+
+<Canvas source={DROPZONE_STORY_CUSTOM_ICON_SOURCE}>
+  <Story name='Custom Icon' height='200px'>
+    {{
+      component: DropzoneStoryCustomIconComponent,
+      moduleMetadata: {
+        imports: [DropzoneStoryCustomIconModule]
+      }
+    }}
+  </Story>
+</Canvas>
+
+We can override default locale which is used for Snackbar messages.
+
+<Canvas source={DROPZONE_STORY_LOCALE_SOURCE}>
+  <Story name='Locale' height='200px'>
+    {{
+      component: DropzoneStoryLocaleComponent,
+      moduleMetadata: {
+        imports: [DropzoneStoryLocaleModule]
+      }
+    }}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable />
+
+## Interfaces
+
+```ts
+interface ESDropzoneFile {
+  id?: number;
+  type?: string;
+  base64?: string;
+  name: string;
+  size: number;
+  content: File | string;
+}
+```
+
+ESDropzoneOptions `type` property defines if ESDropzoneFile `content` property will be `base64` or `binary`.
+
+```ts
+interface ESDropzoneOptions {
+  accept?: string;
+  svgIcon?: string;
+  maxSize?: number;
+  type?: 'base64' | 'binary';
+}
+```
+
+## Constants
+
+Default options for component are applied when none are passed.
+
+```ts
+readonly DEFAULT_OPTIONS: ESDropzoneOptions = {
+  accept: '*',
+  svgIcon: null,
+  maxSize: null,
+  type: 'base64'
+};
+```
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_DROPZONE_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/dropzone';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_DROPZONE_DEFAULT_OPTIONS,
+      useValue: {
+        accept: 'image/png,image/jpg,image/jpeg',
+        svgIcon: 'upload',
+        maxSize: 50,
+        type: 'binary'
+      }
+    }
+  ]
+})
+```
