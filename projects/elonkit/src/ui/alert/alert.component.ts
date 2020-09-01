@@ -8,7 +8,8 @@ import {
   EventEmitter,
   InjectionToken,
   Optional,
-  Inject
+  Inject,
+  LOCALE_ID
 } from '@angular/core';
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -111,7 +112,12 @@ export class ESAlertComponent {
      */
     @Optional()
     @Inject(ES_ALERT_DEFAULT_OPTIONS)
-    private defaultOptions: ESAlertDefaultOptions
+    private defaultOptions: ESAlertDefaultOptions,
+    /**
+     * @internal
+     */
+    @Inject(LOCALE_ID)
+    public localeId: string
   ) {
     this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
     this.iconMapping = { ...DEFAULT_ICON_MAPPING, ...defaultOptions?.iconMapping };
