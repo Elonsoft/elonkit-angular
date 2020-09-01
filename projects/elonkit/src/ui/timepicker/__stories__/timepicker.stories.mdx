@@ -19,12 +19,6 @@ import {
 } from './timepicker-story-seconds';
 
 import {
-  TimepickerStoryLocaleModule,
-  TimepickerStoryLocaleComponent,
-  TIMEPICKER_STORY_LOCALE_SOURCE
-} from './timepicker-story-locale';
-
-import {
   TimepickerStoryRequiredModule,
   TimepickerStoryRequiredComponent,
   TIMEPICKER_STORY_REQUIRED_SOURCE
@@ -58,19 +52,6 @@ We can use `withSeconds` in order to display seconds input.
       component: TimepickerStorySecondsComponent,
       moduleMetadata: {
         imports: [TimepickerStorySecondsModule]
-      }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for input placeholder.
-
-<Canvas source={TIMEPICKER_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='110px'>
-    {{
-      component: TimepickerStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [TimepickerStoryLocaleModule]
       }
     }}
   </Story>

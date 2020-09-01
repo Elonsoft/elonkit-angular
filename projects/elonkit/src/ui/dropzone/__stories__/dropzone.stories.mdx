@@ -27,12 +27,6 @@ import {
 } from './dropzone-story-custom-icon';
 
 import {
-  DropzoneStoryLocaleModule,
-  DropzoneStoryLocaleComponent,
-  DROPZONE_STORY_LOCALE_SOURCE
-} from './dropzone-story-locale';
-
-import {
   DropzoneStoryTypographyModule,
   DropzoneStoryTypographyComponent,
   DROPZONE_STORY_TYPOGRAPHY_SOURCE
@@ -89,19 +83,6 @@ We can pass `svgIcon` to use custom upload icon.
       component: DropzoneStoryCustomIconComponent,
       moduleMetadata: {
         imports: [DropzoneStoryCustomIconModule]
-      }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for Snackbar messages.
-
-<Canvas source={DROPZONE_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='200px'>
-    {{
-      component: DropzoneStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [DropzoneStoryLocaleModule]
       }
     }}
   </Story>

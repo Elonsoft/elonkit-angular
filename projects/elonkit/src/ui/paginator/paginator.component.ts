@@ -11,7 +11,9 @@ import {
   Inject
 } from '@angular/core';
 
-import { ESPaginatorLocale } from './paginator.component.locale';
+import { Observable } from 'rxjs';
+
+import { ESLocaleService, ESLocale } from '../i18n';
 
 function range(start: number, end: number) {
   const length = end - start + 1;
@@ -121,6 +123,12 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
+  public locale$: Observable<ESLocale>;
+
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(
     /**
      * @internal
@@ -129,7 +137,7 @@ export class ESPaginatorComponent {
     /**
      * @internal
      */
-    public locale: ESPaginatorLocale,
+    private localeService: ESLocaleService,
     /**
      * @internal
      */
@@ -137,6 +145,8 @@ export class ESPaginatorComponent {
     @Inject(ES_PAGINATOR_DEFAULT_OPTIONS)
     private defaultOptions: ESPaginatorDefaultOptions
   ) {
+    this.locale$ = this.localeService.locale();
+
     this.pageSizeOptions = this.defaultOptions?.pageSizeOptions;
     this.siblingCount = this.defaultOptions?.siblingCount;
     this.boundaryCount = this.defaultOptions?.boundaryCount;

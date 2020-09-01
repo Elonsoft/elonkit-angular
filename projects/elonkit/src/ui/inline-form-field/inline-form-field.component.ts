@@ -17,7 +17,9 @@ import { FormControl, FormControlName, NgModel } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
 import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 
-import { ESInlineFormFieldLocale } from './inline-form-field.component.locale';
+import { Observable } from 'rxjs';
+
+import { ESLocaleService, ESLocale } from '../i18n';
 
 export interface ESInlineFormFieldDefaultOptions {
   typography?: string;
@@ -102,6 +104,12 @@ export class ESInlineFormFieldComponent {
    */
   public isHidden = true;
 
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
+
   private previousValue;
 
   /**
@@ -116,7 +124,7 @@ export class ESInlineFormFieldComponent {
     /**
      * @internal
      */
-    public locale: ESInlineFormFieldLocale,
+    public localeService: ESLocaleService,
     /**
      * @internal
      */
@@ -124,6 +132,8 @@ export class ESInlineFormFieldComponent {
     @Inject(ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS)
     private defaultOptions: ESInlineFormFieldDefaultOptions
   ) {
+    this.locale$ = this.localeService.locale();
+
     this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
 

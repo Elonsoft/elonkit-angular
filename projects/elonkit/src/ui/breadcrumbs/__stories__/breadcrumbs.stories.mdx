@@ -18,12 +18,6 @@ import {
   BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE
 } from './breadcrumbs-story-customization';
 
-import {
-  BreadcrumbsStoryLocaleModule,
-  BreadcrumbsStoryLocaleComponent,
-  BREADCRUMBS_STORY_LOCALE_SOURCE
-} from './breadcrumbs-story-locale';
-
 <Meta title='UI/Breadcrumbs' component={ESBreadcrumbsComponent} />
 
 # Breadcrumbs
@@ -60,20 +54,6 @@ We can customize icons and label's font.
       component: BreadcrumbsStoryCustomizationComponent,
       moduleMetadata: {
         imports: [BreadcrumbsStoryCustomizationModule]
-      }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for aria-label on collapse button.
-
-<Canvas source={BREADCRUMBS_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='210px'>
-    {{
-      component: BreadcrumbsStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [BreadcrumbsStoryLocaleModule],
-        providers: [{ provide: ESBreadcrumbsLocale, useClass: ESBreadcrumbsLocaleRU }]
       }
     }}
   </Story>

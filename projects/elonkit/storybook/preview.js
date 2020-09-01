@@ -10,11 +10,11 @@ import theme from './theme';
 import { LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ESAlertLocale, ESAlertLocaleRU } from '../src/ui/alert/alert.component.locale';
-import {
-  ESPaginatorLocale,
-  ESPaginatorLocaleRU
-} from '../src/ui/paginator/paginator.component.locale';
+import { ESLocaleService } from '../src/ui/i18n';
+import { ru } from '../src/ui/i18n/locales';
+
+const localeService = new ESLocaleService();
+localeService.register('ru', ru);
 
 addParameters({
   docs: {
@@ -24,31 +24,24 @@ addParameters({
 
 addDecorator((story, context) => {
   const locale = context.globals.locale;
+  localeService.use(locale);
 
   return moduleMetadata({
     imports: [BrowserAnimationsModule],
     providers: [
-      {
-        provide: LOCALE_ID,
-        useValue: locale
-      },
-      {
-        provide: ESAlertLocale,
-        useClass: locale === 'en' ? ESAlertLocale : ESAlertLocaleRU
-      },
-      {
-        provide: ESPaginatorLocale,
-        useClass: locale === 'en' ? ESPaginatorLocale : ESPaginatorLocaleRU
-      }
+      { provide: LOCALE_ID, useValue: locale },
+      { provide: ESLocaleService, useValue: localeService }
     ]
   })(story, context);
 });
+
+const isRussian = window.navigator.language === 'ru-RU';
 
 export const globalTypes = {
   locale: {
     name: 'Locale',
     description: 'Set the LOCALE_ID of the components',
-    defaultValue: 'en',
+    defaultValue: isRussian ? 'ru' : 'en',
     toolbar: {
       icon: 'globe',
       items: [

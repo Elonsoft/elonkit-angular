@@ -14,11 +14,6 @@ import {
   AlertStoryIconMappingComponent,
   ALERT_STORY_ICON_MAPPING_SOURCE
 } from './alert-story-icon-mapping';
-import {
-  AlertStoryLocaleModule,
-  AlertStoryLocaleComponent,
-  ALERT_STORY_LOCALE_SOURCE
-} from './alert-story-locale';
 
 <Meta title='UI/Alert' component={ESAlertComponent} />
 
@@ -97,19 +92,6 @@ We can override default icon mapping and individual icons.
       component: AlertStoryIconMappingComponent,
       moduleMetadata: {
         imports: [AlertStoryIconMappingModule]
-      }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for close button.
-
-<Canvas source={ALERT_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='200px'>
-    {{
-      component: AlertStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [AlertStoryLocaleModule]
       }
     }}
   </Story>

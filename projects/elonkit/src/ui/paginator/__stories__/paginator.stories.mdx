@@ -13,12 +13,6 @@ import {
 } from './paginator-story-basic';
 
 import {
-  PaginatorStoryLocaleModule,
-  PaginatorStoryLocaleComponent,
-  PAGINATOR_STORY_LOCALE_SOURCE
-} from './paginator-story-locale';
-
-import {
   PaginatorStoryPageSizeOptionsModule,
   PaginatorStoryPageSizeOptionsComponent,
   PAGINATOR_STORY_PAGE_SIZE_OPTIONS_SOURCE
@@ -43,23 +37,6 @@ The paginator allows the user to select a specific page from a range of pages.
         count: number('count', 100),
         siblingCount: number('siblingCount', 2),
         boundaryCount: number('boundaryCount', 1)
-      }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale.
-
-<Canvas source={PAGINATOR_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='270px'>
-    {{
-      component: PaginatorStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [PaginatorStoryLocaleModule],
-        providers: [{ provide: ESPaginatorLocale, useClass: ESPaginatorLocaleRU }]
-      },
-      props: {
-        count: 100
       }
     }}
   </Story>

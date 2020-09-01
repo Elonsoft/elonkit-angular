@@ -25,12 +25,6 @@ import {
 } from './inline-form-field-story-composition';
 
 import {
-  InlineFormFieldStoryLocaleModule,
-  InlineFormFieldStoryLocaleComponent,
-  INLINE_FORM_FIELD_STORY_LOCALE_SOURCE
-} from './inline-form-field-story-locale';
-
-import {
   InlineFormFieldStoryValidationModule,
   InlineFormFieldStoryValidationComponent,
   INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE
@@ -79,19 +73,6 @@ This component is compatible with any\* Angular Material form field feature.
       component: InlineFormFieldStoryCompositionComponent,
       moduleMetadata: {
         imports: [InlineFormFieldStoryCompositionModule]
-      }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for `aria-label`'s on buttons.
-
-<Canvas source={INLINE_FORM_FIELD_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='50px'>
-    {{
-      component: InlineFormFieldStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [InlineFormFieldStoryLocaleModule]
       }
     }}
   </Story>
