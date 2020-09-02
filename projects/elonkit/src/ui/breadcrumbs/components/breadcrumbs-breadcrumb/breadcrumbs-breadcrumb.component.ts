@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@a
 import { Observable } from 'rxjs';
 
 import { ESBreadcrumb } from '../../breadcrumbs.types';
-import { ESLocaleService, ESLocale } from '../../../i18n';
+import { ESLocaleService, ESLocale } from '../../../locale';
 
 @Component({
   selector: 'es-breadcrumbs-breadcrumb',

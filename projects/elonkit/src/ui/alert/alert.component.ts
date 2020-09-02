@@ -16,7 +16,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
 
 import { ESAlertVariant } from './alert.types';
-import { ESLocaleService, ESLocale } from '../i18n';
+import { ESLocaleService, ESLocale } from '../locale';
 
 export interface ESAlertDefaultOptions {
   typography?: string;

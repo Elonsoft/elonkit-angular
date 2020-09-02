@@ -23,7 +23,7 @@ import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrect
 const autoCorrectedTimePipe = createAutoCorrectedDatePipe('HH:MM');
 const autoCorrectedTimeSecondsPipe = createAutoCorrectedDatePipe('HH:MM:SS');
 
-import { ESLocaleService, ESLocale } from '../i18n';
+import { ESLocaleService } from '../locale';
 
 @Component({
   selector: 'es-timepicker',

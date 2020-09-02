@@ -19,7 +19,7 @@ import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 
 import { Observable } from 'rxjs';
 
-import { ESLocaleService, ESLocale } from '../i18n';
+import { ESLocaleService, ESLocale } from '../locale';
 
 export interface ESInlineFormFieldDefaultOptions {
   typography?: string;

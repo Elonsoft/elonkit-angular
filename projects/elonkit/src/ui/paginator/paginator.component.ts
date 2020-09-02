@@ -13,7 +13,7 @@ import {
 
 import { Observable } from 'rxjs';
 
-import { ESLocaleService, ESLocale } from '../i18n';
+import { ESLocaleService, ESLocale } from '../locale';
 
 function range(start: number, end: number) {
   const length = end - start + 1;

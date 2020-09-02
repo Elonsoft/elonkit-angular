@@ -10,8 +10,12 @@ import theme from './theme';
 import { LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ESLocaleService } from '../src/ui/i18n';
-import { ru } from '../src/ui/i18n/locales';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu, 'ru');
+
+import { ESLocaleService, ru } from '../src/ui/locale';
 
 const localeService = new ESLocaleService();
 localeService.register('ru', ru);
