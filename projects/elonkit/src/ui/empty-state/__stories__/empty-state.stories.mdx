@@ -1,11 +1,9 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text, select } from '@storybook/addon-knobs';
+import { text, select } from '@storybook/addon-knobs';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 
 import { ESEmptyStateModule, ESEmptyStateComponent } from '..';
@@ -17,7 +15,7 @@ import {
   EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE
 } from './empty-state-story-typography';
 
-<Meta title='UI/Empty State' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Empty State' component={ESEmptyStateComponent} />
 
 # Empty State
 
@@ -25,12 +23,12 @@ A placeholder to use on pages without content.
 
 ## Demos
 
-<Preview source={EMPTY_STATE_STORY_BASIC_SOURCE}>
+<Canvas source={EMPTY_STATE_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='170px'>
     {{
       template: `<es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading"></es-empty-state>`,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, ESEmptyStateModule]
+        imports: [ESEmptyStateModule]
       },
       props: {
         icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
@@ -42,11 +40,11 @@ A placeholder to use on pages without content.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can include action button.
 
-<Preview source={EMPTY_STATE_STORY_BUTTON_SOURCE}>
+<Canvas source={EMPTY_STATE_STORY_BUTTON_SOURCE}>
   <Story name='Button' height='200px'>
     {{
       template: `
@@ -55,7 +53,7 @@ We can include action button.
         </es-empty-state>
       `,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, MatButtonModule, ESEmptyStateModule]
+        imports: [MatButtonModule, ESEmptyStateModule]
       },
       props: {
         icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
@@ -67,11 +65,11 @@ We can include action button.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can use typography inputs in order to change text presentation.
 
-<Preview source={EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE}>
+<Canvas source={EMPTY_STATE_STORY_TYPOGRAPHY_SOURCE}>
   <Story name='Typography' height='170px'>
     {{
       template: `
@@ -79,7 +77,7 @@ We can use typography inputs in order to change text presentation.
         </es-empty-state-story-typography>
       `,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, EmptyStateStoryTypographyModule]
+        imports: [EmptyStateStoryTypographyModule]
       },
       props: {
         icon: select('icon', ['box', 'chat', 'face', 'file', 'search'], 'box'),
@@ -91,11 +89,11 @@ We can use typography inputs in order to change text presentation.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESEmptyStateComponent} />
+<ArgsTable />
 
 ## Interfaces
 

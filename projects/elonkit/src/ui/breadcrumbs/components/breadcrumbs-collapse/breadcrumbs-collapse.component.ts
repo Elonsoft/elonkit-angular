@@ -14,12 +14,12 @@ export class ESBreadcrumbsCollapseComponent {
   /**
    * @internal
    */
-  @Input() breadcrumbs: ESBreadcrumb[];
+  @Input() public breadcrumbs: ESBreadcrumb[];
 
   /**
    * @internal
    */
-  @Input() moreTemplate: any;
+  @Input() public moreTemplate: any;
 
   constructor(
     /**

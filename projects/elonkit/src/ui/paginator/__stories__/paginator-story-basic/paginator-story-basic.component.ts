@@ -9,26 +9,26 @@ export class PaginatorStoryBasicComponent {
   private _count: number;
 
   @Input()
-  set count(value: number) {
+  public set count(value: number) {
     this._count = value;
     this.page = 1;
   }
-  get count() {
+  public get count() {
     return this._count;
   }
 
-  @Input() siblingCount: number;
-  @Input() boundaryCount: number;
-  @Input() pageSizeOptions: number[];
+  @Input() public siblingCount: number;
+  @Input() public boundaryCount: number;
+  @Input() public pageSizeOptions: number[];
 
-  page = 1;
-  pageSize = 5;
+  public page = 1;
+  public pageSize = 5;
 
-  onPageChange(page: number) {
+  public onPageChange(page: number) {
     this.page = page;
   }
 
-  onPageSizeChange(pageSize: number) {
+  public onPageSizeChange(pageSize: number) {
     this.pageSize = pageSize;
     this.page = 1;
   }

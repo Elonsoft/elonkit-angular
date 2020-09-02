@@ -31,7 +31,7 @@ export class BreadcrumbsStoryCustomizationComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     // Hack for RouterTestingModule
     this.router.navigate(['/categories/1/1/edit']);
   }

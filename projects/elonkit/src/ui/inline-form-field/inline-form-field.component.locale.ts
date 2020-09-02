@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ESInlineFormFieldLocale {
-  labelEdit = 'Edit';
-  labelSave = 'Save';
-  labelCancel = 'Cancel';
+  public labelEdit = 'Edit';
+  public labelSave = 'Save';
+  public labelCancel = 'Cancel';
 }
 
 @Injectable()
 export class ESInlineFormFieldLocaleRU extends ESInlineFormFieldLocale {
-  labelEdit = 'Редактировать';
-  labelSave = 'Сохранить';
-  labelCancel = 'Отменить';
+  public labelEdit = 'Редактировать';
+  public labelSave = 'Сохранить';
+  public labelCancel = 'Отменить';
 }

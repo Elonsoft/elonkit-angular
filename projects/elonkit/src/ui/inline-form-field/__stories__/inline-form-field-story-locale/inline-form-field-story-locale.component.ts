@@ -6,5 +6,5 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InlineFormFieldStoryLocaleComponent {
-  text = 'Привет Мир';
+  public text = 'Привет Мир';
 }

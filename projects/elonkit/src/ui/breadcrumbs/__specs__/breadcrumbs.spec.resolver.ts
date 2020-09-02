@@ -7,7 +7,7 @@ import { CategoriesService, ItemsService } from './breadcrumbs.spec.service';
 export class CategoriesListResolver implements Resolve<any> {
   constructor(private categoriesService: CategoriesService) {}
 
-  resolve() {
+  public resolve() {
     return this.categoriesService.getAll();
   }
 }
@@ -16,15 +16,15 @@ export class CategoriesListResolver implements Resolve<any> {
 export class CategoriesShowResolver implements Resolve<any> {
   constructor(private categoriesService: CategoriesService) {}
 
-  resolve(route: ActivatedRouteSnapshot) {
+  public resolve(route: ActivatedRouteSnapshot) {
     return this.categoriesService.getOne(+route.params.item);
   }
 }
 
 @Injectable()
 export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
-  resolve(route: ActivatedRouteSnapshot) {
-    const category = route.parent.data.data.find(e => e.id === +route.params.category);
+  public resolve(route: ActivatedRouteSnapshot) {
+    const category = route.parent.data.data.find((e) => e.id === +route.params.category);
 
     return {
       label: category.title,
@@ -40,7 +40,7 @@ export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
 export class ItemsListResolver implements Resolve<any> {
   constructor(private itemsService: ItemsService) {}
 
-  resolve(route: ActivatedRouteSnapshot) {
+  public resolve(route: ActivatedRouteSnapshot) {
     return this.itemsService.getAll(+route.params.category);
   }
 }
@@ -49,14 +49,14 @@ export class ItemsListResolver implements Resolve<any> {
 export class ItemsShowResolver implements Resolve<any> {
   constructor(private itemsService: ItemsService) {}
 
-  resolve(route: ActivatedRouteSnapshot) {
+  public resolve(route: ActivatedRouteSnapshot) {
     return this.itemsService.getOne(+route.params.item);
   }
 }
 
 @Injectable()
 export class ItemsShowBreadcrumbsResolver implements Resolve<any> {
-  resolve(route: ActivatedRouteSnapshot) {
+  public resolve(route: ActivatedRouteSnapshot) {
     return { label: route.parent.data.data.title };
   }
 }

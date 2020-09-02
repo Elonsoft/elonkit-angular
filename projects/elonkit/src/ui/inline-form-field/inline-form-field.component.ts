@@ -43,7 +43,7 @@ export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
       }
     },
     {
-      provide: MAT_LABEL_GLOBAL_OPTIONS,
+      provide: MAT_LABEL_GLOBAL_OPTIONS, // tslint:disable-line deprecation
       useValue: {
         float: 'never'
       }
@@ -57,10 +57,10 @@ export class ESInlineFormFieldComponent {
    * Class applied to text.
    */
   @Input()
-  get typography(): string {
+  public get typography(): string {
     return this._typography;
   }
-  set typography(value: string) {
+  public set typography(value: string) {
     this._typography =
       value || (this.defaultOptions && this.defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
@@ -68,27 +68,27 @@ export class ESInlineFormFieldComponent {
   /**
    * Text to display.
    */
-  @Input() text: string;
+  @Input() public text: string;
 
   /**
    * Disable default behaviour of "save" button and only emit event.
    */
-  @Input() manualSave = false;
+  @Input() public manualSave = false;
 
   /**
    * Event emitted when user clicks "edit" button.
    */
-  @Output() edit = new EventEmitter<ESInlineFormFieldComponent>();
+  @Output() public edit = new EventEmitter<ESInlineFormFieldComponent>();
 
   /**
    * Event emitted when user clicks "save" button.
    */
-  @Output() save = new EventEmitter<ESInlineFormFieldComponent>();
+  @Output() public save = new EventEmitter<ESInlineFormFieldComponent>();
 
   /**
    * Event emitted when user clicks "cancel" button.
    */
-  @Output() cancel = new EventEmitter<ESInlineFormFieldComponent>();
+  @Output() public cancel = new EventEmitter<ESInlineFormFieldComponent>();
 
   @ContentChild(MatFormField) private formField: MatFormField;
 

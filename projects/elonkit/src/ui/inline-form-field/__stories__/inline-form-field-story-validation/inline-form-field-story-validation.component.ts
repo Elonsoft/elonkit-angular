@@ -14,7 +14,7 @@ import { ESInlineFormFieldComponent } from '../..';
 const save = (value: string) =>
   of(value).pipe(
     delay(100),
-    switchMap(v => {
+    switchMap((v) => {
       if (v.length) {
         return of(v);
       }
@@ -30,7 +30,7 @@ const save = (value: string) =>
   encapsulation: ViewEncapsulation.None
 })
 export class InlineFormFieldStoryValidationComponent {
-  form: FormGroup;
+  public form: FormGroup;
 
   constructor(private changeDetector: ChangeDetectorRef, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -39,14 +39,14 @@ export class InlineFormFieldStoryValidationComponent {
     });
   }
 
-  onSave(inlineFormField: ESInlineFormFieldComponent) {
+  public onSave(inlineFormField: ESInlineFormFieldComponent) {
     const value: string = this.form.get('server').value;
 
     save(value).subscribe(
       () => {
         inlineFormField.setHidden(true);
       },
-      errors => {
+      (errors) => {
         this.form.get('server').setErrors(errors);
         this.changeDetector.detectChanges();
       }

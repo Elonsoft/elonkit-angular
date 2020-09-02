@@ -42,7 +42,7 @@ export class DropzoneStoryBasicComponent implements OnInit, OnDestroy {
   private docSub: Subscription;
 
   public ngOnInit(): void {
-    this.docSub = this.docs.valueChanges.subscribe(val => {
+    this.docSub = this.docs.valueChanges.subscribe((val) => {
       this.changeFiles.emit(val);
     });
   }

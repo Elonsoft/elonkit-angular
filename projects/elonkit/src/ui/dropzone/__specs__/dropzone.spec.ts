@@ -135,7 +135,7 @@ describe('Drag And Drop', () => {
     expect(component.getByTestId('root')).not.toHaveClass('es-dropzone_dragover');
   });
 
-  it('Should add files to FormControl on drop', async done => {
+  it('Should add files to FormControl on drop', async (done) => {
     const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
@@ -166,7 +166,7 @@ describe('Drag And Drop', () => {
     });
 
     const componentInstance = component.fixture.componentInstance;
-    componentInstance.form.valueChanges.subscribe(res => {
+    componentInstance.form.valueChanges.subscribe((res) => {
       expect(res).toEqual({
         docs: [
           {
@@ -182,7 +182,7 @@ describe('Drag And Drop', () => {
     });
   });
 
-  it('Should add files to FormControl on change', async done => {
+  it('Should add files to FormControl on change', async (done) => {
     const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
@@ -213,7 +213,7 @@ describe('Drag And Drop', () => {
     });
 
     const componentInstance = component.fixture.componentInstance;
-    componentInstance.form.valueChanges.subscribe(res => {
+    componentInstance.form.valueChanges.subscribe((res) => {
       expect(res).toEqual({
         docs: [
           {
@@ -229,7 +229,7 @@ describe('Drag And Drop', () => {
     });
   });
 
-  it('Should emit validation errors', async done => {
+  it('Should emit validation errors', async (done) => {
     const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,

@@ -41,7 +41,7 @@ const toFile = (type: string, file: File) =>
         base64: reader.result as string
       });
     };
-    reader.onerror = error => reject(error);
+    reader.onerror = (error) => reject(error);
   });
 
 @Component({
@@ -128,10 +128,10 @@ export class ESDropzoneComponent implements ControlValueAccessor, DoCheck {
    * Class applied to heading text.
    */
   @Input()
-  get headingTypography(): string {
+  public get headingTypography(): string {
     return this._headingTypography;
   }
-  set headingTypography(value: string) {
+  public set headingTypography(value: string) {
     this._headingTypography = value || this.defaultOptions?.headingTypography || 'mat-body-2';
   }
   private _headingTypography: string;
@@ -140,10 +140,10 @@ export class ESDropzoneComponent implements ControlValueAccessor, DoCheck {
    * Class applied to subheading text.
    */
   @Input()
-  get subheadingTypography(): string {
+  public get subheadingTypography(): string {
     return this._subheadingTypography;
   }
-  set subheadingTypography(value: string) {
+  public set subheadingTypography(value: string) {
     this._subheadingTypography =
       value || this.defaultOptions?.subheadingTypography || 'mat-caption';
   }

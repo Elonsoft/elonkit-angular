@@ -1,11 +1,8 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { boolean } from '@storybook/addon-knobs';
 
 import { ESBreadcrumbsComponent, ESBreadcrumbsLocale, ESBreadcrumbsLocaleRU } from '..';
 
@@ -27,7 +24,7 @@ import {
   BREADCRUMBS_STORY_LOCALE_SOURCE
 } from './breadcrumbs-story-locale';
 
-<Meta title='UI/Breadcrumbs' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Breadcrumbs' component={ESBreadcrumbsComponent} />
 
 # Breadcrumbs
 
@@ -44,47 +41,47 @@ For a horizontal navigation we need to provide an array of nested breadcrumbs.
 For more details see [source code](https://github.com/Elonsoft/elonkit/blob/master/projects/elonkit/src/ui/breadcrumbs/__stories__/breadcrumbs-story-basic/breadcrumbs-story-basic.resolver.ts#L31)
 of this story.
 
-<Preview source={BREADCRUMBS_STORY_BASIC_SOURCE}>
+<Canvas source={BREADCRUMBS_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='210px'>
     {{
       component: BreadcrumbsStoryBasicComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, BreadcrumbsStoryBasicModule]
+        imports: [BreadcrumbsStoryBasicModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can customize icons and label's font.
 
-<Preview source={BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE}>
+<Canvas source={BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE}>
   <Story name='Customization' height='210px'>
     {{
       component: BreadcrumbsStoryCustomizationComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, BreadcrumbsStoryCustomizationModule]
+        imports: [BreadcrumbsStoryCustomizationModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default locale which is used for aria-label on collapse button.
 
-<Preview source={BREADCRUMBS_STORY_LOCALE_SOURCE}>
+<Canvas source={BREADCRUMBS_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='210px'>
     {{
       component: BreadcrumbsStoryLocaleComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, BreadcrumbsStoryLocaleModule],
+        imports: [BreadcrumbsStoryLocaleModule],
         providers: [{ provide: ESBreadcrumbsLocale, useClass: ESBreadcrumbsLocaleRU }]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESBreadcrumbsComponent} />
+<ArgsTable />
 
 ## Interfaces
 

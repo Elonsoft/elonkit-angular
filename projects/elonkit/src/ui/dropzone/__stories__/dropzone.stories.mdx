@@ -1,9 +1,8 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text, number, select } from '@storybook/addon-knobs';
+import { text, number, select } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -39,7 +38,7 @@ import {
   DROPZONE_STORY_TYPOGRAPHY_SOURCE
 } from './dropzone-story-typography';
 
-<Meta title='UI/Dropzone' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Dropzone' component={ESDropzoneComponent} />
 
 # Dropzone
 
@@ -49,12 +48,12 @@ This component allows to select files on click or by drag and drop.
 
 Validation errors are emitted from `validate` output as array of `ESDropzoneValidationError`.
 
-<Preview source={DROPZONE_STORY_BASIC_SOURCE}>
+<Canvas source={DROPZONE_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='150px'>
     {{
       component: DropzoneStoryBasicComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, DropzoneStoryBasicModule]
+        imports: [DropzoneStoryBasicModule]
       },
       props: {
         heading: text('heading', 'CHOOSE FILES'),
@@ -67,63 +66,63 @@ Validation errors are emitted from `validate` output as array of `ESDropzoneVali
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can make Control required by adding a Validator.
 
-<Preview source={DROPZONE_STORY_REQUIRED_SOURCE}>
+<Canvas source={DROPZONE_STORY_REQUIRED_SOURCE}>
   <Story name='Required' height='200px'>
     {{
       component: DropzoneStoryRequiredComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, DropzoneStoryRequiredModule]
+        imports: [DropzoneStoryRequiredModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can pass `svgIcon` to use custom upload icon.
 
-<Preview source={DROPZONE_STORY_CUSTOM_ICON_SOURCE}>
+<Canvas source={DROPZONE_STORY_CUSTOM_ICON_SOURCE}>
   <Story name='Custom Icon' height='200px'>
     {{
       component: DropzoneStoryCustomIconComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, DropzoneStoryCustomIconModule]
+        imports: [DropzoneStoryCustomIconModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default locale which is used for Snackbar messages.
 
-<Preview source={DROPZONE_STORY_LOCALE_SOURCE}>
+<Canvas source={DROPZONE_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='200px'>
     {{
       component: DropzoneStoryLocaleComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, DropzoneStoryLocaleModule]
+        imports: [DropzoneStoryLocaleModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can use typography inputs in order to change text presentation.
 
-<Preview source={DROPZONE_STORY_TYPOGRAPHY_SOURCE}>
+<Canvas source={DROPZONE_STORY_TYPOGRAPHY_SOURCE}>
   <Story name='Typography' height='200px'>
     {{
       component: DropzoneStoryTypographyComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, DropzoneStoryTypographyModule]
+        imports: [DropzoneStoryTypographyModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESDropzoneComponent} />
+<ArgsTable />
 
 ## Interfaces
 

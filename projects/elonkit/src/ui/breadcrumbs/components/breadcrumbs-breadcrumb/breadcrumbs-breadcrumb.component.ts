@@ -14,17 +14,17 @@ export class ESBreadcrumbsBreadcrumbComponent {
   /**
    * @internal
    */
-  @Input() breadcrumb: ESBreadcrumb;
+  @Input() public breadcrumb: ESBreadcrumb;
 
   /**
    * @internal
    */
-  @Input() last = false;
+  @Input() public last = false;
 
   /**
    * @internal
    */
-  @Input() typography: string;
+  @Input() public typography: string;
 
   constructor(
     /**

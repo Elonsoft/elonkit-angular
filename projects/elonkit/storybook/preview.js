@@ -4,11 +4,19 @@ import { setCompodocJson } from '@storybook/addon-docs/angular';
 import docJson from '../documentation.json';
 setCompodocJson(docJson);
 
-import { addParameters } from '@storybook/angular';
+import { addParameters, addDecorator, moduleMetadata } from '@storybook/angular';
 import theme from './theme';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 addParameters({
-  options: {
+  docs: {
     theme
   }
 });
+
+addDecorator(
+  moduleMetadata({
+    imports: [BrowserAnimationsModule]
+  })
+);
