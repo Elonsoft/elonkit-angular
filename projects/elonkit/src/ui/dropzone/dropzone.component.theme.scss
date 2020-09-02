@@ -1,9 +1,8 @@
 @mixin es-dropzone-theme($theme, $elonkit-theme) {
   $primary: mat-color(map-get($theme, primary));
-  $accent: mat-color(map-get($theme, accent));
 
   .es-dropzone {
-    &__title {
+    &__heading {
       color: $primary;
     }
   }

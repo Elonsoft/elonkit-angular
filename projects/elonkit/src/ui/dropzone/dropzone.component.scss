@@ -34,18 +34,18 @@
     display: none;
   }
 
-  &__title {
+  &__heading {
     align-items: center;
     display: flex;
-    font-size: 14px;
     letter-spacing: 0.5px;
-    line-height: 16px;
-    margin-bottom: 4px;
+
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
   }
 
-  &__description {
+  &__subheading {
     color: rgba(0, 0, 0, 0.38);
-    font-size: 12px;
     letter-spacing: 0.4px;
     margin-bottom: 4px;
   }
@@ -55,10 +55,7 @@
   }
 
   &__hint {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 12px;
     letter-spacing: 0.4px;
-    line-height: 16px;
     margin-top: 8px;
     padding: 0 12px;
   }

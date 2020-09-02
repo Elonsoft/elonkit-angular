@@ -8,15 +8,23 @@ import {
   ViewEncapsulation,
   InjectionToken,
   Inject,
-  Self
+  Self,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  DoCheck
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-import { ESDropzoneFile, ESDropzoneOptions } from './dropzones.types';
-import { ESDropzoneLocale } from './dropzone.component.locale';
+import { validateFileType } from '~utils/validate-file-type';
+import {
+  ESDropzoneFile,
+  ESDropzoneDefaultOptions,
+  ESDropzoneValidationError
+} from './dropzones.types';
 
-export const ES_DROPZONE_DEFAULT_OPTIONS = new InjectionToken<ESDropzoneOptions>(
+export const ES_DROPZONE_DEFAULT_OPTIONS = new InjectionToken<ESDropzoneDefaultOptions>(
   'ES_DROPZONE_DEFAULT_OPTIONS'
 );
 
@@ -40,9 +48,10 @@ const toFile = (type: string, file: File) =>
   selector: 'es-dropzone',
   templateUrl: './dropzone.component.html',
   styleUrls: ['./dropzone.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ESDropzoneComponent implements ControlValueAccessor {
+export class ESDropzoneComponent implements ControlValueAccessor, DoCheck {
   /**
    * @internal
    * @ignore
@@ -55,36 +64,98 @@ export class ESDropzoneComponent implements ControlValueAccessor {
    */
   public isDragover: boolean;
 
-  private readonly DEFAULT_OPTIONS: ESDropzoneOptions = {
-    accept: '*',
-    svgIcon: null,
-    maxSize: null,
-    type: 'base64'
-  };
-  private _options: ESDropzoneOptions;
-
   /**
-   * Choose text Label.
+   * Defines Choose Text Label.
    */
   @Input()
-  public chooseText: string;
+  public heading: string;
 
   /**
-   * Drag text Label.
+   * Defines Drag Text Label.
    */
   @Input()
-  public dragText: string;
+  public subheading: string;
 
   /**
-   * Component options.
+   * File types to accept separated by a comma, e.g. `image/png,image/jpg,image/jpeg`
    */
   @Input()
-  public set options(val: ESDropzoneOptions) {
-    this._options = { ...this.DEFAULT_OPTIONS, ...this.defaultOptions, ...val };
+  public get accept(): string {
+    return this._accept;
   }
-  public get options(): ESDropzoneOptions {
-    return this._options;
+  public set accept(value: string) {
+    this._accept = value || this.defaultOptions?.accept || '*';
   }
+  private _accept: string;
+
+  /**
+   * Custom svg icon to render with `chooseText`.
+   */
+  @Input()
+  public get svgIcon(): string {
+    return this._svgIcon;
+  }
+  public set svgIcon(value: string) {
+    this._svgIcon = value || this.defaultOptions?.svgIcon;
+  }
+  private _svgIcon: string;
+
+  /**
+   * Max accepted file size in megabytes.
+   */
+  @Input()
+  public get maxSize(): number {
+    return this._maxSize;
+  }
+  public set maxSize(value: number) {
+    this._maxSize = coerceNumberProperty(value, this.defaultOptions?.maxSize || 0);
+  }
+  private _maxSize: number;
+
+  /**
+   * Defines if ESDropzoneFile `content` property will be `base64` or `binary` format.
+   */
+  @Input()
+  public get type(): 'base64' | 'binary' {
+    return this._type;
+  }
+  public set type(value: 'base64' | 'binary') {
+    this._type = value || this.defaultOptions?.type || 'binary';
+  }
+  private _type: 'base64' | 'binary';
+
+  /**
+   * Class applied to heading text.
+   */
+  @Input()
+  public get headingTypography(): string {
+    return this._headingTypography;
+  }
+  public set headingTypography(value: string) {
+    this._headingTypography = value || this.defaultOptions?.headingTypography || 'mat-body-2';
+  }
+  private _headingTypography: string;
+
+  /**
+   * Class applied to subheading text.
+   */
+  @Input()
+  public get subheadingTypography(): string {
+    return this._subheadingTypography;
+  }
+  public set subheadingTypography(value: string) {
+    this._subheadingTypography =
+      value || this.defaultOptions?.subheadingTypography || 'mat-caption';
+  }
+  private _subheadingTypography: string;
+
+  /**
+   * Array of validation errors is emitted.
+   */
+  @Output()
+  public validate: EventEmitter<ESDropzoneValidationError[]> = new EventEmitter<
+    ESDropzoneValidationError[]
+  >();
 
   /**
    * @internal
@@ -94,18 +165,19 @@ export class ESDropzoneComponent implements ControlValueAccessor {
   public fileInput: ElementRef;
 
   private propagateChange = (_: any) => {};
+  private errors: ESDropzoneValidationError[];
+  // tslint:disable-next-line: no-inferrable-types
+  private errorState: boolean = false;
 
   /**
    * @internal
    * @ignore
    */
   constructor(
-    private snackBar: MatSnackBar,
     private cdRef: ChangeDetectorRef,
-    private locale: ESDropzoneLocale,
     @Optional()
     @Inject(ES_DROPZONE_DEFAULT_OPTIONS)
-    private defaultOptions: ESDropzoneOptions,
+    private defaultOptions: ESDropzoneDefaultOptions,
     /**
      * @internal
      */
@@ -120,7 +192,24 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
     }
-    this.options = { ...this.DEFAULT_OPTIONS, ...defaultOptions };
+    this.accept = this.defaultOptions?.accept;
+    this.svgIcon = this.defaultOptions?.svgIcon;
+    this.maxSize = this.defaultOptions?.maxSize;
+    this.type = this.defaultOptions?.type;
+    this.headingTypography = this.defaultOptions?.headingTypography;
+    this.subheadingTypography = this.defaultOptions?.subheadingTypography;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public ngDoCheck(): void {
+    const newErrorState = this.isErrorState();
+    if (this.errorState !== newErrorState) {
+      this.cdRef.markForCheck();
+      this.errorState = newErrorState;
+    }
   }
 
   /**
@@ -149,15 +238,18 @@ export class ESDropzoneComponent implements ControlValueAccessor {
    * @internal
    * @ignore
    */
-  public onDrop(e: DragEvent): void {
+  public async onDrop(e: DragEvent) {
     e.preventDefault();
     e.stopPropagation();
+    this.errors = [];
     const files = e.dataTransfer.files as FileList;
     for (let i = 0; i < files.length; i++) {
-      this.setFile(files.item(i));
+      await this.setFile(files.item(i));
     }
-
     this.isDragover = false;
+    this.cdRef.markForCheck();
+    this.propagateChange(this.files);
+    this.validate.emit(this.errors);
   }
 
   /**
@@ -200,16 +292,20 @@ export class ESDropzoneComponent implements ControlValueAccessor {
     input.click();
   }
 
-  /**07
+  /**
    * @internal
    * @ignore
    */
-  public onChange(e: any): void {
+  public async onChange(e: any) {
     e.stopPropagation();
+    this.errors = [];
     const files = e.target.files as FileList;
     for (let i = 0; i < files.length; i++) {
-      this.setFile(files.item(i));
+      await this.setFile(files.item(i));
     }
+    this.cdRef.markForCheck();
+    this.propagateChange(this.files);
+    this.validate.emit(this.errors);
   }
 
   /**
@@ -217,65 +313,49 @@ export class ESDropzoneComponent implements ControlValueAccessor {
    * @ignore
    */
   public get invalid(): boolean {
-    const control = this.ngControl;
-    const form = this.ngForm;
-    if (control) {
-      return control.invalid && (control.touched || (form && form.submitted));
-    }
-    return false;
+    return this.errorState;
   }
 
   private async setFile(file: File) {
-    if (!this.validateFileType(file) || !this.validateFileSize(file)) {
+    if (!this.fileTypeValid(file) || !this.validateFileSize(file)) {
       return;
     }
 
-    const targetFile = await toFile(this.options.type, file);
+    const targetFile = await toFile(this.type, file);
     this.files = [...this.files, targetFile];
-    this.cdRef.markForCheck();
-    this.propagateChange(this.files);
   }
 
-  private getMaxSizeInBytes(): number {
-    return this.options.maxSize * 1024 * 1024;
-  }
-
-  private validateFileSize(file: File): boolean {
-    const { labelOverUploadLimit, labelMB } = this.locale;
-    if (this.options.maxSize && file.size > this.getMaxSizeInBytes()) {
-      this.showSnackBar(`${labelOverUploadLimit} ${this.options.maxSize} ${labelMB}`);
+  private fileTypeValid(file: File): boolean {
+    if (!validateFileType(file, this.accept)) {
+      this.errors.push({
+        fileName: file.name,
+        error: 'FILE_TYPE'
+      });
       return false;
     }
     return true;
   }
 
-  private validateFileType(file: File): boolean {
-    const { labelNotSupported } = this.locale;
-    const types = this.options.accept.split(',').map((v) => v.trim());
-
-    if (types.includes('*')) {
-      return true;
-    }
-
-    for (const type of types) {
-      if (type.charAt(0) === '.' && file.name.toLowerCase().endsWith(type)) {
-        return true;
-      }
-
-      if (type.endsWith('/*') && file.type.startsWith(type.replace(/\/.*$/, ''))) {
-        return true;
-      }
-
-      if (file.type === type) {
-        return true;
-      }
-    }
-
-    this.showSnackBar(labelNotSupported);
-    return false;
+  private get maxSizeInBytes(): number {
+    return +this.maxSize * 1024 * 1024;
   }
 
-  private showSnackBar(text: string): void {
-    this.snackBar.open(text, 'OK');
+  private validateFileSize(file: File): boolean {
+    if (this.maxSize && file.size > this.maxSizeInBytes) {
+      this.errors.push({
+        fileName: file.name,
+        error: 'FILE_SIZE'
+      });
+      return false;
+    }
+    return true;
+  }
+
+  private isErrorState(): boolean {
+    return !!(
+      this.ngControl &&
+      this.ngControl.invalid &&
+      (this.ngControl.touched || (this.ngForm && this.ngForm.submitted))
+    );
   }
 }

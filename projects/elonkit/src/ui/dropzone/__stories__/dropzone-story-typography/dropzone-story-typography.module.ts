@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { DropzoneStoryBasicComponent } from './dropzone-story-basic.component';
+import { DropzoneStoryTypographyComponent } from './dropzone-story-typography.component';
 import { ESDropzoneModule } from '../..';
 
 @NgModule({
-  declarations: [DropzoneStoryBasicComponent],
+  declarations: [DropzoneStoryTypographyComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -16,6 +16,6 @@ import { ESDropzoneModule } from '../..';
     MatFormFieldModule,
     ESDropzoneModule
   ],
-  exports: [DropzoneStoryBasicComponent]
+  exports: [DropzoneStoryTypographyComponent]
 })
-export class DropzoneStoryBasicModule {}
+export class DropzoneStoryTypographyModule {}

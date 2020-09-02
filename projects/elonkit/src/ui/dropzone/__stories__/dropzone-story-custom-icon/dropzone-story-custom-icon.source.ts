@@ -16,12 +16,10 @@ export const DROPZONE_STORY_CUSTOM_ICON_SOURCE = {
   html: `
   <form class="form" [formGroup]="form">
     <es-dropzone
-      chooseText="CHOOSE FILES"
-      dragText="or drag files in this area (max size: 50 MB)"
+      heading="CHOOSE FILES"
+      subheading="or drag files in this area (max size: 50 MB)"
+      svgIcon="upload"
       formControlName="docs"
-      [options]="{
-        svgIcon: 'upload'
-      }"
     >
       <mat-hint>This is an example of a hint message</mat-hint>
     </es-dropzone>

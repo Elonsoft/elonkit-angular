@@ -7,14 +7,13 @@ export const DROPZONE_STORY_BASIC_SOURCE = {
   html: `
   <div class="dropzone">
     <es-dropzone
-      [chooseText]="chooseText"
-      [dragText]="dragText"
+      [heading]="heading"
+      [subheading]="subheading"
+      [maxSize]="maxSize"
+      [accept]="accept"
+      [type]="type"
       [formControl]="docs"
-      [options]="{
-        maxSize: maxSize,
-        accept: accept,
-        type: type
-      }"
+      (validate)="validate($event)"
     >
       <mat-hint>This is an example of a hint message</mat-hint>
     </es-dropzone>

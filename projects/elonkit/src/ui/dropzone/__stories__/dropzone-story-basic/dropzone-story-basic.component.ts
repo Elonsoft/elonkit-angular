@@ -4,11 +4,13 @@ import {
   OnInit,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  OnDestroy
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { ESDropzoneFile } from '../../dropzones.types';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'es-dropzone-basic',
@@ -16,12 +18,12 @@ import { ESDropzoneFile } from '../../dropzones.types';
   styleUrls: ['./dropzone-story-basic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DropzoneStoryBasicComponent implements OnInit {
+export class DropzoneStoryBasicComponent implements OnInit, OnDestroy {
   @Input()
-  public chooseText: string;
+  public heading: string;
 
   @Input()
-  public dragText: string;
+  public subheading: string;
 
   @Input()
   public accept: string;
@@ -37,9 +39,15 @@ export class DropzoneStoryBasicComponent implements OnInit {
 
   public docs = new FormControl([]);
 
+  private docSub: Subscription;
+
   public ngOnInit(): void {
-    this.docs.valueChanges.subscribe((val) => {
+    this.docSub = this.docs.valueChanges.subscribe((val) => {
       this.changeFiles.emit(val);
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.docSub.unsubscribe();
   }
 }

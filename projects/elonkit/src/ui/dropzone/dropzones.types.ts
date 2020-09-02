@@ -7,9 +7,16 @@ export interface ESDropzoneFile {
   content: File | string;
 }
 
-export interface ESDropzoneOptions {
+export interface ESDropzoneDefaultOptions {
   accept?: string;
   svgIcon?: string;
   maxSize?: number;
   type?: 'base64' | 'binary';
+  headingTypography?: string;
+  subheadingTypography?: string;
+}
+
+export interface ESDropzoneValidationError {
+  fileName: string;
+  error: 'FILE_TYPE' | 'FILE_SIZE';
 }

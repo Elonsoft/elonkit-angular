@@ -2,6 +2,7 @@
 @import './ui/dropzone/dropzone.component.theme';
 @import './ui/inline-form-field/inline-form-field.component.theme';
 @import './ui/paginator/paginator.component.theme';
+@import './ui/dropzone/dropzone.component.theme';
 
 $elonkit-default-theme: (
   info:
@@ -116,4 +117,5 @@ $elonkit-default-theme: (
   @include es-dropzone-theme($theme, $elonkit-theme);
   @include es-inline-form-field-theme($theme, $elonkit-theme);
   @include es-paginator-theme($theme, $elonkit-theme);
+  @include es-dropzone-theme($theme, $elonkit-theme);
 }
