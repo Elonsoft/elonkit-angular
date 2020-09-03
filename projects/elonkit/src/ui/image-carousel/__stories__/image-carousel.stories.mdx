@@ -1,11 +1,8 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text, number, boolean } from '@storybook/addon-knobs';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { text, number, boolean } from '@storybook/addon-knobs';
 
 import { ESImageCarouselComponent } from '..';
 
@@ -27,7 +24,7 @@ import {
   IMAGE_CAROUSEL_STORY_LOCALE_SOURCE
 } from './image-carousel-story-locale';
 
-<Meta title='UI/Image Carousel' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Image Carousel' component={ESImageCarouselComponent} />
 
 # Image Carousel
 
@@ -35,12 +32,12 @@ This component displays images and allows to slide them.
 
 ## Demos
 
-<Preview source={IMAGE_CAROUSEL_STORY_BASIC_SOURCE}>
+<Canvas source={IMAGE_CAROUSEL_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='200px'>
     {{
       component: ImageCarouselStoryBasicComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, ImageCarouselStoryBasicModule]
+        imports: [ImageCarouselStoryBasicModule]
       },
       props: {
         imageHeight: number('imageHeight', 160),
@@ -54,37 +51,37 @@ This component displays images and allows to slide them.
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can pass `viewSvgIcon` to use custom icon for view button.
 
-<Preview source={IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE}>
+<Canvas source={IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE}>
   <Story name='Custom Icon' height='200px'>
     {{
       component: ImageCarouselStoryCustomIconComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, ImageCarouselStoryCustomIconModule]
+        imports: [ImageCarouselStoryCustomIconModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default locale which is used for buttons aria labels.
 
-<Preview source={IMAGE_CAROUSEL_STORY_LOCALE_SOURCE}>
+<Canvas source={IMAGE_CAROUSEL_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='200px'>
     {{
       component: ImageCarouselStoryLocaleComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, ImageCarouselStoryLocaleModule]
+        imports: [ImageCarouselStoryLocaleModule]
       }
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESImageCarouselComponent} />
+<ArgsTable />
 
 ## Interfaces
 

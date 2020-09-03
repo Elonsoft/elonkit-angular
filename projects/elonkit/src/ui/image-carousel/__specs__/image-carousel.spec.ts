@@ -67,7 +67,7 @@ describe('Image Carousel', () => {
       imports: [ESImageCarouselModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    component.getAllByLabelText(locale.labelView).forEach(btn => {
+    component.getAllByLabelText(locale.labelView).forEach((btn) => {
       component.click(btn);
     });
     expect(onView).toHaveBeenCalledTimes(filesFixture.length);
@@ -86,7 +86,7 @@ describe('Image Carousel', () => {
       imports: [ESImageCarouselModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    component.getAllByLabelText(locale.labelRemove).forEach(btn => {
+    component.getAllByLabelText(locale.labelRemove).forEach((btn) => {
       component.click(btn);
     });
     expect(onRemove).toHaveBeenCalledTimes(filesFixture.length);

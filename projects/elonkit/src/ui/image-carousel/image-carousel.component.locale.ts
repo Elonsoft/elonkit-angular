@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ESImageCarouselLocale {
-  labelView = 'View';
-  labelRemove = 'Remove';
-  labelSlideRight = 'Slide right';
-  labelSlideLeft = 'Slide left';
+  public labelView = 'View';
+  public labelRemove = 'Remove';
+  public labelSlideRight = 'Slide right';
+  public labelSlideLeft = 'Slide left';
 }
 
 @Injectable()
 export class ESImageCarouselLocaleRU extends ESImageCarouselLocale {
-  labelView = 'Смотреть';
-  labelRemove = 'Удалить';
-  labelSlideRight = 'Передвинуть вправо';
-  labelSlideLeft = 'Передвинуть влево';
+  public labelView = 'Смотреть';
+  public labelRemove = 'Удалить';
+  public labelSlideRight = 'Передвинуть вправо';
+  public labelSlideLeft = 'Передвинуть влево';
 }
