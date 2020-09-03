@@ -2,9 +2,8 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
 
-import { ESBreadcrumbsComponent, ESBreadcrumbsLocale, ESBreadcrumbsLocaleRU } from '..';
+import { ESBreadcrumbsComponent } from '..';
 
 import {
   BreadcrumbsStoryBasicModule,
@@ -18,7 +17,7 @@ import {
   BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE
 } from './breadcrumbs-story-customization';
 
-<Meta title='UI/Breadcrumbs' component={ESBreadcrumbsComponent} />
+<Meta title='UI/Breadcrumbs' />
 
 # Breadcrumbs
 
@@ -61,7 +60,7 @@ We can customize icons and label's font.
 
 ## API
 
-<ArgsTable />
+<ArgsTable of={ESBreadcrumbsComponent} />
 
 ## Interfaces
 

@@ -2,7 +2,6 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
 
 import { ESTimepickerComponent } from '..';
 
@@ -24,7 +23,7 @@ import {
   TIMEPICKER_STORY_REQUIRED_SOURCE
 } from './timepicker-story-required';
 
-<Meta title='UI/Timepicker' component={ESTimepickerComponent} />
+<Meta title='UI/Timepicker' />
 
 # Timepicker
 
@@ -60,19 +59,24 @@ We can use `withSeconds` in order to display seconds input.
 When input is required it won't allow to clear existing value.
 
 <Canvas source={TIMEPICKER_STORY_REQUIRED_SOURCE}>
-  <Story name='Required' height='110px'>
-    {{
+  <Story
+    name='Required'
+    height='110px'
+    args={{ required: true }}
+    argTypes={{ required: { control: 'boolean' } }}
+  >
+    {((args) => ({
       component: TimepickerStoryRequiredComponent,
       moduleMetadata: {
         imports: [TimepickerStoryRequiredModule]
       },
       props: {
-        required: boolean('required', true)
+        ...args
       }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
 ## API
 
-<ArgsTable />
+<ArgsTable of={ESTimepickerComponent} />

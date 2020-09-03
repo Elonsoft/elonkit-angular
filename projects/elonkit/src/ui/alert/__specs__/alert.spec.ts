@@ -3,13 +3,7 @@ import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 import { render } from '@testing-library/angular';
 
-import {
-  ESAlertModule,
-  ESAlertComponent,
-  ESAlertLocale,
-  ESAlertLocaleRU,
-  ESAlertVariant
-} from '..';
+import { ESAlertModule, ESAlertComponent, ESAlertVariant } from '..';
 
 @Component({
   template: ` <es-alert typography="app-body-1">Message</es-alert> `

@@ -21,6 +21,7 @@ const localeService = new ESLocaleService();
 localeService.register('ru', ru);
 
 addParameters({
+  controls: { hideNoControlsWarning: true },
   docs: {
     theme
   }
@@ -28,7 +29,10 @@ addParameters({
 
 addDecorator((story, context) => {
   const locale = context.globals.locale;
-  localeService.use(locale);
+
+  if (locale !== localeService.currentLanguage()) {
+    localeService.use(locale);
+  }
 
   return moduleMetadata({
     imports: [BrowserAnimationsModule],
