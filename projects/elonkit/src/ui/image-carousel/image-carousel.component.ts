@@ -133,6 +133,18 @@ export class ESImageCarouselComponent implements OnInit {
   private _viewSvgIcon: string;
 
   /**
+   * Defines custom svg icon to render for remove buttons.
+   */
+  @Input()
+  public get removeSvgIcon(): string {
+    return this._removeSvgIcon;
+  }
+  public set removeSvgIcon(value: string) {
+    this._removeSvgIcon = value ?? this.defaultOptions?.removeSvgIcon;
+  }
+  private _removeSvgIcon: string;
+
+  /**
    * Object with `ESImageCarouselAction` type is emitted.
    */
   @Output()
@@ -198,6 +210,17 @@ export class ESImageCarouselComponent implements OnInit {
    */
   public getImage(file: ESImageCarouselFile): string {
     return file.id ? file.file : file.base64;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public elementIsInView(index: number): boolean {
+    const fitInViewCount = Math.floor(
+      this.carousel.nativeElement.clientWidth / (this.imageWidth + this.gap)
+    );
+    return index + 1 - this.slideCount <= 0 ? false : index + 1 - this.slideCount <= fitInViewCount;
   }
 
   /**

@@ -19,16 +19,22 @@
     justify-content: center;
     position: relative;
 
+    &:focus-within &-view,
+    &:focus-within &-remove {
+      opacity: 1;
+    }
+
     &:hover &-view,
     &:hover &-remove {
-      visibility: visible;
+      opacity: 1;
+      // visibility: visible;
     }
 
     &-view.mat-icon-button {
       background: rgba(0, 0, 0, 0.54);
       border-radius: 20px;
       color: #fff;
-      visibility: hidden;
+      opacity: 0;
     }
 
     &-remove.mat-icon-button {
@@ -37,10 +43,11 @@
       color: #fff;
       height: 24px;
       line-height: 12px;
+      opacity: 0;
       position: absolute;
       right: 8px;
       top: 8px;
-      visibility: hidden;
+      // visibility: hidden;
       width: 24px;
     }
   }

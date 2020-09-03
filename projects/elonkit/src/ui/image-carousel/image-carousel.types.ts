@@ -22,4 +22,5 @@ export interface ESImageCarouselOptions {
   canRemove?: boolean;
   canView?: boolean;
   viewSvgIcon?: string;
+  removeSvgIcon?: string;
 }

@@ -18,26 +18,29 @@
           backgroundImage: 'url(' + getImage(file) + ')'
         }"
       >
-        <button
-          *ngIf="canRemove"
-          mat-icon-button
-          [attr.aria-label]="locale.labelRemove"
-          (click)="removeImage({ file: file, index: i })"
-          class="es-image-carousel__item-remove"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
+        <ng-container *ngIf="elementIsInView(i)">
+          <button
+            *ngIf="canRemove"
+            mat-icon-button
+            [attr.aria-label]="locale.labelRemove"
+            (click)="removeImage({ file: file, index: i })"
+            class="es-image-carousel__item-remove"
+          >
+            <mat-icon *ngIf="removeSvgIcon" [svgIcon]="removeSvgIcon"></mat-icon>
+            <mat-icon *ngIf="!removeSvgIcon">close</mat-icon>
+          </button>
 
-        <button
-          *ngIf="canView"
-          mat-icon-button
-          [attr.aria-label]="locale.labelView"
-          class="es-image-carousel__item-view"
-          (click)="viewImage({ file: file, index: i })"
-        >
-          <mat-icon *ngIf="viewSvgIcon" [svgIcon]="viewSvgIcon"></mat-icon>
-          <mat-icon *ngIf="!viewSvgIcon">visibility</mat-icon>
-        </button>
+          <button
+            *ngIf="canView"
+            mat-icon-button
+            [attr.aria-label]="locale.labelView"
+            class="es-image-carousel__item-view"
+            (click)="viewImage({ file: file, index: i })"
+          >
+            <mat-icon *ngIf="viewSvgIcon" [svgIcon]="viewSvgIcon"></mat-icon>
+            <mat-icon *ngIf="!viewSvgIcon">visibility</mat-icon>
+          </button>
+        </ng-container>
       </div>
     </ng-container>
   </div>
