@@ -17,7 +17,9 @@ import { FormControl, FormControlName, NgModel } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
 import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 
-import { ESInlineFormFieldLocale } from './inline-form-field.component.locale';
+import { Observable } from 'rxjs';
+
+import { ESLocaleService, ESLocale } from '../locale';
 
 export interface ESInlineFormFieldDefaultOptions {
   typography?: string;
@@ -57,10 +59,10 @@ export class ESInlineFormFieldComponent {
    * Class applied to text.
    */
   @Input()
-  get typography(): string {
+  public get typography(): string {
     return this._typography;
   }
-  set typography(value: string) {
+  public set typography(value: string) {
     this._typography =
       value || (this.defaultOptions && this.defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
@@ -68,27 +70,27 @@ export class ESInlineFormFieldComponent {
   /**
    * Text to display.
    */
-  @Input() text: string;
+  @Input() public text: string;
 
   /**
    * Disable default behaviour of "save" button and only emit event.
    */
-  @Input() manualSave = false;
+  @Input() public manualSave = false;
 
   /**
    * Event emitted when user clicks "edit" button.
    */
-  @Output() edit = new EventEmitter<ESInlineFormFieldComponent>();
+  @Output() public edit = new EventEmitter<ESInlineFormFieldComponent>();
 
   /**
    * Event emitted when user clicks "save" button.
    */
-  @Output() save = new EventEmitter<ESInlineFormFieldComponent>();
+  @Output() public save = new EventEmitter<ESInlineFormFieldComponent>();
 
   /**
    * Event emitted when user clicks "cancel" button.
    */
-  @Output() cancel = new EventEmitter<ESInlineFormFieldComponent>();
+  @Output() public cancel = new EventEmitter<ESInlineFormFieldComponent>();
 
   @ContentChild(MatFormField) private formField: MatFormField;
 
@@ -101,6 +103,12 @@ export class ESInlineFormFieldComponent {
    * @ignore
    */
   public isHidden = true;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
 
   private previousValue;
 
@@ -116,7 +124,7 @@ export class ESInlineFormFieldComponent {
     /**
      * @internal
      */
-    public locale: ESInlineFormFieldLocale,
+    public localeService: ESLocaleService,
     /**
      * @internal
      */
@@ -124,6 +132,8 @@ export class ESInlineFormFieldComponent {
     @Inject(ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS)
     private defaultOptions: ESInlineFormFieldDefaultOptions
   ) {
+    this.locale$ = this.localeService.locale();
+
     this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
 

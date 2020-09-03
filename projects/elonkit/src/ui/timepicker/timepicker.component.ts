@@ -23,7 +23,7 @@ import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrect
 const autoCorrectedTimePipe = createAutoCorrectedDatePipe('HH:MM');
 const autoCorrectedTimeSecondsPipe = createAutoCorrectedDatePipe('HH:MM:SS');
 
-import { ESTimepickerLocale } from './timepicker.component.locale';
+import { ESLocaleService } from '../locale';
 
 @Component({
   selector: 'es-timepicker',
@@ -48,10 +48,10 @@ export class ESTimepickerComponent
    * Enable seconds input.
    */
   @Input()
-  get withSeconds(): boolean {
+  public get withSeconds(): boolean {
     return this._withSeconds;
   }
-  set withSeconds(withSeconds: boolean) {
+  public set withSeconds(withSeconds: boolean) {
     this._withSeconds = coerceBooleanProperty(withSeconds);
 
     if (this.withSeconds) {
@@ -140,7 +140,9 @@ export class ESTimepickerComponent
    * @ignore
    */
   public get placeholder(): string {
-    const { labelHH, labelMM, labelSS } = this.locale;
+    const {
+      timepicker: { labelHH, labelMM, labelSS }
+    } = this.localeService.currentLocale();
     return this.withSeconds ? `${labelHH}:${labelMM}:${labelSS}` : `${labelHH}:${labelMM}`;
   }
 
@@ -201,7 +203,7 @@ export class ESTimepickerComponent
      */
     @Optional() public ngForm: FormGroupDirective,
     private datePipe: DatePipe,
-    private locale: ESTimepickerLocale
+    private localeService: ESLocaleService
   ) {
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;

@@ -8,8 +8,8 @@ import { ESBreadcrumb } from './breadcrumbs.types';
 
 @Injectable({ providedIn: 'root' })
 export class ESBreadcrumbsService implements OnDestroy {
-  breadcrumbs$ = new BehaviorSubject<ESBreadcrumb[]>([]);
-  destroyed$ = new Subject();
+  public breadcrumbs$ = new BehaviorSubject<ESBreadcrumb[]>([]);
+  public destroyed$ = new Subject();
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.getBreadcrumbs();
@@ -24,7 +24,7 @@ export class ESBreadcrumbsService implements OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.destroyed$.next();
   }
 

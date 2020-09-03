@@ -14,12 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 
 import { render } from '@testing-library/angular';
 
-import {
-  ESInlineFormFieldModule,
-  ESInlineFormFieldComponent,
-  ESInlineFormFieldLocale,
-  ESInlineFormFieldLocaleRU
-} from '..';
+import { ESInlineFormFieldModule, ESInlineFormFieldComponent } from '..';
+import { ESLocaleService, ru } from '../../locale';
 
 const TEXT_HELLO = 'Hello';
 const TEXT_HELLO_WORLD = 'Hello World';
@@ -37,12 +33,12 @@ const TIMEOUT = 100;
   `
 })
 class InlineFormFieldWrapperComponent {
-  @Input() manualSave = false;
-  @Output() save = new EventEmitter<ESInlineFormFieldComponent>();
+  @Input() public manualSave = false;
+  @Output() public save = new EventEmitter<ESInlineFormFieldComponent>();
 
-  text = TEXT_HELLO;
+  public text = TEXT_HELLO;
 
-  onSave(event) {
+  public onSave(event) {
     this.save.emit(event);
   }
 }
@@ -62,7 +58,7 @@ class InlineFormFieldWrapperComponent {
   `
 })
 class InlineFormFieldValidationWrapperComponent {
-  form = new FormGroup({
+  public form = new FormGroup({
     text: new FormControl(TEXT_HELLO, [Validators.required])
   });
 }
@@ -86,13 +82,13 @@ class InlineFormFieldValidationWrapperComponent {
   `
 })
 class InlineFormFieldServerValidationWrapperComponent {
-  form = new FormGroup({
+  public form = new FormGroup({
     text: new FormControl(TEXT_HELLO)
   });
 
   constructor(public changeDetector: ChangeDetectorRef) {}
 
-  onSave(inlineFormField: ESInlineFormFieldComponent) {
+  public onSave(inlineFormField: ESInlineFormFieldComponent) {
     setTimeout(() => {
       if (this.form.get('text').value.length) {
         inlineFormField.setHidden(true);
@@ -182,18 +178,22 @@ describe('InlineFormField', () => {
   });
 
   it('Should change locale', async () => {
+    const localeService = new ESLocaleService();
+    localeService.register('ru', ru);
+    localeService.use('ru');
+
     const component = await render(ESInlineFormFieldComponent, {
       imports: [ESInlineFormFieldModule],
-      providers: [{ provide: ESInlineFormFieldLocale, useClass: ESInlineFormFieldLocaleRU }],
+      providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
     });
 
-    const editButton = component.getByLabelText('Редактировать');
+    const editButton = component.getByLabelText(ru.inlineFormField.labelEdit);
     expect(editButton).toBeInTheDocument();
     component.click(editButton);
 
-    expect(component.getByLabelText('Сохранить')).toBeInTheDocument();
-    expect(component.getByLabelText('Отменить')).toBeInTheDocument();
+    expect(component.getByLabelText(ru.inlineFormField.labelSave)).toBeInTheDocument();
+    expect(component.getByLabelText(ru.inlineFormField.labelCancel)).toBeInTheDocument();
   });
 
   it('Should accept typography class', async () => {

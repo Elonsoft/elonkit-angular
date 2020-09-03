@@ -30,7 +30,7 @@ const save = (value: string) =>
   encapsulation: ViewEncapsulation.None
 })
 export class InlineFormFieldStoryValidationComponent {
-  form: FormGroup;
+  public form: FormGroup;
 
   constructor(private changeDetector: ChangeDetectorRef, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -39,7 +39,7 @@ export class InlineFormFieldStoryValidationComponent {
     });
   }
 
-  onSave(inlineFormField: ESInlineFormFieldComponent) {
+  public onSave(inlineFormField: ESInlineFormFieldComponent) {
     const value: string = this.form.get('server').value;
 
     save(value).subscribe(

@@ -1,0 +1,18 @@
+<form #f="ngForm" class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)">
+  <es-dropzone
+    [heading]="heading"
+    [subheading]="subheading"
+    formControlName="docs"
+    accept="image/png"
+  >
+    <mat-hint>{{
+      locale === 'en' ? 'This is an example of a hint message' : 'Это пример подсказки'
+    }}</mat-hint>
+    <mat-error>
+      {{ locale === 'en' ? 'Select at least one file' : 'Выберите хотя бы один файл' }}
+    </mat-error>
+  </es-dropzone>
+  <button class="form__submit" color="primary" mat-flat-button type="submit">
+    {{ locale === 'en' ? 'Submit' : 'Отправить' }}
+  </button>
+</form>

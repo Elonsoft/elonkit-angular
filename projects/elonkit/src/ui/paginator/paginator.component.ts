@@ -11,7 +11,9 @@ import {
   Inject
 } from '@angular/core';
 
-import { ESPaginatorLocale } from './paginator.component.locale';
+import { Observable } from 'rxjs';
+
+import { ESLocaleService, ESLocale } from '../locale';
 
 function range(start: number, end: number) {
   const length = end - start + 1;
@@ -39,7 +41,7 @@ export class ESPaginatorComponent {
   /**
    * The count of the total number of items that are being paginated.
    */
-  @Input() count: number;
+  @Input() public count: number;
 
   // tslint:disable-next-line
   private _page: number;
@@ -48,18 +50,18 @@ export class ESPaginatorComponent {
    * The current page.
    */
   @Input()
-  set page(page: number) {
+  public set page(page: number) {
     this.pageGoTo = '';
     this._page = page;
   }
-  get page() {
+  public get page() {
     return this._page;
   }
 
   /**
    * Number of items to display on a page.
    */
-  @Input() pageSize: number;
+  @Input() public pageSize: number;
 
   private _pageSizeOptions: number[];
 
@@ -67,11 +69,11 @@ export class ESPaginatorComponent {
    * The set of provided page size options to display to the user.
    */
   @Input()
-  set pageSizeOptions(value: number[]) {
+  public set pageSizeOptions(value: number[]) {
     this._pageSizeOptions = value ||
       this.defaultOptions?.pageSizeOptions || [5, 10, 25, 50, 100, 250, 500];
   }
-  get pageSizeOptions(): number[] {
+  public get pageSizeOptions(): number[] {
     return this._pageSizeOptions;
   }
 
@@ -81,10 +83,10 @@ export class ESPaginatorComponent {
    * Number of always visible pages before and after the current page.
    */
   @Input()
-  set siblingCount(value: number) {
+  public set siblingCount(value: number) {
     this._siblingCount = value ?? this.defaultOptions?.siblingCount ?? 2;
   }
-  get siblingCount(): number {
+  public get siblingCount(): number {
     return this._siblingCount;
   }
 
@@ -94,28 +96,34 @@ export class ESPaginatorComponent {
    * Number of always visible pages at the beginning and end.
    */
   @Input()
-  set boundaryCount(value: number) {
+  public set boundaryCount(value: number) {
     this._boundaryCount = value ?? this.defaultOptions?.boundaryCount ?? 1;
   }
-  get boundaryCount(): number {
+  public get boundaryCount(): number {
     return this._boundaryCount;
   }
 
   /**
    * Event emitted when the paginator changes the page index.
    */
-  @Output() pageChange = new EventEmitter<number>();
+  @Output() public pageChange = new EventEmitter<number>();
 
   /**
    * Event emitted when the paginator changes the page size.
    */
-  @Output() pageSizeChange = new EventEmitter<number>();
+  @Output() public pageSizeChange = new EventEmitter<number>();
 
   /**
    * @internal
    * @ignore
    */
-  pageGoTo = '';
+  public pageGoTo = '';
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
 
   /**
    * @internal
@@ -129,7 +137,7 @@ export class ESPaginatorComponent {
     /**
      * @internal
      */
-    public locale: ESPaginatorLocale,
+    private localeService: ESLocaleService,
     /**
      * @internal
      */
@@ -137,6 +145,8 @@ export class ESPaginatorComponent {
     @Inject(ES_PAGINATOR_DEFAULT_OPTIONS)
     private defaultOptions: ESPaginatorDefaultOptions
   ) {
+    this.locale$ = this.localeService.locale();
+
     this.pageSizeOptions = this.defaultOptions?.pageSizeOptions;
     this.siblingCount = this.defaultOptions?.siblingCount;
     this.boundaryCount = this.defaultOptions?.boundaryCount;
@@ -146,7 +156,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  get countStart() {
+  public get countStart() {
     return (this.page - 1) * this.pageSize + (this.count ? 1 : 0);
   }
 
@@ -154,7 +164,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  get countEnd() {
+  public get countEnd() {
     return Math.min(this.page * this.pageSize, this.count);
   }
 
@@ -162,7 +172,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  get pagesCount() {
+  public get pagesCount() {
     return Math.ceil(this.count / this.pageSize);
   }
 
@@ -170,7 +180,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  get pages() {
+  public get pages() {
     const startPages = range(1, Math.min(this.boundaryCount, this.pagesCount));
     const endPages = range(
       Math.max(this.pagesCount - this.boundaryCount + 1, this.boundaryCount + 1),
@@ -229,7 +239,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  onPageSizeChange(pageSize: number) {
+  public onPageSizeChange(pageSize: number) {
     this.pageSizeChange.emit(pageSize);
   }
 
@@ -237,7 +247,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  onPageClick(page: number) {
+  public onPageClick(page: number) {
     this.pageChange.emit(page);
   }
 
@@ -245,7 +255,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  onNextPage() {
+  public onNextPage() {
     this.pageChange.emit(Math.min(this.page + 1, this.pagesCount));
   }
 
@@ -253,7 +263,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  onPrevPage() {
+  public onPrevPage() {
     this.pageChange.emit(Math.max(1, this.page - 1));
   }
 
@@ -261,7 +271,7 @@ export class ESPaginatorComponent {
    * @internal
    * @ignore
    */
-  onSubmit(event: Event) {
+  public onSubmit(event: Event) {
     event.preventDefault();
     if (this.pageGoTo) {
       const page = Math.max(1, Math.min(+this.pageGoTo, this.pagesCount));

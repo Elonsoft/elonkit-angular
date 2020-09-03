@@ -1,0 +1,15 @@
+<div class="dropzone">
+  <es-dropzone
+    [heading]="heading"
+    [subheading]="subheading"
+    [maxSize]="maxSize"
+    [accept]="accept"
+    [type]="type"
+    [formControl]="docs"
+    (validate)="validate($event)"
+  >
+    <mat-hint>{{
+      locale === 'en' ? 'This is an example of a hint message' : 'Это пример подсказки'
+    }}</mat-hint>
+  </es-dropzone>
+</div>

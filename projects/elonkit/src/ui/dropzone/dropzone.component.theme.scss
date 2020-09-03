@@ -1,0 +1,9 @@
+@mixin es-dropzone-theme($theme, $elonkit-theme) {
+  $primary: mat-color(map-get($theme, primary));
+
+  .es-dropzone {
+    &__heading {
+      color: $primary;
+    }
+  }
+}

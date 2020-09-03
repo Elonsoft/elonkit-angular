@@ -5,7 +5,7 @@ import { ESBreadcrumb } from './breadcrumbs.types';
 
 @Injectable()
 export class ESBreadcrumbsResolver implements Resolve<ESBreadcrumb> {
-  resolve(route: ActivatedRouteSnapshot) {
+  public resolve(route: ActivatedRouteSnapshot) {
     if (route.routeConfig && route.routeConfig.data && route.data.breadcrumb) {
       return route.data.breadcrumb;
     }

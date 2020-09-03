@@ -1,7 +1,9 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { ESBreadcrumb } from '../../breadcrumbs.types';
-import { ESBreadcrumbsLocale } from '../../breadcrumbs.component.locale';
+import { ESLocaleService, ESLocale } from '../../../locale';
 
 @Component({
   selector: 'es-breadcrumbs-breadcrumb',
@@ -14,22 +16,30 @@ export class ESBreadcrumbsBreadcrumbComponent {
   /**
    * @internal
    */
-  @Input() breadcrumb: ESBreadcrumb;
+  @Input() public breadcrumb: ESBreadcrumb;
 
   /**
    * @internal
    */
-  @Input() last = false;
+  @Input() public last = false;
 
   /**
    * @internal
    */
-  @Input() typography: string;
+  @Input() public typography: string;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
 
   constructor(
     /**
      * @internal
      */
-    public locale: ESBreadcrumbsLocale
-  ) {}
+    public localeService: ESLocaleService
+  ) {
+    this.locale$ = this.localeService.locale();
+  }
 }

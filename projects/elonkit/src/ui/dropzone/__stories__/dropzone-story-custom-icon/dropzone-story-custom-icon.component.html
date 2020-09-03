@@ -1,0 +1,12 @@
+<form class="form" [formGroup]="form">
+  <es-dropzone
+    [heading]="heading"
+    [subheading]="subheading"
+    svgIcon="upload"
+    formControlName="docs"
+  >
+    <mat-hint>{{
+      locale === 'en' ? 'This is an example of a hint message' : 'Это пример подсказки'
+    }}</mat-hint>
+  </es-dropzone>
+</form>

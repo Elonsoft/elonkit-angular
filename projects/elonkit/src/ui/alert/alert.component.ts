@@ -13,8 +13,10 @@ import {
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
+import { Observable } from 'rxjs';
+
 import { ESAlertVariant } from './alert.types';
-import { ESAlertLocale } from './alert.component.locale';
+import { ESLocaleService, ESLocale } from '../locale';
 
 export interface ESAlertDefaultOptions {
   typography?: string;
@@ -48,7 +50,7 @@ export class ESAlertComponent {
   /**
    * The variant of the alert. This defines the color and icon used.
    */
-  @Input() variant: ESAlertVariant = 'default';
+  @Input() public variant: ESAlertVariant = 'default';
 
   private _typography;
 
@@ -56,10 +58,10 @@ export class ESAlertComponent {
    * Class applied to text.
    */
   @Input()
-  get typography(): string {
+  public get typography(): string {
     return this._typography;
   }
-  set typography(value: string) {
+  public set typography(value: string) {
     this._typography =
       value || (this.defaultOptions && this.defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
@@ -70,10 +72,10 @@ export class ESAlertComponent {
    * Show close button.
    */
   @Input()
-  get closable(): boolean {
+  public get closable(): boolean {
     return this._closable;
   }
-  set closable(closable: boolean) {
+  public set closable(closable: boolean) {
     this._closable = coerceBooleanProperty(closable);
   }
 
@@ -81,18 +83,24 @@ export class ESAlertComponent {
    * Override the icon displayed before the text.
    * Unless provided, the icon is mapped to the value of the variant input.
    */
-  @Input() icon?: string;
+  @Input() public icon?: string;
 
   /**
    * Override the icon displayed before the text.
    * Unless provided, the icon is mapped to the value of the variant input.
    */
-  @Input() svgIcon?: string;
+  @Input() public svgIcon?: string;
 
   /**
    * Event emitted when user clicks close button.
    */
-  @Output() closed = new EventEmitter();
+  @Output() public closed = new EventEmitter();
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
 
   /**
    * @ignore
@@ -105,7 +113,7 @@ export class ESAlertComponent {
     /**
      * @internal
      */
-    public locale: ESAlertLocale,
+    private localeService: ESLocaleService,
     /**
      * @internal
      */
@@ -113,6 +121,8 @@ export class ESAlertComponent {
     @Inject(ES_ALERT_DEFAULT_OPTIONS)
     private defaultOptions: ESAlertDefaultOptions
   ) {
+    this.locale$ = this.localeService.locale();
+
     this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
     this.iconMapping = { ...DEFAULT_ICON_MAPPING, ...defaultOptions?.iconMapping };
   }
@@ -121,11 +131,11 @@ export class ESAlertComponent {
    * @internal
    * @ignore
    */
-  onClose() {
+  public onClose() {
     this.closed.emit();
   }
 
-  get currentIcon() {
+  public get currentIcon() {
     if (this.icon) {
       return { icon: this.icon };
     }
