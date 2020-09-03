@@ -4,11 +4,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   stories: ['../src/**/*.stories.mdx'],
   addons: [
-    '@storybook/addon-knobs',
+    '@storybook/addon-controls',
     '@storybook/addon-actions',
     '@storybook/addon-a11y',
     '@storybook/addon-viewport',
-    '@storybook/addon-docs'
+    '@storybook/addon-docs',
+    '@storybook/addon-toolbars'
   ],
   webpackFinal: async (config) => {
     config.resolve.alias['~storybook'] = path.resolve(__dirname);

@@ -2,25 +2,33 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { text, select } from '@storybook/addon-knobs';
 
 import { ESAlertModule, ESAlertComponent } from '..';
 
 import { ALERT_STORY_BASIC_SOURCE } from './alert-story-basic';
-import { ALERT_STORY_CLOSABLE_SOURCE } from './alert-story-closable';
 import { ALERT_STORY_ACTIONS_SOURCE } from './alert-story-actions';
 import {
   AlertStoryIconMappingModule,
   AlertStoryIconMappingComponent,
   ALERT_STORY_ICON_MAPPING_SOURCE
 } from './alert-story-icon-mapping';
-import {
-  AlertStoryLocaleModule,
-  AlertStoryLocaleComponent,
-  ALERT_STORY_LOCALE_SOURCE
-} from './alert-story-locale';
 
-<Meta title='UI/Alert' component={ESAlertComponent} />
+<Meta
+  title='UI/Alert'
+  args={{
+    content: '',
+    variant: 'info',
+    closable: false
+  }}
+  argTypes={{
+    variant: {
+      control: { type: 'select', options: ['default', 'info', 'success', 'warning', 'error'] }
+    },
+    closable: {
+      control: 'boolean'
+    }
+  }}
+/>
 
 # Alert
 
@@ -29,46 +37,46 @@ interrupting the user's task.
 
 ## Demos
 
+export const getContent = (args, context) => {
+  return args.content || (context.globals.locale === 'en' ? 'Message' : 'Сообщение');
+};
+
+export const TemplateBasic = (args, context) => ({
+  template: `
+        <es-alert
+          [variant]="variant"
+          [closable]="closable"
+          (closed)="onClose()"
+        >
+          {{content}}
+        </es-alert>
+      `,
+  moduleMetadata: {
+    imports: [ESAlertModule]
+  },
+  props: { ...args, content: getContent(args, context), onClose: action('onClose') }
+});
+
 <Canvas source={ALERT_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='100px'>
-    {{
-      template: `<es-alert [variant]="variant">{{content}}</es-alert>`,
-      moduleMetadata: {
-        imports: [ESAlertModule]
-      },
-      props: {
-        content: text('content', 'Message'),
-        variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'info')
-      }
-    }}
+    {TemplateBasic.bind({})}
   </Story>
-</Canvas>
-
-We can make alert closable.
-
-<Canvas source={ALERT_STORY_CLOSABLE_SOURCE}>
-  <Story name='Closable' height='100px'>
-    {{
-      template: `<es-alert [variant]="variant" closable (closed)="onClose()">{{content}}</es-alert>`,
-      moduleMetadata: {
-        imports: [ESAlertModule]
-      },
-      props: {
-        content: text('content', 'Message'),
-        variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'error'),
-        onClose: action('onClose')
-      }
-    }}
+  <Story name='DOCS_ONLY_Closable' height='100px' args={{ closable: true }}>
+    {TemplateBasic.bind({})}
   </Story>
 </Canvas>
 
 We can add actions.
 
-<Canvas source={ALERT_STORY_CLOSABLE_SOURCE}>
+<Canvas source={ALERT_STORY_ACTIONS_SOURCE}>
   <Story name='Actions' height='200px'>
-    {{
+    {((args, context) => ({
       template: `
-        <es-alert [variant]="variant">
+        <es-alert
+          [variant]="variant"
+          [closable]="closable"
+          (closed)="onClose()"
+        >
           {{content}}
           <es-alert-actions>
             <button mat-flat-button (click)="onAction()">Action</button>
@@ -80,44 +88,43 @@ We can add actions.
         imports: [ESAlertModule]
       },
       props: {
-        content: text('content', 'Message'),
-        variant: select('variant', ['default', 'info', 'success', 'warning', 'error'], 'success'),
+        ...args,
+        content: getContent(args, context),
+        onClose: action('onClose'),
         onAction: action('onAction'),
         onCancel: action('onCancel')
       }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
 We can override default icon mapping and individual icons.
 
 <Canvas source={ALERT_STORY_ICON_MAPPING_SOURCE}>
-  <Story name='Icon mapping' height='400px'>
-    {{
+  <Story
+    name='Icon mapping'
+    height='400px'
+    argTypes={{
+      variant: { table: { disable: true } }
+    }}
+  >
+    {((args, context) => ({
       component: AlertStoryIconMappingComponent,
       moduleMetadata: {
         imports: [AlertStoryIconMappingModule]
+      },
+      props: {
+        ...args,
+        content: getContent(args, context),
+        onClose: action('onClose')
       }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for close button.
-
-<Canvas source={ALERT_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='200px'>
-    {{
-      component: AlertStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [AlertStoryLocaleModule]
-      }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
 ## API
 
-<ArgsTable />
+<ArgsTable of={ESAlertComponent} />
 
 ## Constants
 

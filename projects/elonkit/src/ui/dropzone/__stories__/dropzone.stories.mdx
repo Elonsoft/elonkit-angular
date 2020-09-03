@@ -2,7 +2,6 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { text, number, select } from '@storybook/addon-knobs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -26,19 +25,7 @@ import {
   DROPZONE_STORY_CUSTOM_ICON_SOURCE
 } from './dropzone-story-custom-icon';
 
-import {
-  DropzoneStoryLocaleModule,
-  DropzoneStoryLocaleComponent,
-  DROPZONE_STORY_LOCALE_SOURCE
-} from './dropzone-story-locale';
-
-import {
-  DropzoneStoryTypographyModule,
-  DropzoneStoryTypographyComponent,
-  DROPZONE_STORY_TYPOGRAPHY_SOURCE
-} from './dropzone-story-typography';
-
-<Meta title='UI/Dropzone' component={ESDropzoneComponent} />
+<Meta title='UI/Dropzone' args={{ heading: '', subheading: '' }} />
 
 # Dropzone
 
@@ -46,25 +33,49 @@ This component allows to select files on click or by drag and drop.
 
 ## Demos
 
+export const getHeading = (args, context) => {
+  return args.heading || (context.globals.locale === 'en' ? 'CHOOSE FILES' : 'ВЫБЕРИТЕ ФАЙЛЫ');
+};
+
+export const getSubheading = (args, context) => {
+  return (
+    args.subheading ||
+    (context.globals.locale === 'en'
+      ? 'or drag files in this area (max size: 50 MB)'
+      : 'или перетащите файлы в эту область (не более 50 мб)')
+  );
+};
+
 Validation errors are emitted from `validate` output as array of `ESDropzoneValidationError`.
 
 <Canvas source={DROPZONE_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='150px'>
-    {{
+  <Story
+    name='Basic'
+    height='150px'
+    args={{ accept: 'image/png,image/jpg,image/jpeg', maxSise: 50, type: 'binary' }}
+    argTypes={{
+      maxSise: {
+        control: 'number'
+      },
+      type: {
+        control: { type: 'select', options: ['base64', 'binary'] }
+      }
+    }}
+  >
+    {((args, context) => ({
       component: DropzoneStoryBasicComponent,
       moduleMetadata: {
         imports: [DropzoneStoryBasicModule]
       },
       props: {
-        heading: text('heading', 'CHOOSE FILES'),
-        subheading: text('subheading', 'or drag files in this area (max size: 50 MB)'),
-        accept: text('accept', 'image/png,image/jpg,image/jpeg'),
-        maxSize: number('maxSize', '50'),
-        type: select('type', { base64: 'base64', binary: 'binary' }, 'binary'),
-        changeFiles: action('change'),
-        validate: action('errors')
+        ...args,
+        heading: getHeading(args, context),
+        subheading: getSubheading(args, context),
+        locale: context.globals.locale,
+        changeFiles: action('onChangeFiles'),
+        validate: action('onValidate')
       }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
@@ -72,12 +83,18 @@ We can make Control required by adding a Validator.
 
 <Canvas source={DROPZONE_STORY_REQUIRED_SOURCE}>
   <Story name='Required' height='200px'>
-    {{
+    {((args, context) => ({
       component: DropzoneStoryRequiredComponent,
       moduleMetadata: {
         imports: [DropzoneStoryRequiredModule]
+      },
+      props: {
+        ...args,
+        heading: getHeading(args, context),
+        subheading: getSubheading(args, context),
+        locale: context.globals.locale
       }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
@@ -85,44 +102,24 @@ We can pass `svgIcon` to use custom upload icon.
 
 <Canvas source={DROPZONE_STORY_CUSTOM_ICON_SOURCE}>
   <Story name='Custom Icon' height='200px'>
-    {{
+    {((args, context) => ({
       component: DropzoneStoryCustomIconComponent,
       moduleMetadata: {
         imports: [DropzoneStoryCustomIconModule]
+      },
+      props: {
+        ...args,
+        heading: getHeading(args, context),
+        subheading: getSubheading(args, context),
+        locale: context.globals.locale
       }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for Snackbar messages.
-
-<Canvas source={DROPZONE_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='200px'>
-    {{
-      component: DropzoneStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [DropzoneStoryLocaleModule]
-      }
-    }}
-  </Story>
-</Canvas>
-
-We can use typography inputs in order to change text presentation.
-
-<Canvas source={DROPZONE_STORY_TYPOGRAPHY_SOURCE}>
-  <Story name='Typography' height='200px'>
-    {{
-      component: DropzoneStoryTypographyComponent,
-      moduleMetadata: {
-        imports: [DropzoneStoryTypographyModule]
-      }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
 ## API
 
-<ArgsTable />
+<ArgsTable of={ESDropzoneComponent} />
 
 ## Interfaces
 

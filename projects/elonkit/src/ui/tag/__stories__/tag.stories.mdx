@@ -1,0 +1,79 @@
+import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
+import { Preview } from '~storybook/components';
+
+import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, text, select, color } from '@storybook/addon-knobs';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ESTagModule, ESTagComponent } from '..';
+
+import { TAG_STORY_BASIC_SOURCE } from './tag-story-basic';
+
+import { TAG_STORY_CUSTOMIZATION_SOURCE } from './tag-story-customization';
+
+import { TAG_STORY_ICON_SOURCE } from './tag-story-icon';
+
+<Meta title='UI/Tag' decorators={[withA11y, withKnobs]} />
+
+# Tag
+
+A tags primary use is to place content in context.
+
+## Demos
+
+<Preview source={TAG_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='100px'>
+    {{
+      template: TAG_STORY_BASIC_SOURCE.html,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESTagModule]
+      },
+      props: {
+        content: text('content', 'TAG')
+      }
+    }}
+  </Story>
+</Preview>
+
+We can customize element
+
+<Preview source={TAG_STORY_CUSTOMIZATION_SOURCE}>
+  <Story name='Customization' height='100px'>
+    {{
+      template: TAG_STORY_CUSTOMIZATION_SOURCE.html,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESTagModule]
+      },
+      props: {
+        content: text('content', 'TAG'),
+        color: color('color', '#58D652'),
+        textColor: color('textColor', '#fff')
+      }
+    }}
+  </Story>
+</Preview>
+
+We can add an icon
+
+<Preview source={TAG_STORY_ICON_SOURCE}>
+  <Story name='Icon' height='100px'>
+    {{
+      template: TAG_STORY_ICON_SOURCE.html,
+      moduleMetadata: {
+        imports: [BrowserAnimationsModule, ESTagModule]
+      },
+      props: {
+        content: text('content', 'TAG'),
+        color: color('color', '#58D652'),
+        textColor: color('textColor', '#fff'),
+        icon: text('icon', 'info')
+      }
+    }}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={ESTagComponent} />

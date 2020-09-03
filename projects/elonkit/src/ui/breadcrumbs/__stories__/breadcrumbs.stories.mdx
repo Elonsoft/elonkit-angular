@@ -2,9 +2,8 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
 
-import { ESBreadcrumbsComponent, ESBreadcrumbsLocale, ESBreadcrumbsLocaleRU } from '..';
+import { ESBreadcrumbsComponent } from '..';
 
 import {
   BreadcrumbsStoryBasicModule,
@@ -18,13 +17,7 @@ import {
   BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE
 } from './breadcrumbs-story-customization';
 
-import {
-  BreadcrumbsStoryLocaleModule,
-  BreadcrumbsStoryLocaleComponent,
-  BREADCRUMBS_STORY_LOCALE_SOURCE
-} from './breadcrumbs-story-locale';
-
-<Meta title='UI/Breadcrumbs' component={ESBreadcrumbsComponent} />
+<Meta title='UI/Breadcrumbs' />
 
 # Breadcrumbs
 
@@ -65,23 +58,9 @@ We can customize icons and label's font.
   </Story>
 </Canvas>
 
-We can override default locale which is used for aria-label on collapse button.
-
-<Canvas source={BREADCRUMBS_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='210px'>
-    {{
-      component: BreadcrumbsStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [BreadcrumbsStoryLocaleModule],
-        providers: [{ provide: ESBreadcrumbsLocale, useClass: ESBreadcrumbsLocaleRU }]
-      }
-    }}
-  </Story>
-</Canvas>
-
 ## API
 
-<ArgsTable />
+<ArgsTable of={ESBreadcrumbsComponent} />
 
 ## Interfaces
 
