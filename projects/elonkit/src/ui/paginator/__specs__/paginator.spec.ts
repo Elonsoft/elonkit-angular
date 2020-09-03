@@ -3,12 +3,8 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { render, getByText } from '@testing-library/angular';
 
-import {
-  ESPaginatorModule,
-  ESPaginatorComponent,
-  ESPaginatorLocale,
-  ESPaginatorLocaleRU
-} from '..';
+import { ESPaginatorModule, ESPaginatorComponent } from '..';
+import { ESLocaleService, en, ru } from '../../locale';
 
 describe('Paginator', () => {
   it('Should calculate corrent number of pages', async () => {
@@ -121,23 +117,21 @@ describe('Paginator', () => {
       excludeComponentDeclaration: true
     });
 
-    const locale = new ESPaginatorLocale();
-
-    component.click(component.getByLabelText(locale.labelPrev));
+    component.click(component.getByLabelText(en.paginator.labelPrev));
     expect(onPageChange).toBeCalledWith(4);
 
-    component.click(component.getByLabelText(locale.labelNext));
+    component.click(component.getByLabelText(en.paginator.labelNext));
     expect(onPageChange).toBeCalledWith(6);
 
     component.click(component.getByText('7'));
     expect(onPageChange).toBeCalledWith(7);
 
-    component.input(component.getByLabelText(locale.labelGoTo), { target: { value: '10' } });
-    component.submit(component.getByLabelText(locale.labelGoTo));
+    component.input(component.getByLabelText(en.paginator.labelGoTo), { target: { value: '10' } });
+    component.submit(component.getByLabelText(en.paginator.labelGoTo));
     expect(onPageChange).toBeCalledWith(10);
 
     component.click(
-      component.getByLabelText(locale.labelItemsPerPage).querySelector('.mat-select-trigger')
+      component.getByLabelText(en.paginator.labelItemsPerPage).querySelector('.mat-select-trigger')
     );
     component.click(getByText(document.body, /250/));
 
@@ -164,10 +158,8 @@ describe('Paginator', () => {
       overlayElement = oc.getContainerElement();
     })();
 
-    const locale = new ESPaginatorLocale();
-
     component.click(
-      component.getByLabelText(locale.labelItemsPerPage).querySelector('.mat-select-trigger')
+      component.getByLabelText(en.paginator.labelItemsPerPage).querySelector('.mat-select-trigger')
     );
 
     const options = overlayElement.querySelectorAll('.mat-option');
@@ -184,6 +176,10 @@ describe('Paginator', () => {
   });
 
   it('Should change locale', async () => {
+    const localeService = new ESLocaleService();
+    localeService.register('ru', ru);
+    localeService.use('ru');
+
     const component = await render(ESPaginatorComponent, {
       componentProperties: {
         count: 100,
@@ -193,17 +189,15 @@ describe('Paginator', () => {
         boundaryCount: 1
       },
       imports: [ESPaginatorModule],
-      providers: [{ provide: ESPaginatorLocale, useClass: ESPaginatorLocaleRU }],
+      providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
     });
 
-    const locale = new ESPaginatorLocaleRU();
-
-    expect(component.getByLabelText(locale.labelItemsPerPage)).toBeInTheDocument();
-    expect(component.getByText(`1 - 10 ${locale.labelOf} 100`)).toBeInTheDocument();
-    expect(component.getByLabelText(locale.labelPrev)).toBeInTheDocument();
-    expect(component.getByLabelText(locale.labelPrev)).toBeInTheDocument();
-    expect(component.getByLabelText(locale.labelGoTo)).toBeInTheDocument();
-    expect(component.getByPlaceholderText(`1 ${locale.labelPage}`)).toBeInTheDocument();
+    expect(component.getByLabelText(ru.paginator.labelItemsPerPage)).toBeInTheDocument();
+    expect(component.getByText(`1 - 10 ${ru.paginator.labelOf} 100`)).toBeInTheDocument();
+    expect(component.getByLabelText(ru.paginator.labelPrev)).toBeInTheDocument();
+    expect(component.getByLabelText(ru.paginator.labelPrev)).toBeInTheDocument();
+    expect(component.getByLabelText(ru.paginator.labelGoTo)).toBeInTheDocument();
+    expect(component.getByPlaceholderText(`1 ${ru.paginator.labelPage}`)).toBeInTheDocument();
   });
 });

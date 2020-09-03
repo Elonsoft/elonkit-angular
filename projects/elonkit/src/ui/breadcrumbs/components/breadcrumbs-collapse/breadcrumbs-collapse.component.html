@@ -2,7 +2,7 @@
   type="button"
   [matMenuTriggerFor]="menu"
   matRipple
-  [attr.aria-label]="locale.labelMore"
+  [attr.aria-label]="(locale$ | async).breadcrumbs.labelMore"
   class="es-breadcrumbs-collapse"
 >
   <div *ngIf="!moreTemplate" class="es-breadcrumbs-collapse__more">

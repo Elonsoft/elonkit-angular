@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 import { render } from '@testing-library/angular';
 
 import { ESAlertModule, ESAlertComponent, ESAlertVariant } from '..';
+import { ESLocaleService, en, ru } from '../../locale';
 
 @Component({
   template: ` <es-alert typography="app-body-1">Message</es-alert> `
@@ -62,7 +63,6 @@ describe('Alert', () => {
   });
 
   it('Should emit close event', async () => {
-    const locale = new ESAlertLocale();
     const onClose = jest.fn();
 
     const component = await render(ESAlertComponent, {
@@ -74,23 +74,25 @@ describe('Alert', () => {
       excludeComponentDeclaration: true
     });
 
-    component.click(component.getByLabelText(locale.labelClose));
+    component.click(component.getByLabelText(en.alert.labelClose));
     expect(onClose).toBeCalled();
   });
 
   it('Should change locale', async () => {
-    const locale = new ESAlertLocaleRU();
+    const localeService = new ESLocaleService();
+    localeService.register('ru', ru);
+    localeService.use('ru');
 
     const component = await render(ESAlertComponent, {
       imports: [ESAlertModule],
       componentProperties: {
         closable: true
       },
-      providers: [{ provide: ESAlertLocale, useClass: ESAlertLocaleRU }],
+      providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
     });
 
-    expect(component.queryByLabelText(locale.labelClose)).not.toBeNull();
+    expect(component.queryByLabelText(ru.alert.labelClose)).not.toBeNull();
   });
 
   it('Should accept typography class', async () => {
