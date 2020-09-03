@@ -62,7 +62,7 @@ describe('File List', () => {
       excludeComponentDeclaration: true
     });
     const removeButtons = component.getAllByLabelText(locale.labelRemove);
-    removeButtons.forEach(btn => {
+    removeButtons.forEach((btn) => {
       component.click(btn);
     });
     expect(onRemove).toHaveBeenCalledTimes(filesFixture.length);
@@ -94,7 +94,7 @@ describe('File List', () => {
       excludeComponentDeclaration: true
     });
     const downloadButtons = component.getAllByLabelText(locale.labelDownload);
-    downloadButtons.forEach(btn => {
+    downloadButtons.forEach((btn) => {
       component.click(btn);
     });
     expect(onDownload).toHaveBeenCalledTimes(filesFixture.length);
@@ -109,7 +109,7 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    const nonImageFixture = filesFixture.filter(file => !file.type.startsWith('image'));
+    const nonImageFixture = filesFixture.filter((file) => !file.type.startsWith('image'));
     expect(component.getAllByTestId('file')).toHaveLength(nonImageFixture.length);
   });
 
