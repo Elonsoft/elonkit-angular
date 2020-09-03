@@ -1,0 +1,50 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title='Guides/Localization' />
+
+# Localization
+
+The default locale is english. In order to use other locales, follow the instructions below:
+
+```ts
+import { ESLocaleService, ru } from '@elonsoft/elonkit/locale';
+
+const localeService = new ESLocaleService();
+localeService.register('ru', ru);
+localeService.use('ru');
+
+@NgModule({
+  providers: [
+    {
+      provide: ESLocaleService,
+      useValue: localeService
+    }
+  ]
+})
+export class AppModule {}
+```
+
+In order to dynamically change the locale:
+
+```ts
+import { ESLocaleService } from '@elonsoft/elonkit/ui/locale';
+
+...
+
+constructor(private localeService: ESLocaleService) {}
+
+onLocaleChange(language: 'en' | 'ru') {
+  this.localeService.use(language);
+}
+```
+
+## Supported locales
+
+| Locale  | Import |
+| ------- | ------ |
+| English | `en`   |
+| Russian | `ru`   |
+
+To create your own translation copy
+[this file](https://github.com/Elonsoft/elonkit/blob/master/projects/elonkit/src/ui/locale/locales/en.ts)
+to your project, make any changes needed and import the locale from there.

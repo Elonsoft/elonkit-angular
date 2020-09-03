@@ -14,12 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 
 import { render } from '@testing-library/angular';
 
-import {
-  ESInlineFormFieldModule,
-  ESInlineFormFieldComponent,
-  ESInlineFormFieldLocale,
-  ESInlineFormFieldLocaleRU
-} from '..';
+import { ESInlineFormFieldModule, ESInlineFormFieldComponent } from '..';
+import { ESLocaleService, ru } from '../../locale';
 
 const TEXT_HELLO = 'Hello';
 const TEXT_HELLO_WORLD = 'Hello World';
@@ -182,18 +178,22 @@ describe('InlineFormField', () => {
   });
 
   it('Should change locale', async () => {
+    const localeService = new ESLocaleService();
+    localeService.register('ru', ru);
+    localeService.use('ru');
+
     const component = await render(ESInlineFormFieldComponent, {
       imports: [ESInlineFormFieldModule],
-      providers: [{ provide: ESInlineFormFieldLocale, useClass: ESInlineFormFieldLocaleRU }],
+      providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
     });
 
-    const editButton = component.getByLabelText('Редактировать');
+    const editButton = component.getByLabelText(ru.inlineFormField.labelEdit);
     expect(editButton).toBeInTheDocument();
     component.click(editButton);
 
-    expect(component.getByLabelText('Сохранить')).toBeInTheDocument();
-    expect(component.getByLabelText('Отменить')).toBeInTheDocument();
+    expect(component.getByLabelText(ru.inlineFormField.labelSave)).toBeInTheDocument();
+    expect(component.getByLabelText(ru.inlineFormField.labelCancel)).toBeInTheDocument();
   });
 
   it('Should accept typography class', async () => {

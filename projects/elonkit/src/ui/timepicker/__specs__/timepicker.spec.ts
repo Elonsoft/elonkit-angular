@@ -3,12 +3,8 @@ import { FormsModule } from '@angular/forms';
 
 import { render } from '@testing-library/angular';
 
-import {
-  ESTimepickerModule,
-  ESTimepickerComponent,
-  ESTimepickerLocale,
-  ESTimepickerLocaleRU
-} from '..';
+import { ESTimepickerModule, ESTimepickerComponent } from '..';
+import { ESLocaleService, ru } from '../../locale';
 
 @Component({
   template: ` <es-timepicker [(ngModel)]="date" [required]="required"></es-timepicker> `
@@ -98,15 +94,23 @@ describe('Timepicker', () => {
   });
 
   it('Should change locale', async () => {
+    const localeService = new ESLocaleService();
+    localeService.register('ru', ru);
+    localeService.use('ru');
+
     const component = await render(ESTimepickerComponent, {
       componentProperties: {
         withSeconds: true
       },
       imports: [ESTimepickerModule],
-      providers: [{ provide: ESTimepickerLocale, useClass: ESTimepickerLocaleRU }],
+      providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
     });
 
-    expect(component.queryByPlaceholderText('ЧЧ:ММ:СС')).not.toBeNull();
+    const {
+      timepicker: { labelHH, labelMM, labelSS }
+    } = ru;
+
+    expect(component.queryByPlaceholderText(`${labelHH}:${labelMM}:${labelSS}`)).not.toBeNull();
   });
 });

@@ -17,7 +17,7 @@
       type="button"
       mat-icon-button
       [matMenuTriggerFor]="breadcrumbsMenu"
-      [attr.aria-label]="locale.labelMore"
+      [attr.aria-label]="(locale$ | async).breadcrumbs.labelMore"
       class="es-breadcrumbs-breadcrumb__menu"
     >
       <mat-icon>arrow_drop_down</mat-icon>

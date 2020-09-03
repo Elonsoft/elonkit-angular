@@ -1,10 +1,10 @@
-<div class="es-paginator">
+<div *ngIf="locale$ | async as locale" class="es-paginator">
   <div class="es-paginator__size mat-caption">
-    <span>{{ locale.labelItemsPerPage }}:</span>
+    <span>{{ locale.paginator.labelItemsPerPage }}:</span>
     <mat-select
       class="es-paginator__select"
       size="sm"
-      [aria-label]="locale.labelItemsPerPage"
+      [aria-label]="locale.paginator.labelItemsPerPage"
       [ngModel]="pageSize"
       (ngModelChange)="onPageSizeChange($event)"
     >
@@ -14,7 +14,7 @@
     </mat-select>
 
     <span class="es-paginator__pages">
-      {{ countStart }} - {{ countEnd }} {{ locale.labelOf }} {{ count }}
+      {{ countStart }} - {{ countEnd }} {{ locale.paginator.labelOf }} {{ count }}
     </span>
   </div>
 
@@ -24,7 +24,7 @@
       mat-icon-button
       [disabled]="page === 1"
       (click)="onPrevPage()"
-      [attr.aria-label]="locale.labelPrev"
+      [attr.aria-label]="locale.paginator.labelPrev"
     >
       <mat-icon> chevron_left </mat-icon>
     </button>
@@ -50,7 +50,7 @@
       mat-icon-button
       [disabled]="page === pagesCount"
       (click)="onNextPage()"
-      [attr.aria-label]="locale.labelNext"
+      [attr.aria-label]="locale.paginator.labelNext"
     >
       <mat-icon> chevron_right </mat-icon>
     </button>
@@ -58,14 +58,14 @@
     <form class="es-paginator__form" novalidate (submit)="onSubmit($event)">
       <mat-form-field class="es-paginator__input" appearance="outline">
         <input
-          [attr.aria-label]="locale.labelGoTo"
+          [attr.aria-label]="locale.paginator.labelGoTo"
           matInput
           [(ngModel)]="pageGoTo"
           name="pageGoTo"
           type="number"
           min="1"
           [max]="pagesCount"
-          placeholder="{{ page }} {{ locale.labelPage }}"
+          placeholder="{{ page }} {{ locale.paginator.labelPage }}"
         />
       </mat-form-field>
     </form>
