@@ -69,10 +69,10 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * Class applied to breadcrumb labels.
    */
   @Input()
-  get typography(): string {
+  public get typography(): string {
     return this._typography;
   }
-  set typography(value: string) {
+  public set typography(value: string) {
     this._typography =
       value || this.defaultOptions?.typography || ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY;
   }
@@ -83,10 +83,10 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * Sizes of component elements which are used for collapse calculations.
    */
   @Input()
-  get sizes(): ESBreadcrumbsDefaultOptionsSizes {
+  public get sizes(): ESBreadcrumbsDefaultOptionsSizes {
     return this._sizes;
   }
-  set sizes(value: ESBreadcrumbsDefaultOptionsSizes) {
+  public set sizes(value: ESBreadcrumbsDefaultOptionsSizes) {
     this._sizes = value || this.defaultOptions?.sizes || ES_BREADCRUMBS_DEFAULT_SIZES;
   }
 
@@ -106,19 +106,19 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * @internal
    * @ignore
    */
-  @ViewChild('navigation', { static: true }) elementNavigation: ElementRef<HTMLElement>;
+  @ViewChild('navigation', { static: true }) public elementNavigation: ElementRef<HTMLElement>;
 
   /**
    * @internal
    * @ignore
    */
-  @ViewChild('width', { static: true }) elementWidth: ElementRef<HTMLElement>;
+  @ViewChild('width', { static: true }) public elementWidth: ElementRef<HTMLElement>;
 
   /**
    * @internal
    * @ignore
    */
-  @HostListener('window:resize') onResize() {
+  @HostListener('window:resize') public onResize() {
     const element = this.elementNavigation.nativeElement;
     if (element && this.breadcrumbs.length > 2) {
       const sizes = this.sizes;
@@ -203,7 +203,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   public ngOnInit() {
     this.breadcrumbsService.breadcrumbs$
       .pipe(takeUntil(this.destroyed$), delay(1))
-      .subscribe(breadcrumbs => {
+      .subscribe((breadcrumbs) => {
         this.breadcrumbs = breadcrumbs;
         this.onResize();
         this.changeDetector.detectChanges();
@@ -222,7 +222,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * @internal
    * @ignore
    */
-  ngAfterContentInit() {
+  public ngAfterContentInit() {
     if ((document as any).fonts?.ready) {
       (document as any).fonts.ready.then(() => {
         this.onResize();

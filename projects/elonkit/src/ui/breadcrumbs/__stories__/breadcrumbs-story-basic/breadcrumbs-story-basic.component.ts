@@ -34,7 +34,7 @@ export class BreadcrumbsStoryBasicComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     // Hack for RouterTestingModule
     this.router.navigate(['/categories']);
   }
@@ -67,7 +67,7 @@ export class BreadcrumbsStoryBasicHomeComponent {}
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsStoryBasicCategoriesListComponent {
-  categories = [];
+  public categories = [];
 
   constructor(private route: ActivatedRoute) {
     this.categories = this.route.snapshot.data.data;
@@ -89,19 +89,19 @@ export class BreadcrumbsStoryBasicCategoriesListComponent {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsStoryBasicItemsListComponent implements OnInit, OnDestroy {
-  items = [];
-  destroyed$ = new Subject();
+  public items = [];
+  public destroyed$ = new Subject();
 
   constructor(private changeDetector: ChangeDetectorRef, private route: ActivatedRoute) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.items = this.route.snapshot.data.data;
       this.changeDetector.detectChanges();
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.destroyed$.next();
   }
 }
@@ -115,7 +115,7 @@ export class BreadcrumbsStoryBasicItemsListComponent implements OnInit, OnDestro
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsStoryBasicItemsShowComponent {
-  item;
+  public item;
 
   constructor(private route: ActivatedRoute) {
     this.item = this.route.snapshot.data.data;
@@ -124,13 +124,11 @@ export class BreadcrumbsStoryBasicItemsShowComponent {
 
 @Component({
   selector: 'es-breadcrumbs-basic-items-edit',
-  template: `
-    <h1 class="mat-h1">Edit {{ item.title }}</h1>
-  `,
+  template: ` <h1 class="mat-h1">Edit {{ item.title }}</h1> `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsStoryBasicItemsEditComponent {
-  item;
+  public item;
 
   constructor(private route: ActivatedRoute) {
     this.item = this.route.snapshot.data.data;

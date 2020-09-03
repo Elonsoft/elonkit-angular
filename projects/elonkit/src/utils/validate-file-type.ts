@@ -1,11 +1,11 @@
 export const validateFileType = (file: any, types: string): boolean => {
-  const typesArr = types.split(',').map(v => v.trim());
+  const typesArr = types.split(',').map((v) => v.trim());
   return typesArr.includes('*') || typesMatch(typesArr, file);
 };
 
 const typesMatch = (types: string[], file: File): boolean =>
   types.some(
-    type =>
+    (type) =>
       type === file.type ||
       typeMatchesFileType(type, file.type) ||
       typeMatchesFilenameExtension(type, file.name)

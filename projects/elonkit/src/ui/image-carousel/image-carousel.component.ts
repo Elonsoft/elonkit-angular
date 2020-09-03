@@ -43,7 +43,7 @@ export class ESImageCarouselComponent implements OnInit {
     return this._files;
   }
   public set files(value: ESImageCarouselFile[]) {
-    this._files = value.filter(file => validateFileType(file, this.imageTypes));
+    this._files = value.filter((file) => validateFileType(file, this.imageTypes));
   }
   private _files: ESImageCarouselFile[];
 
@@ -155,7 +155,7 @@ export class ESImageCarouselComponent implements OnInit {
    * @internal
    * @ignore
    */
-  @HostListener('window:resize') onResize() {
+  @HostListener('window:resize') public onResize() {
     const fitInViewCount = Math.floor(
       this.carousel.nativeElement.clientWidth / (this.imageWidth + this.gap)
     );
@@ -227,14 +227,6 @@ export class ESImageCarouselComponent implements OnInit {
     const gapWidth = (this.files.length - 1) * this.gap;
     const totalWidth = this.files.length * this.imageWidth + gapWidth;
     return totalWidth;
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  public get gridColumns(): string {
-    return `repeat(auto-fit, ${this.imageWidth}px)`;
   }
 
   /**

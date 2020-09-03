@@ -12,9 +12,7 @@ import {
 } from '..';
 
 @Component({
-  template: `
-    <es-alert typography="app-body-1">Message</es-alert>
-  `
+  template: ` <es-alert typography="app-body-1">Message</es-alert> `
 })
 class AlertTypographyWrapperComponent {}
 

@@ -1,4 +1,5 @@
-export interface IPreviewProps {
+export interface ICanvasProps {
+  children: any;
   source: {
     ts?: string;
     html?: string;

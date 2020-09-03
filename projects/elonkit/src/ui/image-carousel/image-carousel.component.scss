@@ -6,6 +6,7 @@
 
   &__items {
     display: grid;
+    grid-auto-flow: column;
     transition: transform 1s ease-in-out;
   }
 

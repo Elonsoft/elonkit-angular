@@ -8,8 +8,8 @@ import { ESBreadcrumb } from './breadcrumbs.types';
 
 @Injectable({ providedIn: 'root' })
 export class ESBreadcrumbsService implements OnDestroy {
-  breadcrumbs$ = new BehaviorSubject<ESBreadcrumb[]>([]);
-  destroyed$ = new Subject();
+  public breadcrumbs$ = new BehaviorSubject<ESBreadcrumb[]>([]);
+  public destroyed$ = new Subject();
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.getBreadcrumbs();
@@ -17,14 +17,14 @@ export class ESBreadcrumbsService implements OnDestroy {
     this.router.events
       .pipe(
         takeUntil(this.destroyed$),
-        filter(event => event instanceof NavigationEnd)
+        filter((event) => event instanceof NavigationEnd)
       )
       .subscribe(() => {
         this.getBreadcrumbs();
       });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.destroyed$.next();
   }
 
@@ -53,7 +53,7 @@ export class ESBreadcrumbsService implements OnDestroy {
     let path = '';
 
     while (route) {
-      const segment = route.snapshot.url.map(s => s.path).join('/');
+      const segment = route.snapshot.url.map((s) => s.path).join('/');
       if (segment) {
         path = `${segment}/${path}`;
       }

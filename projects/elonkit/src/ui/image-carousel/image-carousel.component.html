@@ -4,7 +4,6 @@
     [ngStyle]="{
       'width.px': carouselWidth,
       'gap.px': gap,
-      'grid-template-columns': gridColumns,
       transform: getTranslateX
     }"
   >
@@ -44,21 +43,20 @@
   </div>
   <button
     mat-icon-button
-    (click)="slideRight()"
-    [attr.aria-label]="locale.labelSlideRight"
-    class="es-image-carousel__arrow es-image-carousel__arrow_right"
-    [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollRight }"
-  >
-    <mat-icon>arrow_forward</mat-icon>
-  </button>
-
-  <button
-    mat-icon-button
     (click)="slideLeft()"
     [attr.aria-label]="locale.labelSlideLeft"
     class="es-image-carousel__arrow es-image-carousel__arrow_left"
     [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollLeft }"
   >
     <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    (click)="slideRight()"
+    [attr.aria-label]="locale.labelSlideRight"
+    class="es-image-carousel__arrow es-image-carousel__arrow_right"
+    [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollRight }"
+  >
+    <mat-icon>arrow_forward</mat-icon>
   </button>
 </div>
