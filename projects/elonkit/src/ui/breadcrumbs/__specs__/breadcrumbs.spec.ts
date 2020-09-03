@@ -6,7 +6,8 @@ import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
-import { ESBreadcrumbsModule, ESBreadcrumbsLocale, ESBreadcrumbsLocaleRU } from '..';
+import { ESBreadcrumbsModule } from '..';
+import { ESLocaleService, ru } from '../../locale';
 
 import {
   ROUTES,
@@ -154,6 +155,10 @@ describe('Breadcrumbs', () => {
     let component: RenderResult<BreadcrumbsRootComponent, BreadcrumbsRootComponent>;
 
     beforeEach(async () => {
+      const localeService = new ESLocaleService();
+      localeService.register('ru', ru);
+      localeService.use('ru');
+
       component = await render(BreadcrumbsRootComponent, {
         declarations: [BreadcrumbsLeafComponent],
         imports: [CommonModule, ESBreadcrumbsModule, RouterTestingModule.withRoutes(ROUTES)],
@@ -166,7 +171,7 @@ describe('Breadcrumbs', () => {
           ItemsListResolver,
           ItemsShowResolver,
           ItemsShowBreadcrumbsResolver,
-          { provide: ESBreadcrumbsLocale, useClass: ESBreadcrumbsLocaleRU }
+          { provide: ESLocaleService, useValue: localeService }
         ]
       });
     });
@@ -177,7 +182,7 @@ describe('Breadcrumbs', () => {
       await component.navigate('/categories/1/1/edit');
       await component.fixture.whenStable();
 
-      expect(component.queryByLabelText('Ещё')).not.toBeNull();
+      expect(component.queryByLabelText(ru.breadcrumbs.labelMore)).not.toBeNull();
     });
 
     it('Should change horizontal navigation locale', async () => {
@@ -186,7 +191,7 @@ describe('Breadcrumbs', () => {
       await component.navigate('/categories/1');
       await component.fixture.whenStable();
 
-      expect(component.queryByLabelText('Ещё')).not.toBeNull();
+      expect(component.queryByLabelText(ru.breadcrumbs.labelMore)).not.toBeNull();
     });
   });
 });

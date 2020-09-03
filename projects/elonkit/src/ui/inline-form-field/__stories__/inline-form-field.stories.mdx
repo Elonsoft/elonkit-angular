@@ -2,7 +2,6 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
-import { text } from '@storybook/addon-knobs';
 
 import { ESInlineFormFieldComponent } from '..';
 
@@ -25,18 +24,12 @@ import {
 } from './inline-form-field-story-composition';
 
 import {
-  InlineFormFieldStoryLocaleModule,
-  InlineFormFieldStoryLocaleComponent,
-  INLINE_FORM_FIELD_STORY_LOCALE_SOURCE
-} from './inline-form-field-story-locale';
-
-import {
   InlineFormFieldStoryValidationModule,
   InlineFormFieldStoryValidationComponent,
   INLINE_FORM_FIELD_STORY_VALIDATION_SOURCE
 } from './inline-form-field-story-validation';
 
-<Meta title='UI/Inline Form Field' component={ESInlineFormFieldComponent} />
+<Meta title='UI/Inline Form Field' />
 
 # Inline Form Field
 
@@ -58,16 +51,16 @@ This component allows inline switching between display value and input.
 We can use `typography` input in order to change text presentation.
 
 <Canvas source={INLINE_FORM_FIELD_STORY_TYPOGRAPHY_SOURCE}>
-  <Story name='Typography' height='170px'>
-    {{
+  <Story name='Typography' height='170px' args={{ typography: 'mat-h2' }}>
+    {((args) => ({
       component: InlineFormFieldStoryTypographyComponent,
       moduleMetadata: {
         imports: [InlineFormFieldStoryTypographyModule]
       },
       props: {
-        typography: text('typography', 'mat-h2')
+        ...args
       }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
@@ -79,19 +72,6 @@ This component is compatible with any\* Angular Material form field feature.
       component: InlineFormFieldStoryCompositionComponent,
       moduleMetadata: {
         imports: [InlineFormFieldStoryCompositionModule]
-      }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for `aria-label`'s on buttons.
-
-<Canvas source={INLINE_FORM_FIELD_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='50px'>
-    {{
-      component: InlineFormFieldStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [InlineFormFieldStoryLocaleModule]
       }
     }}
   </Story>
@@ -113,7 +93,7 @@ If there are any server-side validations you should take advantage of `manualSav
 
 ## API
 
-<ArgsTable />
+<ArgsTable of={ESInlineFormFieldComponent} />
 
 ## Constants
 

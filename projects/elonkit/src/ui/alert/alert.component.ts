@@ -13,8 +13,10 @@ import {
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
+import { Observable } from 'rxjs';
+
 import { ESAlertVariant } from './alert.types';
-import { ESAlertLocale } from './alert.component.locale';
+import { ESLocaleService, ESLocale } from '../locale';
 
 export interface ESAlertDefaultOptions {
   typography?: string;
@@ -95,6 +97,12 @@ export class ESAlertComponent {
   @Output() public closed = new EventEmitter();
 
   /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
+
+  /**
    * @ignore
    */
   constructor(
@@ -105,7 +113,7 @@ export class ESAlertComponent {
     /**
      * @internal
      */
-    public locale: ESAlertLocale,
+    private localeService: ESLocaleService,
     /**
      * @internal
      */
@@ -113,6 +121,8 @@ export class ESAlertComponent {
     @Inject(ES_ALERT_DEFAULT_OPTIONS)
     private defaultOptions: ESAlertDefaultOptions
   ) {
+    this.locale$ = this.localeService.locale();
+
     this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
     this.iconMapping = { ...DEFAULT_ICON_MAPPING, ...defaultOptions?.iconMapping };
   }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -10,6 +10,11 @@ import { MatIconRegistry } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropzoneStoryCustomIconComponent {
+  @Input() public heading: string;
+  @Input() public subheading: string;
+
+  @Input() public locale: 'en' | 'ru';
+
   public form = new FormGroup({
     docs: new FormControl([])
   });

@@ -19,20 +19,13 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropzoneStoryBasicComponent implements OnInit, OnDestroy {
-  @Input()
-  public heading: string;
+  @Input() public heading: string;
+  @Input() public subheading: string;
+  @Input() public accept: string;
+  @Input() public maxSize: number;
+  @Input() public type: 'base64' | 'binary';
 
-  @Input()
-  public subheading: string;
-
-  @Input()
-  public accept: string;
-
-  @Input()
-  public maxSize: number;
-
-  @Input()
-  public type: 'base64' | 'binary';
+  @Input() public locale: 'en' | 'ru';
 
   @Output()
   public changeFiles = new EventEmitter<ESDropzoneFile[]>();
