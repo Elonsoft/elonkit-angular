@@ -1,0 +1,127 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { Colors } from './colors/colors.component.tsx';
+import { Typography } from './typography/typography.component.tsx';
+
+<Meta title='Guides/Theming' />
+
+# Colors
+
+Our design system build upon Angular Material palettes and introduces new palettes and hues.
+
+<Canvas>
+  <Colors />
+</Canvas>
+
+### Usage
+
+Import theming module.
+
+```scss
+@import '@elonsoft/elonkit/theming';
+```
+
+Use a built-in theme or define your own.
+
+```scss
+$theme: mat-light-theme($es-light-primary, $es-light-accent, $es-light-warn);
+```
+
+```scss
+$es-theme: es-light-theme(
+  (
+    colors: $es-light-theme
+  )
+);
+```
+
+```scss
+$es-theme: es-light-theme(
+  (
+    colors: (
+      info: mat-palette(...),
+      positive: mat-palette(...),
+      attention: mat-palette(...),
+      mono-a: mat-palette(...),
+      mono-b: mat-palette(...),
+      surface: mat-palette(...),
+      common: mat-palette(...)
+    )
+  )
+);
+```
+
+Include the theme mixin.
+
+```scss
+@include angular-material-theme($theme);
+@include es-theme($theme, $es-theme);
+```
+
+<br />
+<br />
+
+# Typography
+
+Typography is based on the guidelines from the Material Design spec and is arranged into
+typography levels. Each level has a font-size, line-height, font-weight ad letter-spacing.
+
+<Canvas>
+  <Typography />
+</Canvas>
+
+### Usage
+
+First, import typography theming module.
+
+```scss
+@import '@elonsoft/elonkit/theming/typography';
+```
+
+Use a built-in typography or define your own.
+
+```scss
+$es-theme: es-light-theme(
+  (
+    colors: $es-light-theme,
+    typography: $es-typography
+  )
+);
+```
+
+```scss
+$es-theme: es-light-theme(
+  (
+    colors: $es-light-theme,
+    typography: (
+      0: (
+        body-m: mat-typography-level(es-rem(16), es-rem(24)),
+        body-s: mat-typography-level(es-rem(14), es-rem(20)),
+        // ...
+      ),
+      600: (
+        body-m: mat-typography-level(es-rem(18), es-rem(26)),
+        body-s: mat-typography-level(es-rem(16), es-rem(22)),
+        // ...
+      )
+    )
+  )
+);
+```
+
+Notice that levels are nested inside maps with number keys - this is breakpoints.
+This way fonts can change depending on a screen size.
+
+Include the typography mixin.
+
+```scss
+@include es-typography($es-theme);
+```
+
+Now you can add the appropriate CSS classes to the elements that you want to style.
+For a full list of default classes refer to a table above.
+
+```html
+<h1 class="es-h1">Heading</h1>
+```

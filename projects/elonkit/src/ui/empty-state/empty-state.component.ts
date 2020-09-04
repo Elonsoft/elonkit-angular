@@ -9,10 +9,10 @@ import {
   Inject
 } from '@angular/core';
 
-import { ESEmptyStateIIcon } from './empty-state.types';
+import { ESEmptyStateIcon } from './empty-state.types';
 
 export interface ESEmptyStateDefaultOptions {
-  icon?: ESEmptyStateIIcon;
+  icon?: ESEmptyStateIcon;
   headingTypography?: string;
   subheadingTypography?: string;
 }
@@ -35,10 +35,10 @@ export class ESEmptyStateComponent {
    * Icon to diaplsy.
    */
   @Input()
-  public get icon(): ESEmptyStateIIcon {
+  public get icon(): ESEmptyStateIcon {
     return this._icon;
   }
-  public set icon(value: ESEmptyStateIIcon) {
+  public set icon(value: ESEmptyStateIcon) {
     this._icon = value || this.defaultOptions?.icon || 'box';
   }
 

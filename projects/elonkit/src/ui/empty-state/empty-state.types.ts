@@ -1,4 +1,4 @@
-export type ESEmptyStateIIcon =
+export type ESEmptyStateIcon =
   | 'bell'
   | 'box'
   | 'cart'

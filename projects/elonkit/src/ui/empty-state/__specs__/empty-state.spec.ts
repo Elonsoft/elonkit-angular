@@ -1,7 +1,7 @@
 import { render } from '@testing-library/angular';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
-import { ESEmptyStateModule, ESEmptyStateComponent, ESEmptyStateIIcon } from '..';
+import { ESEmptyStateModule, ESEmptyStateComponent, ESEmptyStateIcon } from '..';
 
 const TEXT_HEADING = 'HEADING';
 const TEXT_SUBHEADING = 'SUBHEADING';
@@ -48,7 +48,7 @@ describe('EmptyState', () => {
     });
 
     for (const icon of ['box', 'chat', 'face', 'file', 'lock', 'search']) {
-      component.fixture.componentInstance.icon = icon as ESEmptyStateIIcon;
+      component.fixture.componentInstance.icon = icon as ESEmptyStateIcon;
       component.fixture.componentInstance.changeDetector.detectChanges();
 
       expect(component.getByTestId('svg')).toHaveAttribute(
