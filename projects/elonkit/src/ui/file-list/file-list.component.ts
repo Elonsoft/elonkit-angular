@@ -11,13 +11,15 @@ import {
 } from '@angular/core';
 
 import { validateFileType } from '~utils/validate-file-type';
-import { ESFileListLocale } from './file-list.component.locale';
 import {
   ESFileListFile,
   ESFileListRemoveAction,
   ESFileListDefaultOptions
 } from './file-list.types';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Observable } from 'rxjs';
+import { ESLocale, ESLocaleService } from '../locale';
+import { map } from 'rxjs/operators';
 
 export const ES_FILE_LIST_DEFAULT_OPTIONS = new InjectionToken<ESFileListDefaultOptions>(
   'ES_FILE_LIST_DEFAULT_OPTIONS'
@@ -113,7 +115,8 @@ export class ESFileListComponent {
   /**
    * Path to image to display as file icon instead of the prebuilt icon.
    */
-  @Input() fileIconSrc?: string;
+  @Input()
+  public fileIconSrc?: string;
 
   /**
    * Object with removed file and its index is emitted.
@@ -131,12 +134,19 @@ export class ESFileListComponent {
    * @internal
    * @ignore
    */
+  public locale$: Observable<ESLocale>;
+
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(
-    public locale: ESFileListLocale,
+    private localeService: ESLocaleService,
     @Optional()
     @Inject(ES_FILE_LIST_DEFAULT_OPTIONS)
     private defaultOptions: ESFileListDefaultOptions
   ) {
+    this.locale$ = this.localeService.locale();
     this.imageTypes = this.defaultOptions?.imageTypes;
     this.hideImages = this.defaultOptions?.hideImages;
     this.canDownload = this.defaultOptions?.canDownload;
@@ -149,11 +159,16 @@ export class ESFileListComponent {
    * @internal
    * @ignore
    */
-  public getFileSize(file: ESFileListFile): string {
-    const { labelKB, labelMB } = this.locale;
+  public getFileSize(file: ESFileListFile): Observable<string> {
     const sizeKB = file.size / 1024;
     const sizeMB = file.size / 1024 / 1024;
-    return sizeKB < 1024 ? `${sizeKB.toFixed(1)} ${labelKB}` : `${sizeMB.toFixed(1)} ${labelMB}`;
+    return this.locale$.pipe(
+      map((translation) =>
+        sizeKB < 1024
+          ? `${sizeKB.toFixed(1)} ${translation.fileList.labelKB}`
+          : `${sizeMB.toFixed(1)} ${translation.fileList.labelMB}`
+      )
+    );
   }
 
   /**

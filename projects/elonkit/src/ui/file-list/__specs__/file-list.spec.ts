@@ -4,10 +4,7 @@ import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { ESFileListModule } from '../file-list.module';
 import { ESFileListComponent } from '../file-list.component';
 import { filesFixture } from '../fixtures/files.fixture';
-import { ESFileListLocale, ESFileListLocaleRU } from '../file-list.component.locale';
-
-const locale = new ESFileListLocale();
-const localeRU = new ESFileListLocaleRU();
+import { ESLocaleService, en, ru } from '../../locale';
 
 describe('File List', () => {
   it('Should render all files', async () => {
@@ -33,7 +30,7 @@ describe('File List', () => {
       excludeComponentDeclaration: true
     });
     expect(component.getByText(file.name)).toHaveClass('app-body-1');
-    expect(component.getByText(locale.labelKB, { exact: false })).toHaveClass('app-caption');
+    expect(component.getByText(en.fileList.labelKB, { exact: false })).toHaveClass('app-caption');
   });
 
   it('Should render remove button on canRemove input', async () => {
@@ -45,7 +42,7 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    expect(component.getAllByLabelText(locale.labelRemove)).toHaveLength(filesFixture.length);
+    expect(component.getAllByLabelText(en.fileList.labelRemove)).toHaveLength(filesFixture.length);
   });
 
   it('Should remove file on remove button click', async () => {
@@ -61,7 +58,7 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    const removeButtons = component.getAllByLabelText(locale.labelRemove);
+    const removeButtons = component.getAllByLabelText(en.fileList.labelRemove);
     removeButtons.forEach((btn) => {
       component.click(btn);
     });
@@ -77,7 +74,9 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    expect(component.getAllByLabelText(locale.labelDownload)).toHaveLength(filesFixture.length);
+    expect(component.getAllByLabelText(en.fileList.labelDownload)).toHaveLength(
+      filesFixture.length
+    );
   });
 
   it('Should download file on download icon click', async () => {
@@ -93,7 +92,7 @@ describe('File List', () => {
       imports: [ESFileListModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    const downloadButtons = component.getAllByLabelText(locale.labelDownload);
+    const downloadButtons = component.getAllByLabelText(en.fileList.labelDownload);
     downloadButtons.forEach((btn) => {
       component.click(btn);
     });
@@ -114,6 +113,10 @@ describe('File List', () => {
   });
 
   it('Should change locale', async () => {
+    const localeService = new ESLocaleService();
+    localeService.register('ru', ru);
+    localeService.use('ru');
+
     const component = await render(ESFileListComponent, {
       componentProperties: {
         files: filesFixture,
@@ -121,12 +124,14 @@ describe('File List', () => {
         canRemove: true
       },
       imports: [ESFileListModule, MatIconTestingModule],
-      providers: [{ provide: ESFileListLocale, useClass: ESFileListLocaleRU }],
+      providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
     });
-    expect(component.getAllByLabelText(localeRU.labelDownload)).toHaveLength(filesFixture.length);
-    expect(component.getAllByLabelText(localeRU.labelRemove)).toHaveLength(filesFixture.length);
-    expect(component.getAllByText(localeRU.labelKB, { exact: false })).toHaveLength(
+    expect(component.getAllByLabelText(ru.fileList.labelDownload)).toHaveLength(
+      filesFixture.length
+    );
+    expect(component.getAllByLabelText(ru.fileList.labelRemove)).toHaveLength(filesFixture.length);
+    expect(component.getAllByText(ru.fileList.labelKB, { exact: false })).toHaveLength(
       filesFixture.length
     );
   });

@@ -22,5 +22,12 @@ export const ru = {
     labelHH: 'ЧЧ',
     labelMM: 'ММ',
     labelSS: 'СС'
+  },
+  fileList: {
+    labelDownload: 'Скачать',
+    labelRemove: 'Удалить',
+    labelKB: 'КБ',
+    labelMB: 'МБ',
+    labelAt: 'в'
   }
 };

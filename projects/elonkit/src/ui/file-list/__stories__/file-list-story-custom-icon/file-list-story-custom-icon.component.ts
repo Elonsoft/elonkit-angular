@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
 import { ESFileListFile } from '../../file-list.types';
 import { filesFixture } from '../../fixtures/files.fixture';
@@ -9,6 +9,15 @@ import { filesFixture } from '../../fixtures/files.fixture';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileListStoryCustomIconComponent {
+  @Input()
+  public canRemove: boolean;
+  @Input()
+  public canDownload: boolean;
+  @Input()
+  public hideImages: boolean;
+  @Input()
+  public imageTypes: string;
+
   public files: ESFileListFile[] = filesFixture;
   public customIcon = '/icons/file-list/file.svg';
 }

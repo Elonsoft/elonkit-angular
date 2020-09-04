@@ -11,5 +11,14 @@ import { filesFixture } from '../../fixtures/files.fixture';
   encapsulation: ViewEncapsulation.None
 })
 export class FileListStoryTypographyComponent {
+  @Input()
+  public canRemove: boolean;
+  @Input()
+  public canDownload: boolean;
+  @Input()
+  public hideImages: boolean;
+  @Input()
+  public imageTypes: string;
+
   public files: ESFileListFile[] = filesFixture;
 }
