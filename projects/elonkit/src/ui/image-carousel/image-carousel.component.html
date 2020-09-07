@@ -9,7 +9,7 @@
   >
     <ng-container *ngFor="let file of files; let i = index">
       <div
-        *ngIf="!file.deleted"
+        *ngIf="!file.deleted && (locale$ | async) as locale"
         class="es-image-carousel__item"
         data-testid="image"
         [ngStyle]="{
@@ -22,7 +22,7 @@
           <button
             *ngIf="canRemove"
             mat-icon-button
-            [attr.aria-label]="locale.labelRemove"
+            [attr.aria-label]="locale.imageCarousel.labelRemove"
             (click)="removeImage({ file: file, index: i })"
             class="es-image-carousel__item-remove"
           >
@@ -33,7 +33,7 @@
           <button
             *ngIf="canView"
             mat-icon-button
-            [attr.aria-label]="locale.labelView"
+            [attr.aria-label]="locale.imageCarousel.labelView"
             class="es-image-carousel__item-view"
             (click)="viewImage({ file: file, index: i })"
           >
@@ -47,7 +47,7 @@
   <button
     mat-icon-button
     (click)="slideLeft()"
-    [attr.aria-label]="locale.labelSlideLeft"
+    [attr.aria-label]="(locale$ | async).imageCarousel.labelSlideLeft"
     class="es-image-carousel__arrow es-image-carousel__arrow_left"
     [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollLeft }"
   >
@@ -56,7 +56,7 @@
   <button
     mat-icon-button
     (click)="slideRight()"
-    [attr.aria-label]="locale.labelSlideRight"
+    [attr.aria-label]="(locale$ | async).imageCarousel.labelSlideRight"
     class="es-image-carousel__arrow es-image-carousel__arrow_right"
     [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollRight }"
   >

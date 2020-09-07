@@ -17,13 +17,16 @@ import {
   IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE
 } from './image-carousel-story-custom-icon';
 
-import {
-  ImageCarouselStoryLocaleModule,
-  ImageCarouselStoryLocaleComponent,
-  IMAGE_CAROUSEL_STORY_LOCALE_SOURCE
-} from './image-carousel-story-locale';
-
-<Meta title='UI/Image Carousel' component={ESImageCarouselComponent} />
+<Meta
+  title='UI/Image Carousel'
+  args={{
+    imageHeight: 160,
+    imageWidth: 160,
+    gap: 16,
+    imageTypes: 'image/png,image/jpg,image/jpeg'
+  }}
+  argTypes={{ canView: { control: 'boolean' }, canRemove: { control: 'boolean' } }}
+/>
 
 # Image Carousel
 
@@ -33,22 +36,17 @@ This component displays images and allows to slide them.
 
 <Canvas source={IMAGE_CAROUSEL_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='200px'>
-    {{
+    {((args, context) => ({
       component: ImageCarouselStoryBasicComponent,
       moduleMetadata: {
         imports: [ImageCarouselStoryBasicModule]
       },
       props: {
-        imageHeight: number('imageHeight', 160),
-        imageWidth: number('imageWidth', 160),
-        gap: number('gap', 16),
-        canView: boolean('canView', true),
-        canRemove: boolean('canRemove', true),
-        imageTypes: text('imageTypes', 'image/png,image/jpg,image/jpeg'),
+        ...args,
         onView: action('onView'),
         onRemove: action('onRemove')
       }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
@@ -56,31 +54,21 @@ We can pass `viewSvgIcon` to use custom icon for view button.
 
 <Canvas source={IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE}>
   <Story name='Custom Icon' height='200px'>
-    {{
+    {((args, context) => ({
       component: ImageCarouselStoryCustomIconComponent,
       moduleMetadata: {
         imports: [ImageCarouselStoryCustomIconModule]
+      },
+      props: {
+        ...args
       }
-    }}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for buttons aria labels.
-
-<Canvas source={IMAGE_CAROUSEL_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='200px'>
-    {{
-      component: ImageCarouselStoryLocaleComponent,
-      moduleMetadata: {
-        imports: [ImageCarouselStoryLocaleModule]
-      }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
 ## API
 
-<ArgsTable />
+<ArgsTable of={ESImageCarouselComponent} />
 
 ## Interfaces
 

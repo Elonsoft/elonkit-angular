@@ -4,12 +4,13 @@ import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { ESImageCarouselComponent } from '../image-carousel.component';
 import { ESImageCarouselModule } from '../image-carousel.module';
 import { filesFixture } from '../fixtures/files.fixture';
-import { ESImageCarouselLocale, ESImageCarouselLocaleRU } from '../image-carousel.component.locale';
-
-const locale = new ESImageCarouselLocale();
-const localeRU = new ESImageCarouselLocaleRU();
+import { ESLocaleService, en, ru } from '../../locale';
 
 describe('Image Carousel', () => {
+  beforeEach(() => {
+    spyOn(ESImageCarouselComponent.prototype, 'elementIsInView').and.returnValue(true);
+  });
+
   it('Should render all images', async () => {
     const component = await render(ESImageCarouselComponent, {
       componentProperties: {
@@ -31,13 +32,22 @@ describe('Image Carousel', () => {
       imports: [ESImageCarouselModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    expect(component.getAllByLabelText(locale.labelRemove)).toHaveLength(filesFixture.length);
-    expect(component.getAllByLabelText(locale.labelView)).toHaveLength(filesFixture.length);
-    expect(component.getByLabelText(locale.labelSlideLeft)).toBeInTheDocument();
-    expect(component.getByLabelText(locale.labelSlideRight)).toBeInTheDocument();
+
+    expect(component.getAllByLabelText(en.imageCarousel.labelRemove)).toHaveLength(
+      filesFixture.length
+    );
+    expect(component.getAllByLabelText(en.imageCarousel.labelView)).toHaveLength(
+      filesFixture.length
+    );
+    expect(component.getByLabelText(en.imageCarousel.labelSlideLeft)).toBeInTheDocument();
+    expect(component.getByLabelText(en.imageCarousel.labelSlideRight)).toBeInTheDocument();
   });
 
   it('Should change locale', async () => {
+    const localeService = new ESLocaleService();
+    localeService.register('ru', ru);
+    localeService.use('ru');
+
     const component = await render(ESImageCarouselComponent, {
       componentProperties: {
         files: filesFixture,
@@ -45,13 +55,17 @@ describe('Image Carousel', () => {
         canRemove: true
       },
       imports: [ESImageCarouselModule, MatIconTestingModule],
-      providers: [{ provide: ESImageCarouselLocale, useClass: ESImageCarouselLocaleRU }],
+      providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
     });
-    expect(component.getAllByLabelText(localeRU.labelRemove)).toHaveLength(filesFixture.length);
-    expect(component.getAllByLabelText(localeRU.labelView)).toHaveLength(filesFixture.length);
-    expect(component.getByLabelText(localeRU.labelSlideLeft)).toBeInTheDocument();
-    expect(component.getByLabelText(localeRU.labelSlideRight)).toBeInTheDocument();
+    expect(component.getAllByLabelText(ru.imageCarousel.labelRemove)).toHaveLength(
+      filesFixture.length
+    );
+    expect(component.getAllByLabelText(ru.imageCarousel.labelView)).toHaveLength(
+      filesFixture.length
+    );
+    expect(component.getByLabelText(ru.imageCarousel.labelSlideLeft)).toBeInTheDocument();
+    expect(component.getByLabelText(ru.imageCarousel.labelSlideRight)).toBeInTheDocument();
   });
 
   it('Should emit view on view button click', async () => {
@@ -67,7 +81,7 @@ describe('Image Carousel', () => {
       imports: [ESImageCarouselModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    component.getAllByLabelText(locale.labelView).forEach((btn) => {
+    component.getAllByLabelText(en.imageCarousel.labelView).forEach((btn) => {
       component.click(btn);
     });
     expect(onView).toHaveBeenCalledTimes(filesFixture.length);
@@ -86,7 +100,7 @@ describe('Image Carousel', () => {
       imports: [ESImageCarouselModule, MatIconTestingModule],
       excludeComponentDeclaration: true
     });
-    component.getAllByLabelText(locale.labelRemove).forEach((btn) => {
+    component.getAllByLabelText(en.imageCarousel.labelRemove).forEach((btn) => {
       component.click(btn);
     });
     expect(onRemove).toHaveBeenCalledTimes(filesFixture.length);

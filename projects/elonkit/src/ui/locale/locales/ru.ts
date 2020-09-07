@@ -22,5 +22,11 @@ export const ru = {
     labelHH: 'ЧЧ',
     labelMM: 'ММ',
     labelSS: 'СС'
+  },
+  imageCarousel: {
+    labelView: 'Смотреть',
+    labelRemove: 'Удалить',
+    labelSlideRight: 'Передвинуть вправо',
+    labelSlideLeft: 'Передвинуть влево'
   }
 };

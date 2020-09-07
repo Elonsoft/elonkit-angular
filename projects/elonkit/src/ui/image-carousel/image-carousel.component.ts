@@ -20,8 +20,9 @@ import {
   ESImageCarouselAction,
   ESImageCarouselOptions
 } from './image-carousel.types';
-import { ESImageCarouselLocale } from './image-carousel.component.locale';
 import { validateFileType } from '~utils/validate-file-type';
+import { ESLocaleService, ESLocale } from '../locale';
+import { Observable } from 'rxjs';
 
 export const ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS = new InjectionToken<ESImageCarouselOptions>(
   'ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS'
@@ -178,11 +179,17 @@ export class ESImageCarouselComponent implements OnInit {
    * @internal
    * @ignore
    */
+  public locale$: Observable<ESLocale>;
+
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(
     @Optional()
     @Inject(ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS)
     private defaultOptions: ESImageCarouselOptions,
-    public locale: ESImageCarouselLocale
+    private localeService: ESLocaleService
   ) {
     this.gap = this.defaultOptions?.gap;
     this.imageHeight = this.defaultOptions?.imageHeight;
@@ -191,6 +198,7 @@ export class ESImageCarouselComponent implements OnInit {
     this.canRemove = this.defaultOptions?.canRemove;
     this.canView = this.defaultOptions?.canView;
     this.viewSvgIcon = this.defaultOptions?.viewSvgIcon;
+    this.locale$ = this.localeService.locale();
   }
 
   /**

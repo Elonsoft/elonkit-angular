@@ -22,5 +22,11 @@ export const en = {
     labelHH: 'HH',
     labelMM: 'MM',
     labelSS: 'SS'
+  },
+  imageCarousel: {
+    labelView: 'View',
+    labelRemove: 'Remove',
+    labelSlideRight: 'Slide right',
+    labelSlideLeft: 'Slide left'
   }
 };

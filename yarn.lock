@@ -3391,7 +3391,7 @@
     util-deprecate "^1.0.2"
     uuid "^8.0.0"
 
-"@storybook/addon-controls@~6.0.20":
+"@storybook/addon-controls@^6.0.21":
   version "6.0.21"
   resolved "https://registry.yarnpkg.com/@storybook/addon-controls/-/addon-controls-6.0.21.tgz#cc6efcd61a0283c4f7abb1ab094b555b0f7f8295"
   integrity sha512-ksL+BqzWVTezY3u0AeSuQBZdiDzTImfLx1xjmLkPTeFgfVBzHRKN4sqIWHzy1zVCCVL0fAzZ8g3Sgk5iVNs3uw==
@@ -3449,7 +3449,7 @@
     ts-dedent "^1.1.1"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-toolbars@~6.0.20":
+"@storybook/addon-toolbars@^6.0.21":
   version "6.0.21"
   resolved "https://registry.yarnpkg.com/@storybook/addon-toolbars/-/addon-toolbars-6.0.21.tgz#ed7adfdf89fb900dfa05ad91440b101e9204e6ab"
   integrity sha512-bmPXQZ8LL/jP6SGfSmOs7P3hNJsTLKkJRwRlmki6MqRzBfjlNWD4Zo9l+9Yw99nhpa6/xZ3vHxv7pgBoNPvLZw==
