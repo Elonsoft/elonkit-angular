@@ -30,7 +30,11 @@ export class ImageCarouselStoryCustomIconComponent {
   constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'magnify',
-      sanitizer.bypassSecurityTrustResourceUrl('/icons/magnify.svg')
+      sanitizer.bypassSecurityTrustResourceUrl('/icons/image-carousel/magnify.svg')
+    );
+    iconRegistry.addSvgIcon(
+      'trash-can',
+      sanitizer.bypassSecurityTrustResourceUrl('/icons/image-carousel/trash-can.svg')
     );
   }
 }

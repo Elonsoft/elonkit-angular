@@ -27,7 +27,6 @@
     &:hover &-view,
     &:hover &-remove {
       opacity: 1;
-      // visibility: visible;
     }
 
     &-view.mat-icon-button {
@@ -35,6 +34,7 @@
       border-radius: 20px;
       color: #fff;
       opacity: 0;
+      transition: opacity 0.2s;
     }
 
     &-remove.mat-icon-button {
@@ -47,7 +47,7 @@
       position: absolute;
       right: 8px;
       top: 8px;
-      // visibility: hidden;
+      transition: opacity 0.2s;
       width: 24px;
     }
   }

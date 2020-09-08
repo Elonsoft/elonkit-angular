@@ -9,6 +9,10 @@ export const IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE = {
         'magnify',
         sanitizer.bypassSecurityTrustResourceUrl('/icons/magnify.svg')
       );
+      iconRegistry.addSvgIcon(
+        'trash-can',
+        sanitizer.bypassSecurityTrustResourceUrl('/icons/image-carousel/trash-can.svg')
+      );
     }
   }
 
@@ -20,7 +24,7 @@ export const IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE = {
   `,
   html: `
   <div class="container">
-    <es-image-carousel viewSvgIcon="magnify" [files]="files"></es-image-carousel>
+    <es-image-carousel viewSvgIcon="magnify" removeSvgIcon="trash-can" [files]="files"></es-image-carousel>
   </div>
   `
 };
