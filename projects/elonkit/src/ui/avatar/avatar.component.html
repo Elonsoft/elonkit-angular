@@ -1,0 +1,24 @@
+<div
+  class="es-avatar"
+  [ngStyle]="{ 'height.px': height, 'width.px': width, 'border-radius.px': borderRadius }"
+>
+  <img
+    class="es-avatar__img"
+    [ngStyle]="{ 'border-radius.px': borderRadius }"
+    [src]="src"
+    [alt]="(locale$ | async).avatar.labelAvatar"
+  />
+  <div
+    *ngIf="showStatus"
+    class="es-avatar__status"
+    [ngClass]="{ 'es-avatar__status_custom': !!statusSrc }"
+    [ngStyle]="{ 'height.px': statusHeight, 'width.px': statusWidth }"
+  >
+    <img
+      *ngIf="!!statusSrc"
+      class="es-avatar__status-img"
+      [src]="statusSrc"
+      [alt]="(locale$ | async).avatar.labelStatus"
+    />
+  </div>
+</div>

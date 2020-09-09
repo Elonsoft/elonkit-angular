@@ -33,5 +33,9 @@ export const ru = {
     labelDownload: 'Скачать',
     labelBack: 'Назад',
     labelNormal: 'Обычная'
+  },
+  avatar: {
+    labelAvatar: 'Аватар',
+    labelStatus: 'Статус'
   }
 };
