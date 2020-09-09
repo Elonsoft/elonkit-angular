@@ -1,0 +1,116 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { action } from '@storybook/addon-actions';
+
+import { ESAvatarComponent } from '..';
+
+import {
+  AvatarStoryBasicModule,
+  AvatarStoryBasicComponent,
+  AVATAR_STORY_BASIC_SOURCE
+} from './avatar-story-basic';
+
+import {
+  AvatarStoryCustomModule,
+  AvatarStoryCustomComponent,
+  AVATAR_STORY_CUSTOM_SOURCE
+} from './avatar-story-custom';
+
+<Meta
+  title='UI/Avatar'
+  args={{
+    icon: 'account-round',
+    width: 200,
+    height: 200,
+    borderRadius: 999,
+    showStatus: true,
+    statusWidth: 40,
+    statusHeight: 40
+  }}
+  argTypes={{
+    icon: {
+      control: { type: 'select', options: ['account-round', 'account-square', 'seal'] }
+    }
+  }}
+/>
+
+# Avatar
+
+This component allows to display default or custom avatar.
+
+## Demos
+
+<Canvas source={AVATAR_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='250px'>
+    {((args) => ({
+      component: AvatarStoryBasicComponent,
+      moduleMetadata: {
+        imports: [AvatarStoryBasicModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<Canvas source={AVATAR_STORY_CUSTOM_SOURCE}>
+  <Story name='Custom' height='250px'>
+    {((args) => ({
+      component: AvatarStoryCustomComponent,
+      moduleMetadata: {
+        imports: [AvatarStoryCustomModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={ESAvatarComponent} />
+
+## Interfaces
+
+```ts
+type ESAvatarIcon = 'account-round' | 'account-square' | 'seal';
+```
+
+ESAvatarDefaultOptions `icon` property defines which prebuilt icon will be used when no `avatarSrc` provided.
+
+```ts
+interface ESAvatarDefaultOptions {
+  icon?: ESAvatarIcon;
+  avatarSrc?: string;
+  height?: number;
+  width?: number;
+  borderRadius?: number;
+  showStatus?: boolean;
+  statusSrc?: string;
+  statusWidth?: number;
+  statusHeight?: number;
+}
+```
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_AVATAR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/avatar';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_AVATAR_DEFAULT_OPTIONS,
+      useValue: {
+        width: 200,
+        height: 200,
+        borderRadius: 48,
+        icon: 'account-square'
+      }
+    }
+  ]
+})
+```

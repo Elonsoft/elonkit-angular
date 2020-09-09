@@ -1,0 +1,9 @@
+@mixin es-avatar-theme($theme, $elonkit-theme) {
+  $cl-success: mat-color(map-get($elonkit-theme, success));
+
+  .es-avatar {
+    &__status {
+      background: $cl-success;
+    }
+  }
+}
