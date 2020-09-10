@@ -1,0 +1,11 @@
+<div class="group">
+  <es-avatar
+    *ngFor="let avatar of avatars; index as i"
+    class="group__avatar"
+    [showStatus]="avatar.showStatus"
+    [statusSrc]="avatar.statusSrc"
+    [text]="avatar.text"
+    [ngStyle]="{ 'z-index': 10 - i }"
+  ></es-avatar>
+  <es-avatar class="group__avatar" text="+3" textTypography="typography"></es-avatar>
+</div>

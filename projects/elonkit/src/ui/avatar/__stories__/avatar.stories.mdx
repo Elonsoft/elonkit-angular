@@ -1,8 +1,6 @@
 import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
-import { action } from '@storybook/addon-actions';
-
 import { ESAvatarComponent } from '..';
 
 import {
@@ -17,16 +15,29 @@ import {
   AVATAR_STORY_CUSTOM_SOURCE
 } from './avatar-story-custom';
 
+import {
+  AvatarStoryTypographyModule,
+  AvatarStoryTypographyComponent,
+  AVATAR_STORY_TYPOGRAPHY_SOURCE
+} from './avatar-story-typography';
+
+import {
+  AvatarStoryGroupModule,
+  AvatarStoryGroupComponent,
+  AVATAR_STORY_GROUP_SOURCE
+} from './avatar-story-group';
+
 <Meta
   title='UI/Avatar'
   args={{
     icon: 'account-round',
-    width: 200,
-    height: 200,
+    width: 40,
+    height: 40,
     borderRadius: 999,
     showStatus: true,
-    statusWidth: 40,
-    statusHeight: 40
+    statusWidth: 10,
+    statusHeight: 10,
+    statusBorderWidth: 2
   }}
   argTypes={{
     icon: {
@@ -42,7 +53,7 @@ This component allows to display default or custom avatar.
 ## Demos
 
 <Canvas source={AVATAR_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='250px'>
+  <Story name='Basic'>
     {((args) => ({
       component: AvatarStoryBasicComponent,
       moduleMetadata: {
@@ -55,8 +66,10 @@ This component allows to display default or custom avatar.
   </Story>
 </Canvas>
 
+We can use custom avatar and status icons.
+
 <Canvas source={AVATAR_STORY_CUSTOM_SOURCE}>
-  <Story name='Custom' height='250px'>
+  <Story name='Custom'>
     {((args) => ({
       component: AvatarStoryCustomComponent,
       moduleMetadata: {
@@ -64,6 +77,32 @@ This component allows to display default or custom avatar.
       },
       props: {
         ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+We can display user initials and change it's typography.
+
+<Canvas source={AVATAR_STORY_TYPOGRAPHY_SOURCE}>
+  <Story name='Typography'>
+    {(() => ({
+      component: AvatarStoryTypographyComponent,
+      moduleMetadata: {
+        imports: [AvatarStoryTypographyModule]
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+We can group multiple avatars together.
+
+<Canvas source={AVATAR_STORY_GROUP_SOURCE}>
+  <Story name='Group'>
+    {(() => ({
+      component: AvatarStoryGroupComponent,
+      moduleMetadata: {
+        imports: [AvatarStoryGroupModule]
       }
     })).bind({})}
   </Story>
@@ -92,6 +131,8 @@ interface ESAvatarDefaultOptions {
   statusSrc?: string;
   statusWidth?: number;
   statusHeight?: number;
+  statusBorderWidth?: number;
+  textTypography?: string;
 }
 ```
 

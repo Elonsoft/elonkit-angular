@@ -2,7 +2,11 @@
   class="es-avatar"
   [ngStyle]="{ 'height.px': height, 'width.px': width, 'border-radius.px': borderRadius }"
 >
+  <span *ngIf="!!text" class="es-avatar__text" [ngClass]="textTypography">
+    {{ text }}
+  </span>
   <img
+    *ngIf="!text"
     class="es-avatar__img"
     [ngStyle]="{ 'border-radius.px': borderRadius }"
     [src]="src"
@@ -12,7 +16,11 @@
     *ngIf="showStatus"
     class="es-avatar__status"
     [ngClass]="{ 'es-avatar__status_custom': !!statusSrc }"
-    [ngStyle]="{ 'height.px': statusHeight, 'width.px': statusWidth }"
+    [ngStyle]="{
+      'height.px': statusHeight,
+      'width.px': statusWidth,
+      'border-width.px': statusBorderWidth
+    }"
   >
     <img
       *ngIf="!!statusSrc"
