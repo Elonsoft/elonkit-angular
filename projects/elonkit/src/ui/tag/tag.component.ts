@@ -23,14 +23,21 @@ export class ESTagComponent {
   /**
    * The icon displayed before the text.
    */
-  @Input() icon?: string;
+  @Input()
+  public icon?: string;
 
   /**
-   * Override the icon displayed before the text.
+   *
+   * The svg icon displayed before the text.
    */
-  @Input() svgIcon?: string;
+  @Input()
+  public svgIcon?: string;
 
-  get currentIcon() {
+  /**
+   * @internal
+   * @ignore
+   */
+  public get currentIcon() {
     if (this.icon) {
       return { icon: this.icon };
     }

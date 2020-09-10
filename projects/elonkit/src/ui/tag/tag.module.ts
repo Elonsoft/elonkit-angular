@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ESTagComponent } from './tag.component';
 import { MatIconModule } from '@angular/material/icon';
+import { ESTagComponent } from './tag.component';
 
 @NgModule({
   imports: [CommonModule, MatIconModule],

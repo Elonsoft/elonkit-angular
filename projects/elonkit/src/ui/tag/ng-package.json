@@ -1,6 +1,5 @@
 {
   "lib": {
-    "entryFile": "public-api.ts",
-    "cssUrl": "inline"
+    "entryFile": "public-api.ts"
   }
 }

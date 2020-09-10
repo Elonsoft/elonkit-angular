@@ -1,21 +1,26 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text, select, color } from '@storybook/addon-knobs';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ESTagModule, ESTagComponent } from '..';
-
 import { TAG_STORY_BASIC_SOURCE } from './tag-story-basic';
+import {
+  TagStorySvgIconModule,
+  TagStorySvgIconComponent,
+  TAG_STORY_SVG_ICON_SOURCE
+} from './tag-story-svg-icon';
 
-import { TAG_STORY_CUSTOMIZATION_SOURCE } from './tag-story-customization';
-
-import { TAG_STORY_ICON_SOURCE } from './tag-story-icon';
-
-<Meta title='UI/Tag' decorators={[withA11y, withKnobs]} />
+<Meta
+  title='UI/Tag'
+  args={{
+    content: '',
+    icon: 'mail',
+    svgIcon: '',
+    color: '#000',
+    textColor: '#fff'
+  }}
+/>
 
 # Tag
 
@@ -23,57 +28,51 @@ A tags primary use is to place content in context.
 
 ## Demos
 
-<Preview source={TAG_STORY_BASIC_SOURCE}>
+export const getContent = (args, context) => {
+  return args.content || (context.globals.locale === 'en' ? 'Message' : 'Сообщение');
+};
+
+<Canvas source={TAG_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='100px'>
-    {{
-      template: TAG_STORY_BASIC_SOURCE.html,
+    {((args, context) => ({
+      template: `<es-tag [color]="color" [textColor]="textColor" [icon]="icon">{{content}}</es-tag>`,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, ESTagModule]
+        imports: [ESTagModule]
       },
       props: {
-        content: text('content', 'TAG')
+        ...args,
+        content: getContent(args, context)
       }
-    }}
+    })).bind({})}
   </Story>
-</Preview>
+</Canvas>
 
-We can customize element
+We can use individual icons.
 
-<Preview source={TAG_STORY_CUSTOMIZATION_SOURCE}>
-  <Story name='Customization' height='100px'>
-    {{
-      template: TAG_STORY_CUSTOMIZATION_SOURCE.html,
+<Canvas source={TAG_STORY_SVG_ICON_SOURCE}>
+  <Story
+    name='Svg icon'
+    height='100px'
+    argTypes={{
+      color: { table: { disable: true } },
+      icon: { table: { disable: true } },
+      textColor: { table: { disable: true } },
+      svgIcon: { table: { disable: true } }
+    }}
+  >
+    {((args, context) => ({
+      component: TagStorySvgIconComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, ESTagModule]
+        imports: [TagStorySvgIconModule]
       },
       props: {
-        content: text('content', 'TAG'),
-        color: color('color', '#58D652'),
-        textColor: color('textColor', '#fff')
+        ...args,
+        content: getContent(args, context)
       }
-    }}
+    })).bind({})}
   </Story>
-</Preview>
-
-We can add an icon
-
-<Preview source={TAG_STORY_ICON_SOURCE}>
-  <Story name='Icon' height='100px'>
-    {{
-      template: TAG_STORY_ICON_SOURCE.html,
-      moduleMetadata: {
-        imports: [BrowserAnimationsModule, ESTagModule]
-      },
-      props: {
-        content: text('content', 'TAG'),
-        color: color('color', '#58D652'),
-        textColor: color('textColor', '#fff'),
-        icon: text('icon', 'info')
-      }
-    }}
-  </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESTagComponent} />
+<ArgsTable of={ESTagComponent} />
