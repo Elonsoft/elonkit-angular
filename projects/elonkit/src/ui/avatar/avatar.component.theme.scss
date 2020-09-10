@@ -1,9 +1,20 @@
 @mixin es-avatar-theme($theme, $elonkit-theme) {
+  $cl-default: rgb(255, 255, 255);
+  $cl-background: rgba(0, 0, 0, 0.08);
+  $cl-text: rgba(0, 0, 0, 0.38);
   $cl-success: mat-color(map-get($elonkit-theme, success));
 
   .es-avatar {
+    background: $cl-background;
+    color: $cl-text;
+
     &__status {
       background: $cl-success;
+      border-color: $cl-default;
+
+      &_custom {
+        background: $cl-default;
+      }
     }
   }
 }

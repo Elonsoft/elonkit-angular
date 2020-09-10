@@ -4,7 +4,8 @@ import {
   ChangeDetectionStrategy,
   InjectionToken,
   Optional,
-  Inject
+  Inject,
+  ViewEncapsulation
 } from '@angular/core';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
@@ -20,7 +21,8 @@ export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptio
   selector: 'es-avatar',
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class ESAvatarComponent {
   /**
@@ -118,6 +120,35 @@ export class ESAvatarComponent {
   private _statusHeight: number;
 
   /**
+   * Defines width of status border in pixels.
+   */
+  @Input()
+  public get statusBorderWidth(): number {
+    return this._statusBorderWidth;
+  }
+  public set statusBorderWidth(value: number) {
+    this._statusBorderWidth = coerceNumberProperty(value, 2);
+  }
+  private _statusBorderWidth: number;
+
+  /**
+   * Text to display instead of avatar, to show user initials as an example.
+   */
+  @Input() public text?: string;
+
+  /**
+   * Class applied to text text.
+   */
+  @Input()
+  public get textTypography(): string {
+    return this._textTypography;
+  }
+  public set textTypography(value: string) {
+    this._textTypography = value || 'mat-body-2';
+  }
+  private _textTypography: string;
+
+  /**
    * @internal
    * @ignore
    */
@@ -140,6 +171,8 @@ export class ESAvatarComponent {
     this.showStatus = this.defaultOptions?.showStatus;
     this.statusHeight = this.defaultOptions?.statusHeight;
     this.statusWidth = this.defaultOptions?.statusWidth;
+    this.statusBorderWidth = this.defaultOptions?.statusBorderWidth;
+    this.textTypography = this.defaultOptions?.textTypography;
     this.locale$ = this.localeService.locale();
   }
 

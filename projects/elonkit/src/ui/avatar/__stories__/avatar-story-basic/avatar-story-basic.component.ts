@@ -1,8 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'es-avatar-basic',
-  templateUrl: './avatar-story-basic.component.html'
+  templateUrl: './avatar-story-basic.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class AvatarStoryBasicComponent {
   @Input()
@@ -19,4 +21,6 @@ export class AvatarStoryBasicComponent {
   public statusWidth: number;
   @Input()
   public statusHeight: number;
+  @Input()
+  public statusBorderWidth: number;
 }

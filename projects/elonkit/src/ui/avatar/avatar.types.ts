@@ -8,6 +8,8 @@ export interface ESAvatarDefaultOptions {
   statusSrc?: string;
   statusWidth?: number;
   statusHeight?: number;
+  statusBorderWidth?: number;
+  textTypography?: string;
 }
 
 export type ESAvatarIcon = 'account-round' | 'account-square' | 'seal';
