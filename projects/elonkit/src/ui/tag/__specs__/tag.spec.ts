@@ -3,9 +3,7 @@ import { ESTagModule, ESTagComponent } from '..';
 import { Component } from '@angular/core';
 
 @Component({
-  template: `
-    <es-tag>Tag</es-tag>
-  `
+  template: ` <es-tag>Tag</es-tag> `
 })
 class ESTagWrapperdComponent {}
 
