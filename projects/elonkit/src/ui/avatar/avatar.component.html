@@ -1,4 +1,5 @@
 <div
+  data-testid="avatar"
   class="es-avatar"
   [ngStyle]="{ 'height.px': height, 'width.px': width, 'border-radius.px': borderRadius }"
 >
@@ -14,6 +15,7 @@
   />
   <div
     *ngIf="showStatus"
+    data-testid="status"
     class="es-avatar__status"
     [ngClass]="{ 'es-avatar__status_custom': !!statusSrc }"
     [ngStyle]="{

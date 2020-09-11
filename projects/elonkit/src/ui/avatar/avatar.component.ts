@@ -137,7 +137,7 @@ export class ESAvatarComponent {
   @Input() public text?: string;
 
   /**
-   * Class applied to text text.
+   * Class applied to text.
    */
   @Input()
   public get textTypography(): string {
