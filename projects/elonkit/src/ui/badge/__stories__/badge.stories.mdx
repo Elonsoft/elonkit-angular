@@ -1,0 +1,93 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { action } from '@storybook/addon-actions';
+
+import { ESBadgeModule, ESBadgeComponent } from '..';
+
+import { BADGE_STORY_BASIC_SOURCE } from './badge-story-basic';
+
+<Meta
+  title='UI/Badge'
+  args={{
+    content: '',
+    actionLabel: '',
+    color: '',
+    backgroundColor: '',
+    typography: 'mat-body-1',
+    size: 'md'
+  }}
+  argTypes={{
+    typography: {
+      control: { type: 'select', options: ['mat-body-1', 'mat-body-2'] }
+    },
+    size: {
+      control: { type: 'select', options: ['sm', 'md', 'lg'] }
+    }
+  }}
+/>
+
+# Badge
+
+An alert displays a short, important message in a way that attracts the user's attention without
+interrupting the user's task.
+
+## Demos
+
+export const TemplateBasic = (args, context) => ({
+  template: `
+        <es-badge 
+          [content]="content" 
+          [color]="color" 
+          [backgroundColor]="backgroundColor"
+          [typography]="typography"
+          [size]="size"
+          [actionLabel]="actionLabel"
+          (clicked)="onAction()"
+        >
+        </es-badge>
+      `,
+  moduleMetadata: {
+    imports: [ESBadgeModule]
+  },
+  props: { ...args, content: '1', onAction: action('onAction') }
+});
+
+<Canvas source={BADGE_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='100px'>
+    {TemplateBasic.bind({})}
+  </Story>
+  <Story name='DOCS_ONLY_Closable' height='100px' args={{ closable: true }}>
+    {TemplateBasic.bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={ESBadgeComponent} />
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_ALERT_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/alert';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_ALERT_DEFAULT_OPTIONS,
+      useValue: {
+        typography: 'mat-body-1',
+        iconMapping: {
+          default: { icon: 'info' },
+          info: { icon: 'info' },
+          success: { icon: 'check_circle' },
+          warning: { icon: 'warning' },
+          error: { icon: 'error' }
+        }
+      }
+    }
+  ]
+})
+```

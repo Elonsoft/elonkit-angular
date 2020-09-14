@@ -1,0 +1,30 @@
+.es-badge {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 4px;
+
+  &__content {
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    font-size: 11px;
+    justify-content: center;
+  }
+
+  &__action {
+    color: rgba(0, 0, 0, 0.38);
+
+    &.mat-icon-button {
+      height: 24px;
+      line-height: 24px;
+      width: 24px;
+    }
+
+    .mat-icon {
+      width: 16px;
+    }
+  }
+}

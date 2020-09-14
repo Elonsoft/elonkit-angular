@@ -1,0 +1,15 @@
+<div class="es-badge">
+  <div class="es-badge__content" [ngClass]="typography" [ngStyle]="contentStyle">
+    {{ content }}
+  </div>
+  <div class="es-badge__actions">
+    <button
+      class="es-badge__action"
+      mat-icon-button
+      [attr.aria-label]="actionLabel"
+      (click)="onClick()"
+    >
+      <mat-icon svgIcon="close"></mat-icon>
+    </button>
+  </div>
+</div>
