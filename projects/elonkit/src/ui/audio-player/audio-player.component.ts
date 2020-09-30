@@ -36,10 +36,10 @@ export class ESAudioPlayerComponent implements OnDestroy {
    *  Array of playback rates for audio.
    */
   @Input()
-  set rates(value: number[]) {
+  public set rates(value: number[]) {
     this._rates = value || this.defaultOptions?.rates || [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
   }
-  get rates(): number[] {
+  public get rates(): number[] {
     return this._rates;
   }
   private _rates: number[];
@@ -54,7 +54,7 @@ export class ESAudioPlayerComponent implements OnDestroy {
    * Source of audio track.
    */
   @Input()
-  set source(value: string) {
+  public set source(value: string) {
     if (value) {
       this.audio.src = value;
 
@@ -67,23 +67,23 @@ export class ESAudioPlayerComponent implements OnDestroy {
   /**
    * Event emitted when audio track playback completed.
    */
-  @Output() audioEnded = new EventEmitter();
+  @Output() public audioEnded = new EventEmitter();
 
   /**
    * Event emitted when need to download audio track.
    */
-  @Output() audioDownload = new EventEmitter();
+  @Output() public audioDownload = new EventEmitter();
 
   /**
    * Event emitted when volume change.
    */
-  @Output() volumeChanged = new EventEmitter<number>();
+  @Output() public volumeChanged = new EventEmitter<number>();
 
   /**
    * @internal
    * @ignore
    */
-  @ViewChild('timeLine', { static: true }) elementTimeLine: MatSlider;
+  @ViewChild('timeLine', { static: true }) public elementTimeLine: MatSlider;
 
   /**
    * @internal
@@ -166,7 +166,7 @@ export class ESAudioPlayerComponent implements OnDestroy {
    * @internal
    * @ignore
    */
-  get src() {
+  public get src() {
     const iconName = this.audio.paused ? 'play' : 'pause';
 
     return `./assets/elonkit/audio-player/${iconName}.svg`;

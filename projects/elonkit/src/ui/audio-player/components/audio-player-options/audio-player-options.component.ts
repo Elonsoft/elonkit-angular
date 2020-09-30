@@ -30,18 +30,18 @@ export class AudioPlayerOptionsComponent {
   /**
    * Event emitted when playback rate is change.
    */
-  @Output() changePlaybackRate = new EventEmitter();
+  @Output() public changePlaybackRate = new EventEmitter();
 
   /**
    * Event emitted when need to download audio track.
    */
-  @Output() audioDownload = new EventEmitter();
+  @Output() public audioDownload = new EventEmitter();
 
   /**
    * @internal
    * @ignore
    */
-  public showSelectRatePage = false;
+  public isRatePage = false;
 
   /**
    * @internal
@@ -64,30 +64,8 @@ export class AudioPlayerOptionsComponent {
    * @internal
    * @ignore
    */
-  public onChangeMenuPage(event: Event) {
-    this.showSelectRatePage = !this.showSelectRatePage;
-    event.stopPropagation();
-
-    window.dispatchEvent(new Event('resize'));
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  public onChangePlaybackRate(event: Event, value: number) {
+  public onChangePlaybackRate(value: number) {
     this.currentRate = value;
     this.changePlaybackRate.emit(value);
-    event.stopPropagation();
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  public onClosedMenu() {
-    setTimeout(() => {
-      this.showSelectRatePage = false;
-    }, 100);
   }
 }

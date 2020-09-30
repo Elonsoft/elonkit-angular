@@ -19,10 +19,10 @@ export class AudioPlayerVolumeComponent {
    *  Default or previously set volume value in the range from 0 to 100.
    */
   @Input()
-  set volume(value: number) {
+  public set volume(value: number) {
     this._volume = value;
   }
-  get volume(): number {
+  public get volume(): number {
     return this._volume;
   }
   private _volume: number;
@@ -30,7 +30,7 @@ export class AudioPlayerVolumeComponent {
   /**
    * Event emitted when need change volume.
    */
-  @Output() changeVolume = new EventEmitter();
+  @Output() public changeVolume = new EventEmitter();
 
   /**
    * @internal
@@ -95,7 +95,7 @@ export class AudioPlayerVolumeComponent {
     this.changeVolume.emit(this.volume / 100);
   }
 
-  get src() {
+  public get src() {
     const iconName = this.isMute ? 'mute' : 'un-mute';
 
     return `./assets/elonkit/audio-player/${iconName}.svg`;

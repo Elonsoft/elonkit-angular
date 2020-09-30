@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ESAudioPlayerLocale {
-  labelSpeed = 'Speed';
-  labelDownload = 'Download';
-  labelBack = 'Back';
-  labelNormal = 'Normal';
+  public labelSpeed = 'Speed';
+  public labelDownload = 'Download';
+  public labelBack = 'Back';
+  public labelNormal = 'Normal';
 }
 
 @Injectable()
 export class ESAudioPlayerLocaleRU extends ESAudioPlayerLocale {
-  labelSpeed = 'Скорость';
-  labelDownload = 'Скачать';
-  labelBack = 'Назад';
-  labelNormal = 'Обычная';
+  public labelSpeed = 'Скорость';
+  public labelDownload = 'Скачать';
+  public labelBack = 'Назад';
+  public labelNormal = 'Обычная';
 }
