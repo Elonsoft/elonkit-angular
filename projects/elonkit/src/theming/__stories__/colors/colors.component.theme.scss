@@ -51,8 +51,14 @@
         surface: (
           0 1 2 3 4 6 8 12 16 24 on
         ),
+        white: (
+          500 A50 A100 A150 A200 A300 A400 A500 A600 A700 A800 A900
+        ),
+        black: (
+          500 A50 A100 A150 A200 A300 A400 A500 A600 A700 A800 A900
+        ),
         other: (
-          background link link-visited switch
+          background overlay-gallery overlay-modal overlay-filter link link-visited switch
         )
       );
 

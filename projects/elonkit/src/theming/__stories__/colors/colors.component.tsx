@@ -75,7 +75,17 @@ const PALETTES = {
   ],
   greyscale: ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
   surface: ['0', '1', '2', '3', '4', '6', '8', '12', '16', '24', 'on'],
-  other: ['background', 'link', 'link-visited', 'switch']
+  white: ['500', 'A50', 'A75', 'A100', 'A150', 'A200', 'A300', 'A400', 'A500'],
+  black: ['500', 'A50', 'A75', 'A100', 'A150', 'A200', 'A300', 'A400', 'A500'],
+  other: [
+    'background',
+    'overlay-gallery',
+    'overlay-modal',
+    'overlay-filter',
+    'link',
+    'link-visited',
+    'switch'
+  ]
 };
 
 export const Colors: React.FC = () => {

@@ -321,15 +321,89 @@ $es-dark-theme: (
         )
       )
     ),
+  white:
+    mat-palette(
+      (
+        500: #fff,
+        A50: rgba(255, 255, 255, 0.04),
+        A100: rgba(255, 255, 255, 0.08),
+        A150: rgba(255, 255, 255, 0.1),
+        A200: rgba(255, 255, 255, 0.12),
+        A300: rgba(255, 255, 255, 0.16),
+        A400: rgba(255, 255, 255, 0.22),
+        A500: rgba(255, 255, 255, 0.34),
+        A600: rgba(255, 255, 255, 0.52),
+        A700: rgba(255, 255, 255, 0.58),
+        A800: rgba(255, 255, 255, 0.7),
+        A900: rgba(255, 255, 255, 0.86),
+        contrast: (
+          500: #000,
+          A50: #000,
+          A100: #000,
+          A150: #000,
+          A200: #000,
+          A300: #000,
+          A400: #000,
+          A500: #000,
+          A600: #000,
+          A700: #000,
+          A800: #000,
+          A900: #000
+        )
+      ),
+      500,
+      500,
+      500
+    ),
+  black:
+    mat-palette(
+      (
+        500: #000,
+        A50: rgba(0, 0, 0, 0.04),
+        A100: rgba(0, 0, 0, 0.08),
+        A150: rgba(0, 0, 0, 0.1),
+        A200: rgba(0, 0, 0, 0.12),
+        A300: rgba(0, 0, 0, 0.16),
+        A400: rgba(0, 0, 0, 0.22),
+        A500: rgba(0, 0, 0, 0.38),
+        A600: rgba(0, 0, 0, 0.54),
+        A700: rgba(0, 0, 0, 0.6),
+        A800: rgba(0, 0, 0, 0.72),
+        A900: rgba(0, 0, 0, 0.88),
+        contrast: (
+          500: #fff,
+          A50: #000,
+          A100: #000,
+          A150: #000,
+          A200: #000,
+          A300: #000,
+          A400: #000,
+          A500: #fff,
+          A600: #fff,
+          A700: #fff,
+          A800: #fff,
+          A900: #fff
+        )
+      ),
+      500,
+      500,
+      500
+    ),
   other:
     mat-palette(
       (
         background: #18181a,
+        overlay-gallery: rgba(26, 26, 26, 0.94),
+        overlay-modal: rgba(93, 93, 96, 0.65),
+        overlay-filter: rgba(74, 75, 78, 0.43),
         link: #4891ed,
         link-visited: #be95ff,
         switch: #fafafa,
         contrast: (
           background: #fff,
+          overlay-gallery: #fff,
+          overlay-modal: #fff,
+          overlay-filter: #fff,
           link: #fff,
           link-visited: #fff,
           switch: #000
