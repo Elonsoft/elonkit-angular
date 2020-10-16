@@ -103,7 +103,9 @@ export class ESTooltipComponent implements OnDestroy {
       if (this.interactive) {
         if (
           document.hasFocus() &&
-          !event.relatedTarget &&
+          (!event.relatedTarget ||
+            (event.relatedTarget &&
+              this.elementRef.nativeElement.contains(event.relatedTarget as HTMLElement))) &&
           this.elementRef.nativeElement.contains(event.target as HTMLElement)
         ) {
           return;
