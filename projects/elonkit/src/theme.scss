@@ -1,8 +1,9 @@
 @import './ui/alert/alert.component.theme';
 @import './ui/dropzone/dropzone.component.theme';
+@import './ui/dropzone/dropzone.component.theme';
 @import './ui/inline-form-field/inline-form-field.component.theme';
 @import './ui/paginator/paginator.component.theme';
-@import './ui/dropzone/dropzone.component.theme';
+@import './ui/tooltip/tooltip.component.theme';
 
 $elonkit-default-theme: (
   info:
@@ -115,7 +116,8 @@ $elonkit-default-theme: (
 @mixin elonkit-theme($theme, $elonkit-theme: $elonkit-default-theme) {
   @include es-alert-theme($theme, $elonkit-theme);
   @include es-dropzone-theme($theme, $elonkit-theme);
+  @include es-dropzone-theme($theme, $elonkit-theme);
   @include es-inline-form-field-theme($theme, $elonkit-theme);
   @include es-paginator-theme($theme, $elonkit-theme);
-  @include es-dropzone-theme($theme, $elonkit-theme);
+  @include es-tooltip-theme($theme, $elonkit-theme);
 }

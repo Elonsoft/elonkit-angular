@@ -1,0 +1,39 @@
+<div style="padding: 10px;">
+  <div style="margin-bottom: 8px;">
+    <button
+      style="margin-right: 8px;"
+      mat-flat-button
+      color="primary"
+      esTooltip
+      [esTooltipContent]="content"
+      esTooltipPosition="after"
+      esTooltipInteractive
+      [esTooltipArrow]="esTooltipArrow"
+      [esTooltipMouseAimDelay]="esTooltipMouseAimDelay"
+    >
+      Button 1
+    </button>
+    <button mat-flat-button color="accent">Extra Button</button>
+  </div>
+  <div>
+    <button
+      style="margin-right: 8px;"
+      mat-flat-button
+      color="primary"
+      esTooltip
+      [esTooltipContent]="content"
+      esTooltipPosition="after"
+      esTooltipInteractive
+      [esTooltipArrow]="esTooltipArrow"
+      [esTooltipMouseAimDelay]="esTooltipMouseAimDelay"
+    >
+      Button 2
+    </button>
+  </div>
+</div>
+
+<ng-template #content>
+  This is a tooltip with an interactive content.
+  <br /><br />
+  <button mat-flat-button>Action</button>
+</ng-template>

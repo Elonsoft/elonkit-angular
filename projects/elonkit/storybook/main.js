@@ -14,6 +14,7 @@ module.exports = {
   webpackFinal: async (config) => {
     config.resolve.alias['~storybook'] = path.resolve(__dirname);
     config.resolve.alias['~utils'] = path.resolve(__dirname, '../src/utils');
+    config.resolve.alias['@elonkit/cdk'] = path.resolve(__dirname, '../src/cdk');
 
     // https://github.com/storybookjs/storybook/issues/714
     config.plugins.push(

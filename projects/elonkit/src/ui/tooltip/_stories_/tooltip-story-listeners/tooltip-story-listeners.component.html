@@ -1,0 +1,23 @@
+<div style="padding: 10px;">
+  <button
+    mat-flat-button
+    color="primary"
+    esTooltip
+    [esTooltipContent]="content"
+    esTooltipPosition="after"
+    esTooltipInteractive
+    [esTooltipArrow]="esTooltipArrow"
+    [esTooltipDisableFocusListener]="esTooltipDisableFocusListener"
+    [esTooltipDisableHoverListener]="esTooltipDisableHoverListener"
+    [esTooltipDisableCloseFocusListener]="esTooltipDisableCloseFocusListener"
+    [esTooltipDisableCloseHoverListener]="esTooltipDisableCloseHoverListener"
+    [esTooltipDisableCloseClickListener]="esTooltipDisableCloseClickListener"
+  >
+    Button
+  </button>
+  <ng-template #content let-hide="hide">
+    Click this button to close the tooltip.
+    <br /><br />
+    <button mat-flat-button (click)="hide()">Close</button>
+  </ng-template>
+</div>

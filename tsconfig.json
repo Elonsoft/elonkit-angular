@@ -18,7 +18,8 @@
       "elonkit": ["dist/elonkit"],
       "elonkit/*": ["dist/elonkit/*"],
       "~storybook/*": ["projects/elonkit/storybook/*"],
-      "~utils/*": ["projects/elonkit/src/utils/*"]
+      "~utils/*": ["projects/elonkit/src/utils/*"],
+      "@elonkit/cdk/*": ["projects/elonkit/src/cdk/*"]
     },
     "types": ["jest"],
     "jsx": "react"
