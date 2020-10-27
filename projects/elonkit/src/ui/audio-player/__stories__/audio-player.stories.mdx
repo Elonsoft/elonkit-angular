@@ -1,10 +1,6 @@
-import { Meta, Story, Props } from '@storybook/addon-docs/blocks';
-import { Preview } from '~storybook/components';
-
-import { withA11y } from '@storybook/addon-a11y';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, text, select } from '@storybook/addon-knobs';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AUDIO_PLAYER_STORY_BASIC_SOURCE } from './audio-player-story-basic';
@@ -17,7 +13,7 @@ import {
 
 import { ESAudioPlayerModule, ESAudioPlayerComponent } from '..';
 
-<Meta title='UI/Audio Player' decorators={[withA11y, withKnobs]} />
+<Meta title='UI/Audio Player' />
 
 # Audio player
 
@@ -25,30 +21,36 @@ Audio player allows users to play audio tracks.
 
 ## Demos
 
-<Preview source={AUDIO_PLAYER_STORY_BASIC_SOURCE}>
+<Canvas source={AUDIO_PLAYER_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='170px'>
-    {{
+    {((args, context) => ({
       template: `<es-audio-player source='https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3' volume="100"></es-audio-player>`,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, ESAudioPlayerModule]
+      },
+      props: {
+        ...args
       }
-    }}
+    })).bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 We can override default locale which is used for menu items.
 
-<Preview source={AUDIO_PLAYER_STORY_LOCALE_SOURCE}>
+<Canvas source={AUDIO_PLAYER_STORY_LOCALE_SOURCE}>
   <Story name='Locale' height='110px'>
-    {{
+    {((args, context) => ({
       component: AudioPlayerStoryLocaleComponent,
       moduleMetadata: {
         imports: [BrowserAnimationsModule, AudioPlayerStoryLocaleModule]
+      },
+      props: {
+        ...args
       }
-    }}
+    })).bind({})}
   </Story>
-</Preview>
+</Canvas>
 
 ## API
 
-<Props of={ESAudioPlayerComponent} />
+<ArgsTable of={ESAudioPlayerComponent} />
