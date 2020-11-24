@@ -1,0 +1,76 @@
+.es-image-carousel {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &__items {
+    display: grid;
+    grid-auto-flow: column;
+    transition: transform 1s ease-in-out;
+  }
+
+  &__item {
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    &:focus-within &-view,
+    &:focus-within &-remove {
+      opacity: 1;
+    }
+
+    &:hover &-view,
+    &:hover &-remove {
+      opacity: 1;
+    }
+
+    &-view.mat-icon-button {
+      background: rgba(0, 0, 0, 0.54);
+      border-radius: 20px;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    &-remove.mat-icon-button {
+      background: rgba(0, 0, 0, 0.54);
+      border-radius: 4px;
+      color: #fff;
+      height: 24px;
+      line-height: 12px;
+      opacity: 0;
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      transition: opacity 0.2s;
+      width: 24px;
+    }
+  }
+
+  &__arrow.mat-icon-button {
+    background: rgba(0, 0, 0, 0.54);
+    border-radius: 4px;
+    color: #fff;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  &__arrow_right.mat-icon-button {
+    right: 16px;
+    top: calc(50% - 40px / 2);
+  }
+
+  &__arrow_left.mat-icon-button {
+    left: 16px;
+    top: calc(50% - 40px / 2);
+  }
+
+  &__arrow_enabled.mat-icon-button {
+    visibility: visible;
+  }
+}

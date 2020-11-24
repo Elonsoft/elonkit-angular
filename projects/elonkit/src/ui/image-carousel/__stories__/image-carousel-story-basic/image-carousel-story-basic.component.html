@@ -1,0 +1,13 @@
+<div class="container">
+  <es-image-carousel
+    [imageHeight]="imageHeight"
+    [imageWidth]="imageWidth"
+    [gap]="gap"
+    [canView]="canView"
+    [canRemove]="canRemove"
+    [imageTypes]="imageTypes"
+    [files]="files"
+    (view)="onView($event)"
+    (remove)="onRemove($event)"
+  ></es-image-carousel>
+</div>

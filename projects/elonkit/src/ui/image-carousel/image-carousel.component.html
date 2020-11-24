@@ -1,0 +1,65 @@
+<div #carousel class="es-image-carousel">
+  <div
+    class="es-image-carousel__items"
+    [ngStyle]="{
+      'width.px': carouselWidth,
+      'gap.px': gap,
+      transform: getTranslateX
+    }"
+  >
+    <ng-container *ngFor="let file of files; let i = index">
+      <div
+        *ngIf="!file.deleted && (locale$ | async) as locale"
+        class="es-image-carousel__item"
+        data-testid="image"
+        [ngStyle]="{
+          'width.px': imageWidth,
+          'height.px': imageHeight,
+          backgroundImage: 'url(' + getImage(file) + ')'
+        }"
+      >
+        <ng-container *ngIf="elementIsInView(i)">
+          <button
+            *ngIf="canRemove"
+            mat-icon-button
+            [attr.aria-label]="locale.imageCarousel.labelRemove"
+            (click)="removeImage({ file: file, index: i })"
+            class="es-image-carousel__item-remove"
+          >
+            <mat-icon *ngIf="removeSvgIcon" [svgIcon]="removeSvgIcon"></mat-icon>
+            <mat-icon *ngIf="!removeSvgIcon">close</mat-icon>
+          </button>
+
+          <button
+            *ngIf="canView"
+            mat-icon-button
+            [attr.aria-label]="locale.imageCarousel.labelView"
+            class="es-image-carousel__item-view"
+            (click)="viewImage({ file: file, index: i })"
+          >
+            <mat-icon *ngIf="viewSvgIcon" [svgIcon]="viewSvgIcon"></mat-icon>
+            <mat-icon *ngIf="!viewSvgIcon">visibility</mat-icon>
+          </button>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+  <button
+    mat-icon-button
+    (click)="slideLeft()"
+    [attr.aria-label]="(locale$ | async).imageCarousel.labelSlideLeft"
+    class="es-image-carousel__arrow es-image-carousel__arrow_left"
+    [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollLeft }"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    (click)="slideRight()"
+    [attr.aria-label]="(locale$ | async).imageCarousel.labelSlideRight"
+    class="es-image-carousel__arrow es-image-carousel__arrow_right"
+    [ngClass]="{ 'es-image-carousel__arrow_enabled': canScrollRight }"
+  >
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>

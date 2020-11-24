@@ -1,0 +1,129 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { action } from '@storybook/addon-actions';
+
+import { ESImageCarouselComponent } from '..';
+
+import {
+  ImageCarouselStoryBasicModule,
+  ImageCarouselStoryBasicComponent,
+  IMAGE_CAROUSEL_STORY_BASIC_SOURCE
+} from './image-carousel-story-basic';
+
+import {
+  ImageCarouselStoryCustomIconModule,
+  ImageCarouselStoryCustomIconComponent,
+  IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE
+} from './image-carousel-story-custom-icon';
+
+<Meta
+  title='UI/Image Carousel'
+  args={{
+    imageHeight: 160,
+    imageWidth: 160,
+    gap: 16,
+    imageTypes: 'image/png,image/jpg,image/jpeg'
+  }}
+  argTypes={{ canView: { control: 'boolean' }, canRemove: { control: 'boolean' } }}
+/>
+
+# Image Carousel
+
+This component displays images and allows to slide them.
+
+## Demos
+
+<Canvas source={IMAGE_CAROUSEL_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='200px'>
+    {((args, context) => ({
+      component: ImageCarouselStoryBasicComponent,
+      moduleMetadata: {
+        imports: [ImageCarouselStoryBasicModule]
+      },
+      props: {
+        ...args,
+        onView: action('onView'),
+        onRemove: action('onRemove')
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+We can pass `viewSvgIcon` to use custom icon for view button.
+
+<Canvas source={IMAGE_CAROUSEL_STORY_CUSTOM_ICON_SOURCE}>
+  <Story name='Custom Icon' height='200px'>
+    {((args, context) => ({
+      component: ImageCarouselStoryCustomIconComponent,
+      moduleMetadata: {
+        imports: [ImageCarouselStoryCustomIconModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={ESImageCarouselComponent} />
+
+## Interfaces
+
+```ts
+interface ESImageCarouselFile {
+  id?: number;
+  deleted?: boolean;
+  type?: string;
+  base64?: string;
+  file?: string;
+  name: string;
+  size: number;
+  content: File | string;
+}
+```
+
+```ts
+interface ESImageCarouselAction {
+  file: ESImageCarouselFile;
+  index: number;
+}
+```
+
+Image types string should contain types separated by a comma, e.g. `image/png,image/jpg,image/jpeg`
+
+```ts
+interface ESImageCarouselOptions {
+  imageTypes?: string;
+  imageHeight?: number;
+  imageWidth?: number;
+  gap?: number;
+  canRemove?: boolean;
+  canView?: boolean;
+  viewSvgIcon?: string;
+  removeSvgIcon?: string;
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/image-carousel';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_IMAGE_CAROUSEL_DEFAULT_OPTIONS,
+      useValue: {
+        imageHeight: 200,
+        imageWidth: 200,
+        gap: 20
+      }
+    }
+  ]
+})
+```
