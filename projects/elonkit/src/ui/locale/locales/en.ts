@@ -22,5 +22,12 @@ export const en = {
     labelHH: 'HH',
     labelMM: 'MM',
     labelSS: 'SS'
+  },
+  fileList: {
+    labelDownload: 'Download',
+    labelRemove: 'Remove',
+    labelKB: 'KB',
+    labelMB: 'MB',
+    labelAt: 'at'
   }
 };

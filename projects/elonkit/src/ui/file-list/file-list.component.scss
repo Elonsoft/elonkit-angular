@@ -1,0 +1,71 @@
+.es-file-list {
+  margin-top: 24px;
+
+  &__file {
+    align-items: center;
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__icon-wrapper {
+    display: flex;
+    margin-right: 12px;
+    position: relative;
+  }
+
+  &__icon-btn.mat-icon-button {
+    display: flex;
+    height: 24px;
+    justify-content: center;
+    left: 50%;
+    line-height: 24px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+  }
+
+  &__icon-btn.mat-icon-button &__icon {
+    height: 14px;
+    width: 14px;
+  }
+
+  &__icon {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__title {
+    align-items: center;
+    display: flex;
+    min-height: 24px;
+  }
+
+  &__remove.mat-icon-button {
+    height: 24px;
+    line-height: 22px;
+    width: 24px;
+  }
+
+  &__remove &__remove-icon.mat-icon {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 24px;
+  }
+
+  &__name {
+    margin-right: 8px;
+  }
+
+  &__subtitle {
+    align-items: center;
+    color: rgba(0, 0, 0, 0.38);
+    display: flex;
+
+    &-point {
+      margin: 0 8px;
+    }
+  }
+}

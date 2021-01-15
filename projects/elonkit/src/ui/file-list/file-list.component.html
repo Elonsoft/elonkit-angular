@@ -1,0 +1,48 @@
+<div *ngIf="files && files.length && (locale$ | async) as locale" class="es-file-list">
+  <ng-container *ngFor="let file of files; let i = index">
+    <ng-container *ngIf="!hideImages || (hideImages && !fileTypeValid(file))">
+      <div *ngIf="!file.deleted" class="es-file-list__file" data-testid="file">
+        <div class="es-file-list__icon-wrapper">
+          <img class="es-file-list__icon" [src]="src" />
+          <a
+            mat-icon-button
+            *ngIf="canDownload"
+            [attr.aria-label]="locale.fileList.labelDownload"
+            class="es-file-list__icon-btn"
+            [href]="file.file || '#'"
+            (click)="downloadFile($event, file)"
+          >
+            <img class="es-file-list__icon" [src]="srcDownload" />
+          </a>
+        </div>
+        <div class="es-file-list__info">
+          <div class="es-file-list__title">
+            <div class="es-file-list__name" [ngClass]="fileNameTypography">{{ file.name }}</div>
+            <button
+              *ngIf="canRemove"
+              type="button"
+              (click)="removeFile({ file: file, index: i })"
+              mat-icon-button
+              class="es-file-list__remove"
+              [attr.aria-label]="locale.fileList.labelRemove"
+            >
+              <mat-icon class="es-file-list__remove-icon">close</mat-icon>
+            </button>
+          </div>
+          <div class="es-file-list__subtitle">
+            <div [ngClass]="fileSizeTypography">
+              {{ getFileSize(file) | async }}
+            </div>
+            <ng-container *ngIf="file.updatedAt">
+              <div class="es-file-list__subtitle-point" [ngClass]="fileSizeTypography">•</div>
+              <div [ngClass]="fileSizeTypography">
+                {{ file.updatedAt | date: 'd MMM yyyy' | lowercase }} {{ locale.labelAt }}
+                {{ file.updatedAt | date: 'HH:mm:ss' }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

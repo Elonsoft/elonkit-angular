@@ -1,6 +1,7 @@
 export * from './cdk/a11y';
 
 export * from './ui/breadcrumbs';
+export * from './ui/file-list';
 export * from './ui/empty-state';
 export * from './ui/dropzone';
 export * from './ui/inline-form-field';
