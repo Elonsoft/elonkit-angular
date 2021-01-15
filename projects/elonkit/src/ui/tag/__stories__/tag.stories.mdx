@@ -1,0 +1,78 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { action } from '@storybook/addon-actions';
+
+import { ESTagModule, ESTagComponent } from '..';
+import { TAG_STORY_BASIC_SOURCE } from './tag-story-basic';
+import {
+  TagStorySvgIconModule,
+  TagStorySvgIconComponent,
+  TAG_STORY_SVG_ICON_SOURCE
+} from './tag-story-svg-icon';
+
+<Meta
+  title='UI/Tag'
+  args={{
+    content: '',
+    icon: 'mail',
+    svgIcon: '',
+    color: '#000',
+    textColor: '#fff'
+  }}
+/>
+
+# Tag
+
+A tags primary use is to place content in context.
+
+## Demos
+
+export const getContent = (args, context) => {
+  return args.content || (context.globals.locale === 'en' ? 'Message' : 'Сообщение');
+};
+
+<Canvas source={TAG_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='100px'>
+    {((args, context) => ({
+      template: `<es-tag [color]="color" [textColor]="textColor" [icon]="icon">{{content}}</es-tag>`,
+      moduleMetadata: {
+        imports: [ESTagModule]
+      },
+      props: {
+        ...args,
+        content: getContent(args, context)
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+We can use individual icons.
+
+<Canvas source={TAG_STORY_SVG_ICON_SOURCE}>
+  <Story
+    name='Svg icon'
+    height='100px'
+    argTypes={{
+      color: { table: { disable: true } },
+      icon: { table: { disable: true } },
+      textColor: { table: { disable: true } },
+      svgIcon: { table: { disable: true } }
+    }}
+  >
+    {((args, context) => ({
+      component: TagStorySvgIconComponent,
+      moduleMetadata: {
+        imports: [TagStorySvgIconModule]
+      },
+      props: {
+        ...args,
+        content: getContent(args, context)
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={ESTagComponent} />

@@ -1,0 +1,29 @@
+.es-tag {
+  border-radius: 4px;
+  padding: 3px 8px;
+  width: fit-content;
+
+  &__content {
+    align-items: center;
+    display: flex;
+  }
+
+  &__text {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  &__icon {
+    font-size: 14px;
+
+    &.mat-icon {
+      height: 14px;
+      line-height: 14px;
+      width: 14px;
+    }
+
+    &_display {
+      margin-right: 5px;
+    }
+  }
+}
