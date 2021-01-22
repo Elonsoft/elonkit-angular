@@ -22,6 +22,10 @@
     line-height: 16px;
   }
 
+  &__tooltip {
+    padding: 0 !important;
+  }
+
   &__menu {
     box-shadow: none;
     flex-direction: column;
@@ -33,7 +37,7 @@
     align-items: center;
     display: flex;
     flex-wrap: nowrap;
-    height: 40px;
+    height: 44px;
     padding: 0;
 
     .mat-button-wrapper {
