@@ -7,12 +7,19 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
-import { AudioPlayerVolumeComponent } from './components/audio-player-volume/audio-player-volume.component';
-import { AudioPlayerOptionsComponent } from './components/audio-player-options/audio-player-options.component';
 import { ESTooltipModule } from '../tooltip';
 
+import { ESAudioPlayerOptionsComponent } from './components/audio-player-options/audio-player-options.component';
+import { ESAudioPlayerTimeSliderComponent } from './components/audio-player-time-slider/audio-player-time-slider.component';
+import { ESAudioPlayerVolumeComponent } from './components/audio-player-volume/audio-player-volume.component';
+
 @NgModule({
-  declarations: [ESAudioPlayerComponent, AudioPlayerVolumeComponent, AudioPlayerOptionsComponent],
+  declarations: [
+    ESAudioPlayerComponent,
+    ESAudioPlayerOptionsComponent,
+    ESAudioPlayerTimeSliderComponent,
+    ESAudioPlayerVolumeComponent
+  ],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -24,6 +31,6 @@ import { ESTooltipModule } from '../tooltip';
     MatListModule,
     ESTooltipModule
   ],
-  exports: [ESAudioPlayerComponent, AudioPlayerVolumeComponent, AudioPlayerOptionsComponent]
+  exports: [ESAudioPlayerComponent]
 })
 export class ESAudioPlayerModule {}

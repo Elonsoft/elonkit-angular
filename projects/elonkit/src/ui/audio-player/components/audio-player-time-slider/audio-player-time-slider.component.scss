@@ -1,0 +1,101 @@
+@use 'sass:math';
+
+.es-audio-player-time-slider {
+  &__slider {
+    flex: 1;
+
+    &.mat-slider {
+      padding: 0;
+
+      &:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,
+      &:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb,
+      &:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,
+      .cdk-mouse-focused .mat-slider-thumb,
+      .mat-slider-thumb {
+        background: #3f51b5;
+        border: 0;
+        height: 18px;
+        transform: scale(0.7);
+        width: 18px;
+      }
+
+      .mat-slider-focus-ring {
+        background-color: rgba(0, 0, 0, 0.12);
+
+        height: 24px;
+
+        right: -13px;
+        top: -11px;
+        width: 24px;
+      }
+    }
+
+    &.mat-slider-horizontal {
+      height: 40px;
+      max-width: 192px;
+      min-width: 50px;
+
+      .mat-slider-wrapper {
+        left: 0;
+        right: 0;
+        top: 18px;
+      }
+
+      .mat-slider-track-fill,
+      .mat-slider-track-wrapper,
+      .mat-slider-track-background {
+        border-radius: 16px;
+        height: 4px;
+      }
+
+      .mat-slider-track-wrapper,
+      .mat-slider-track-background {
+        background: #c8cde4;
+      }
+    }
+  }
+
+  &__tooltip {
+    $base: 12; // Triangle base
+    $height: 8; // Triangle height
+
+    $size: math.round($base / math.sqrt(2)); // Square side size
+    $scale: $height / ($base / 2);
+    $offset: -#{$size / 2}px;
+
+    background: rgba(0, 0, 0, 0.54);
+    border-radius: 4px;
+    color: #fff;
+    display: none;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    line-height: 16px;
+    padding: 4px 8px;
+    position: absolute;
+    z-index: 1000;
+
+    &::after {
+      background: linear-gradient(-45deg, rgba(0, 0, 0, 0.54) 50%, transparent 50%);
+      border-bottom-right-radius: 2px;
+      content: '';
+      height: #{$size}px;
+      left: 50%;
+      position: absolute;
+      width: #{$size}px;
+    }
+
+    &_top {
+      &::after {
+        bottom: $offset;
+        transform: scaleY($scale) translateX(-50%) rotate(45deg);
+      }
+    }
+
+    &_bottom {
+      &::after {
+        top: $offset;
+        transform: scaleY($scale) translateX(-50%) rotate(225deg);
+      }
+    }
+  }
+}

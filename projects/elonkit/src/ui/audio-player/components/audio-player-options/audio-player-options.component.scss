@@ -60,12 +60,12 @@
     label {
       cursor: pointer;
     }
+  }
 
-    div {
-      display: flex;
-      flex-direction: column;
-      margin-left: 18px;
-    }
+  &__label-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 18px;
   }
 
   &__icon {
@@ -78,7 +78,6 @@
   }
 
   &__divider {
-    background: #7c7c7d;
-    border-color: #7c7c7d;
+    border-color: rgba(255, 255, 255, 0.08);
   }
 }

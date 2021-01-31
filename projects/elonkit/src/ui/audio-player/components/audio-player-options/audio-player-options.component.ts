@@ -15,12 +15,13 @@ import { ESAudioPlayerLocale } from '../../audio-player.component.locale';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AudioPlayerOptionsComponent {
+export class ESAudioPlayerOptionsComponent {
   /**
    *  Array of playback rates for audio.
    */
   @Input()
   public rates: number[];
+
   /**
    * Source of audio track.
    */

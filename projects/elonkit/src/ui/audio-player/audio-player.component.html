@@ -1,3 +1,5 @@
+<div></div>
+
 <div class="es-audio-player">
   <button
     mat-icon-button
@@ -8,16 +10,21 @@
   >
     <img [src]="src" />
   </button>
-  <mat-slider
-    #timeLine
-    class="es-audio-player__slider"
-    color="primary"
-    step="1"
-    [max]="audio.duration"
-    [(ngModel)]="audioCurrentTime"
-    (change)="onSeekTo($event)"
-  ></mat-slider>
-  <label class="es-audio-player__label"> {{ audioTimeLeft }}</label>
+
+  <es-audio-player-time-slider
+    class="es-audio-player__time-slider"
+    [audioCurrentTime]="audioCurrentTime"
+    [duration]="audio.duration"
+    (timeUpdated)="onSeekTo($event)"
+  ></es-audio-player-time-slider>
+
+  <label
+    class="es-audio-player__label"
+    [ngClass]="{ 'es-audio-player__label-prefix': isDisplayedLeftTime }"
+    (click)="changeDisplayedTime()"
+  >
+    {{ displayedTime }}</label
+  >
 
   <es-audio-player-volume
     class="es-audio-player__volume"

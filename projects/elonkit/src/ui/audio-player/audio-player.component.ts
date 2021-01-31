@@ -4,7 +4,6 @@ import {
   Output,
   EventEmitter,
   ViewEncapsulation,
-  ViewChild,
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -12,7 +11,6 @@ import {
   Optional,
   Inject
 } from '@angular/core';
-import { MatSlider } from '@angular/material/slider';
 
 export interface ESAudioPlayerDefaultOptions {
   rates?: number[];
@@ -22,7 +20,7 @@ export const ES_AUDIO_PLAYER_DEFAULT_OPTIONS = new InjectionToken<ESAudioPlayerD
   'ES_AUDIO_PLAYER_DEFAULT_OPTIONS'
 );
 
-const DEFAULT_TIME = '- 00:00:00';
+const DEFAULT_TIME = '00:00:00';
 
 @Component({
   selector: 'es-audio-player',
@@ -83,12 +81,6 @@ export class ESAudioPlayerComponent implements OnDestroy {
    * @internal
    * @ignore
    */
-  @ViewChild('timeLine', { static: true }) public elementTimeLine: MatSlider;
-
-  /**
-   * @internal
-   * @ignore
-   */
   public audio: HTMLAudioElement = new Audio();
 
   /**
@@ -101,7 +93,13 @@ export class ESAudioPlayerComponent implements OnDestroy {
    * @internal
    * @ignore
    */
-  public audioTimeLeft = DEFAULT_TIME;
+  public displayedTime = DEFAULT_TIME;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public isDisplayedLeftTime = true;
 
   /**
    * @ignore
@@ -150,7 +148,7 @@ export class ESAudioPlayerComponent implements OnDestroy {
    * @internal
    * @ignore
    */
-  public onSeekTo({ value }) {
+  public onSeekTo(value: number) {
     this.audio.currentTime = value;
   }
 
@@ -172,11 +170,26 @@ export class ESAudioPlayerComponent implements OnDestroy {
     return `./assets/elonkit/audio-player/${iconName}.svg`;
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
+  public changeDisplayedTime() {
+    this.isDisplayedLeftTime = !this.isDisplayedLeftTime;
+
+    this.displayedTime = this.isDisplayedLeftTime
+      ? this.formatTime(this.audio.duration - this.audioCurrentTime)
+      : this.formatTime(this.audioCurrentTime);
+  }
+
   private addEventsListener() {
     this.audio.addEventListener('loadeddata', ({ target }) => {
-      const { duration } = target as any;
+      const { duration, currentTime } = target as any;
       this.audio.volume = this.volume / 100;
-      this.audioTimeLeft = this.formatTime(duration);
+
+      this.displayedTime = this.isDisplayedLeftTime
+        ? this.formatTime(duration - currentTime)
+        : this.formatTime(currentTime);
 
       // tslint:disable-next-line: no-string-literal
       if (!this.changeDetector['destroyed']) {
@@ -189,11 +202,11 @@ export class ESAudioPlayerComponent implements OnDestroy {
     this.audio.addEventListener('timeupdate', ({ target }) => {
       const { duration, currentTime } = target as any;
 
-      if (!this.elementTimeLine._isSliding) {
-        this.audioCurrentTime = currentTime;
-      }
+      this.audioCurrentTime = currentTime;
 
-      this.audioTimeLeft = this.formatTime(duration - currentTime);
+      this.displayedTime = this.isDisplayedLeftTime
+        ? this.formatTime(duration - currentTime)
+        : this.formatTime(currentTime);
 
       // tslint:disable-next-line: no-string-literal
       if (!this.changeDetector['destroyed']) {
@@ -206,18 +219,18 @@ export class ESAudioPlayerComponent implements OnDestroy {
     this.audioEnded.emit(true);
   };
 
-  private formatTime(timeLeft: number): string {
-    if (!timeLeft) {
+  private formatTime(time: number): string {
+    if (!time) {
       return DEFAULT_TIME;
     }
 
-    const hours = Math.floor(timeLeft / 3600);
-    const minutes = Math.floor((timeLeft - hours * 3600) / 60);
-    const seconds = Math.round(timeLeft) - hours * 3600 - minutes * 60;
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time - hours * 3600) / 60);
+    const seconds = Math.round(time) - hours * 3600 - minutes * 60;
 
     const h = hours < 10 ? `0${hours}` : `${hours}`;
     const m = minutes < 10 ? `0${minutes}` : `${minutes}`;
     const s = seconds < 10 ? `0${seconds}` : `${seconds}`;
-    return `- ${h}:${m}:${s}`;
+    return `${h}:${m}:${s}`;
   }
 }

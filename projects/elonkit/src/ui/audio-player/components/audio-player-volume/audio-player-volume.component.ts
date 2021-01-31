@@ -14,7 +14,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AudioPlayerVolumeComponent {
+export class ESAudioPlayerVolumeComponent {
   /**
    *  Default or previously set volume value in the range from 0 to 100.
    */
@@ -95,6 +95,10 @@ export class AudioPlayerVolumeComponent {
     this.changeVolume.emit(this.volume / 100);
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
   public get src() {
     const iconName = this.isMute ? 'mute' : 'un-mute';
 
