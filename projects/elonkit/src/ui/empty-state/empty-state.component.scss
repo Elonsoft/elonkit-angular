@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   max-width: 600px;
+  padding: 24px;
 
   &__image {
     margin-bottom: 12px;
@@ -16,15 +17,27 @@
   }
 
   &__heading {
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
     margin-bottom: 2px;
     text-align: center;
   }
 
   &__subheading {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    line-height: 16px;
     text-align: center;
 
     &:not(:last-child) {
       margin-bottom: 20px;
     }
+  }
+
+  .mat-stroked-button {
+    line-height: 46px;
   }
 }
