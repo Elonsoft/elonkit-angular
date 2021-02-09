@@ -95,8 +95,12 @@ $es-dark-warn: mat-palette(
     A300: rgba(255, 89, 77, 0.16),
     A400: rgba(255, 89, 77, 0.24),
     A500: rgba(255, 89, 77, 0.32),
+    A600: rgba(255, 89, 77, 0.52),
+    A700: rgba(255, 89, 77, 0.58),
+    A800: rgba(255, 89, 77, 0.7),
+    A900: rgba(255, 89, 77, 0.86),
     contrast: (
-      500: #fff,
+      500: #000,
       A50: #fff,
       A75: #fff,
       A100: #fff,
@@ -104,7 +108,11 @@ $es-dark-warn: mat-palette(
       A200: #fff,
       A300: #fff,
       A400: #fff,
-      A500: #fff
+      A500: #fff,
+      A600: #fff,
+      A700: #fff,
+      A800: #fff,
+      A900: #fff
     )
   ),
   500,
@@ -125,8 +133,12 @@ $es-dark-theme: (
         A300: rgba(94, 174, 255, 0.16),
         A400: rgba(94, 174, 255, 0.24),
         A500: rgba(94, 174, 255, 0.32),
+        A600: rgba(94, 174, 255, 0.52),
+        A700: rgba(94, 174, 255, 0.58),
+        A800: rgba(94, 174, 255, 0.7),
+        A900: rgba(94, 174, 255, 0.86),
         contrast: (
-          500: #fff,
+          500: #000,
           A50: #fff,
           A75: #fff,
           A100: #fff,
@@ -134,7 +146,11 @@ $es-dark-theme: (
           A200: #fff,
           A300: #fff,
           A400: #fff,
-          A500: #fff
+          A500: #fff,
+          A600: #fff,
+          A700: #fff,
+          A800: #fff,
+          A900: #fff
         )
       ),
       500,
@@ -153,8 +169,12 @@ $es-dark-theme: (
         A300: rgba(71, 214, 163, 0.16),
         A400: rgba(71, 214, 163, 0.24),
         A500: rgba(71, 214, 163, 0.32),
+        A600: rgba(71, 214, 163, 0.52),
+        A700: rgba(71, 214, 163, 0.58),
+        A800: rgba(71, 214, 163, 0.7),
+        A900: rgba(71, 214, 163, 0.86),
         contrast: (
-          500: #fff,
+          500: #000,
           A50: #fff,
           A75: #fff,
           A100: #fff,
@@ -162,7 +182,11 @@ $es-dark-theme: (
           A200: #fff,
           A300: #fff,
           A400: #fff,
-          A500: #fff
+          A500: #fff,
+          A600: #fff,
+          A700: #fff,
+          A800: #fff,
+          A900: #fff
         )
       ),
       500,
@@ -181,40 +205,14 @@ $es-dark-theme: (
         A300: rgba(252, 160, 50, 0.16),
         A400: rgba(252, 160, 50, 0.24),
         A500: rgba(252, 160, 50, 0.32),
+        A600: rgba(252, 160, 50, 0.52),
+        A700: rgba(252, 160, 50, 0.58),
+        A800: rgba(252, 160, 50, 0.7),
+        A900: rgba(252, 160, 50, 0.86),
         contrast: (
-          500: #fff,
+          500: #000,
           A50: #fff,
           A75: #fff,
-          A100: #fff,
-          A150: #fff,
-          A200: #fff,
-          A300: #fff,
-          A400: #fff,
-          A500: #fff
-        )
-      ),
-      500,
-      500,
-      500
-    ),
-  mono-a:
-    mat-palette(
-      (
-        500: #fff,
-        A50: rgba(255, 255, 255, 0.04),
-        A100: rgba(255, 255, 255, 0.08),
-        A150: rgba(255, 255, 255, 0.1),
-        A200: rgba(255, 255, 255, 0.12),
-        A300: rgba(255, 255, 255, 0.16),
-        A400: rgba(255, 255, 255, 0.22),
-        A500: rgba(255, 255, 255, 0.34),
-        A600: rgba(255, 255, 255, 0.52),
-        A700: rgba(255, 255, 255, 0.58),
-        A800: rgba(255, 255, 255, 0.7),
-        A900: rgba(255, 255, 255, 0.86),
-        contrast: (
-          500: #fff,
-          A50: #fff,
           A100: #fff,
           A150: #fff,
           A200: #fff,
@@ -231,11 +229,48 @@ $es-dark-theme: (
       500,
       500
     ),
+  mono-a:
+    mat-palette(
+      (
+        500: #fff,
+        A50: rgba(255, 255, 255, 0.04),
+        A75: rgba(255, 255, 255, 0.06),
+        A100: rgba(255, 255, 255, 0.08),
+        A150: rgba(255, 255, 255, 0.1),
+        A200: rgba(255, 255, 255, 0.12),
+        A300: rgba(255, 255, 255, 0.16),
+        A400: rgba(255, 255, 255, 0.22),
+        A500: rgba(255, 255, 255, 0.34),
+        A600: rgba(255, 255, 255, 0.52),
+        A700: rgba(255, 255, 255, 0.58),
+        A800: rgba(255, 255, 255, 0.7),
+        A900: rgba(255, 255, 255, 0.86),
+        contrast: (
+          500: #000,
+          A50: #fff,
+          A75: #fff,
+          A100: #fff,
+          A150: #fff,
+          A200: #fff,
+          A300: #fff,
+          A400: #fff,
+          A500: #fff,
+          A600: #000,
+          A700: #000,
+          A800: #000,
+          A900: #000
+        )
+      ),
+      500,
+      500,
+      500
+    ),
   mono-b:
     mat-palette(
       (
         500: #000,
         A50: rgba(0, 0, 0, 0.04),
+        A75: rgba(0, 0, 0, 0.06),
         A100: rgba(0, 0, 0, 0.08),
         A150: rgba(0, 0, 0, 0.1),
         A200: rgba(0, 0, 0, 0.12),
@@ -249,6 +284,7 @@ $es-dark-theme: (
         contrast: (
           500: #fff,
           A50: #fff,
+          A75: #fff,
           A100: #fff,
           A150: #fff,
           A200: #fff,
@@ -393,14 +429,16 @@ $es-dark-theme: (
     mat-palette(
       (
         background: #18181a,
+        background2: #09090a,
         overlay-gallery: rgba(26, 26, 26, 0.94),
         overlay-modal: rgba(93, 93, 96, 0.65),
         overlay-filter: rgba(74, 75, 78, 0.43),
-        link: #4891ed,
+        link: #62a7ff,
         link-visited: #be95ff,
-        switch: #fafafa,
+        switch: #d0d0d0,
         contrast: (
           background: #fff,
+          background2: #fff,
           overlay-gallery: #fff,
           overlay-modal: #fff,
           overlay-filter: #fff,
