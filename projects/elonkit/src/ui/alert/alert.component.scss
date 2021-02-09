@@ -2,13 +2,18 @@
   border-radius: 6px;
   border-style: solid;
   border-width: 1px;
-  padding: 18px;
+  box-sizing: border-box;
+  min-height: 56px;
+  padding: 4px 16px;
 
   &__content {
     display: flex;
   }
 
   &__text {
+    align-items: center;
+    display: flex;
+    min-height: 40px;
     position: relative;
     top: 2px;
 
@@ -18,13 +23,22 @@
   }
 
   &__icon {
+    margin-top: 11px;
+    min-width: 24px;
+
     &_display {
-      margin-right: 10px;
+      margin-right: 8px;
     }
 
     &_close.mat-icon-button {
+      border-radius: 4px;
+      color: rgba(0, 0, 0, 0.38);
+      height: 24px;
+      line-height: 22px;
       margin: -8px;
       margin-left: auto;
+      margin-top: 10px;
+      width: 24px;
     }
   }
 }
