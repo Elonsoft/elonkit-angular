@@ -8,32 +8,27 @@ describe('Avatar', () => {
   it('Should render default avatar', async () => {
     const component = await render(ESAvatarComponent, {
       imports: [ESAvatarModule],
+      componentProperties: {
+        altText: 'Avatar'
+      },
       excludeComponentDeclaration: true
     });
     expect(component.getByAltText(en.avatar.labelAvatar)).toBeInTheDocument();
   });
 
-  it('Should change avatar icon', async () => {
+  it('Should change avatar formType', async () => {
     const component = await render(ESAvatarComponent, {
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true
     });
 
-    component.fixture.componentInstance.icon = 'account-round';
+    component.fixture.componentInstance.formType = 'round';
     component.fixture.detectChanges();
-    expect(component.fixture.componentInstance.icon).toBe('account-round');
+    expect(component.fixture.componentInstance.formType).toBe('round');
 
-    component.fixture.componentInstance.icon = 'account-square';
+    component.fixture.componentInstance.formType = 'square';
     component.fixture.detectChanges();
-    expect(component.fixture.componentInstance.icon).toBe('account-square');
-
-    component.fixture.componentInstance.icon = 'seal';
-    component.fixture.detectChanges();
-    expect(component.fixture.componentInstance.icon).toBe('seal');
-
-    component.fixture.componentInstance.icon = undefined;
-    component.fixture.detectChanges();
-    expect(component.fixture.componentInstance.icon).toBe('account-round');
+    expect(component.fixture.componentInstance.formType).toBe('square');
   });
 
   it('Should render custom avatar icon', async () => {
@@ -82,7 +77,8 @@ describe('Avatar', () => {
         showStatus: true,
         statusBorderWidth: 10,
         statusHeight: 40,
-        statusWidth: 40
+        statusWidth: 40,
+        statusBorderColor: '#fff'
       },
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true
@@ -91,6 +87,7 @@ describe('Avatar', () => {
     expect(component.fixture.componentInstance.statusBorderWidth).toBe(10);
     expect(component.fixture.componentInstance.statusHeight).toBe(40);
     expect(component.fixture.componentInstance.statusWidth).toBe(40);
+    expect(component.fixture.componentInstance.statusBorderColor).toBe('#fff');
   });
 
   it('Should render custom status icon', async () => {
@@ -141,7 +138,8 @@ describe('Avatar', () => {
       imports: [ESAvatarModule],
       componentProperties: {
         showStatus: true,
-        statusSrc: 'customPath'
+        statusSrc: 'customPath',
+        altText: 'Аватар'
       },
       providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
