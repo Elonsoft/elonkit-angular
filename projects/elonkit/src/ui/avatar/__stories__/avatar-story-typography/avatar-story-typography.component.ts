@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
-
+import { Component, ChangeDetectionStrategy, Input, ViewEncapsulation } from '@angular/core';
+import { ESAvatarForm } from '../../avatar.types';
 @Component({
   selector: 'es-avatar-typography',
   templateUrl: './avatar-story-typography.component.html',
@@ -7,4 +7,27 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class AvatarStoryTypographyComponent {}
+export class AvatarStoryTypographyComponent {
+  @Input()
+  public altText: string;
+  @Input()
+  public width: number;
+  @Input()
+  public height: number;
+  @Input()
+  public borderRadius: number;
+  @Input()
+  public showStatus: boolean;
+  @Input()
+  public statusWidth: number;
+  @Input()
+  public statusHeight: number;
+  @Input()
+  public statusBorderWidth: number;
+  @Input()
+  public formType: ESAvatarForm;
+  @Input()
+  public statusBorderColor: string;
+  @Input()
+  public statusSrc: string;
+}

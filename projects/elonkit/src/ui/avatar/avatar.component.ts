@@ -5,12 +5,14 @@ import {
   InjectionToken,
   Optional,
   Inject,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
 
-import { ESAvatarDefaultOptions, ESAvatarIcon } from './avatar.types';
+import { ESAvatarDefaultOptions, ESAvatarForm } from './avatar.types';
 import { ESLocale, ESLocaleService } from '../locale';
 
 export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptions>(
@@ -26,21 +28,14 @@ export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptio
 })
 export class ESAvatarComponent {
   /**
-   * Defines which prebuilt icon will be used if avatarSrc isn't set.
-   */
-  @Input()
-  public get icon(): ESAvatarIcon {
-    return this._icon || 'account-round';
-  }
-  public set icon(value: ESAvatarIcon) {
-    this._icon = value;
-  }
-  private _icon: ESAvatarIcon;
-
-  /**
-   * Path to image to display instead of the prebuilt icon.
+   * Path to image to display instead of the default icon.
    */
   @Input() public avatarSrc?: string;
+
+  /**
+   * Path to image to change default icon to another default icon.
+   */
+  @Input() public defaultIconSrc?: string;
 
   /**
    * Defines height of the avatar in pixels.
@@ -132,6 +127,18 @@ export class ESAvatarComponent {
   private _statusBorderWidth: number;
 
   /**
+   * Defines border-color of status border in pixels.
+   */
+  @Input()
+  public get statusBorderColor(): string {
+    return this._statusBorderColor;
+  }
+  public set statusBorderColor(value: string) {
+    this._statusBorderColor = value;
+  }
+  private _statusBorderColor: string;
+
+  /**
    * Text to display instead of avatar, to show user initials as an example.
    */
   @Input() public text?: string;
@@ -149,6 +156,40 @@ export class ESAvatarComponent {
   private _textTypography: string;
 
   /**
+   * Text fro alt attribute
+   */
+  @Input() public altText?: string;
+
+  /**
+   * Defines using round or square avatar.
+   */
+  @Input()
+  public get formType(): ESAvatarForm {
+    return this._formType;
+  }
+  public set formType(value: ESAvatarForm) {
+    this._formType = value || 'round';
+  }
+  private _formType: ESAvatarForm;
+
+  /**
+   * Defines is avatar typography. If typography there are no default icons.
+   */
+  @Input()
+  public get isTypography(): boolean {
+    return this._isTypography;
+  }
+  public set isTypography(value: boolean) {
+    this._isTypography = coerceBooleanProperty(value);
+  }
+  private _isTypography: boolean;
+
+  /**
+   * Event emitted when user clicked on avatar.
+   */
+  @Output() public clickEvent = new EventEmitter();
+
+  /**
    * @internal
    * @ignore
    */
@@ -164,9 +205,9 @@ export class ESAvatarComponent {
     private defaultOptions: ESAvatarDefaultOptions,
     private localeService: ESLocaleService
   ) {
-    this.icon = this.defaultOptions?.icon;
     this.width = this.defaultOptions?.width;
     this.height = this.defaultOptions?.height;
+    this.altText = this.defaultOptions?.altText;
     this.borderRadius = this.defaultOptions?.borderRadius;
     this.showStatus = this.defaultOptions?.showStatus;
     this.statusHeight = this.defaultOptions?.statusHeight;
@@ -174,6 +215,9 @@ export class ESAvatarComponent {
     this.statusBorderWidth = this.defaultOptions?.statusBorderWidth;
     this.textTypography = this.defaultOptions?.textTypography;
     this.locale$ = this.localeService.locale();
+    this.formType = this.defaultOptions?.formType;
+    this.statusBorderColor = this.defaultOptions?.statusBorderColor;
+    this.statusSrc = this.defaultOptions?.statusSrc;
   }
 
   /**
@@ -181,6 +225,28 @@ export class ESAvatarComponent {
    * @ignore
    */
   public get src(): string {
-    return this.avatarSrc || `./assets/elonkit/avatar/${this.icon}.svg`;
+    return this.avatarSrc || this.defaultIconSrc || this.getDefaultIconByForm();
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public get currentBorderRadius(): number {
+    return this.formType === 'round' ? 999 : this.borderRadius;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public onClick() {
+    this.clickEvent.emit();
+  }
+
+  private getDefaultIconByForm() {
+    const accountRound = './assets/elonkit/avatar/account-round.svg';
+    const accountSquare = './assets/elonkit/avatar/account-square.svg';
+    return this.formType === 'round' ? accountRound : accountSquare;
   }
 }

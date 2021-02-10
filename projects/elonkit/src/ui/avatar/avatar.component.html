@@ -1,18 +1,21 @@
 <div
   data-testid="avatar"
   class="es-avatar"
-  [ngStyle]="{ 'height.px': height, 'width.px': width, 'border-radius.px': borderRadius }"
+  [ngStyle]="{ 'height.px': height, 'width.px': width, 'border-radius.px': currentBorderRadius }"
+  (click)="onClick()"
 >
-  <span *ngIf="!!text" class="es-avatar__text" [ngClass]="textTypography">
-    {{ text }}
-  </span>
   <img
-    *ngIf="!text"
+    *ngIf="!isTypography"
     class="es-avatar__img"
-    [ngStyle]="{ 'border-radius.px': borderRadius }"
+    [ngStyle]="{ 'border-radius.px': currentBorderRadius }"
     [src]="src"
-    [alt]="(locale$ | async).avatar.labelAvatar"
+    [alt]="altText"
   />
+  <div *ngIf="isTypography" class="es-avatar__default" [ngClass]="textTypography">
+    <ng-content>
+
+    </ng-content>
+  </div>
   <div
     *ngIf="showStatus"
     data-testid="status"
@@ -21,7 +24,8 @@
     [ngStyle]="{
       'height.px': statusHeight,
       'width.px': statusWidth,
-      'border-width.px': statusBorderWidth
+      'border-width.px': statusBorderWidth,
+      'border-color' : statusBorderColor
     }"
   >
     <img

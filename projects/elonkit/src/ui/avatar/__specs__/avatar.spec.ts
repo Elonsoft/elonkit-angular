@@ -150,4 +150,16 @@ describe('Avatar', () => {
     expect(component.getByAltText(ru.avatar.labelAvatar)).toBeInTheDocument();
     expect(component.getByAltText(ru.avatar.labelStatus)).toBeInTheDocument();
   });
+
+  it('Should render alt text on image', async () => {
+    const component = await render(ESAvatarComponent, {
+      componentProperties: {
+        altText: 'alt text'
+      },
+      imports: [ESAvatarModule],
+      excludeComponentDeclaration: true
+    });
+
+    expect(component.getByAltText('alt text')).toBeInTheDocument();
+  });
 });

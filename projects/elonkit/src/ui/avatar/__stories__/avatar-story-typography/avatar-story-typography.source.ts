@@ -5,7 +5,8 @@ export const AVATAR_STORY_TYPOGRAPHY_SOURCE = {
   })
   `,
   html: `
-  <es-avatar width="80" height="80" text="НФ" textTypography="typography"></es-avatar>
+  <es-avatar isTypography="true" width="80" height="80" textTypography="typography">НФ</es-avatar>
+  <es-avatar isTypography="true" width="80" height="80" textTypography="typography">НФ</es-avatar>
   `,
   scss: `
   .typography {

@@ -1,7 +1,8 @@
 import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
+import { action } from '@storybook/addon-actions';
 
-import { ESAvatarComponent } from '..';
+import { ESAvatarComponent, ESAvatarModule } from '..';
 
 import {
   AvatarStoryBasicModule,
@@ -27,21 +28,27 @@ import {
   AVATAR_STORY_GROUP_SOURCE
 } from './avatar-story-group';
 
+import { AVATAR_STORY_ACTIONS_SOURCE } from './avatar-story-actions';
+
 <Meta
   title='UI/Avatar'
   args={{
-    icon: 'account-round',
-    width: 40,
-    height: 40,
-    borderRadius: 999,
+    formType: 'round',
+    width: 60,
+    height: 60,
+    altText: 'alt text',
+    borderRadius: 5,
     showStatus: false,
     statusWidth: 10,
     statusHeight: 10,
-    statusBorderWidth: 2
+    statusBorderWidth: 2,
+    statusBorderColor: '',
+    defaultIconSrc: './assets/elonkit/avatar/seal.svg',
+    statusSrc: ''
   }}
   argTypes={{
-    icon: {
-      control: { type: 'select', options: ['account-round', 'account-square', 'seal'] }
+    formType: {
+      control: { type: 'select', options: ['round', 'square'] }
     }
   }}
 />
@@ -51,6 +58,8 @@ import {
 This component allows to display default or custom avatar.
 
 ## Demos
+
+We can use round or square avatar.
 
 <Canvas source={AVATAR_STORY_BASIC_SOURCE}>
   <Story name='Basic'>
@@ -86,10 +95,13 @@ We can display user initials and change it's typography.
 
 <Canvas source={AVATAR_STORY_TYPOGRAPHY_SOURCE}>
   <Story name='Typography'>
-    {(() => ({
+    {((args) => ({
       component: AvatarStoryTypographyComponent,
       moduleMetadata: {
         imports: [AvatarStoryTypographyModule]
+      },
+      props: {
+        ...args
       }
     })).bind({})}
   </Story>
@@ -108,6 +120,26 @@ We can group multiple avatars together.
   </Story>
 </Canvas>
 
+We can add actions.
+
+<Canvas source={AVATAR_STORY_ACTIONS_SOURCE}>
+  <Story name='Actions'>
+    {(() => ({
+      template: `
+        <es-avatar
+          (click)="onClick()"
+        ></es-avatar>
+      `,
+      moduleMetadata: {
+        imports: [ESAvatarModule]
+      },
+      props: {
+        onClick: action('onClick')
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
 ## API
 
 <ArgsTable of={ESAvatarComponent} />
@@ -115,17 +147,17 @@ We can group multiple avatars together.
 ## Interfaces
 
 ```ts
-type ESAvatarIcon = 'account-round' | 'account-square' | 'seal';
+type ESAvatarForm = 'round' | 'square';
 ```
 
-ESAvatarDefaultOptions `icon` property defines which prebuilt icon will be used when no `avatarSrc` provided.
+ESAvatarDefaultOptions ESAvatarForm defines default avatar form
 
 ```ts
 interface ESAvatarDefaultOptions {
-  icon?: ESAvatarIcon;
   avatarSrc?: string;
   height?: number;
   width?: number;
+  altText?: string;
   borderRadius?: number;
   showStatus?: boolean;
   statusSrc?: string;
@@ -133,6 +165,8 @@ interface ESAvatarDefaultOptions {
   statusHeight?: number;
   statusBorderWidth?: number;
   textTypography?: string;
+  formType?: ESAvatarForm;
+  defaultIconSrc?: string;
 }
 ```
 
@@ -149,7 +183,7 @@ import { ES_AVATAR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/avatar';
         width: 200,
         height: 200,
         borderRadius: 48,
-        icon: 'account-square'
+        formType: 'square'
       }
     }
   ]

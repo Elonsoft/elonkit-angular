@@ -1,8 +1,8 @@
 export interface ESAvatarDefaultOptions {
-  icon?: ESAvatarIcon;
   avatarSrc?: string;
   height?: number;
   width?: number;
+  altText?: string;
   borderRadius?: number;
   showStatus?: boolean;
   statusSrc?: string;
@@ -10,6 +10,8 @@ export interface ESAvatarDefaultOptions {
   statusHeight?: number;
   statusBorderWidth?: number;
   textTypography?: string;
+  formType?: ESAvatarForm;
+  statusBorderColor?: string;
 }
 
-export type ESAvatarIcon = 'account-round' | 'account-square' | 'seal';
+export type ESAvatarForm = 'round' | 'square';
