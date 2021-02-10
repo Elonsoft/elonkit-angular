@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
-
+import { ESAvatarForm } from '../../avatar.types';
 @Component({
   selector: 'es-avatar-custom',
   templateUrl: './avatar-story-custom.component.html',
@@ -8,11 +8,11 @@ import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@a
 })
 export class AvatarStoryCustomComponent {
   @Input()
-  public icon: string;
-  @Input()
   public width: number;
   @Input()
   public height: number;
+  @Input()
+  public altText: string;
   @Input()
   public borderRadius: number;
   @Input()
@@ -23,6 +23,14 @@ export class AvatarStoryCustomComponent {
   public statusHeight: number;
   @Input()
   public statusBorderWidth: number;
+  @Input()
+  public avatarSrc: string;
+  @Input()
+  public formType: ESAvatarForm;
+  @Input()
+  public statusBorderColor: string;
+  @Input()
+  public statusSrc: string;
 
   public logo = '/img/es-logo.png';
   public status = '/icons/avatar/star.svg';
