@@ -7,7 +7,12 @@ import { ESAlertModule, ESAlertComponent, ESAlertVariant } from '..';
 import { ESLocaleService, en, ru } from '../../locale';
 
 @Component({
-  template: ` <es-alert typography="app-body-1">Message</es-alert> `
+  template: `
+    <es-alert typography="app-body-1" titleTypography="app-body-2">
+      <ng-container role="title">Title</ng-container>
+      Message
+    </es-alert>
+  `
 })
 class AlertTypographyWrapperComponent {}
 
@@ -104,5 +109,13 @@ describe('Alert', () => {
     });
 
     expect(component.getByText('Message')).toHaveClass('app-body-1');
+  });
+
+  it('Should accept title typography class', async () => {
+    const component = await render(AlertTypographyWrapperComponent, {
+      imports: [ESAlertModule]
+    });
+
+    expect(component.getByText('Title')).toHaveClass('app-body-2');
   });
 });
