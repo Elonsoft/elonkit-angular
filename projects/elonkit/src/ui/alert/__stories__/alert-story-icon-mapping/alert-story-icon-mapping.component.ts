@@ -7,23 +7,35 @@ import { MatIconRegistry } from '@angular/material/icon';
   selector: 'es-alert-story-icon-mapping',
   template: `
     <es-alert variant="default" icon="new_releases" [closable]="closable" (closed)="onClose()">
+      <ng-container role="title">{{ title }}</ng-container>
       {{ content }}
     </es-alert>
     <br />
     <es-alert variant="info" svgIcon="warning" [closable]="closable" (closed)="onClose()">
+      <ng-container role="title">{{ title }}</ng-container>
       {{ content }}
     </es-alert>
     <br />
-    <es-alert variant="success" [closable]="closable" (closed)="onClose()">{{ content }}</es-alert>
+    <es-alert variant="success" [closable]="closable" (closed)="onClose()">
+      <ng-container role="title">{{ title }}</ng-container>
+      {{ content }}</es-alert
+    >
     <br />
-    <es-alert variant="warning" [closable]="closable" (closed)="onClose()">{{ content }}</es-alert>
+    <es-alert variant="warning" [closable]="closable" (closed)="onClose()">
+      <ng-container role="title">{{ title }}</ng-container>
+      {{ content }}</es-alert
+    >
     <br />
-    <es-alert variant="error" [closable]="closable" (closed)="onClose()">{{ content }}</es-alert>
+    <es-alert variant="error" [closable]="closable" (closed)="onClose()">
+      <ng-container role="title">{{ title }}</ng-container>
+      {{ content }}</es-alert
+    >
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlertStoryIconMappingComponent {
   @Input() public content: string;
+  @Input() public title: string;
   @Input() public closable: boolean;
 
   @Output() public closed = new EventEmitter();

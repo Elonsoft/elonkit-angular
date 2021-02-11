@@ -4,31 +4,38 @@
   border-width: 1px;
   box-sizing: border-box;
   min-height: 56px;
-  padding: 4px 16px;
+  padding: 7px 16px;
 
   &__content {
     display: flex;
   }
 
-  &__text {
-    align-items: center;
+  &__text-wrapper {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     min-height: 40px;
-    position: relative;
-    top: 2px;
 
     &:not(:last-child) {
       margin-right: 10px;
     }
   }
 
-  &__icon {
-    margin-top: 11px;
-    min-width: 24px;
+  &__title {
+    font-weight: 700;
 
-    &_display {
-      margin-right: 8px;
+    &:empty {
+      display: none;
     }
+  }
+
+  &__text {
+    position: relative;
+  }
+
+  &__icon {
+    margin: 8px 8px 0 0;
+    min-width: 24px;
 
     &_close.mat-icon-button {
       border-radius: 4px;

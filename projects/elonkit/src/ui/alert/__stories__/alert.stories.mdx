@@ -18,7 +18,8 @@ import {
   args={{
     content: '',
     variant: 'info',
-    closable: false
+    closable: false,
+    title: ''
   }}
   argTypes={{
     variant: {
@@ -48,6 +49,7 @@ export const TemplateBasic = (args, context) => ({
           [closable]="closable"
           (closed)="onClose()"
         >
+          <ng-container role="title">{{title}}</ng-container>
           {{content}}
         </es-alert>
       `,
@@ -77,6 +79,7 @@ We can add actions.
           [closable]="closable"
           (closed)="onClose()"
         >
+          <ng-container role="title">{{title}}</ng-container>
           {{content}}
           <es-alert-actions>
             <button mat-flat-button (click)="onAction()">Action</button>
@@ -139,6 +142,7 @@ import { ES_ALERT_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/alert';
       provide: ES_ALERT_DEFAULT_OPTIONS,
       useValue: {
         typography: 'mat-body-2',
+        titleTypography: 'mat-body-2',
         iconMapping: {
           default: { icon: 'info' },
           info: { icon: 'info' },
