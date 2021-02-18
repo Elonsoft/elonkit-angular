@@ -8,14 +8,13 @@
   &__size {
     align-items: center;
     display: flex;
-    margin-bottom: 16px;
     margin-right: 24px;
   }
 
   &__select {
     display: block;
     margin-left: 4px;
-    margin-right: 24px;
+    margin-right: 18px;
 
     &.mat-select {
       width: 40px;
@@ -27,11 +26,18 @@
   }
 
   &__form {
-    margin-left: 20px;
+    margin-left: 16px;
   }
 
   &__input {
-    width: 80px;
+    width: 64px;
+
+    &.mat-form-field-appearance-outline .mat-form-field-flex {
+      padding-bottom: 0;
+      padding-left: 0.6em;
+      padding-right: 0.6em;
+      padding-top: 0;
+    }
 
     &.mat-form-field-appearance-outline .mat-form-field-wrapper {
       margin-bottom: 0;
@@ -54,7 +60,6 @@
   &__items {
     align-items: center;
     display: flex;
-    margin-bottom: 16px;
     margin-left: -12px;
   }
 
@@ -66,8 +71,10 @@
 
     &,
     &.mat-icon-button {
+      height: 32px;
       line-height: unset;
-      margin: 0 2px;
+      margin: 0;
+      width: 32px;
     }
 
     &:first-child {
@@ -91,11 +98,20 @@
     }
 
     &_gap {
-      width: 40px;
-
-      &:hover {
-        background: none;
-      }
+      background-image: url('./assets/elonkit/paginator/dots.svg');
+      background-position: 55% 0;
+      background-repeat: no-repeat;
+      color: transparent;
+      width: 32px;
     }
+  }
+
+  .mat-select-arrow {
+    color: rgba(0, 0, 0, 0.38);
+  }
+
+  .mat-caption {
+    font: 400 12px/16px Roboto, 'Helvetica Neue', sans-serif;
+    letter-spacing: 0.4px;
   }
 }
