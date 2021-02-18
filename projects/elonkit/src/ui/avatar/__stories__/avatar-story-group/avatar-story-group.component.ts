@@ -13,9 +13,6 @@ export class AvatarStoryGroupComponent {
       showStatus: true,
       statusSrc: '/icons/avatar/star.svg'
     },
-    {
-      text: 'НФ'
-    },
     { avatarSrc: null }
   ];
 }

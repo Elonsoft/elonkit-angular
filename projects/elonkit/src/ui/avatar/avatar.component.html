@@ -11,7 +11,7 @@
     [src]="src"
     [alt]="altText"
   />
-  <div *ngIf="isTypography" class="es-avatar__default" [ngClass]="textTypography">
+  <div *ngIf="isTypography" data-testid="typography" class="es-avatar__default" [ngClass]="textTypography">
     <ng-content>
 
     </ng-content>
