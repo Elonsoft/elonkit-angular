@@ -9,9 +9,6 @@ export const AVATAR_STORY_GROUP_SOURCE = {
         showStatus: true,
         statusSrc: '/icons/avatar/star.svg'
       },
-      {
-        text: 'НФ'
-      },
       { avatarSrc: null }
     ];
   }
@@ -23,10 +20,9 @@ export const AVATAR_STORY_GROUP_SOURCE = {
       class="group__avatar"
       [showStatus]="avatar.showStatus"
       [statusSrc]="avatar.statusSrc"
-      [text]="avatar.text"
       [ngStyle]="{ 'z-index': 10 - i }"
     ></es-avatar>
-    <es-avatar class="group__avatar" text="+3" textTypography="typography"></es-avatar>
+    <es-avatar class="group__avatar" textTypography="typography"></es-avatar>
   </div>
   `,
   scss: `

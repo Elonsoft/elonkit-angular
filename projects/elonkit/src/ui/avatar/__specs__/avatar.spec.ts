@@ -1,8 +1,14 @@
+import { Component } from '@angular/core';
 import { render } from '@testing-library/angular';
 
 import { ESAvatarComponent } from '../avatar.component';
 import { ESAvatarModule } from '../avatar.module';
 import { ESLocaleService, en, ru } from '../../locale';
+
+@Component({
+  template: `<es-avatar isTypography="true">Message</es-avatar>`
+})
+class AvatarComponent {}
 
 describe('Avatar', () => {
   it('Should render default avatar', async () => {
@@ -105,28 +111,23 @@ describe('Avatar', () => {
   });
 
   it('Should render text on input', async () => {
-    const component = await render(ESAvatarComponent, {
-      componentProperties: {
-        text: 'НФ'
-      },
-      imports: [ESAvatarModule],
-      excludeComponentDeclaration: true
+    const component = await render(AvatarComponent, {
+      imports: [ESAvatarModule]
     });
-
-    expect(component.getByText('НФ')).toBeInTheDocument();
+    expect(component.getByText('Message')).toBeInTheDocument();
   });
 
-  it('Should accept text typography', async () => {
+  it('Should accept class typography', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
-        text: 'НФ',
+        isTypography: true,
         textTypography: 'test-class'
       },
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true
     });
 
-    expect(component.getByText('НФ')).toHaveClass('test-class');
+    expect(component.getByTestId('typography')).toHaveClass('test-class');
   });
 
   it('Should change locale', async () => {
