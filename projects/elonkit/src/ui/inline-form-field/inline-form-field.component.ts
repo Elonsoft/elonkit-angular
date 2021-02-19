@@ -25,11 +25,11 @@ export interface ESInlineFormFieldDefaultOptions {
   typography?: string;
 }
 
-const DEFAULT_TYPOGRAPHY = 'es-body-m';
+const DEFAULT_TYPOGRAPHY = 'es-body-200';
 
-export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
-  ESInlineFormFieldDefaultOptions
->('ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS');
+export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<ESInlineFormFieldDefaultOptions>(
+  'ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS'
+);
 
 @Component({
   selector: 'es-inline-form-field',

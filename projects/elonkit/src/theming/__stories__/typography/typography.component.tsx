@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export const Typography: React.FC = () => {
   return (
-    <div className='es-typography-story es-body-s'>
+    <div className='es-typography-story es-body-100'>
       <table>
         <thead>
           <tr>
@@ -77,34 +77,34 @@ export const Typography: React.FC = () => {
           </tr>
           <tr>
             <td>
-              <code>es-body-xl</code>
+              <code>es-body-400</code>
             </td>
             <td>
-              <div className='es-body-xl'>Body XL</div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <code>es-body-l</code>
-            </td>
-            <td>
-              <div className='es-body-l'>Body L</div>
+              <div className='es-body-400'>Body 400</div>
             </td>
           </tr>
           <tr>
             <td>
-              <code>es-body-m</code>
+              <code>es-body-300</code>
             </td>
             <td>
-              <div className='es-body-m'>Body M</div>
+              <div className='es-body-300'>Body 300</div>
             </td>
           </tr>
           <tr>
             <td>
-              <code>es-body-s</code>
+              <code>es-body-200</code>
             </td>
             <td>
-              <div className='es-body-s'>Body S</div>
+              <div className='es-body-200'>Body 200</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-body-100</code>
+            </td>
+            <td>
+              <div className='es-body-100'>Body 100</div>
             </td>
           </tr>
           <tr>

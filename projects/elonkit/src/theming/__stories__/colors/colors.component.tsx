@@ -73,7 +73,7 @@ const PALETTES = {
     'A800',
     'A900'
   ],
-  greyscale: ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  grayscale: ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
   surface: ['0', '1', '2', '3', '4', '6', '8', '12', '16', '24', 'on'],
   white: [
     '500',
@@ -105,6 +105,7 @@ const PALETTES = {
   ],
   other: [
     'background',
+    'background-2',
     'overlay-gallery',
     'overlay-modal',
     'overlay-filter',
@@ -116,7 +117,7 @@ const PALETTES = {
 
 export const Colors: React.FC = () => {
   return (
-    <div className='es-colors-story es-body-m'>
+    <div className='es-colors-story es-body-200'>
       {Object.keys(PALETTES).map((palette) => (
         <div key={palette} className='es-colors-story__palette'>
           <h6 className='es-colors-story__title mat-h4'>{palette}</h6>

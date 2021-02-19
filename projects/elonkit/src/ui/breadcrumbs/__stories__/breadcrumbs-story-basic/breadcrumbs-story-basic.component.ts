@@ -44,9 +44,7 @@ export class BreadcrumbsStoryBasicComponent implements OnInit {
   selector: 'es-breadcrumbs-basic-home',
   template: `
     <h1 class="mat-h1">Home</h1>
-    <a [routerLink]="['categories']">
-      Categories
-    </a>
+    <a [routerLink]="['categories']"> Categories </a>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

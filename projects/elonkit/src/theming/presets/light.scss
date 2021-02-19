@@ -301,7 +301,7 @@ $es-light-theme: (
       500,
       500
     ),
-  greyscale:
+  grayscale:
     mat-palette(
       (
         50: #f5f7fa,
@@ -429,7 +429,7 @@ $es-light-theme: (
     mat-palette(
       (
         background: #f5f7fa,
-        background2: #edf0f5,
+        background-2: #edf0f5,
         overlay-gallery: rgba(26, 26, 26, 0.94),
         overlay-modal: rgba(38, 38, 38, 0.66),
         overlay-filter: rgba(38, 38, 38, 0.29),
@@ -438,7 +438,7 @@ $es-light-theme: (
         switch: #fafafa,
         contrast: (
           background: #000,
-          background2: #000,
+          background-2: #000,
           overlay-gallery: #fff,
           overlay-modal: #fff,
           overlay-filter: #fff,

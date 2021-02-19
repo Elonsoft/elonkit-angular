@@ -110,10 +110,10 @@ export class ESPaginatorComponent {
    * Class applied to text.
    */
   @Input()
-  get typography(): string {
+  public get typography(): string {
     return this._typography;
   }
-  set typography(value: string) {
+  public set typography(value: string) {
     this._typography = value || this.defaultOptions?.typography || 'es-caption';
   }
 

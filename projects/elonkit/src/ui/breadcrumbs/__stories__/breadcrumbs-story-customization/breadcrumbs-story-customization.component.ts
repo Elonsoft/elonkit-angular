@@ -11,9 +11,7 @@ import { ES_BREADCRUMBS_DEFAULT_SIZES } from '../..';
         <mat-icon *esBreadcrumbsSeparator class="es-breadcrumbs__separator">
           chevron_right
         </mat-icon>
-        <mat-icon *esBreadcrumbsMore>
-          more_horiz
-        </mat-icon>
+        <mat-icon *esBreadcrumbsMore> more_horiz </mat-icon>
       </es-breadcrumbs>
       <br />
       <router-outlet></router-outlet>

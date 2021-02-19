@@ -63,7 +63,7 @@ $es-typography: (
         $es-font-family,
         $letter-spacing: es-rem(0.1)
       ),
-    body-xl:
+    body-400:
       mat-typography-level(
         es-rem(20),
         es-rem(32),
@@ -71,7 +71,7 @@ $es-typography: (
         $es-font-family,
         $letter-spacing: es-rem(0.5)
       ),
-    body-l:
+    body-300:
       mat-typography-level(
         es-rem(18),
         es-rem(28),
@@ -79,7 +79,7 @@ $es-typography: (
         $es-font-family,
         $letter-spacing: es-rem(0.5)
       ),
-    body-m:
+    body-200:
       mat-typography-level(
         es-rem(16),
         es-rem(24),
@@ -87,7 +87,7 @@ $es-typography: (
         $es-font-family,
         $letter-spacing: es-rem(0.5)
       ),
-    body-s:
+    body-100:
       mat-typography-level(
         es-rem(14),
         es-rem(20),

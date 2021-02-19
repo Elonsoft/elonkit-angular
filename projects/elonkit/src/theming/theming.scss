@@ -5,6 +5,7 @@
 @import './ui/inline-form-field/inline-form-field.component.theme';
 @import './ui/paginator/paginator.component.theme';
 @import './ui/surface/surface.component.theme';
+@import './ui/tooltip/tooltip.component.theme';
 
 @function es-make-theme($es-theme) {
   $result: $es-theme;
@@ -37,4 +38,5 @@
   @include es-inline-form-field-theme($theme, $es-theme);
   @include es-paginator-theme($theme, $es-theme);
   @include es-surface-theme($theme, $es-theme);
+  @include es-tooltip-theme($theme, $es-theme);
 }

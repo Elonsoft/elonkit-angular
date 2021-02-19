@@ -45,7 +45,7 @@
         mono-b: (
           500 A50 A100 A150 A200 A300 A400 A500 A600 A700 A800 A900
         ),
-        greyscale: (
+        grayscale: (
           50 100 200 300 400 500 600 700 800 900
         ),
         surface: (
@@ -67,7 +67,7 @@
       text-align: center;
 
       @each $palette, $hues in $palettes {
-        &_#{$palette} {
+        &_#{'' + $palette} {
           @each $hue in $hues {
             &_#{$hue} {
               background-color: mat-color(map-get($theme, $palette), $hue);
@@ -78,7 +78,7 @@
       }
 
       @each $palette, $hues in $es-palettes {
-        &_#{$palette} {
+        &_#{'' + $palette} {
           @each $hue in $hues {
             &_#{$hue} {
               background-color: mat-color(map-get($elonkit-theme, $palette), $hue);
