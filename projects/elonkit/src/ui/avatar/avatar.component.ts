@@ -33,11 +33,6 @@ export class ESAvatarComponent {
   @Input() public avatarSrc?: string;
 
   /**
-   * Path to image to change default icon to another default icon.
-   */
-  @Input() public defaultIconSrc?: string;
-
-  /**
    * Defines height of the avatar in pixels.
    */
   @Input()
@@ -158,36 +153,24 @@ export class ESAvatarComponent {
   /**
    * Text fro alt attribute
    */
-  @Input() public altText?: string;
+  @Input() public alt?: string;
 
   /**
-   * Defines using round or square avatar.
+   * Src for avatar image
+   */
+  @Input() public src?: string;
+
+  /**
+   * The shape of the avatar.
    */
   @Input()
-  public get formType(): ESAvatarForm {
-    return this._formType;
+  public get variant(): ESAvatarForm {
+    return this._variant;
   }
-  public set formType(value: ESAvatarForm) {
-    this._formType = value || 'round';
+  public set variant(value: ESAvatarForm) {
+    this._variant = value || 'round';
   }
-  private _formType: ESAvatarForm;
-
-  /**
-   * Defines is avatar typography. If typography there are no default icons.
-   */
-  @Input()
-  public get isTypography(): boolean {
-    return this._isTypography;
-  }
-  public set isTypography(value: boolean) {
-    this._isTypography = coerceBooleanProperty(value);
-  }
-  private _isTypography: boolean;
-
-  /**
-   * Event emitted when user clicked on avatar.
-   */
-  @Output() public clickEvent = new EventEmitter();
+  private _variant: ESAvatarForm;
 
   /**
    * @internal
@@ -207,7 +190,6 @@ export class ESAvatarComponent {
   ) {
     this.width = this.defaultOptions?.width;
     this.height = this.defaultOptions?.height;
-    this.altText = this.defaultOptions?.altText;
     this.borderRadius = this.defaultOptions?.borderRadius;
     this.showStatus = this.defaultOptions?.showStatus;
     this.statusHeight = this.defaultOptions?.statusHeight;
@@ -215,7 +197,7 @@ export class ESAvatarComponent {
     this.statusBorderWidth = this.defaultOptions?.statusBorderWidth;
     this.textTypography = this.defaultOptions?.textTypography;
     this.locale$ = this.localeService.locale();
-    this.formType = this.defaultOptions?.formType;
+    this.variant = this.defaultOptions?.variant;
     this.statusBorderColor = this.defaultOptions?.statusBorderColor;
     this.statusSrc = this.defaultOptions?.statusSrc;
   }
@@ -224,29 +206,7 @@ export class ESAvatarComponent {
    * @internal
    * @ignore
    */
-  public get src(): string {
-    return this.avatarSrc || this.defaultIconSrc || this.getDefaultIconByForm();
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
   public get currentBorderRadius(): number {
-    return this.formType === 'round' ? 999 : this.borderRadius;
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  public onClick() {
-    this.clickEvent.emit();
-  }
-
-  private getDefaultIconByForm() {
-    const accountRound = './assets/elonkit/avatar/account-round.svg';
-    const accountSquare = './assets/elonkit/avatar/account-square.svg';
-    return this.formType === 'round' ? accountRound : accountSquare;
+    return this.variant === 'round' ? 999 : this.borderRadius;
   }
 }

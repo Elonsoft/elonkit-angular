@@ -8,7 +8,7 @@ import { ESAvatarForm } from '../../avatar.types';
 })
 export class AvatarStoryBasicComponent {
   @Input()
-  public altText: string;
+  public alt: string;
   @Input()
   public width: number;
   @Input()
@@ -24,11 +24,9 @@ export class AvatarStoryBasicComponent {
   @Input()
   public statusBorderWidth: number;
   @Input()
-  public avatarSrc: string;
+  public src: string;
   @Input()
-  public formType: ESAvatarForm;
-  @Input()
-  public defaultIconSrc: string;
+  public variant: ESAvatarForm;
   @Input()
   public statusBorderColor: string;
   @Input()

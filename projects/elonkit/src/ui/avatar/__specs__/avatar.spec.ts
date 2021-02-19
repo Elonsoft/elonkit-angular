@@ -6,7 +6,7 @@ import { ESAvatarModule } from '../avatar.module';
 import { ESLocaleService, en, ru } from '../../locale';
 
 @Component({
-  template: `<es-avatar isTypography="true">Message</es-avatar>`
+  template: `<es-avatar src="./test-path-to-icon">Message</es-avatar>`
 })
 class AvatarComponent {}
 
@@ -15,7 +15,7 @@ describe('Avatar', () => {
     const component = await render(ESAvatarComponent, {
       imports: [ESAvatarModule],
       componentProperties: {
-        altText: 'Avatar'
+        alt: 'Avatar'
       },
       excludeComponentDeclaration: true
     });
@@ -120,7 +120,6 @@ describe('Avatar', () => {
   it('Should accept class typography', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
-        isTypography: true,
         textTypography: 'test-class'
       },
       imports: [ESAvatarModule],
@@ -140,7 +139,7 @@ describe('Avatar', () => {
       componentProperties: {
         showStatus: true,
         statusSrc: 'customPath',
-        altText: 'Аватар'
+        alt: 'Аватар'
       },
       providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
@@ -153,7 +152,7 @@ describe('Avatar', () => {
   it('Should render alt text on image', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
-        altText: 'alt text'
+        alt: 'alt text'
       },
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true

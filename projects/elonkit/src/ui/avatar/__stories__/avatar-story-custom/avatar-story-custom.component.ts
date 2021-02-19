@@ -12,7 +12,7 @@ export class AvatarStoryCustomComponent {
   @Input()
   public height: number;
   @Input()
-  public altText: string;
+  public alt: string;
   @Input()
   public borderRadius: number;
   @Input()
@@ -26,7 +26,7 @@ export class AvatarStoryCustomComponent {
   @Input()
   public avatarSrc: string;
   @Input()
-  public formType: ESAvatarForm;
+  public variant: ESAvatarForm;
   @Input()
   public statusBorderColor: string;
   @Input()

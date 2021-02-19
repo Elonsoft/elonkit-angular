@@ -4,10 +4,7 @@ export const AVATAR_STORY_TYPOGRAPHY_SOURCE = {
     encapsulation: ViewEncapsulation.None
   })
   `,
-  html: `
-  <es-avatar isTypography="true" width="80" height="80" textTypography="typography">НФ</es-avatar>
-  <es-avatar isTypography="true" width="80" height="80" textTypography="typography">НФ</es-avatar>
-  `,
+  html: `<es-avatar width="80" height="80" textTypography="typography">НФ</es-avatar>`,
   scss: `
   .typography {
     font-family: 'Roboto', sans-serif;

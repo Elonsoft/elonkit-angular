@@ -9,8 +9,9 @@ export const AVATAR_STORY_CUSTOM_SOURCE = {
     [statusWidth]="statusWidth"
     [statusHeight]="statusHeight"
     [statusBorderWidth]="statusBorderWidth"
-    [avatarSrc]="logo"
+    [src]="logo"
     [statusSrc]="status"
+    [variant]="variant"
   ></es-avatar>
   `
 };

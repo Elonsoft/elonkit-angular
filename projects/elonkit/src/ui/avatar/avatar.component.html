@@ -2,16 +2,15 @@
   data-testid="avatar"
   class="es-avatar"
   [ngStyle]="{ 'height.px': height, 'width.px': width, 'border-radius.px': currentBorderRadius }"
-  (click)="onClick()"
 >
   <img
-    *ngIf="!isTypography"
+    *ngIf="src"
     class="es-avatar__img"
     [ngStyle]="{ 'border-radius.px': currentBorderRadius }"
     [src]="src"
-    [alt]="altText"
+    [alt]="alt"
   />
-  <div *ngIf="isTypography" data-testid="typography" class="es-avatar__default" [ngClass]="textTypography">
+  <div *ngIf="!src" data-testid="typography" class="es-avatar__default" [ngClass]="textTypography">
     <ng-content>
 
     </ng-content>

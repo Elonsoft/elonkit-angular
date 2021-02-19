@@ -4,15 +4,14 @@ export const AVATAR_STORY_BASIC_SOURCE = {
     [width]="width"
     [height]="height"
     [altText]="altText"
-    [avatarSrc]="avatarSrc"
-    [defaultIconSrc]="defaultIconSrc"
+    [src]="src"
     [borderRadius]="borderRadius"
     [showStatus]="showStatus"
     [statusWidth]="statusWidth"
     [statusHeight]="statusHeight"
     [statusBorderWidth]="statusBorderWidth"
     [statusBorderColor]="statusBorderColor"
-    [formType]="formType"
+    [variant]="variant"
     [statusSrc]="statusSrc"
   ></es-avatar>
   `
