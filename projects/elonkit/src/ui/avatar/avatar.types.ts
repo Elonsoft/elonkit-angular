@@ -1,8 +1,6 @@
 export interface ESAvatarDefaultOptions {
-  avatarSrc?: string;
   height?: number;
   width?: number;
-  altText?: string;
   borderRadius?: number;
   showStatus?: boolean;
   statusSrc?: string;
@@ -10,7 +8,7 @@ export interface ESAvatarDefaultOptions {
   statusHeight?: number;
   statusBorderWidth?: number;
   textTypography?: string;
-  formType?: ESAvatarForm;
+  variant?: ESAvatarForm;
   statusBorderColor?: string;
 }
 

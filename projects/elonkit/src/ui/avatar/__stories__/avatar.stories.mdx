@@ -33,21 +33,20 @@ import { AVATAR_STORY_ACTIONS_SOURCE } from './avatar-story-actions';
 <Meta
   title='UI/Avatar'
   args={{
-    formType: 'round',
+    variant: 'round',
     width: 60,
     height: 60,
-    altText: 'alt text',
+    alt: 'alt text',
     borderRadius: 5,
     showStatus: false,
     statusWidth: 10,
     statusHeight: 10,
     statusBorderWidth: 2,
     statusBorderColor: '',
-    defaultIconSrc: './assets/elonkit/avatar/seal.svg',
     statusSrc: ''
   }}
   argTypes={{
-    formType: {
+    variant: {
       control: { type: 'select', options: ['round', 'square'] }
     }
   }}
@@ -154,10 +153,10 @@ ESAvatarDefaultOptions ESAvatarForm defines default avatar form
 
 ```ts
 interface ESAvatarDefaultOptions {
-  avatarSrc?: string;
+  src?: string;
   height?: number;
   width?: number;
-  altText?: string;
+  alt?: string;
   borderRadius?: number;
   showStatus?: boolean;
   statusSrc?: string;
@@ -165,8 +164,7 @@ interface ESAvatarDefaultOptions {
   statusHeight?: number;
   statusBorderWidth?: number;
   textTypography?: string;
-  formType?: ESAvatarForm;
-  defaultIconSrc?: string;
+  variant?: ESAvatarForm;
 }
 ```
 
@@ -183,7 +181,7 @@ import { ES_AVATAR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/avatar';
         width: 200,
         height: 200,
         borderRadius: 48,
-        formType: 'square'
+        variant: 'square'
       }
     }
   ]
