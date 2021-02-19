@@ -41,6 +41,18 @@ After cloning Elonkit, run `yarn` to fetch its dependencies. Then, you can run s
 - `yarn lint` checks the code style.
 - `yarn build` builds component library and storybook.
 
+### Components requirements
+
+Follow this requirements when building new or updating existing components.
+
+- Include a storybook demonstration.
+- Write unit tests with `angular-testing-library`.
+- Document inputs, outputs and public methods in JSDoc format.
+- Include RU and EN localization if the component contains any text.
+- Use colors from the theme instead of hard coded colors.
+- Use our typography classes and provide a way to override them via global options and inputs.
+- Component should be accessible i.e. can be used with keyboard only and has `aria-label` on icon buttons.
+
 ### Coding style
 
 Please follow the coding style of the project. We use tslint, prettier and stylelint, so if possible, enable linting in your editor to get real-time feedback. When you submit a Pull Request, they are run again by our continuous integration tools.
