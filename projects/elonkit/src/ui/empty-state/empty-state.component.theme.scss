@@ -1,0 +1,20 @@
+@mixin es-empty-state-theme($theme, $elonkit-theme) {
+  $mono-a: map-get($elonkit-theme, mono-a);
+
+  .es-empty-state {
+    &__image {
+      // stylelint-disable-next-line selector-no-qualifying-type
+      path[data-mono-a='A150'] {
+        fill: mat-color($mono-a, A150);
+      }
+    }
+
+    &__heading {
+      color: mat-color($mono-a, A900);
+    }
+
+    &__subheading {
+      color: mat-color($mono-a, A600);
+    }
+  }
+}

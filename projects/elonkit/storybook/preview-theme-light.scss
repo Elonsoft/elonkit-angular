@@ -1,0 +1,21 @@
+@mixin preview-theme-light() {
+  $theme: mat-light-theme($es-light-primary, $es-light-accent, $es-light-warn);
+
+  $es-theme: es-light-theme(
+    (
+      colors: $es-light-theme,
+      typography: $es-typography
+    )
+  );
+
+  @include angular-material-theme($theme);
+
+  @include es-theme($theme, $es-theme);
+  @include es-overrides($es-theme);
+  @include es-typography($es-theme);
+
+  @include es-colors-story-theme($theme, $es-theme);
+  @include es-typography-story-theme($theme, $es-theme);
+
+  // color: mat-color(map-get($theme, foreground), text);
+}

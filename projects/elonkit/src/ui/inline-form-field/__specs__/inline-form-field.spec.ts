@@ -202,9 +202,9 @@ describe('InlineFormField', () => {
       excludeComponentDeclaration: true
     });
 
-    expect(component.getByTestId('root')).toHaveClass('mat-body-1');
+    expect(component.getByTestId('root')).toHaveClass('es-body-200');
 
-    const typography = 'mat-body-2';
+    const typography = 'es-body-100';
 
     component.fixture.componentInstance.typography = typography;
     component.fixture.componentInstance.changeDetector.detectChanges();

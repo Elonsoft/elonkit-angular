@@ -1,0 +1,25 @@
+@mixin es-typography-story-theme($theme, $elonkit-theme) {
+  .es-typography-story {
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    tr {
+      border-bottom: 1px solid mat-color(map-get($elonkit-theme, mono-a), A150);
+    }
+
+    th {
+      text-align: left;
+    }
+
+    th,
+    td {
+      padding: 8px 16px;
+    }
+
+    code {
+      white-space: nowrap;
+    }
+  }
+}

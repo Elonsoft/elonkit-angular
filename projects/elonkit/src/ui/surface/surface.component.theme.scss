@@ -1,0 +1,13 @@
+@mixin es-surface-theme($theme, $elonkit-theme) {
+  $surface: map-get($elonkit-theme, surface);
+
+  .es-surface {
+    @each $hue in map-keys($surface) {
+      @if (not(str-index(inspect($hue), 'contrast') or ($hue == 'text'))) {
+        &-#{$hue} {
+          background: map-get($surface, $hue);
+        }
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import docJson from '../documentation.json';
 setCompodocJson(docJson);
 
 import { addParameters, addDecorator, moduleMetadata } from '@storybook/angular';
-import theme from './theme';
+import { light, dark } from './theme';
 
 import { LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,8 +22,11 @@ localeService.register('ru', ru);
 
 addParameters({
   controls: { hideNoControlsWarning: true },
-  docs: {
-    theme
+  darkMode: {
+    dark,
+    light,
+    current: 'light',
+    stylePreview: true
   }
 });
 

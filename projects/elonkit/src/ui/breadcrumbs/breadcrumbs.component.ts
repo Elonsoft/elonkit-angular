@@ -40,7 +40,7 @@ export interface ESBreadcrumbsDefaultOptions {
   sizes?: ESBreadcrumbsDefaultOptionsSizes;
 }
 
-export const ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY = 'mat-caption';
+export const ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY = 'es-caption';
 
 export const ES_BREADCRUMBS_DEFAULT_SIZES = {
   itemPadding: 8,

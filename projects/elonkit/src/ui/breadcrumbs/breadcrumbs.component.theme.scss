@@ -1,0 +1,13 @@
+@import './components/breadcrumbs-breadcrumb/breadcrumbs-breadcrumb.component.theme';
+@import './components/breadcrumbs-collapse/breadcrumbs-collapse.component.theme';
+
+@mixin es-breadcrumbs-theme($theme, $elonkit-theme) {
+  @include es-breadcrumbs-breadcrumb-theme($theme, $elonkit-theme);
+  @include es-breadcrumbs-collapse-theme($theme, $elonkit-theme);
+
+  .es-breadcrumbs {
+    &__separator {
+      color: mat-color(map-get($elonkit-theme, mono-a), A500);
+    }
+  }
+}

@@ -12,8 +12,12 @@
   }
 }
 
-@mixin es-tooltip-theme($theme, $elonkit-theme) {
+@mixin es-tooltip-theme($theme, $es-theme) {
   .es-tooltip {
-    @include es-tooltip-color(rgba(0, 0, 0, 0.54), #fff, 40px);
+    @include es-tooltip-color(
+      mat-color(map-get($es-theme, mono-a), A600),
+      mat-color(map-get($es-theme, mono-b), 500),
+      40px
+    );
   }
 }

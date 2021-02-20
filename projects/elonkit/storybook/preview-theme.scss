@@ -1,17 +1,26 @@
 @import '~@angular/material/theming';
 
+// In production it's "@elonsoft/elonkit/theming"
+@import '../src/theming';
+@import '../src/theming/typography';
+@import '../src/theming/overrides';
+
+@import '../src/theming/presets/light';
+@import '../src/theming/presets/dark';
+
+@import '../src/theming/__stories__/colors/colors.component.theme';
+@import '../src/theming/__stories__/typography/typography.component.theme';
+
+@import './preview-theme-dark';
+@import './preview-theme-light';
+
 @include mat-core();
 
-$primary: mat-palette($mat-indigo);
-$accent: mat-palette($mat-pink, A200, A100, A400);
-$warn: mat-palette($mat-red);
-$theme: mat-light-theme($primary, $accent, $warn);
+@include preview-theme-light();
 
-@include angular-material-theme($theme);
-
-// In production it's "@elonsoft/elonkit/theme"
-@import '../src/theme';
-@include elonkit-theme($theme);
+.dark {
+  @include preview-theme-dark();
+}
 
 body {
   padding: 8px !important;

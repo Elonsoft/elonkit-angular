@@ -9,10 +9,10 @@ import {
   Inject
 } from '@angular/core';
 
-import { ESEmptyStateIIcon } from './empty-state.types';
+import { ESEmptyStateIcon } from './empty-state.types';
 
 export interface ESEmptyStateDefaultOptions {
-  icon?: ESEmptyStateIIcon;
+  icon?: ESEmptyStateIcon;
   headingTypography?: string;
   subheadingTypography?: string;
 }
@@ -35,17 +35,17 @@ export class ESEmptyStateComponent {
    * Icon to diaplsy.
    */
   @Input()
-  public get icon(): ESEmptyStateIIcon {
+  public get icon(): ESEmptyStateIcon {
     return this._icon;
   }
-  public set icon(value: ESEmptyStateIIcon) {
+  public set icon(value: ESEmptyStateIcon) {
     this._icon = value || this.defaultOptions?.icon || 'box';
   }
 
   /**
    * Path to image to display instead of the prebuilt icon.
    */
-  @Input() public iconSrc?: string;
+  @Input() public src?: string;
 
   /**
    * Heading text.
@@ -62,7 +62,7 @@ export class ESEmptyStateComponent {
     return this._headingTypography;
   }
   public set headingTypography(value: string) {
-    this._headingTypography = value || this.defaultOptions?.headingTypography || 'mat-h4';
+    this._headingTypography = value || this.defaultOptions?.headingTypography || 'es-body-200';
   }
 
   /**
@@ -80,8 +80,7 @@ export class ESEmptyStateComponent {
     return this._subheadingTypography;
   }
   public set subheadingTypography(value: string) {
-    this._subheadingTypography =
-      value || this.defaultOptions?.subheadingTypography || 'mat-caption';
+    this._subheadingTypography = value || this.defaultOptions?.subheadingTypography || 'es-caption';
   }
 
   /**
@@ -103,13 +102,5 @@ export class ESEmptyStateComponent {
     this.icon = this.defaultOptions?.icon;
     this.headingTypography = this.defaultOptions?.headingTypography;
     this.subheadingTypography = this.defaultOptions?.subheadingTypography;
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  public get src() {
-    return this.iconSrc || `./assets/elonkit/empty-state/${this.icon}.svg`;
   }
 }

@@ -1,0 +1,42 @@
+@import './ui/alert/alert.component.theme';
+@import './ui/breadcrumbs/breadcrumbs.component.theme';
+@import './ui/dropzone/dropzone.component.theme';
+@import './ui/empty-state/empty-state.component.theme';
+@import './ui/inline-form-field/inline-form-field.component.theme';
+@import './ui/paginator/paginator.component.theme';
+@import './ui/surface/surface.component.theme';
+@import './ui/tooltip/tooltip.component.theme';
+
+@function es-make-theme($es-theme) {
+  $result: $es-theme;
+
+  @each $palette, $hues in map-get($es-theme, colors) {
+    $result: map-merge(
+      $result,
+      (
+        $palette: $hues
+      )
+    );
+  }
+
+  @return $result;
+}
+
+@function es-dark-theme($es-theme) {
+  @return es-make-theme($es-theme);
+}
+
+@function es-light-theme($es-theme) {
+  @return es-make-theme($es-theme);
+}
+
+@mixin es-theme($theme, $es-theme) {
+  @include es-alert-theme($theme, $es-theme);
+  @include es-breadcrumbs-theme($theme, $es-theme);
+  @include es-dropzone-theme($theme, $es-theme);
+  @include es-empty-state-theme($theme, $es-theme);
+  @include es-inline-form-field-theme($theme, $es-theme);
+  @include es-paginator-theme($theme, $es-theme);
+  @include es-surface-theme($theme, $es-theme);
+  @include es-tooltip-theme($theme, $es-theme);
+}

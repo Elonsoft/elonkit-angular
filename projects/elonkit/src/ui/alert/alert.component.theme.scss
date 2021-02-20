@@ -1,58 +1,66 @@
+@import './components/alert-actions/alert-actions.component.theme';
+
 @mixin es-alert-theme($theme, $elonkit-theme) {
-  $cl-default: rgba(0, 0, 0, 0.38);
-  $cl-info: mat-color(map-get($elonkit-theme, info));
-  $cl-success: mat-color(map-get($elonkit-theme, success));
-  $cl-warning: mat-color(map-get($elonkit-theme, danger));
-  $cl-error: mat-color(map-get($theme, warn));
+  $warn: map-get($theme, warn);
+  $info: map-get($elonkit-theme, info);
+  $positive: map-get($elonkit-theme, positive);
+  $attention: map-get($elonkit-theme, attention);
+  $mono-a: map-get($elonkit-theme, mono-a);
+
+  @include es-alert-actions-theme($theme, $elonkit-theme);
 
   .es-alert {
     &_variant {
       &_default {
-        background-color: rgb($cl-default, 0.04);
-        border-color: rgb($cl-default, 0.08);
+        background-color: mat-color($mono-a, A50);
+        border-color: mat-color($mono-a, A100);
       }
 
       &_info {
-        background-color: rgb($cl-info, 0.08);
-        border-color: rgb($cl-info, 0.16);
+        background-color: mat-color($info, A100);
+        border-color: mat-color($info, A300);
       }
 
       &_success {
-        background-color: rgb($cl-success, 0.08);
-        border-color: rgb($cl-success, 0.16);
+        background-color: mat-color($positive, A100);
+        border-color: mat-color($positive, A300);
       }
 
       &_warning {
-        background-color: rgb($cl-warning, 0.08);
-        border-color: rgb($cl-warning, 0.16);
+        background-color: mat-color($attention, A100);
+        border-color: mat-color($attention, A200);
       }
 
       &_error {
-        background-color: rgb($cl-error, 0.08);
-        border-color: rgb($cl-error, 0.16);
+        background-color: mat-color($warn, A100);
+        border-color: mat-color($warn, A200);
       }
+    }
+
+    &__text {
+      color: mat-color($mono-a, A900);
     }
 
     &__icon {
       &_variant {
         &_default {
-          color: $cl-default;
+          color: mat-color($mono-a);
         }
 
         &_info {
-          color: $cl-info;
+          color: mat-color($info);
         }
 
         &_success {
-          color: $cl-success;
+          color: mat-color($positive);
         }
 
         &_warning {
-          color: $cl-warning;
+          color: mat-color($attention);
         }
 
         &_error {
-          color: $cl-error;
+          color: mat-color($warn);
         }
       }
     }

@@ -1,9 +1,30 @@
 @mixin es-dropzone-theme($theme, $elonkit-theme) {
-  $primary: mat-color(map-get($theme, primary));
+  $mono-a: map-get($elonkit-theme, mono-a);
 
   .es-dropzone {
+    background-color: mat-color($mono-a, A50);
+    border: 1px dashed mat-color($mono-a, A200);
+
+    &:hover {
+      background-color: mat-color($mono-a, A100);
+    }
+
+    &:active,
+    &:focus {
+      background-color: mat-color($mono-a, A200);
+    }
+
+    &_dragover {
+      background-color: mat-color($mono-a, A200);
+      border: 1px dotted mat-color($mono-a, A200);
+    }
+
     &__heading {
-      color: $primary;
+      color: mat-color(map-get($theme, primary));
+    }
+
+    &__subheading {
+      color: mat-color($mono-a, A500);
     }
   }
 }

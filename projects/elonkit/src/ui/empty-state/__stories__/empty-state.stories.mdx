@@ -3,8 +3,10 @@ import { Canvas } from '~storybook/components';
 
 import { action } from '@storybook/addon-actions';
 
+import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 
+import { ESCoreModule } from '../../core';
 import { ESEmptyStateModule, ESEmptyStateComponent } from '..';
 
 import { EMPTY_STATE_STORY_BASIC_SOURCE } from './empty-state-story-basic';
@@ -15,7 +17,23 @@ import { EMPTY_STATE_STORY_BUTTON_SOURCE } from './empty-state-story-button';
   args={{ icon: 'box', heading: '', subheading: '' }}
   argTypes={{
     icon: {
-      control: { type: 'select', options: ['box', 'chat', 'face', 'file', 'search'] }
+      control: {
+        type: 'select',
+        options: [
+          'bell',
+          'box',
+          'cart',
+          'chat',
+          'face',
+          'file',
+          'filter',
+          'lock',
+          'search',
+          'smile',
+          'wi-fi',
+          'wi-fi-off'
+        ]
+      }
     }
   }}
 />
@@ -47,7 +65,7 @@ export const getSubheading = (args, context) => {
     {((args, context) => ({
       template: `<es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading"></es-empty-state>`,
       moduleMetadata: {
-        imports: [ESEmptyStateModule]
+        imports: [HttpClientModule, ESCoreModule, ESEmptyStateModule]
       },
       props: {
         ...args,
@@ -69,7 +87,7 @@ We can include action button.
         </es-empty-state>
       `,
       moduleMetadata: {
-        imports: [MatButtonModule, ESEmptyStateModule]
+        imports: [HttpClientModule, MatButtonModule, ESCoreModule, ESEmptyStateModule]
       },
       props: {
         ...args,
@@ -88,7 +106,19 @@ We can include action button.
 
 ```ts
 interface ESEmptyStateDefaultOptions {
-  icon?: 'box' | 'chat' | 'face' | 'file' | 'search';
+  icon?:
+    | 'bell'
+    | 'box'
+    | 'cart'
+    | 'chat'
+    | 'face'
+    | 'file'
+    | 'filter'
+    | 'lock'
+    | 'search'
+    | 'smile'
+    | 'wi-fi'
+    | 'wi-fi-off';
   headingTypography?: string;
   subheadingTypography?: string;
 }
@@ -107,8 +137,8 @@ import { ES_EMPTY_STATE_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/empty-state
       provide: ES_EMPTY_STATE_DEFAULT_OPTIONS,
       useValue: {
         icon: 'box',
-        headingTypography: 'mat-h4',
-        subheadingTypography: 'mat-caption'
+        headingTypography: 'es-body-200',
+        subheadingTypography: 'es-caption'
       }
     }
   ]

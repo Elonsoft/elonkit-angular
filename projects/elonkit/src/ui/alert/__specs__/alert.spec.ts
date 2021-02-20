@@ -97,7 +97,10 @@ describe('Alert', () => {
 
   it('Should accept typography class', async () => {
     const component = await render(AlertTypographyWrapperComponent, {
-      imports: [ESAlertModule]
+      imports: [ESAlertModule],
+      componentProperties: {
+        typography: 'app-body-1'
+      }
     });
 
     expect(component.getByText('Message')).toHaveClass('app-body-1');
