@@ -2,12 +2,10 @@ export const AVATAR_STORY_CUSTOM_SOURCE = {
   html: `
   <es-avatar
     [icon]="icon"
-    [width]="width"
-    [height]="height"
+    [size]="size"
     [borderRadius]="borderRadius"
     [showStatus]="showStatus"
-    [statusWidth]="statusWidth"
-    [statusHeight]="statusHeight"
+    [statusSize]="statusSize"
     [statusBorderWidth]="statusBorderWidth"
     [src]="logo"
     [statusSrc]="status"

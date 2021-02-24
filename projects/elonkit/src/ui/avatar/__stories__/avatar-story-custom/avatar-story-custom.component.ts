@@ -8,9 +8,7 @@ import { ESAvatarForm } from '../../avatar.types';
 })
 export class AvatarStoryCustomComponent {
   @Input()
-  public width: number;
-  @Input()
-  public height: number;
+  public size: number;
   @Input()
   public alt: string;
   @Input()
@@ -18,9 +16,7 @@ export class AvatarStoryCustomComponent {
   @Input()
   public showStatus: boolean;
   @Input()
-  public statusWidth: number;
-  @Input()
-  public statusHeight: number;
+  public statusSize: number;
   @Input()
   public statusBorderWidth: number;
   @Input()

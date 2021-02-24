@@ -1,0 +1,36 @@
+.group {
+  display: flex;
+
+  &__avatar {
+    border: 2px solid #fff;
+    border-radius: 50%;
+
+    &:last-child {
+      z-index: 1;
+    }
+
+    &:not(:first-child) {
+      margin-left: -12px;
+    }
+  }
+}
+
+/* change the white border to mask only if it's supported: */
+@supports (mask: radial-gradient(transparent 12px, black 0)) {
+  /* stylelint-disable-next-line */
+  .group__avatar {
+    border: unset;
+
+    &:not(:last-of-type) {
+      mask: radial-gradient(
+        circle at calc((var(--size) * 0.75) + ((var(--size) / 2) + 2px)),
+        transparent calc((var(--size) / 2) + 2px),
+        #fff 0
+      );
+    }
+
+    &:not(:first-of-type) {
+      margin-left: calc(var(--size) * -0.25);
+    }
+  }
+}

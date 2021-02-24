@@ -1,7 +1,7 @@
 <div
   data-testid="avatar"
   class="es-avatar"
-  [ngStyle]="{ 'height.px': height, 'width.px': width, 'border-radius.px': currentBorderRadius }"
+  [ngStyle]="{ 'height.px': size, 'width.px': size, 'border-radius.px': currentBorderRadius }"
 >
   <img
     *ngIf="src"
@@ -21,10 +21,11 @@
     class="es-avatar__status"
     [ngClass]="{ 'es-avatar__status_custom': !!statusSrc }"
     [ngStyle]="{
-      'height.px': statusHeight,
-      'width.px': statusWidth,
+      'height.px': statusSize,
+      'width.px': statusSize,
       'border-width.px': statusBorderWidth,
-      'border-color' : statusBorderColor
+      'border-color' : statusBorderColor,
+      'background-color': statusBorderColor
     }"
   >
     <img

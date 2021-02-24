@@ -11,17 +11,13 @@ export class AvatarStoryTypographyComponent {
   @Input()
   public alt: string;
   @Input()
-  public width: number;
-  @Input()
-  public height: number;
+  public size: number;
   @Input()
   public borderRadius: number;
   @Input()
   public showStatus: boolean;
   @Input()
-  public statusWidth: number;
-  @Input()
-  public statusHeight: number;
+  public statusSize: number;
   @Input()
   public statusBorderWidth: number;
   @Input()
