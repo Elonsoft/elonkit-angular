@@ -6,8 +6,8 @@ import {
   Optional,
   Inject,
   ViewEncapsulation,
-  Output,
-  EventEmitter
+  OnInit,
+  ElementRef
 } from '@angular/core';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
@@ -26,35 +26,23 @@ export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptio
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ESAvatarComponent {
+export class ESAvatarComponent implements OnInit {
   /**
    * Path to image to display instead of the default icon.
    */
   @Input() public avatarSrc?: string;
 
   /**
-   * Defines height of the avatar in pixels.
+   * Defines size of the avatar in pixels.
    */
   @Input()
-  public get height(): number {
-    return this._height;
+  public get size(): number {
+    return this._size;
   }
-  public set height(value: number) {
-    this._height = coerceNumberProperty(value, 40);
+  public set size(value: number) {
+    this._size = coerceNumberProperty(value, 40);
   }
-  private _height: number;
-
-  /**
-   * Defines width of the avatar in pixels.
-   */
-  @Input()
-  public get width(): number {
-    return this._width;
-  }
-  public set width(value: number) {
-    this._width = coerceNumberProperty(value, 40);
-  }
-  private _width: number;
+  private _size: number;
 
   /**
    * Defines border radius of the avatar in pixels.
@@ -86,28 +74,16 @@ export class ESAvatarComponent {
   @Input() public statusSrc?: string;
 
   /**
-   * Defines width of status in pixels.
+   * Defines size of status in pixels.
    */
   @Input()
-  public get statusWidth(): number {
-    return this._statusWidth;
+  public get statusSize(): number {
+    return this._statusSize;
   }
-  public set statusWidth(value: number) {
-    this._statusWidth = coerceNumberProperty(value, 10);
+  public set statusSize(value: number) {
+    this._statusSize = coerceNumberProperty(value, 14);
   }
-  private _statusWidth: number;
-
-  /**
-   * Defines height of status in pixels.
-   */
-  @Input()
-  public get statusHeight(): number {
-    return this._statusHeight;
-  }
-  public set statusHeight(value: number) {
-    this._statusHeight = coerceNumberProperty(value, 10);
-  }
-  private _statusHeight: number;
+  private _statusSize: number;
 
   /**
    * Defines width of status border in pixels.
@@ -186,20 +162,23 @@ export class ESAvatarComponent {
     @Optional()
     @Inject(ES_AVATAR_DEFAULT_OPTIONS)
     private defaultOptions: ESAvatarDefaultOptions,
-    private localeService: ESLocaleService
+    private localeService: ESLocaleService,
+    private _elementRef: ElementRef
   ) {
-    this.width = this.defaultOptions?.width;
-    this.height = this.defaultOptions?.height;
+    this.size = this.defaultOptions?.size;
     this.borderRadius = this.defaultOptions?.borderRadius;
     this.showStatus = this.defaultOptions?.showStatus;
-    this.statusHeight = this.defaultOptions?.statusHeight;
-    this.statusWidth = this.defaultOptions?.statusWidth;
+    this.statusSize = this.defaultOptions?.statusSize;
     this.statusBorderWidth = this.defaultOptions?.statusBorderWidth;
     this.textTypography = this.defaultOptions?.textTypography;
     this.locale$ = this.localeService.locale();
     this.variant = this.defaultOptions?.variant;
     this.statusBorderColor = this.defaultOptions?.statusBorderColor;
     this.statusSrc = this.defaultOptions?.statusSrc;
+  }
+
+  public ngOnInit() {
+    this._elementRef.nativeElement.style.setProperty('--statusSize', `${this.statusSize + `px`}`);
   }
 
   /**

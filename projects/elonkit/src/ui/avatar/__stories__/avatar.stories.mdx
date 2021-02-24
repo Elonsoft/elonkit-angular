@@ -34,13 +34,11 @@ import { AVATAR_STORY_ACTIONS_SOURCE } from './avatar-story-actions';
   title='UI/Avatar'
   args={{
     variant: 'round',
-    width: 60,
-    height: 60,
+    size: 60,
     alt: 'alt text',
     borderRadius: 5,
     showStatus: false,
-    statusWidth: 10,
-    statusHeight: 10,
+    statusSize: 14,
     statusBorderWidth: 2,
     statusBorderColor: '',
     statusSrc: ''
@@ -110,10 +108,13 @@ We can group multiple avatars together.
 
 <Canvas source={AVATAR_STORY_GROUP_SOURCE}>
   <Story name='Group'>
-    {(() => ({
+    {((args) => ({
       component: AvatarStoryGroupComponent,
       moduleMetadata: {
         imports: [AvatarStoryGroupModule]
+      },
+      props: {
+        ...args
       }
     })).bind({})}
   </Story>
@@ -154,14 +155,12 @@ ESAvatarDefaultOptions ESAvatarForm defines default avatar form
 ```ts
 interface ESAvatarDefaultOptions {
   src?: string;
-  height?: number;
-  width?: number;
+  size?: number;
   alt?: string;
   borderRadius?: number;
   showStatus?: boolean;
   statusSrc?: string;
-  statusWidth?: number;
-  statusHeight?: number;
+  statusSize?: number;
   statusBorderWidth?: number;
   textTypography?: string;
   variant?: ESAvatarForm;
@@ -178,8 +177,7 @@ import { ES_AVATAR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/avatar';
     {
       provide: ES_AVATAR_DEFAULT_OPTIONS,
       useValue: {
-        width: 200,
-        height: 200,
+        size: 200,
         borderRadius: 48,
         variant: 'square'
       }
