@@ -1,2 +1,2 @@
-export { ESAvatarGroupComponent } from './avatar-group.component';
-export { ESAvatarGroupModule } from './avatar-group.module';
+export { ESAvatarGroupComponent } from './avatar-group';
+export { ESAvatarGroupModule } from './avatar-group';

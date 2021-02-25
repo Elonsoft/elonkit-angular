@@ -7,7 +7,7 @@ import {
   OnInit
 } from '@angular/core';
 
-import { ESAvatarGroupSets } from '../avatar.types';
+import { ESAvatarGroupSets } from '../../avatar.types';
 
 @Component({
   selector: 'es-avatar-group',
