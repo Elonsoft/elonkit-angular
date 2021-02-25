@@ -1,7 +1,7 @@
 @mixin es-avatar-theme($theme, $elonkit-theme) {
   $cl-background: map-get($elonkit-theme, mono-a);
   $cl-text: map-get($elonkit-theme, mono-a);
-  $cl-success: map-get($elonkit-theme, success);
+  $cl-success: map-get($elonkit-theme, positive);
   $cl-default: map-get($elonkit-theme, mono-b);
 
   .es-avatar {
@@ -9,7 +9,7 @@
     color: mat-color($cl-text, A500);
 
     &__status {
-      background: mat-color($cl-success, 800);
+      background: mat-color($cl-success, 500);
       border-color: mat-color($cl-default, 500);
 
       &_custom {
