@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ESAvatarGroupComponent } from './avatar-group.component';
-import { ESAvatarModule } from '../avatar.module';
+import { ESAvatarModule } from '../../avatar.module';
 
 @NgModule({
   declarations: [ESAvatarGroupComponent],
