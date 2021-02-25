@@ -293,4 +293,18 @@ export class ESPaginatorComponent {
       this.pageChange.emit(page);
     }
   }
+
+  /**
+   * Prevent letter typing
+   */
+  public onKeyPress(event: KeyboardEvent) {
+    const key = event.key;
+    const regex = /[0-9]/;
+
+    if (key === 'Enter' || regex.test(key)) {
+      return;
+    }
+
+    event.preventDefault();
+  }
 }

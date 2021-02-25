@@ -194,7 +194,9 @@ describe('Paginator', () => {
     });
 
     expect(component.getByLabelText(ru.paginator.labelItemsPerPage)).toBeInTheDocument();
-    expect(component.getByText(`1 - 10 ${ru.paginator.labelOf} 100`)).toBeInTheDocument();
+    expect(component.getByTestId('es-paginator-pages')).toHaveTextContent(
+      `${ru.paginator.labelOf}`
+    );
     expect(component.getByLabelText(ru.paginator.labelPrev)).toBeInTheDocument();
     expect(component.getByLabelText(ru.paginator.labelPrev)).toBeInTheDocument();
     expect(component.getByLabelText(ru.paginator.labelGoTo)).toBeInTheDocument();

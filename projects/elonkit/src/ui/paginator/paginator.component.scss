@@ -30,6 +30,7 @@
   }
 
   &__input {
+    appearance: textfield;
     width: 64px;
 
     &.mat-form-field-appearance-outline .mat-form-field-flex {
@@ -54,6 +55,16 @@
 
     .mat-form-field-subscript-wrapper {
       display: none;
+    }
+
+    .mat-input-element {
+      appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none !important;
+        margin: 0 !important;
+      }
     }
   }
 
@@ -99,15 +110,11 @@
 
     &_gap {
       background-image: url('./assets/elonkit/paginator/dots.svg');
-      background-position: 55% 0;
+      background-position: 50% 65%;
       background-repeat: no-repeat;
       color: transparent;
       width: 32px;
     }
-  }
-
-  .mat-select-arrow {
-    color: rgba(0, 0, 0, 0.38);
   }
 
   .mat-caption {
