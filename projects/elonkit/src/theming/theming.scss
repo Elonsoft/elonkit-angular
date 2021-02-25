@@ -1,5 +1,6 @@
 @import '../ui/alert/alert.component.theme';
 @import '../ui/audio-player/audio-player.component.theme';
+@import './ui/avatar/avatar.component.theme';
 @import '../ui/breadcrumbs/breadcrumbs.component.theme';
 @import '../ui/dropzone/dropzone.component.theme';
 @import '../ui/empty-state/empty-state.component.theme';
@@ -41,4 +42,5 @@
   @include es-paginator-theme($theme, $es-theme);
   @include es-surface-theme($theme, $es-theme);
   @include es-tooltip-theme($theme, $es-theme);
+  @include es-avatar-theme($theme, $es-theme);
 }

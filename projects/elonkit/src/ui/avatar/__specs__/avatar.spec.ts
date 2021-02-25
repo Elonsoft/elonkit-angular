@@ -6,63 +6,44 @@ import { ESAvatarModule } from '../avatar.module';
 import { ESLocaleService, en, ru } from '../../locale';
 
 @Component({
-  template: `<es-avatar src="./test-path-to-icon">Message</es-avatar>`
+  template: `<es-avatar alt="Аватар" src="./test-path-to-icon">Message</es-avatar>`
 })
 class AvatarComponent {}
 
+@Component({
+  template: `<es-avatar>Message</es-avatar>`
+})
+class AvatarTypographyComponent {}
+
 describe('Avatar', () => {
-  it('Should render default avatar', async () => {
-    const component = await render(ESAvatarComponent, {
-      imports: [ESAvatarModule],
-      componentProperties: {
-        alt: 'Avatar'
-      },
-      excludeComponentDeclaration: true
-    });
-    expect(component.getByAltText(en.avatar.labelAvatar)).toBeInTheDocument();
-  });
-
-  it('Should change avatar formType', async () => {
+  it('Should change avatar variant', async () => {
     const component = await render(ESAvatarComponent, {
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true
     });
 
-    component.fixture.componentInstance.formType = 'round';
+    component.fixture.componentInstance.variant = 'round';
     component.fixture.detectChanges();
-    expect(component.fixture.componentInstance.formType).toBe('round');
+    expect(component.fixture.componentInstance.variant).toBe('round');
 
-    component.fixture.componentInstance.formType = 'square';
+    component.fixture.componentInstance.variant = 'square';
     component.fixture.detectChanges();
-    expect(component.fixture.componentInstance.formType).toBe('square');
-  });
-
-  it('Should render custom avatar icon', async () => {
-    const component = await render(ESAvatarComponent, {
-      componentProperties: {
-        avatarSrc: 'customPath'
-      },
-      imports: [ESAvatarModule],
-      excludeComponentDeclaration: true
-    });
-
-    expect(component.fixture.componentInstance.src).toBe('customPath');
+    expect(component.fixture.componentInstance.variant).toBe('square');
   });
 
   it('Should change avatar properties', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
         borderRadius: 48,
-        width: 200,
-        height: 200
+        size: 200
       },
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true
     });
 
     expect(component.fixture.componentInstance.borderRadius).toBe(48);
-    expect(component.fixture.componentInstance.width).toBe(200);
-    expect(component.fixture.componentInstance.height).toBe(200);
+    expect(component.fixture.componentInstance.size).toBe(200);
+    expect(component.fixture.componentInstance.size).toBe(200);
   });
 
   it('Should enable status on input', async () => {
@@ -82,8 +63,7 @@ describe('Avatar', () => {
       componentProperties: {
         showStatus: true,
         statusBorderWidth: 10,
-        statusHeight: 40,
-        statusWidth: 40,
+        statusSize: 40,
         statusBorderColor: '#fff'
       },
       imports: [ESAvatarModule],
@@ -91,8 +71,7 @@ describe('Avatar', () => {
     });
 
     expect(component.fixture.componentInstance.statusBorderWidth).toBe(10);
-    expect(component.fixture.componentInstance.statusHeight).toBe(40);
-    expect(component.fixture.componentInstance.statusWidth).toBe(40);
+    expect(component.fixture.componentInstance.statusSize).toBe(40);
     expect(component.fixture.componentInstance.statusBorderColor).toBe('#fff');
   });
 
@@ -111,7 +90,7 @@ describe('Avatar', () => {
   });
 
   it('Should render text on input', async () => {
-    const component = await render(AvatarComponent, {
+    const component = await render(AvatarTypographyComponent, {
       imports: [ESAvatarModule]
     });
     expect(component.getByText('Message')).toBeInTheDocument();
@@ -139,6 +118,7 @@ describe('Avatar', () => {
       componentProperties: {
         showStatus: true,
         statusSrc: 'customPath',
+        src: './test-path-to-icon',
         alt: 'Аватар'
       },
       providers: [{ provide: ESLocaleService, useValue: localeService }],
@@ -152,6 +132,7 @@ describe('Avatar', () => {
   it('Should render alt text on image', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
+        src: './test-path-to-icon',
         alt: 'alt text'
       },
       imports: [ESAvatarModule],
