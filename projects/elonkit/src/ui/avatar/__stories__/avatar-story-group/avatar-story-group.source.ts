@@ -4,23 +4,34 @@ export const AVATAR_STORY_GROUP_SOURCE = {
     encapsulation: ViewEncapsulation.None
   })
   export class AppComponent {
+    @Input()
+    public size: number;
+
     public avatars = [
       {
-        showStatus: true,
-        statusSrc: '/icons/avatar/star.svg',
-        statusHeight: '20px',
-        statusWidth: '20px',
-        src: '/img/es-logo.png'
+        size: 60,
+        src: '/img/es-logo.png',
+        alt: 'alt text'
       },
-      { avatarSrc: null },
-      { avatarSrc: null, textTypography: 'typography' }
+      { avatarSrc: null, size: 60 },
+      { avatarSrc: null, size: 60, textTypography: 'typography' }
     ];
   }
   `,
   html: `
-  <div class="group">
-    <es-avatar-group [size]="size" [variant]="variant" [avatars]="avatars"></es-avatar-group>
-  </div>
+  <es-avatar-group
+  [size]="size"
+  >
+    <es-avatar
+      *ngFor="let avatar of avatars; index as i"
+      class="es-avatar-group__avatar"
+      [ngStyle]="{ 'z-index': avatars.length - i }"
+      [size]="avatar.size"
+      [alt]="avatar.alt"
+      [src]="avatar.src"
+      [textTypography]="avatar.textTypography"
+    ></es-avatar>
+  </es-avatar-group>
   `,
   scss: `
   .typography {

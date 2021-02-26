@@ -1,4 +1,13 @@
 <es-avatar-group
 [size]="size"
-[avatars]="avatars"
-></es-avatar-group>
+>
+  <es-avatar
+    *ngFor="let avatar of avatars; index as i"
+    class="es-avatar-group__avatar"
+    [ngStyle]="{ 'z-index': avatars.length - i }"
+    [size]="avatar.size"
+    [alt]="avatar.alt"
+    [src]="avatar.src"
+    [textTypography]="avatar.textTypography"
+  ></es-avatar>
+</es-avatar-group>

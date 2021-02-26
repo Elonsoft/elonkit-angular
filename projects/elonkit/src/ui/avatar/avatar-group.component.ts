@@ -7,8 +7,6 @@ import {
   OnInit
 } from '@angular/core';
 
-import { ESAvatarGroupSets } from '../../avatar.types';
-
 @Component({
   selector: 'es-avatar-group',
   templateUrl: './avatar-group.component.html',
@@ -17,12 +15,6 @@ import { ESAvatarGroupSets } from '../../avatar.types';
   encapsulation: ViewEncapsulation.None
 })
 export class ESAvatarGroupComponent implements OnInit {
-  /**
-   * Defines size of the avatar in pixels.
-   */
-  @Input()
-  public avatars: ESAvatarGroupSets[];
-
   /**
    * Defines size of the avatar in pixels.
    */

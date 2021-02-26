@@ -14,21 +14,6 @@
     transform: translate(-50%, -50%);
   }
 
-  &__status {
-    border-radius: 50%;
-    border-style: solid;
-    bottom: 0;
-    display: flex;
-    position: absolute;
-    right: 0;
-  }
-
-  &__status-img {
-    height: 100%;
-    object-fit: cover;
-    width: 100%;
-  }
-
   &__default {
     left: 50%;
     position: absolute;
@@ -39,6 +24,22 @@
       height: 100%;
       object-fit: cover;
       width: 100%;
+    }
+  }
+
+  &_variant_square {
+    border-radius: 5px;
+    // stylelint-disable-next-line
+    .es-avatar__img {
+      border-radius: 5px;
+    }
+  }
+
+  &_variant_round {
+    border-radius: 50%;
+    // stylelint-disable-next-line
+    .es-avatar__img {
+      border-radius: 50%;
     }
   }
 }

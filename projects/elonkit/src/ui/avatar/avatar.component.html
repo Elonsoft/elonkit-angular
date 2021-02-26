@@ -1,12 +1,12 @@
 <div
   data-testid="avatar"
   class="es-avatar"
-  [ngStyle]="{ 'height.px': size, 'width.px': size, 'border-radius.px': currentBorderRadius }"
+  [ngStyle]="{ 'height.px': size, 'width.px': size }"
+  [ngClass]="{ 'es-avatar_variant_round': variant === avatarForm.Round,  'es-avatar_variant_square': variant === avatarForm.Square}"
 >
   <img
     *ngIf="src"
     class="es-avatar__img"
-    [ngStyle]="{ 'border-radius.px': currentBorderRadius }"
     [src]="src"
     [alt]="alt"
   />
@@ -14,25 +14,5 @@
     <ng-content>
 
     </ng-content>
-  </div>
-  <div
-    *ngIf="showStatus"
-    data-testid="status"
-    class="es-avatar__status"
-    [ngClass]="{ 'es-avatar__status_custom': !!statusSrc }"
-    [ngStyle]="{
-      'height.px': statusSize,
-      'width.px': statusSize,
-      'border-width.px': statusBorderWidth,
-      'border-color' : statusBorderColor,
-      'background-color': statusBorderColor
-    }"
-  >
-    <img
-      *ngIf="!!statusSrc"
-      class="es-avatar__status-img"
-      [src]="statusSrc"
-      [alt]="(locale$ | async).avatar.labelStatus"
-    />
   </div>
 </div>

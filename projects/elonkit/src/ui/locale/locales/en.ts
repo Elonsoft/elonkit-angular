@@ -34,7 +34,6 @@ export const en = {
     labelBack: 'Back',
     labelNormal: 'Normal'
   },
-
   avatar: {
     labelAvatar: 'Avatar',
     labelStatus: 'Status'
