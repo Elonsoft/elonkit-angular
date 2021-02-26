@@ -22,9 +22,5 @@ export const ru = {
     labelHH: 'ЧЧ',
     labelMM: 'ММ',
     labelSS: 'СС'
-  },
-  avatar: {
-    labelAvatar: 'Аватар',
-    labelStatus: 'Статус'
   }
 };

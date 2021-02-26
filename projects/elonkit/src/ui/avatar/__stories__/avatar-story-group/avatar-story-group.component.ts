@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
-import { ESAvatarDefaultOptions, ESAvatarForm } from '../../avatar.types';
+import { ESAvatarForm } from '../../avatar.types';
 @Component({
   selector: 'es-avatar-group-aomponent',
   templateUrl: './avatar-story-group.component.html',
@@ -11,17 +11,13 @@ export class AvatarStoryGroupComponent {
   @Input()
   public size: number;
 
-  @Input()
-  public variant: ESAvatarForm;
-
   public avatars = [
     {
-      showStatus: true,
-      statusSrc: '/icons/avatar/star.svg',
-      statusSize: 14,
-      src: '/img/es-logo.png'
+      size: 60,
+      src: '/img/es-logo.png',
+      alt: 'alt text'
     },
-    { avatarSrc: null },
-    { avatarSrc: null, textTypography: 'typography' }
+    { avatarSrc: null, size: 60 },
+    { avatarSrc: null, size: 60, textTypography: 'typography' }
   ];
 }

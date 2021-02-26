@@ -22,9 +22,5 @@ export const en = {
     labelHH: 'HH',
     labelMM: 'MM',
     labelSS: 'SS'
-  },
-  avatar: {
-    labelAvatar: 'Avatar',
-    labelStatus: 'Status'
   }
 };

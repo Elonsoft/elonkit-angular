@@ -12,19 +12,7 @@ export class AvatarStoryBasicComponent {
   @Input()
   public size: number;
   @Input()
-  public borderRadius: number;
-  @Input()
-  public showStatus: boolean;
-  @Input()
-  public statusSize: number;
-  @Input()
-  public statusBorderWidth: number;
-  @Input()
   public src: string;
   @Input()
   public variant: ESAvatarForm;
-  @Input()
-  public statusBorderColor: string;
-  @Input()
-  public statusSrc: string;
 }

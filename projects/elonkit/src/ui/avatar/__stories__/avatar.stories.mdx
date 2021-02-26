@@ -11,12 +11,6 @@ import {
 } from './avatar-story-basic';
 
 import {
-  AvatarStoryCustomModule,
-  AvatarStoryCustomComponent,
-  AVATAR_STORY_CUSTOM_SOURCE
-} from './avatar-story-custom';
-
-import {
   AvatarStoryTypographyModule,
   AvatarStoryTypographyComponent,
   AVATAR_STORY_TYPOGRAPHY_SOURCE
@@ -28,20 +22,13 @@ import {
   AVATAR_STORY_GROUP_SOURCE
 } from './avatar-story-group';
 
-import { AVATAR_STORY_ACTIONS_SOURCE } from './avatar-story-actions';
-
 <Meta
   title='UI/Avatar'
   args={{
     variant: 'round',
+    src: '/img/es-logo.png',
     size: 60,
-    alt: 'alt text',
-    borderRadius: 5,
-    showStatus: false,
-    statusSize: 14,
-    statusBorderWidth: 2,
-    statusBorderColor: '',
-    statusSrc: ''
+    alt: 'alt text'
   }}
   argTypes={{
     variant: {
@@ -64,22 +51,6 @@ We can use round or square avatar.
       component: AvatarStoryBasicComponent,
       moduleMetadata: {
         imports: [AvatarStoryBasicModule]
-      },
-      props: {
-        ...args
-      }
-    })).bind({})}
-  </Story>
-</Canvas>
-
-We can use custom avatar and status icons.
-
-<Canvas source={AVATAR_STORY_CUSTOM_SOURCE}>
-  <Story name='Custom'>
-    {((args) => ({
-      component: AvatarStoryCustomComponent,
-      moduleMetadata: {
-        imports: [AvatarStoryCustomModule]
       },
       props: {
         ...args
@@ -120,26 +91,6 @@ We can group multiple avatars together.
   </Story>
 </Canvas>
 
-We can add actions.
-
-<Canvas source={AVATAR_STORY_ACTIONS_SOURCE}>
-  <Story name='Actions'>
-    {(() => ({
-      template: `
-        <es-avatar
-          (click)="onClick()"
-        ></es-avatar>
-      `,
-      moduleMetadata: {
-        imports: [ESAvatarModule]
-      },
-      props: {
-        onClick: action('onClick')
-      }
-    })).bind({})}
-  </Story>
-</Canvas>
-
 ## API
 
 <ArgsTable of={ESAvatarComponent} />
@@ -157,11 +108,6 @@ interface ESAvatarDefaultOptions {
   src?: string;
   size?: number;
   alt?: string;
-  borderRadius?: number;
-  showStatus?: boolean;
-  statusSrc?: string;
-  statusSize?: number;
-  statusBorderWidth?: number;
   textTypography?: string;
   variant?: ESAvatarForm;
 }
@@ -178,7 +124,6 @@ import { ES_AVATAR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/avatar';
       provide: ES_AVATAR_DEFAULT_OPTIONS,
       useValue: {
         size: 200,
-        borderRadius: 48,
         variant: 'square'
       }
     }
