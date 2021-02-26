@@ -37,6 +37,8 @@
         mat-icon-button
         [disabled]="i === page"
         (click)="onPageClick(i)"
+        esTooltip='&#8592; shift &#8594;'
+        [esTooltipArrow]="true"
       >
         {{ i }}
       </button>

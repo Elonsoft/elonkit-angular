@@ -8,7 +8,8 @@ import {
   EventEmitter,
   InjectionToken,
   Optional,
-  Inject
+  Inject,
+  HostListener
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -306,5 +307,19 @@ export class ESPaginatorComponent {
     }
 
     event.preventDefault();
+  }
+
+  @HostListener('window:keydown.shift.arrowright', ['$event']) public onKeyWrightDown(
+    event: KeyboardEvent
+  ) {
+    this.onNextPage();
+  }
+
+  @HostListener('window:keydown.shift.arrowleft', ['$event']) public onKeyLeftDown(
+    event: KeyboardEvent
+  ) {
+    if (this.page !== 1) {
+      this.onPrevPage();
+    }
   }
 }
