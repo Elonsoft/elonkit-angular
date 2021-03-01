@@ -12,7 +12,11 @@
         font-weight: 600;
 
         &.mat-icon-button:disabled {
-          color: mat-color($mono-a, A400);
+          color: mat-color($accent);
+
+          &:hover {
+            color: mat-color($mono-a, A500);
+          }
         }
 
         &.mat-icon-button:hover {
