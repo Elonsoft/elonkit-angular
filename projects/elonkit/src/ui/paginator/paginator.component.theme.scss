@@ -15,7 +15,8 @@
           color: mat-color($accent);
 
           &:hover {
-            color: mat-color($mono-a, A500);
+            background-color: mat-color($accent, A100);
+            color: mat-color($accent);
           }
         }
 
