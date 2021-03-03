@@ -34,7 +34,7 @@ export const ROUTES = [
   {
     path: '',
     data: {
-      breadcrumb: { icon: 'home', ariaLabel: 'Home' }
+      breadcrumb: { icon: 'home', ariaLabel: 'Home', iconBack: 'back' }
     },
     resolve: {
       breadcrumb: ESBreadcrumbsResolver

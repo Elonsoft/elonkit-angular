@@ -9,7 +9,7 @@ export const BREADCRUMBS_STORY_BASIC_SOURCE = {
     {
       path: '',
       data: {
-        breadcrumb: { icon: 'home', ariaLabel: 'Home' }
+        breadcrumb: { icon: 'home', ariaLabel: 'Home', iconBack: 'back' },
       },
       resolve: {
         breadcrumb: ESBreadcrumbsResolver
@@ -22,7 +22,7 @@ export const BREADCRUMBS_STORY_BASIC_SOURCE = {
         {
           path: 'categories',
           data: {
-            breadcrumb: { label: 'Categories' }
+            breadcrumb: { label: 'Caption' }
           },
           resolve: {
             data: CategoriesListResolver, // We need to move list resolver one level up in order to use horizontal navigation.

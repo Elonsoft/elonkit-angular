@@ -15,9 +15,25 @@
     height: 24px;
     min-width: 0;
     overflow: hidden;
-    padding: 0 4px;
     text-decoration: none;
     transition: 200ms;
+
+    &_icon-back {
+      align-items: baseline;
+      display: flex;
+      height: 16px;
+      margin-left: 44px;
+
+      .mat-icon {
+        height: 8px;
+        margin-right: 5px;
+        width: 9px;
+      }
+    }
+
+    &:not(:first) {
+      padding: 0 4px;
+    }
 
     &:not(&_last) {
       &:hover,
@@ -35,12 +51,14 @@
 
   &__label {
     overflow: hidden;
+    padding: 4px 32px 4px 16px;
     text-overflow: ellipsis;
   }
 
   &__menu {
     &.mat-icon-button {
-      height: 20px;
+      border-radius: unset;
+      height: 24px;
       line-height: 20px;
       width: 20px;
 
@@ -53,7 +71,7 @@
     .mat-icon {
       align-items: center;
       display: flex;
-      height: 20px;
+      height: 24px;
       justify-content: center;
       line-height: 20px;
       width: 20px;

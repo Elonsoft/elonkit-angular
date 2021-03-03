@@ -1,5 +1,6 @@
 export interface ESBreadcrumbData {
   icon?: string;
+  iconBack?: string;
   svgIcon?: string;
   label?: string;
   ariaLabel?: string;
@@ -17,3 +18,5 @@ export interface ESBreadcrumb {
   parentPath: string;
   data: ESBreadcrumbData;
 }
+
+export type ESBreadcrumbVariant = 'noGoBackButton' | 'withGoBackButton';

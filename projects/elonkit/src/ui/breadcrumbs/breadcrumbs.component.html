@@ -3,6 +3,7 @@
     <ng-container *ngIf="!collapseIndexes.includes(i)">
       <es-breadcrumbs-breadcrumb
         [breadcrumb]="breadcrumb"
+        [breadcrumbs]="breadcrumbs"
         [last]="i === breadcrumbs.length - 1"
         [typography]="typography"
         class="es-breadcrumbs__breadcrumb"

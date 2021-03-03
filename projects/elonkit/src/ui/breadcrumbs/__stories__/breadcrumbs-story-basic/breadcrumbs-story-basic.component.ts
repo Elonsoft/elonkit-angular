@@ -32,6 +32,10 @@ export class BreadcrumbsStoryBasicComponent implements OnInit {
       'home',
       this.domSanitizer.bypassSecurityTrustResourceUrl('/icons/home.svg')
     );
+    this.matIconRegistry.addSvgIcon(
+      'back',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('/icons/back.svg')
+    );
   }
 
   public ngOnInit() {

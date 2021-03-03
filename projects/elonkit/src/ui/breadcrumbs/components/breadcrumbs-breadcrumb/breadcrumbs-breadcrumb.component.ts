@@ -21,6 +21,11 @@ export class ESBreadcrumbsBreadcrumbComponent {
   /**
    * @internal
    */
+  @Input() public breadcrumbs: ESBreadcrumb[];
+
+  /**
+   * @internal
+   */
   @Input() public last = false;
 
   /**
@@ -41,5 +46,12 @@ export class ESBreadcrumbsBreadcrumbComponent {
     public localeService: ESLocaleService
   ) {
     this.locale$ = this.localeService.locale();
+  }
+
+  public prevbreadcrumbsPath() {
+    const paths = this.breadcrumbs.map((breadcrumb) => {
+      return breadcrumb.path;
+    });
+    return paths[paths.length - 2];
   }
 }

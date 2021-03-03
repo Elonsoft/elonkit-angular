@@ -20,7 +20,7 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 
-import { ESBreadcrumb } from './breadcrumbs.types';
+import { ESBreadcrumb, ESBreadcrumbVariant } from './breadcrumbs.types';
 import { ESBreadcrumbsService } from './breadcrumbs.service';
 
 import { ESBreadcrumbsMoreDirective } from './directives/breadcrumbs-more.directive';
@@ -64,6 +64,11 @@ export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDe
 })
 export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentInit {
   private _typography;
+
+  /**
+   * The variant of the alert. This defines the color and icon used.
+   */
+  @Input() public variant: ESBreadcrumbVariant = 'withGoBackButton';
 
   /**
    * Class applied to breadcrumb labels.
