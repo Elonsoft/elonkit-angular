@@ -129,6 +129,7 @@ describe('Breadcrumbs', () => {
       await component.fixture.whenStable();
 
       expect(component.queryByLabelText('Home')).not.toBeNull();
+      expect(component.queryByLabelText('Back')).not.toBeNull();
       expect(component.queryByText('Categories')).toBeNull();
       expect(component.queryByText('Category 1')).toBeNull();
       expect(component.queryByText('Item #1-1')).not.toBeNull();

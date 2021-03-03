@@ -30,7 +30,7 @@ const ROUTES = [
   {
     path: '',
     data: {
-      breadcrumb: { svgIcon: 'home', ariaLabel: 'Home', iconBack: 'back' }
+      breadcrumb: { svgIcon: 'home', ariaLabel: 'Home', iconBack: 'back', ariaLabelBack: 'Back' }
     },
     resolve: {
       breadcrumb: ESBreadcrumbsResolver
