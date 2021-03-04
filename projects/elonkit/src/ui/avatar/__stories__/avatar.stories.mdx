@@ -2,19 +2,19 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 import { action } from '@storybook/addon-actions';
 
+import { MatIconModule } from '@angular/material/icon';
+
 import { ESAvatarComponent, ESAvatarModule } from '..';
 
-import {
-  AvatarStoryBasicModule,
-  AvatarStoryBasicComponent,
-  AVATAR_STORY_BASIC_SOURCE
-} from './avatar-story-basic';
+import { AVATAR_STORY_IMAGE_SOURCE } from './avatar-story-image';
+
+import { AVATAR_STORY_NO_IMAGE_ICON_SOURCE } from './avatar-story-no-image-icon';
 
 import {
-  AvatarStoryTypographyModule,
-  AvatarStoryTypographyComponent,
-  AVATAR_STORY_TYPOGRAPHY_SOURCE
-} from './avatar-story-typography';
+  AvatarStoryNoImageTypographyModule,
+  AvatarStoryNoImageTypographyComponent,
+  AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE
+} from './avatar-story-no-image-typography';
 
 import {
   AvatarStoryGroupModule,
@@ -22,20 +22,7 @@ import {
   AVATAR_STORY_GROUP_SOURCE
 } from './avatar-story-group';
 
-<Meta
-  title='UI/Avatar'
-  args={{
-    variant: 'round',
-    src: '/img/es-logo.png',
-    size: 60,
-    alt: 'alt text'
-  }}
-  argTypes={{
-    variant: {
-      control: { type: 'select', options: ['round', 'square'] }
-    }
-  }}
-/>
+<Meta title='UI/Avatar' />
 
 # Avatar
 
@@ -43,14 +30,34 @@ This component allows to display default or custom avatar.
 
 ## Demos
 
-We can use round or square avatar.
+Avatar with image
 
-<Canvas source={AVATAR_STORY_BASIC_SOURCE}>
-  <Story name='Basic'>
+<Canvas source={AVATAR_STORY_IMAGE_SOURCE}>
+  <Story
+    name='With image'
+    args={{
+      src: '/img/es-logo.png',
+      alt: 'alt text',
+      variant: 'round',
+      size: 60
+    }}
+    argTypes={{
+      variant: {
+        control: { type: 'select', options: ['round', 'square'] }
+      }
+    }}
+  >
     {((args) => ({
-      component: AvatarStoryBasicComponent,
+      template: `
+        <es-avatar
+          [size]="size"
+          [src]="src"
+          [alt]="alt"
+          [variant]="variant"
+        ></es-avatar>
+      `,
       moduleMetadata: {
-        imports: [AvatarStoryBasicModule]
+        imports: [ESAvatarModule]
       },
       props: {
         ...args
@@ -59,14 +66,95 @@ We can use round or square avatar.
   </Story>
 </Canvas>
 
-We can display user initials and change it's typography.
+<!-- Avatar with no image and with icon
 
-<Canvas source={AVATAR_STORY_TYPOGRAPHY_SOURCE}>
-  <Story name='Typography'>
+<Canvas source={AVATAR_STORY_NO_IMAGE_ICON_SOURCE}>
+  <Story
+    name='No image, with icon'
+    args={{
+      variant: 'round',
+      size: 60
+    }}
+    argTypes={{
+      variant: {
+        control: { type: 'select', options: ['round', 'square'] }
+      }
+    }}
+  >
     {((args) => ({
-      component: AvatarStoryTypographyComponent,
+      template: `
+        <es-avatar
+          [size]="size"
+          [variant]="variant"
+        >
+          <mat-icon>thumb_up</mat-icon>
+        </es-avatar>
+      `,
       moduleMetadata: {
-        imports: [AvatarStoryTypographyModule]
+        imports: [ESAvatarModule, MatIconModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+
+  </Story>
+</Canvas> -->
+
+Avatar with no image and with icon
+
+<Canvas source={AVATAR_STORY_NO_IMAGE_ICON_SOURCE}>
+  <Story
+    name='No image, with icon'
+    args={{
+      variant: 'round',
+      size: 60
+    }}
+    argTypes={{
+      variant: {
+        control: { type: 'select', options: ['round', 'square'] }
+      }
+    }}
+  >
+    {((args) => ({
+      template: `
+        <es-avatar
+          [size]="size"
+          [variant]="variant"
+        >
+          <mat-icon>thumb_up</mat-icon>
+        </es-avatar>
+      `,
+      moduleMetadata: {
+        imports: [ESAvatarModule, MatIconModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+Avatar with no image and with typography.
+
+<Canvas source={AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE}>
+  <Story
+    name='No image, with typography'
+    args={{
+      variant: 'round',
+      size: 60,
+      textTypography: 'typography'
+    }}
+    argTypes={{
+      variant: {
+        control: { type: 'select', options: ['round', 'square'] }
+      }
+    }}
+  >
+    {((args) => ({
+      component: AvatarStoryNoImageTypographyComponent,
+      moduleMetadata: {
+        imports: [AvatarStoryNoImageTypographyModule]
       },
       props: {
         ...args
@@ -78,7 +166,12 @@ We can display user initials and change it's typography.
 We can group multiple avatars together.
 
 <Canvas source={AVATAR_STORY_GROUP_SOURCE}>
-  <Story name='Group'>
+  <Story
+    name='Group'
+    args={{
+      size: 60
+    }}
+  >
     {((args) => ({
       component: AvatarStoryGroupComponent,
       moduleMetadata: {
@@ -98,10 +191,10 @@ We can group multiple avatars together.
 ## Interfaces
 
 ```ts
-type ESAvatarForm = 'round' | 'square';
+type ESAvatarVariant = 'round' | 'square';
 ```
 
-ESAvatarDefaultOptions ESAvatarForm defines default avatar form
+ESAvatarDefaultOptions ESAvatarVariant defines default avatar form
 
 ```ts
 interface ESAvatarDefaultOptions {
@@ -109,7 +202,7 @@ interface ESAvatarDefaultOptions {
   size?: number;
   alt?: string;
   textTypography?: string;
-  variant?: ESAvatarForm;
+  variant?: ESAvatarVariant;
 }
 ```
 
@@ -123,8 +216,8 @@ import { ES_AVATAR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/avatar';
     {
       provide: ES_AVATAR_DEFAULT_OPTIONS,
       useValue: {
-        size: 200,
-        variant: 'square'
+        size: 60,
+        variant: 'round'
       }
     }
   ]

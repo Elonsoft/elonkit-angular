@@ -25,20 +25,11 @@ export const AVATAR_STORY_GROUP_SOURCE = {
     <es-avatar
       *ngFor="let avatar of avatars; index as i"
       class="es-avatar-group__avatar"
-      [ngStyle]="{ 'z-index': avatars.length - i }"
       [size]="avatar.size"
       [alt]="avatar.alt"
       [src]="avatar.src"
       [textTypography]="avatar.textTypography"
     ></es-avatar>
   </es-avatar-group>
-  `,
-  scss: `
-  .typography {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.25px;
-  }
   `
 };

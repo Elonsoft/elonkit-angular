@@ -1,4 +1,4 @@
-export const AVATAR_STORY_TYPOGRAPHY_SOURCE = {
+export const AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE = {
   ts: `
   @Component({
     encapsulation: ViewEncapsulation.None

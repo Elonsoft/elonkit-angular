@@ -1,9 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
-import { ESAvatarForm } from '../../avatar.types';
 @Component({
   selector: 'es-avatar-group-aomponent',
   templateUrl: './avatar-story-group.component.html',
-  styleUrls: ['./avatar-story-group.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -18,6 +16,11 @@ export class AvatarStoryGroupComponent {
       alt: 'alt text'
     },
     { src: null, size: 60 },
-    { src: null, size: 60, textTypography: 'typography' }
+    {
+      size: 60,
+      src: '/img/es-logo.png',
+      alt: 'alt text'
+    },
+    { src: null, size: 60 }
   ];
 }
