@@ -10,9 +10,3 @@ export enum ESAvatarForm {
   Round = 'round',
   Square = 'square'
 }
-
-export interface ESAvatarGroupSets {
-  alt?: string;
-  src?: string;
-  textTypography?: string;
-}

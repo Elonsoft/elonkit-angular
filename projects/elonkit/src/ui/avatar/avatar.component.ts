@@ -11,7 +11,6 @@ import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coerci
 import { Observable } from 'rxjs';
 
 import { ESAvatarDefaultOptions, ESAvatarForm } from './avatar.types';
-import { ESLocale, ESLocaleService } from '../locale';
 
 export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptions>(
   'ES_AVATAR_DEFAULT_OPTIONS'
@@ -26,10 +25,6 @@ export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptio
 })
 export class ESAvatarComponent {
   public avatarForm = ESAvatarForm;
-  /**
-   * Path to image to display instead of the default icon.
-   */
-  @Input() public avatarSrc?: string;
 
   /**
    * Defines size of the avatar in pixels.
@@ -86,21 +81,13 @@ export class ESAvatarComponent {
    * @internal
    * @ignore
    */
-  public locale$: Observable<ESLocale>;
-
-  /**
-   * @internal
-   * @ignore
-   */
   constructor(
     @Optional()
     @Inject(ES_AVATAR_DEFAULT_OPTIONS)
-    private defaultOptions: ESAvatarDefaultOptions,
-    private localeService: ESLocaleService
+    private defaultOptions: ESAvatarDefaultOptions
   ) {
     this.size = this.defaultOptions?.size;
     this.textTypography = this.defaultOptions?.textTypography;
-    this.locale$ = this.localeService.locale();
     this.variant = this.defaultOptions?.variant;
   }
 }

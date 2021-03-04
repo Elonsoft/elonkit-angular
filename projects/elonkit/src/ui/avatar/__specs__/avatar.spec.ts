@@ -4,7 +4,6 @@ import { render } from '@testing-library/angular';
 import { ESAvatarComponent } from '../avatar.component';
 import { ESAvatarModule } from '../avatar.module';
 import { ESAvatarForm } from '../avatar.types';
-import { ESLocaleService, en, ru } from '../../locale';
 
 @Component({
   template: `<es-avatar alt="Аватар" src="./test-path-to-icon">Message</es-avatar>`
@@ -17,19 +16,26 @@ class AvatarComponent {}
 class AvatarTypographyComponent {}
 
 describe('Avatar', () => {
-  it('Should change avatar variant', async () => {
+  it('Should change avatar variant to round', async () => {
     const component = await render(ESAvatarComponent, {
+      componentProperties: {
+        variant: ESAvatarForm.Round
+      },
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true
     });
+    expect(component.getByTestId('avatar')).toHaveClass('es-avatar_variant_round');
+  });
 
-    component.fixture.componentInstance.variant = ESAvatarForm.Round;
-    component.fixture.detectChanges();
-    expect(component.fixture.componentInstance.variant).toBe('round');
-
-    component.fixture.componentInstance.variant = ESAvatarForm.Square;
-    component.fixture.detectChanges();
-    expect(component.fixture.componentInstance.variant).toBe('square');
+  it('Should change avatar variant to square', async () => {
+    const component = await render(ESAvatarComponent, {
+      componentProperties: {
+        variant: ESAvatarForm.Square
+      },
+      imports: [ESAvatarModule],
+      excludeComponentDeclaration: true
+    });
+    expect(component.getByTestId('avatar')).toHaveClass('es-avatar_variant_square');
   });
 
   it('Should change avatar properties', async () => {
