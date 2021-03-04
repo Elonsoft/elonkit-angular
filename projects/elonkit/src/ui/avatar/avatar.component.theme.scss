@@ -6,14 +6,5 @@
   .es-avatar {
     background: mat-color($cl-mono-a, A100);
     color: mat-color($cl-mono-a, A500);
-
-    &__status {
-      background: mat-color($cl-success, 500);
-      border-color: mat-color($cl-mono-b, 500);
-
-      &_custom {
-        background: mat-color($cl-mono-b, 500);
-      }
-    }
   }
 }

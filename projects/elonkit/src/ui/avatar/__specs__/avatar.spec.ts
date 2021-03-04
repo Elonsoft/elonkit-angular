@@ -3,7 +3,7 @@ import { render } from '@testing-library/angular';
 
 import { ESAvatarComponent } from '../avatar.component';
 import { ESAvatarModule } from '../avatar.module';
-import { ESAvatarForm } from '../avatar.types';
+import { ESAvatarVariant } from '../avatar.types';
 
 @Component({
   template: `<es-avatar alt="Аватар" src="./test-path-to-icon">Message</es-avatar>`
@@ -19,7 +19,7 @@ describe('Avatar', () => {
   it('Should change avatar variant to round', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
-        variant: ESAvatarForm.Round
+        variant: ESAvatarVariant.Round
       },
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true
@@ -30,7 +30,7 @@ describe('Avatar', () => {
   it('Should change avatar variant to square', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
-        variant: ESAvatarForm.Square
+        variant: ESAvatarVariant.Square
       },
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true

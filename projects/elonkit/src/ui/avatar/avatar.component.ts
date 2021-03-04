@@ -7,10 +7,9 @@ import {
   Inject,
   ViewEncapsulation
 } from '@angular/core';
-import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Observable } from 'rxjs';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-import { ESAvatarDefaultOptions, ESAvatarForm } from './avatar.types';
+import { ESAvatarDefaultOptions, ESAvatarVariant } from './avatar.types';
 
 export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptions>(
   'ES_AVATAR_DEFAULT_OPTIONS'
@@ -24,7 +23,7 @@ export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptio
   encapsulation: ViewEncapsulation.None
 })
 export class ESAvatarComponent {
-  public avatarForm = ESAvatarForm;
+  public avatarForm = ESAvatarVariant;
 
   /**
    * Defines size of the avatar in pixels.
@@ -51,7 +50,7 @@ export class ESAvatarComponent {
     return this._textTypography;
   }
   public set textTypography(value: string) {
-    this._textTypography = value || 'mat-body-2';
+    this._textTypography = value || 'es-subtitle-2';
   }
   private _textTypography: string;
 
@@ -69,13 +68,13 @@ export class ESAvatarComponent {
    * The shape of the avatar.
    */
   @Input()
-  public get variant(): ESAvatarForm {
+  public get variant(): ESAvatarVariant {
     return this._variant;
   }
-  public set variant(value: ESAvatarForm) {
+  public set variant(value: ESAvatarVariant) {
     this._variant = value || this.avatarForm.Round;
   }
-  private _variant: ESAvatarForm;
+  private _variant: ESAvatarVariant;
 
   /**
    * @internal
