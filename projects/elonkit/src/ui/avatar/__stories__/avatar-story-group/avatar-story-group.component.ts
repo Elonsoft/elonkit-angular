@@ -17,7 +17,7 @@ export class AvatarStoryGroupComponent {
       src: '/img/es-logo.png',
       alt: 'alt text'
     },
-    { avatarSrc: null, size: 60 },
-    { avatarSrc: null, size: 60, textTypography: 'typography' }
+    { src: null, size: 60 },
+    { src: null, size: 60, textTypography: 'typography' }
   ];
 }
