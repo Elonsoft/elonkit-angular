@@ -55,7 +55,10 @@ describe('Breadcrumbs', () => {
           ItemsListResolver,
           ItemsShowResolver,
           ItemsShowBreadcrumbsResolver
-        ]
+        ],
+        componentProperties: {
+          withBackButton: true
+        }
       });
 
       inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -129,7 +132,7 @@ describe('Breadcrumbs', () => {
       await component.fixture.whenStable();
 
       expect(component.queryByLabelText('Home')).not.toBeNull();
-      expect(component.queryByLabelText('Back')).not.toBeNull();
+      expect(component.queryAllByText('Back')).not.toBeNull();
       expect(component.queryByText('Categories')).toBeNull();
       expect(component.queryByText('Category 1')).toBeNull();
       expect(component.queryByText('Item #1-1')).not.toBeNull();

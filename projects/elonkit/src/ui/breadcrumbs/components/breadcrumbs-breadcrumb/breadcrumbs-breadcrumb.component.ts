@@ -47,11 +47,4 @@ export class ESBreadcrumbsBreadcrumbComponent {
   ) {
     this.locale$ = this.localeService.locale();
   }
-
-  public prevbreadcrumbsPath() {
-    const paths = this.breadcrumbs.map((breadcrumb) => {
-      return breadcrumb.path;
-    });
-    return paths[paths.length - 2];
-  }
 }

@@ -17,15 +17,18 @@ import {
   TemplateRef
 } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+
+import { Subject, Observable } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 
-import { ESBreadcrumb, ESBreadcrumbVariant } from './breadcrumbs.types';
+import { ESBreadcrumb } from './breadcrumbs.types';
 import { ESBreadcrumbsService } from './breadcrumbs.service';
 
 import { ESBreadcrumbsMoreDirective } from './directives/breadcrumbs-more.directive';
 import { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separator.directive';
-
+import { ESLocaleService, ESLocale } from '../locale';
 export interface ESBreadcrumbsDefaultOptionsSizes {
   itemPadding: number;
   icon: number;
@@ -33,6 +36,7 @@ export interface ESBreadcrumbsDefaultOptionsSizes {
   menu: number;
   separator: number;
   more: number;
+  goBackWithSeparator: number;
 }
 
 export interface ESBreadcrumbsDefaultOptions {
@@ -48,7 +52,8 @@ export const ES_BREADCRUMBS_DEFAULT_SIZES = {
   iconMargin: 4,
   menu: 20,
   separator: 16,
-  more: 24
+  more: 24,
+  goBackWithSeparator: 60
 };
 
 export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDefaultOptions>(
@@ -68,7 +73,12 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   /**
    * The variant of the alert. This defines the color and icon used.
    */
-  @Input() public variant: ESBreadcrumbVariant = 'withGoBackButton';
+  @Input() public withBackButton: ESBreadcrumb;
+
+  /**
+   * ariaLabel for go back button
+   */
+  @Input() public ariaLabelBack: string;
 
   /**
    * Class applied to breadcrumb labels.
@@ -142,6 +152,9 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
         if (breadcrumbs) {
           result += sizes.menu;
         }
+        if (this.withBackButton) {
+          result += sizes.goBackWithSeparator;
+        }
         return result;
       });
 
@@ -195,10 +208,21 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     private breadcrumbsService: ESBreadcrumbsService,
     @Optional()
     @Inject(ES_BREADCRUMBS_DEFAULT_OPTIONS)
-    private defaultOptions: ESBreadcrumbsDefaultOptions
+    private defaultOptions: ESBreadcrumbsDefaultOptions,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    /**
+     * @internal
+     */
+    public localeService: ESLocaleService
   ) {
     this.typography = defaultOptions?.typography || ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY;
     this.sizes = defaultOptions?.sizes || ES_BREADCRUMBS_DEFAULT_SIZES;
+    this.locale$ = this.localeService.locale();
+    this.matIconRegistry.addSvgIcon(
+      'back',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('/icons/back.svg')
+    );
   }
 
   /**
@@ -238,11 +262,24 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     }
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
+
   private getLabelWidth(text: string) {
     const container = this.elementWidth.nativeElement;
     container.textContent = text;
     const width = container.clientWidth + 1;
     container.textContent = '';
     return width;
+  }
+
+  public prevbreadcrumbsPath() {
+    const paths = this.breadcrumbs.map((breadcrumb) => {
+      return breadcrumb.path;
+    });
+    return paths[paths.length - 2];
   }
 }

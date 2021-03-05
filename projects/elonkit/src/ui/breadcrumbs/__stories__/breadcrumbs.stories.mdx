@@ -1,6 +1,5 @@
 import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
-
 import { action } from '@storybook/addon-actions';
 
 import { ESBreadcrumbsComponent } from '..';
@@ -35,26 +34,50 @@ For more details see [source code](https://github.com/Elonsoft/elonkit/blob/mast
 of this story.
 
 <Canvas source={BREADCRUMBS_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='210px'>
-    {{
+  <Story
+    name='Basic'
+    height='210px'
+    args={{ withBackButton: true }}
+    argTypes={{
+      withBackButton: {
+        control: 'boolean'
+      }
+    }}
+  >
+    {((args) => ({
       component: BreadcrumbsStoryBasicComponent,
       moduleMetadata: {
         imports: [BreadcrumbsStoryBasicModule]
+      },
+      props: {
+        ...args
       }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
 We can customize icons and label's font.
 
 <Canvas source={BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE}>
-  <Story name='Customization' height='210px'>
-    {{
+  <Story
+    name='Customization'
+    height='210px'
+    args={{ withBackButton: true }}
+    argTypes={{
+      withBackButton: {
+        control: 'boolean'
+      }
+    }}
+  >
+    {((args) => ({
       component: BreadcrumbsStoryCustomizationComponent,
       moduleMetadata: {
         imports: [BreadcrumbsStoryCustomizationModule]
+      },
+      props: {
+        ...args
       }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
@@ -86,6 +109,7 @@ interface ESBreadcrumbsDefaultOptionsSizes {
   menu: number;
   separator: number;
   more: number;
+  goBackWithSeparator: number;
 }
 ```
 
@@ -108,7 +132,8 @@ import { ES_BREADCRUMBS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/breadcrumbs
           iconMargin: 4,
           menu: 20,
           separator: 40,
-          more: 24
+          more: 24,
+          goBackWithSeparator: 60
         }
       }
     }

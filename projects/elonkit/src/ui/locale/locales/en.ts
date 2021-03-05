@@ -3,7 +3,8 @@ export const en = {
     labelClose: 'Close'
   },
   breadcrumbs: {
-    labelMore: 'More'
+    labelMore: 'More',
+    labelBack: 'Back'
   },
   inlineFormField: {
     labelEdit: 'Edit',

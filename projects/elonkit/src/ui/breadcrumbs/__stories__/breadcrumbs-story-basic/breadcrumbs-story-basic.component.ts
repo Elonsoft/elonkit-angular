@@ -3,7 +3,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnInit,
-  OnDestroy
+  OnDestroy,
+  Input
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -16,13 +17,15 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'es-breadcrumbs-basic',
   template: `
-    <es-breadcrumbs></es-breadcrumbs>
+    <es-breadcrumbs [withBackButton]="withBackButton"></es-breadcrumbs>
     <br />
     <router-outlet></router-outlet>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsStoryBasicComponent implements OnInit {
+  @Input() public withBackButton: boolean;
+
   constructor(
     private router: Router,
     private matIconRegistry: MatIconRegistry,
@@ -31,10 +34,6 @@ export class BreadcrumbsStoryBasicComponent implements OnInit {
     this.matIconRegistry.addSvgIcon(
       'home',
       this.domSanitizer.bypassSecurityTrustResourceUrl('/icons/home.svg')
-    );
-    this.matIconRegistry.addSvgIcon(
-      'back',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('/icons/back.svg')
     );
   }
 

@@ -1,4 +1,23 @@
 <nav #navigation class="es-breadcrumbs">
+  <a
+    *ngIf="withBackButton"
+    [routerLink]="prevbreadcrumbsPath()"
+    [attr.aria-label]="(locale$ | async).breadcrumbs.labelBack"
+    class="es-breadcrumbs__link-back"
+    [ngClass]="typography"
+    mat-ripple
+  >
+    <mat-icon
+      [svgIcon]="'back'"
+    >
+    </mat-icon>
+    <span>{{(locale$ | async).breadcrumbs.labelBack}}</span>
+  </a>
+  <div *ngIf="withBackButton" class="es-breadcrumbs__separator es-breadcrumbs__separator_single">
+    <svg width="1" height="16" viewBox="0 0 1 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1" height="16" fill="currentColor"/>
+      </svg>
+  </div>
   <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
     <ng-container *ngIf="!collapseIndexes.includes(i)">
       <es-breadcrumbs-breadcrumb

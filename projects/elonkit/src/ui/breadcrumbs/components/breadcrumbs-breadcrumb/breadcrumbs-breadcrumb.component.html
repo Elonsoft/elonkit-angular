@@ -8,22 +8,6 @@
   >
     <ng-container *ngTemplateOutlet="item"></ng-container>
   </a>
-  <a
-    *ngIf="!last && breadcrumb.data.iconBack"
-    [routerLink]="prevbreadcrumbsPath()"
-    [attr.aria-label]="breadcrumb.data.ariaLabelBack"
-    class="es-breadcrumbs-breadcrumb__link es-breadcrumbs-breadcrumb__link_icon-back"
-    mat-ripple
-  >
-    <mat-icon
-      *ngIf="breadcrumb.data.iconBack"
-      [svgIcon]="breadcrumb.data.iconBack"
-      class="es-breadcrumbs-breadcrumb__icon-back"
-    >
-      {{ breadcrumb.data.iconBack }}
-    </mat-icon>
-    <span>Назад</span>
-  </a>
   <span *ngIf="last" class="es-breadcrumbs-breadcrumb__link es-breadcrumbs-breadcrumb__link_last">
     <ng-container *ngTemplateOutlet="item"></ng-container>
   </span>

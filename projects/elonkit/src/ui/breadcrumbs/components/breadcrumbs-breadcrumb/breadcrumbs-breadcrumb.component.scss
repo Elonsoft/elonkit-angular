@@ -18,19 +18,6 @@
     text-decoration: none;
     transition: 200ms;
 
-    &_icon-back {
-      align-items: baseline;
-      display: flex;
-      height: 16px;
-      margin-left: 44px;
-
-      .mat-icon {
-        height: 8px;
-        margin-right: 5px;
-        width: 9px;
-      }
-    }
-
     &:not(:first) {
       padding: 0 4px;
     }

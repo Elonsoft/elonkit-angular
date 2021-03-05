@@ -16,6 +16,13 @@
     height: 24px;
     margin: 0 -4px;
     width: 24px;
+
+    &_single {
+      align-items: center;
+      display: flex;
+      margin-left: 8px !important;
+      width: 9px;
+    }
   }
 
   &__width {
@@ -26,5 +33,26 @@
     white-space: nowrap;
     width: auto;
     z-index: -1;
+  }
+
+  &__link-back {
+    align-items: center;
+    border-radius: 4px;
+    display: flex;
+    height: 24px;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    transition: 200ms;
+
+    .mat-icon {
+      align-items: baseline;
+      display: flex;
+      height: 16px;
+      height: 8px;
+      margin-right: 5px;
+      width: 9px;
+    }
   }
 }

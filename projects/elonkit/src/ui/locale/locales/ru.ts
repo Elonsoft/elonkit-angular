@@ -3,7 +3,8 @@ export const ru = {
     labelClose: 'Закрыть'
   },
   breadcrumbs: {
-    labelMore: 'Ещё'
+    labelMore: 'Ещё',
+    labelBack: 'Назад'
   },
   inlineFormField: {
     labelEdit: 'Редактировать',
