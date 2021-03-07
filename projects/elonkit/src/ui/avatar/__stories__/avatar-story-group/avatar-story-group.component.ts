@@ -11,16 +11,11 @@ export class AvatarStoryGroupComponent {
 
   public avatars = [
     {
-      size: 60,
+      size: 40,
       src: '/img/es-logo.png',
       alt: 'alt text'
     },
-    { src: null, size: 60 },
-    {
-      size: 60,
-      src: '/img/es-logo.png',
-      alt: 'alt text'
-    },
-    { src: null, size: 60 }
+    { src: null, size: 40 },
+    { src: null, size: 40 }
   ];
 }

@@ -9,12 +9,12 @@ export const AVATAR_STORY_GROUP_SOURCE = {
 
     public avatars = [
       {
-        size: 60,
+        size: 40,
         src: '/img/es-logo.png',
         alt: 'alt text'
       },
-      { src: null, size: 60 },
-      { src: null, size: 60, textTypography: 'typography' }
+      { src: null, size: 40 },
+      { src: null, size: 40, textTypography: 'typography' }
     ];
   }
   `,

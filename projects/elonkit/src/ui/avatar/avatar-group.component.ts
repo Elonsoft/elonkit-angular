@@ -7,10 +7,12 @@ import {
   OnInit,
   ContentChildren,
   QueryList,
-  AfterContentInit
+  AfterContentInit,
+  Renderer2
 } from '@angular/core';
 
 import { ESAvatarComponent } from './avatar.component';
+import { of } from 'rxjs';
 @Component({
   selector: 'es-avatar-group',
   templateUrl: './avatar-group.component.html',
@@ -26,13 +28,24 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit {
   @Input()
   public size: number;
 
-  constructor(private _elementRef: ElementRef) {}
+  constructor(private _elementRef: ElementRef, private renderer: Renderer2) {}
 
   public ngOnInit() {
     this._elementRef.nativeElement.style.setProperty('--size', `${this.size - 3 + `px`}`);
   }
 
   public ngAfterContentInit() {
-    this.avatars.forEach((avatar, i) => (avatar.nativeElement.style.zIndex = i));
+    this.setAvatarsIndex(this.avatars);
+    this.avatars.changes.subscribe((avatars) => {
+      if (avatars) {
+        this.setAvatarsIndex(avatars);
+      }
+    });
   }
+
+  private setAvatarsIndex = (avatars): void => {
+    avatars.forEach((avatar, index) => {
+      this.renderer.setStyle(avatar.nativeElement, 'z-index', index);
+    });
+  };
 }

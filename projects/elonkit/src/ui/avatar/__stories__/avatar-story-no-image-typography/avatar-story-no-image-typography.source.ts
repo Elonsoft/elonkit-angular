@@ -8,7 +8,7 @@ export const AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE = {
   scss: `
   .typography {
     font-family: 'Roboto', sans-serif;
-    font-size: 28px;
+    font-size: 16px;
     letter-spacing: 0.5px;
   }
   `
