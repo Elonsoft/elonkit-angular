@@ -30,16 +30,27 @@ This component allows to display default or custom avatar.
 
 ## Demos
 
-Avatar with image
+####
+
+####
+
+### Image avatars
+
+Are created by passing inputs:
+
+####
+
+`src` - path to image;
+`alt` - text for alt attribute;
 
 <Canvas source={AVATAR_STORY_IMAGE_SOURCE}>
   <Story
-    name='With image'
+    name='Image'
     args={{
       src: '/img/es-logo.png',
       alt: 'alt text',
       variant: 'round',
-      size: 60
+      size: 40
     }}
     argTypes={{
       variant: {
@@ -66,49 +77,16 @@ Avatar with image
   </Story>
 </Canvas>
 
-<!-- Avatar with no image and with icon
+### Icon avatars
+
+Are created by passing mat-icon via ng-content instead of src input
 
 <Canvas source={AVATAR_STORY_NO_IMAGE_ICON_SOURCE}>
   <Story
-    name='No image, with icon'
+    name='Icon'
     args={{
       variant: 'round',
-      size: 60
-    }}
-    argTypes={{
-      variant: {
-        control: { type: 'select', options: ['round', 'square'] }
-      }
-    }}
-  >
-    {((args) => ({
-      template: `
-        <es-avatar
-          [size]="size"
-          [variant]="variant"
-        >
-          <mat-icon>thumb_up</mat-icon>
-        </es-avatar>
-      `,
-      moduleMetadata: {
-        imports: [ESAvatarModule, MatIconModule]
-      },
-      props: {
-        ...args
-      }
-    })).bind({})}
-
-  </Story>
-</Canvas> -->
-
-Avatar with no image and with icon
-
-<Canvas source={AVATAR_STORY_NO_IMAGE_ICON_SOURCE}>
-  <Story
-    name='No image, with icon'
-    args={{
-      variant: 'round',
-      size: 60
+      size: 40
     }}
     argTypes={{
       variant: {
@@ -135,14 +113,20 @@ Avatar with no image and with icon
   </Story>
 </Canvas>
 
-Avatar with no image and with typography.
+### Text avatars
+
+Are created by passing typography via ng-content instead of src input.
+
+####
+
+`textTypography` - css class for passing text;
 
 <Canvas source={AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE}>
   <Story
-    name='No image, with typography'
+    name='Text'
     args={{
       variant: 'round',
-      size: 60,
+      size: 40,
       textTypography: 'typography'
     }}
     argTypes={{
@@ -163,13 +147,19 @@ Avatar with no image and with typography.
   </Story>
 </Canvas>
 
-We can group multiple avatars together.
+### Group avatars
+
+Are created by looping of avatars components
+
+####
+
+`size` - size of all avatars in group;
 
 <Canvas source={AVATAR_STORY_GROUP_SOURCE}>
   <Story
     name='Group'
     args={{
-      size: 60
+      size: 40
     }}
   >
     {((args) => ({
@@ -190,19 +180,20 @@ We can group multiple avatars together.
 
 ## Interfaces
 
-```ts
-type ESAvatarVariant = 'round' | 'square';
-```
-
 ESAvatarDefaultOptions ESAvatarVariant defines default avatar form
 
 ```ts
-interface ESAvatarDefaultOptions {
-  src?: string;
+export interface ESAvatarDefaultOptions {
   size?: number;
-  alt?: string;
   textTypography?: string;
   variant?: ESAvatarVariant;
+}
+```
+
+```ts
+export enum ESAvatarVariant {
+  Round = 'round',
+  Square = 'square'
 }
 ```
 
@@ -216,7 +207,7 @@ import { ES_AVATAR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/avatar';
     {
       provide: ES_AVATAR_DEFAULT_OPTIONS,
       useValue: {
-        size: 60,
+        size: 40,
         variant: 'round'
       }
     }
