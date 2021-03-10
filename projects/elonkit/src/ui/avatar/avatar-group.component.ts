@@ -31,7 +31,7 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit {
   constructor(private _elementRef: ElementRef, private renderer: Renderer2) {}
 
   public ngOnInit() {
-    this._elementRef.nativeElement.style.setProperty('--size', `${this.size - 3 + `px`}`);
+    this._elementRef.nativeElement.style.setProperty('--size', `${this.size - 2 + `px`}`);
   }
 
   public ngAfterContentInit() {

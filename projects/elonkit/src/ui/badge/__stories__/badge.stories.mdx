@@ -1,0 +1,200 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+import { action } from '@storybook/addon-actions';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
+import { ESBadgeComponent, ESBadgeModule } from '..';
+
+import { ESAvatarModule } from '@elonsoft/elonkit/ui/avatar';
+
+import { BADGE_STORY_BASIC_SOURCE } from './badge-story-basic';
+import { BADGE_STORY_ICON_SOURCE } from './badge-story-icon';
+
+<Meta title='UI/Badge' />
+
+# Badge
+
+This component allows to display default or custom badge.
+
+## Demos
+
+####
+
+####
+
+### Basic badge
+
+Basic badge with no image:
+
+####
+
+`color` - background color;
+`borderColor` - border color;
+
+<Canvas source={BADGE_STORY_BASIC_SOURCE}>
+  <Story
+    name='Basic'
+    args={{
+      size: 14,
+      color: '',
+      borderColor: ''
+    }}
+    argTypes={{
+      size: {
+        control: 'number'
+      }
+    }}
+  >
+    {((args) => ({
+      template: `
+        <es-badge [size]="size" [color]="color" [borderColor]="borderColor">
+          <es-avatar></es-avatar>
+        </es-badge>
+        <es-badge [size]="size" [color]="color" [borderColor]="borderColor">
+          <button type="button" color="primary" mat-icon-button>
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </es-badge>
+      `,
+      moduleMetadata: {
+        imports: [ESBadgeModule, ESAvatarModule, MatButtonModule, MatIconModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+####
+
+####
+
+### Icon badge
+
+Badge with icon:
+
+####
+
+`src` - path to icon;
+`alt` - text for alt attribute;
+
+<Canvas source={BADGE_STORY_ICON_SOURCE}>
+  <Story
+    name='Icon'
+    args={{
+      size: 14,
+      src: '/icons/avatar/star.svg',
+      alt: 'icon',
+      borderColor: ''
+    }}
+    argTypes={{
+      size: {
+        control: 'number'
+      }
+    }}
+  >
+    {((args) => ({
+      template: `
+        <es-badge [size]="size" [src]="src" [alt]="alt" [borderColor]="borderColor">
+          <es-avatar></es-avatar>
+        </es-badge>
+        <es-badge [size]="size" [src]="src" [alt]="alt" [borderColor]="borderColor">
+          <button type="button" color="primary" mat-icon-button>
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </es-badge>
+      `,
+      moduleMetadata: {
+        imports: [ESBadgeModule, ESAvatarModule, MatButtonModule, MatIconModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+####
+
+####
+
+### Count badge
+
+Badge with count:
+
+####
+
+`count` - count number;
+
+<Canvas source={BADGE_STORY_BASIC_SOURCE}>
+  <Story
+    name='Count'
+    args={{
+      size: 16,
+      color: '',
+      borderColor: '',
+      count: 1
+    }}
+    argTypes={{
+      size: {
+        control: 'number'
+      },
+      count: {
+        control: 'number'
+      }
+    }}
+  >
+    {((args) => ({
+      template: `
+        <es-badge [size]="size" [color]="color" [borderColor]="borderColor" [count]="count">
+          <es-avatar></es-avatar>
+        </es-badge>
+        <es-badge [size]="size" [color]="color" [borderColor]="borderColor" [count]="count">
+          <button type="button" color="primary" mat-icon-button>
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </es-badge>
+      `,
+      moduleMetadata: {
+        imports: [ESBadgeModule, ESAvatarModule, MatButtonModule, MatIconModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={ESBadgeComponent} />
+
+## Interfaces
+
+ESBadgeDefaultOptions defines default badge size
+
+```ts
+export interface ESBadgeDefaultOptions {
+  size?: number;
+}
+```
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_BADGE_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/badge';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_BADGE_DEFAULT_OPTIONS,
+      useValue: {
+        size: 14
+      }
+    }
+  ]
+})
+```

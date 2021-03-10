@@ -1,0 +1,27 @@
+<div class="es-badge">
+  <div class="es-badge__content"
+    [ngClass]="{ 'es-badge__content_with-icon': src,  'es-badge__content_with-count': count}"
+    [ngStyle]="{
+      'height.px': size,
+      'width.px': size,
+      'top.px': top,
+      'right.px': right,
+      'bottom.px': bottom,
+      'left.px': left,
+      'background-color': color,
+      'border-color': borderColor
+    }"
+  >
+    <img
+      *ngIf="src"
+      class="es-badge__img"
+      [src]="src"
+      [alt]="alt"
+    />
+    <span *ngIf="count" data-testid="badge" class="es-caption es-badge__count">
+      {{count}}
+    </span>
+  </div>
+
+  <ng-content></ng-content>
+</div>

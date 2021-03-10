@@ -48,7 +48,6 @@ describe('Avatar', () => {
     });
 
     expect(component.fixture.componentInstance.size).toBe(200);
-    expect(component.fixture.componentInstance.size).toBe(200);
   });
 
   it('Should render text on input', async () => {
