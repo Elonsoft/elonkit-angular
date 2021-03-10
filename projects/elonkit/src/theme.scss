@@ -4,6 +4,7 @@
 @import './ui/paginator/paginator.component.theme';
 @import './ui/dropzone/dropzone.component.theme';
 @import './ui/avatar/avatar.component.theme';
+@import './ui//badge//badge.component.theme.scss';
 
 $elonkit-default-theme: (
   info:
@@ -119,4 +120,5 @@ $elonkit-default-theme: (
   @include es-inline-form-field-theme($theme, $elonkit-theme);
   @include es-paginator-theme($theme, $elonkit-theme);
   @include es-avatar-theme($theme, $elonkit-theme);
+  @include es-badge-theme($theme, $elonkit-theme);
 }
