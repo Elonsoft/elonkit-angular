@@ -23,6 +23,9 @@ export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptio
   encapsulation: ViewEncapsulation.None
 })
 export class ESAvatarComponent {
+  /**
+   * Defines form of the avatar: round | square.
+   */
   public avatarForm = ESAvatarVariant;
 
   /**
@@ -38,21 +41,16 @@ export class ESAvatarComponent {
   private _size: number;
 
   /**
-   * Text to display instead of avatar, to show user initials as an example.
-   */
-  @Input() public text?: string;
-
-  /**
    * Class applied to text.
    */
   @Input()
-  public get textTypography(): string {
-    return this._textTypography;
+  public get typography(): string {
+    return this._typography;
   }
-  public set textTypography(value: string) {
-    this._textTypography = value || 'es-subtitle-2';
+  public set typography(value: string) {
+    this._typography = value || 'es-subtitle-2';
   }
-  private _textTypography: string;
+  private _typography: string;
 
   /**
    * Text fro alt attribute
@@ -86,7 +84,7 @@ export class ESAvatarComponent {
     private defaultOptions: ESAvatarDefaultOptions
   ) {
     this.size = this.defaultOptions?.size;
-    this.textTypography = this.defaultOptions?.textTypography;
+    this.typography = this.defaultOptions?.typography;
     this.variant = this.defaultOptions?.variant;
   }
 }

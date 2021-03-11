@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 
 import { MatIconModule } from '@angular/material/icon';
 
-import { ESAvatarComponent, ESAvatarModule } from '..';
+import { ESAvatarComponent, ESAvatarModule, ESAvatarGroupComponent } from '..';
 
 import { AVATAR_STORY_IMAGE_SOURCE } from './avatar-story-image';
 
@@ -36,12 +36,7 @@ This component allows to display default or custom avatar.
 
 ### Image avatars
 
-Are created by passing inputs:
-
-####
-
-`src` - path to image;
-`alt` - text for alt attribute;
+We can create image avatars by passing `src` input to the component.
 
 <Canvas source={AVATAR_STORY_IMAGE_SOURCE}>
   <Story
@@ -79,7 +74,7 @@ Are created by passing inputs:
 
 ### Icon avatars
 
-Are created by passing mat-icon via ng-content instead of src input
+When src input is missing or falsy, content is used instead. Icon or text can be used for a content.
 
 <Canvas source={AVATAR_STORY_NO_IMAGE_ICON_SOURCE}>
   <Story
@@ -117,17 +112,13 @@ Are created by passing mat-icon via ng-content instead of src input
 
 Are created by passing typography via ng-content instead of src input.
 
-####
-
-`textTypography` - css class for passing text;
-
 <Canvas source={AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE}>
   <Story
     name='Text'
     args={{
       variant: 'round',
       size: 40,
-      textTypography: 'typography'
+      typography: 'typography'
     }}
     argTypes={{
       variant: {
@@ -136,9 +127,16 @@ Are created by passing typography via ng-content instead of src input.
     }}
   >
     {((args) => ({
-      component: AvatarStoryNoImageTypographyComponent,
+      template: `
+        <es-avatar
+          [size]="size"
+          [variant]="variant"
+          [typography]="typography">
+          НФ
+        </es-avatar>
+      `,
       moduleMetadata: {
-        imports: [AvatarStoryNoImageTypographyModule]
+        imports: [ESAvatarModule]
       },
       props: {
         ...args
@@ -149,7 +147,7 @@ Are created by passing typography via ng-content instead of src input.
 
 ### Group avatars
 
-Are created by looping of avatars components
+We can use avatar group to render avatars as a stack.
 
 ####
 
@@ -176,7 +174,13 @@ Are created by looping of avatars components
 
 ## API
 
+### Avatar component
+
 <ArgsTable of={ESAvatarComponent} />
+
+### Avatar group component
+
+<ArgsTable of={ESAvatarGroupComponent} />
 
 ## Interfaces
 
@@ -185,7 +189,7 @@ ESAvatarDefaultOptions ESAvatarVariant defines default avatar form
 ```ts
 export interface ESAvatarDefaultOptions {
   size?: number;
-  textTypography?: string;
+  typography?: string;
   variant?: ESAvatarVariant;
 }
 ```

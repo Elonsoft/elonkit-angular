@@ -61,7 +61,7 @@ describe('Avatar', () => {
   it('Should accept class typography', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
-        textTypography: 'test-class'
+        typography: 'test-class'
       },
       imports: [ESAvatarModule],
       excludeComponentDeclaration: true

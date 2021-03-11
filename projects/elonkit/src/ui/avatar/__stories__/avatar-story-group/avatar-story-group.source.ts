@@ -14,7 +14,7 @@ export const AVATAR_STORY_GROUP_SOURCE = {
         alt: 'alt text'
       },
       { src: null, size: 40 },
-      { src: null, size: 40, textTypography: 'typography' }
+      { src: null, size: 40, typography: 'typography' }
     ];
   }
   `,
@@ -28,7 +28,7 @@ export const AVATAR_STORY_GROUP_SOURCE = {
       [size]="avatar.size"
       [alt]="avatar.alt"
       [src]="avatar.src"
-      [textTypography]="avatar.textTypography"
+      [typography]="avatar.typography"
     ></es-avatar>
   </es-avatar-group>
   `

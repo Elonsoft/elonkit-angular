@@ -12,7 +12,9 @@ import {
 } from '@angular/core';
 
 import { ESAvatarComponent } from './avatar.component';
-import { of } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 @Component({
   selector: 'es-avatar-group',
   templateUrl: './avatar-group.component.html',
@@ -28,15 +30,33 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit {
   @Input()
   public size: number;
 
+  /**
+   * @internal
+   * @ignore
+   */
+  public destroyed$ = new Subject();
+
+  /**
+   * @internal
+   * @ignore
+   */
   constructor(private _elementRef: ElementRef, private renderer: Renderer2) {}
 
+  /**
+   * @internal
+   * @ignore
+   */
   public ngOnInit() {
-    this._elementRef.nativeElement.style.setProperty('--size', `${this.size - 3 + `px`}`);
+    this._elementRef.nativeElement.style.setProperty('--size', `${this.size - 2 + `px`}`);
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
   public ngAfterContentInit() {
     this.setAvatarsIndex(this.avatars);
-    this.avatars.changes.subscribe((avatars) => {
+    this.avatars.changes.pipe(takeUntil(this.destroyed$)).subscribe((avatars) => {
       if (avatars) {
         this.setAvatarsIndex(avatars);
       }

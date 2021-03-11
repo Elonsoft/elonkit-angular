@@ -1,6 +1,6 @@
 export interface ESAvatarDefaultOptions {
   size?: number;
-  textTypography?: string;
+  typography?: string;
   variant?: ESAvatarVariant;
 }
 
