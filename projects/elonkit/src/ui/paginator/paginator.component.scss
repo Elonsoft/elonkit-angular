@@ -82,6 +82,10 @@
     font-size: 12px;
     justify-content: center;
 
+    &-icon {
+      opacity: 0.38;
+    }
+
     &,
     &.mat-icon-button {
       height: 32px;
