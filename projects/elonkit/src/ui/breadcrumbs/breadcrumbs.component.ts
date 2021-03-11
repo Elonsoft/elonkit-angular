@@ -17,9 +17,6 @@ import {
   TemplateRef
 } from '@angular/core';
 
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
-
 import { Subject, Observable } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 
@@ -29,6 +26,7 @@ import { ESBreadcrumbsService } from './breadcrumbs.service';
 import { ESBreadcrumbsMoreDirective } from './directives/breadcrumbs-more.directive';
 import { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separator.directive';
 import { ESLocaleService, ESLocale } from '../locale';
+
 export interface ESBreadcrumbsDefaultOptionsSizes {
   itemPadding: number;
   icon: number;
@@ -36,7 +34,6 @@ export interface ESBreadcrumbsDefaultOptionsSizes {
   menu: number;
   separator: number;
   more: number;
-  goBackWithSeparator: number;
 }
 
 export interface ESBreadcrumbsDefaultOptions {
@@ -52,8 +49,7 @@ export const ES_BREADCRUMBS_DEFAULT_SIZES = {
   iconMargin: 4,
   menu: 20,
   separator: 16,
-  more: 24,
-  goBackWithSeparator: 60
+  more: 24
 };
 
 export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDefaultOptions>(
@@ -70,15 +66,22 @@ export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDe
 export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentInit {
   private _typography;
 
-  /**
-   * The variant of the alert. This defines the color and icon used.
-   */
-  @Input() public withBackButton: ESBreadcrumb;
+  public windowHistoryLength: number;
 
   /**
-   * ariaLabel for go back button
+   * Width of go back button label
    */
-  @Input() public ariaLabelBack: string;
+  private goBackLabelWidth: number;
+
+  /**
+   * Width of go back button
+   */
+  private goBackButtonWidth: number;
+
+  /**
+   * This defines using go back button or not
+   */
+  @Input() public withBackButton: ESBreadcrumb;
 
   /**
    * Class applied to breadcrumb labels.
@@ -137,9 +140,13 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     const element = this.elementNavigation.nativeElement;
     if (element && this.breadcrumbs.length > 2) {
       const sizes = this.sizes;
+      let result = sizes.itemPadding;
+
+      if (this.withBackButton) {
+        result += this.goBackButtonWidth;
+      }
 
       const widths = this.breadcrumbs.map(({ data: { label, icon, breadcrumbs } }) => {
-        let result = sizes.itemPadding;
         if (label) {
           result += this.getLabelWidth(label);
         }
@@ -152,9 +159,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
         if (breadcrumbs) {
           result += sizes.menu;
         }
-        if (this.withBackButton) {
-          result += sizes.goBackWithSeparator;
-        }
+
         return result;
       });
 
@@ -209,8 +214,6 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     @Optional()
     @Inject(ES_BREADCRUMBS_DEFAULT_OPTIONS)
     private defaultOptions: ESBreadcrumbsDefaultOptions,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
     /**
      * @internal
      */
@@ -219,10 +222,6 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     this.typography = defaultOptions?.typography || ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY;
     this.sizes = defaultOptions?.sizes || ES_BREADCRUMBS_DEFAULT_SIZES;
     this.locale$ = this.localeService.locale();
-    this.matIconRegistry.addSvgIcon(
-      'back',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('/icons/back.svg')
-    );
   }
 
   /**
@@ -236,6 +235,13 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
         this.onResize();
         this.changeDetector.detectChanges();
       });
+
+    this.locale$.subscribe((value) => {
+      this.goBackLabelWidth = this.getLabelWidth(value.breadcrumbs.labelBack);
+    });
+    // 9: mat-icon width; 8: go back button padding (4+4)
+    this.goBackButtonWidth = this.goBackLabelWidth + 9 + 8;
+    this.windowHistoryLength = window.history.length;
   }
 
   /**
@@ -276,10 +282,9 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     return width;
   }
 
-  public prevbreadcrumbsPath() {
-    const paths = this.breadcrumbs.map((breadcrumb) => {
-      return breadcrumb.path;
-    });
-    return paths[paths.length - 2];
+  public onClick() {
+    if (window.history.length) {
+      window.history.back();
+    }
   }
 }

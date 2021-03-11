@@ -22,7 +22,7 @@ export const BREADCRUMBS_STORY_BASIC_SOURCE = {
         {
           path: 'categories',
           data: {
-            breadcrumb: { label: 'Caption' }
+            breadcrumb: { label: 'Categories' }
           },
           resolve: {
             data: CategoriesListResolver, // We need to move list resolver one level up in order to use horizontal navigation.

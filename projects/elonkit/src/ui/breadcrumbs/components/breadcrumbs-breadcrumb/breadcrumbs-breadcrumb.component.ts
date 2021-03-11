@@ -21,11 +21,6 @@ export class ESBreadcrumbsBreadcrumbComponent {
   /**
    * @internal
    */
-  @Input() public breadcrumbs: ESBreadcrumb[];
-
-  /**
-   * @internal
-   */
   @Input() public last = false;
 
   /**

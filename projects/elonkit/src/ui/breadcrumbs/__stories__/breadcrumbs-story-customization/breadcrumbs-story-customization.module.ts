@@ -47,7 +47,7 @@ const ROUTES = [
       {
         path: 'categories',
         data: {
-          breadcrumb: { label: 'Caption' }
+          breadcrumb: { label: 'Categories' }
         },
         resolve: {
           data: CategoriesListResolver, // We need to move list resolver one level up in order to use horizontal navigation.

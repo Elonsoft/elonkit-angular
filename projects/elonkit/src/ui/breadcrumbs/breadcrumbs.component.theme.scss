@@ -8,6 +8,10 @@
   .es-breadcrumbs {
     &__separator {
       color: mat-color(map-get($elonkit-theme, mono-a), A500);
+
+      &_single {
+        background-color: mat-color(map-get($elonkit-theme, mono-a), A100);
+      }
     }
 
     &__link-back {

@@ -17,5 +17,4 @@ export interface ESBreadcrumb {
   path: string;
   parentPath: string;
   data: ESBreadcrumbData;
-  withBackButton: boolean;
 }
