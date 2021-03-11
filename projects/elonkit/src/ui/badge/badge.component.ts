@@ -6,7 +6,12 @@ import {
   Input,
   InjectionToken,
   Optional,
-  Inject
+  Inject,
+  ElementRef,
+  Renderer2,
+  OnInit,
+  AfterViewInit,
+  ViewChild
 } from '@angular/core';
 
 import { coerceNumberProperty } from '@angular/cdk/coercion';
@@ -23,7 +28,12 @@ export const ES_BADGE_DEFAULT_OPTIONS = new InjectionToken<ESBadgeDefaultOptions
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ESBadgeComponent {
+export class ESBadgeComponent implements OnInit, AfterViewInit {
+  /**
+   * Defines parent element width.
+   */
+  public parentWidth = 40;
+
   /**
    * Defines badge size in pixels.
    */
@@ -32,9 +42,21 @@ export class ESBadgeComponent {
     return this._size;
   }
   public set size(value: number) {
-    this._size = coerceNumberProperty(value, 16);
+    this._size = coerceNumberProperty(value, 14);
   }
   private _size: number;
+
+  /**
+   * Defines badge border width in pixels.
+   */
+  @Input()
+  public get borderSize(): number {
+    return this._borderSize;
+  }
+  public set borderSize(value: number) {
+    this._borderSize = coerceNumberProperty(value, 2);
+  }
+  private _borderSize: number;
 
   /**
    * Defines badge background color.
@@ -47,18 +69,6 @@ export class ESBadgeComponent {
     this._color = value;
   }
   private _color: string;
-
-  /**
-   * Defines badge border color.
-   */
-  @Input()
-  public get borderColor(): string {
-    return this._borderColor;
-  }
-  public set borderColor(value: string) {
-    this._borderColor = value;
-  }
-  private _borderColor: string;
 
   /**
    * Defines badge position top in pixels.
@@ -131,6 +141,12 @@ export class ESBadgeComponent {
   private _count: number;
 
   /**
+   * Child element, passing to ng-content.
+   */
+  @ViewChild('childElement')
+  public childElement: ElementRef;
+
+  /**
    * @internal
    * @ignore
    */
@@ -144,10 +160,28 @@ export class ESBadgeComponent {
      */
     @Optional()
     @Inject('ES_BADGE_DEFAULT_OPTIONS')
-    private defaultOptions: ESBadgeDefaultOptions
+    private defaultOptions: ESBadgeDefaultOptions,
+    private _elementRef: ElementRef,
+    private renderer: Renderer2
   ) {
     this.size = this.defaultOptions?.size;
     this.bottom = this.defaultOptions?.bottom;
     this.right = this.defaultOptions?.right;
+    this.borderSize = this.defaultOptions?.borderSize;
+  }
+
+  public ngOnInit() {
+    this._elementRef.nativeElement.style.setProperty('--right', `${-this.right + 1 + `px`}`);
+    this._elementRef.nativeElement.style.setProperty('--bottom', `${-this.bottom + 1 + `px`}`);
+    this._elementRef.nativeElement.style.setProperty('--borderSize', `${this.borderSize + `px`}`);
+    this._elementRef.nativeElement.style.setProperty(
+      '--transparent',
+      `${this.size / 2 + this.borderSize + 1 + `px`}`
+    );
+  }
+
+  public ngAfterViewInit() {
+    const childElement = this.childElement.nativeElement.offsetWidth;
+    this._elementRef.nativeElement.style.setProperty('--childElement', `${childElement + `px`}`);
   }
 }

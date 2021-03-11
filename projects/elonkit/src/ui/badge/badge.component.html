@@ -8,8 +8,7 @@
       'right.px': right,
       'bottom.px': bottom,
       'left.px': left,
-      'background-color': color,
-      'border-color': borderColor
+      'background-color': color
     }"
   >
     <img
@@ -22,6 +21,7 @@
       {{count}}
     </span>
   </div>
-
-  <ng-content></ng-content>
+  <div #childElement>
+    <ng-content></ng-content>
+  </div>
 </div>

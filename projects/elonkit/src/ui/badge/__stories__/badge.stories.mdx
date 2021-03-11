@@ -39,20 +39,23 @@ Basic badge with no image:
     args={{
       size: 14,
       color: '',
-      borderColor: ''
+      borderSize: 2
     }}
     argTypes={{
       size: {
+        control: 'number'
+      },
+      borderSize: {
         control: 'number'
       }
     }}
   >
     {((args) => ({
       template: `
-        <es-badge [size]="size" [color]="color" [borderColor]="borderColor">
+        <es-badge [size]="size" [color]="color" [borderSize]="borderSize">
           <es-avatar></es-avatar>
         </es-badge>
-        <es-badge [size]="size" [color]="color" [borderColor]="borderColor">
+        <es-badge [size]="size" [color]="color" [borderSize]="borderSize">
           <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
@@ -88,20 +91,23 @@ Badge with icon:
       size: 14,
       src: '/icons/avatar/star.svg',
       alt: 'icon',
-      borderColor: ''
+      borderSize: 2
     }}
     argTypes={{
       size: {
+        control: 'number'
+      },
+      borderSize: {
         control: 'number'
       }
     }}
   >
     {((args) => ({
       template: `
-        <es-badge [size]="size" [src]="src" [alt]="alt" [borderColor]="borderColor">
+        <es-badge [size]="size" [src]="src" [alt]="alt" [borderSize]="borderSize">
           <es-avatar></es-avatar>
         </es-badge>
-        <es-badge [size]="size" [src]="src" [alt]="alt" [borderColor]="borderColor">
+        <es-badge [size]="size" [src]="src" [alt]="alt" [borderSize]="borderSize">
           <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
@@ -133,10 +139,10 @@ Badge with count:
   <Story
     name='Count'
     args={{
-      size: 16,
+      size: 14,
       color: '',
-      borderColor: '',
-      count: 1
+      count: 1,
+      borderSize: 2
     }}
     argTypes={{
       size: {
@@ -144,15 +150,18 @@ Badge with count:
       },
       count: {
         control: 'number'
+      },
+      borderSize: {
+        control: 'number'
       }
     }}
   >
     {((args) => ({
       template: `
-        <es-badge [size]="size" [color]="color" [borderColor]="borderColor" [count]="count">
+        <es-badge [size]="size" [color]="color" [borderSize]="borderSize" [count]="count">
           <es-avatar></es-avatar>
         </es-badge>
-        <es-badge [size]="size" [color]="color" [borderColor]="borderColor" [count]="count">
+        <es-badge [size]="size" [color]="color" [borderSize]="borderSize" [count]="count">
           <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>

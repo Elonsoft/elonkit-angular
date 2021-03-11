@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 
 import { ESAvatarComponent } from './avatar.component';
-import { of } from 'rxjs';
+
 @Component({
   selector: 'es-avatar-group',
   templateUrl: './avatar-group.component.html',

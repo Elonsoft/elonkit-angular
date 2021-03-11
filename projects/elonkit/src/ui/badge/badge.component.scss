@@ -1,6 +1,19 @@
+$div-width: 40;
+$badge-size: 16;
+
 .es-badge {
   position: relative;
   width: fit-content;
+
+  > :nth-child(2) {
+    display: block;
+    mask: radial-gradient(
+      circle at calc(var(--childElement) - var(--right) - var(--borderSize))
+        calc(var(--childElement) - var(--bottom) - var(--borderSize)),
+      transparent var(--transparent),
+      #fff 0
+    );
+  }
 
   &__content {
     align-items: center;
