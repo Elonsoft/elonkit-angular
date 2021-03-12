@@ -22,7 +22,21 @@ import {
   AVATAR_STORY_GROUP_SOURCE
 } from './avatar-story-group';
 
-<Meta title='UI/Avatar' />
+<Meta
+  title='UI/Avatar'
+  args={{
+    size: 40,
+    variant: 'round'
+  }}
+  argTypes={{
+    variant: {
+      control: { type: 'select', options: ['round', 'square'] }
+    },
+    size: {
+      control: 'number'
+    }
+  }}
+/>
 
 # Avatar
 
@@ -43,14 +57,7 @@ We can create image avatars by passing `src` input to the component.
     name='Image'
     args={{
       src: '/img/es-logo.png',
-      alt: 'alt text',
-      variant: 'round',
-      size: 40
-    }}
-    argTypes={{
-      variant: {
-        control: { type: 'select', options: ['round', 'square'] }
-      }
+      alt: 'Elonsoft'
     }}
   >
     {((args) => ({
@@ -77,25 +84,14 @@ We can create image avatars by passing `src` input to the component.
 When src input is missing or falsy, content is used instead. Icon or text can be used for a content.
 
 <Canvas source={AVATAR_STORY_NO_IMAGE_ICON_SOURCE}>
-  <Story
-    name='Icon'
-    args={{
-      variant: 'round',
-      size: 40
-    }}
-    argTypes={{
-      variant: {
-        control: { type: 'select', options: ['round', 'square'] }
-      }
-    }}
-  >
+  <Story name='Icon'>
     {((args) => ({
       template: `
         <es-avatar
           [size]="size"
           [variant]="variant"
         >
-          <mat-icon>thumb_up</mat-icon>
+          <mat-icon>person</mat-icon>
         </es-avatar>
       `,
       moduleMetadata: {
@@ -116,14 +112,7 @@ Are created by passing typography via ng-content instead of src input.
   <Story
     name='Text'
     args={{
-      variant: 'round',
-      size: 40,
       typography: 'typography'
-    }}
-    argTypes={{
-      variant: {
-        control: { type: 'select', options: ['round', 'square'] }
-      }
     }}
   >
     {((args) => ({
@@ -157,13 +146,37 @@ We can use avatar group to render avatars as a stack.
   <Story
     name='Group'
     args={{
-      size: 40
+      src: '/img/es-logo.png',
+      alt: 'Elonsoft'
     }}
   >
     {((args) => ({
-      component: AvatarStoryGroupComponent,
+      template: `
+        <es-avatar-group
+        [size]="size"
+        >
+          <es-avatar
+            class="es-avatar-group__avatar"
+            [size]="size"
+            [alt]="alt"
+            [src]="src"
+          ></es-avatar>
+          <es-avatar
+            class="es-avatar-group__avatar"
+            [size]="size"
+            [alt]="alt"
+            [src]="src"
+          ></es-avatar>
+          <es-avatar
+            class="es-avatar-group__avatar"
+            [size]="size"
+            [alt]="alt"
+            [src]="src"
+          ></es-avatar>
+        </es-avatar-group>
+      `,
       moduleMetadata: {
-        imports: [AvatarStoryGroupModule]
+        imports: [ESAvatarModule]
       },
       props: {
         ...args

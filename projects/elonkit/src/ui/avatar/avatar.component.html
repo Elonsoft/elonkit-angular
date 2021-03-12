@@ -2,7 +2,7 @@
   data-testid="avatar"
   class="es-avatar"
   [ngStyle]="{ 'height.px': size, 'width.px': size }"
-  [ngClass]="{ 'es-avatar_variant_round': variant === avatarForm.Round,  'es-avatar_variant_square': variant === avatarForm.Square}"
+  [ngClass]="{ 'es-avatar_variant_round': variant === avatarVariant.Round,  'es-avatar_variant_square': variant === avatarVariant.Square}"
 >
   <img
     *ngIf="src"

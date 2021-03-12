@@ -6,11 +6,6 @@ import { ESAvatarModule } from '../avatar.module';
 import { ESAvatarVariant } from '../avatar.types';
 
 @Component({
-  template: `<es-avatar alt="Аватар" src="./test-path-to-icon">Message</es-avatar>`
-})
-class AvatarComponent {}
-
-@Component({
   template: `<es-avatar>Message</es-avatar>`
 })
 class AvatarTypographyComponent {}
@@ -48,10 +43,9 @@ describe('Avatar', () => {
     });
 
     expect(component.fixture.componentInstance.size).toBe(200);
-    expect(component.fixture.componentInstance.size).toBe(200);
   });
 
-  it('Should render text on input', async () => {
+  it('Should render text avatar', async () => {
     const component = await render(AvatarTypographyComponent, {
       imports: [ESAvatarModule]
     });
@@ -70,7 +64,7 @@ describe('Avatar', () => {
     expect(component.getByTestId('typography')).toHaveClass('test-class');
   });
 
-  it('Should render alt text on image', async () => {
+  it('Should render image with alt text', async () => {
     const component = await render(ESAvatarComponent, {
       componentProperties: {
         src: './test-path-to-icon',

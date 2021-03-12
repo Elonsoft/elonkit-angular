@@ -24,12 +24,13 @@ export const ES_AVATAR_DEFAULT_OPTIONS = new InjectionToken<ESAvatarDefaultOptio
 })
 export class ESAvatarComponent {
   /**
-   * Defines form of the avatar: round | square.
+   * @internal
+   * @ignore
    */
-  public avatarForm = ESAvatarVariant;
+  public avatarVariant = ESAvatarVariant;
 
   /**
-   * Defines size of the avatar in pixels.
+   * Size of the avatar in pixels.
    */
   @Input()
   public get size(): number {
@@ -53,12 +54,12 @@ export class ESAvatarComponent {
   private _typography: string;
 
   /**
-   * Text fro alt attribute
+   * The alt attribute for avatar image.
    */
   @Input() public alt?: string;
 
   /**
-   * Src for avatar image
+   * The src attribute for avatar image.
    */
   @Input() public src?: string;
 
@@ -70,7 +71,7 @@ export class ESAvatarComponent {
     return this._variant;
   }
   public set variant(value: ESAvatarVariant) {
-    this._variant = value || this.avatarForm.Round;
+    this._variant = value || this.avatarVariant.Round;
   }
   private _variant: ESAvatarVariant;
 
