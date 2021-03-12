@@ -38,7 +38,7 @@
         [disabled]="i === page"
         (click)="onPageClick(i)"
         esTooltip='&#8592; shift &#8594;'
-        [esTooltipArrow]="true"
+        esTooltipArrow="true"
       >
         {{ i }}
       </button>
@@ -70,7 +70,7 @@
           min="1"
           [max]="pagesCount"
           placeholder="{{ page }} {{ locale.paginator.labelPage }}"
-          (onKeyPress)="onKeyPress()"
+          (onKeyPress)="onKeyPress($event)"
         />
       </mat-form-field>
     </form>
