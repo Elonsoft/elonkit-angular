@@ -3,7 +3,6 @@ export interface ESBreadcrumbData {
   svgIcon?: string;
   label?: string;
   ariaLabel?: string;
-  ariaLabelBack?: string;
   breadcrumbs?: Array<{
     path: string | number;
     icon?: string;

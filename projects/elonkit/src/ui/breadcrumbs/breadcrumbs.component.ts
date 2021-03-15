@@ -25,6 +25,7 @@ import { ESBreadcrumbsService } from './breadcrumbs.service';
 
 import { ESBreadcrumbsMoreDirective } from './directives/breadcrumbs-more.directive';
 import { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separator.directive';
+import { ESBreadcrumbsBackDirective } from './directives/breadcrumbs-back.directive';
 import { ESLocaleService, ESLocale } from '../locale';
 
 export interface ESBreadcrumbsDefaultOptionsSizes {
@@ -66,12 +67,11 @@ export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDe
 export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentInit {
   private _typography;
 
-  public windowHistoryLength: number;
-
   /**
-   * Width of go back button label
+   * @internal
+   * @ignore
    */
-  private goBackLabelWidth: number;
+  public windowHistoryLength: number;
 
   /**
    * Width of go back button
@@ -117,6 +117,12 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   /**
    * @ignore
    */
+   @ContentChild(ESBreadcrumbsBackDirective, { read: TemplateRef, static: false })
+   public backTemplate: any;
+
+  /**
+   * @ignore
+   */
   @ContentChild(ESBreadcrumbsSeparatorDirective, { read: TemplateRef, static: false })
   public separatorTemplate: any;
 
@@ -136,17 +142,18 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * @internal
    * @ignore
    */
-  @HostListener('window:resize') public onResize() {
+  @HostListener('window:resize') public onResize(backLabel?: string) {
     const element = this.elementNavigation.nativeElement;
+    let goBackLabelWidth = this.getLabelWidth(backLabel);
+
+    // 9: mat-icon width; 8: go back button padding (4+4)
+    this.goBackButtonWidth = goBackLabelWidth + 9 + 8;
+
     if (element && this.breadcrumbs.length > 2) {
       const sizes = this.sizes;
-      let result = sizes.itemPadding;
-
-      if (this.withBackButton) {
-        result += this.goBackButtonWidth;
-      }
-
       const widths = this.breadcrumbs.map(({ data: { label, icon, breadcrumbs } }) => {
+        let result = sizes.itemPadding;
+
         if (label) {
           result += this.getLabelWidth(label);
         }
@@ -162,10 +169,9 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
 
         return result;
       });
-
       let scrollWidth =
         widths.reduce((acc, w) => acc + w, 0) + sizes.separator * (widths.length - 1);
-      const clientWidth = element.clientWidth;
+      const clientWidth = element.clientWidth - this.goBackButtonWidth;
 
       const collapseIndexes = [];
       const collapseBreadcrumbs = [];
@@ -214,10 +220,8 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     @Optional()
     @Inject(ES_BREADCRUMBS_DEFAULT_OPTIONS)
     private defaultOptions: ESBreadcrumbsDefaultOptions,
-    /**
-     * @internal
-     */
-    public localeService: ESLocaleService
+
+    private localeService: ESLocaleService
   ) {
     this.typography = defaultOptions?.typography || ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY;
     this.sizes = defaultOptions?.sizes || ES_BREADCRUMBS_DEFAULT_SIZES;
@@ -237,10 +241,8 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
       });
 
     this.locale$.subscribe((value) => {
-      this.goBackLabelWidth = this.getLabelWidth(value.breadcrumbs.labelBack);
+      this.onResize(value.breadcrumbs.labelBack)
     });
-    // 9: mat-icon width; 8: go back button padding (4+4)
-    this.goBackButtonWidth = this.goBackLabelWidth + 9 + 8;
     this.windowHistoryLength = window.history.length;
   }
 
@@ -282,6 +284,10 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     return width;
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
   public onClick() {
     if (window.history.length) {
       window.history.back();

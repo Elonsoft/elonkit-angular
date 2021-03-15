@@ -14,6 +14,9 @@ export const BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE = {
     <mat-icon *esBreadcrumbsSeparator class="es-breadcrumbs__separator">
       chevron_right
     </mat-icon>
+    <mat-icon *esBreadcrumbsBack>
+      keyboard_backspace
+    </mat-icon>
     <mat-icon *esBreadcrumbsMore>
       more_horiz
     </mat-icon>
