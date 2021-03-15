@@ -117,8 +117,8 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   /**
    * @ignore
    */
-   @ContentChild(ESBreadcrumbsBackDirective, { read: TemplateRef, static: false })
-   public backTemplate: any;
+  @ContentChild(ESBreadcrumbsBackDirective, { read: TemplateRef, static: false })
+  public backTemplate: any;
 
   /**
    * @ignore
@@ -144,7 +144,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    */
   @HostListener('window:resize') public onResize(backLabel?: string) {
     const element = this.elementNavigation.nativeElement;
-    let goBackLabelWidth = this.getLabelWidth(backLabel);
+    const goBackLabelWidth = this.getLabelWidth(backLabel);
 
     // 9: mat-icon width; 8: go back button padding (4+4)
     this.goBackButtonWidth = goBackLabelWidth + 9 + 8;
@@ -241,7 +241,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
       });
 
     this.locale$.subscribe((value) => {
-      this.onResize(value.breadcrumbs.labelBack)
+      this.onResize(value.breadcrumbs.labelBack);
     });
     this.windowHistoryLength = window.history.length;
   }

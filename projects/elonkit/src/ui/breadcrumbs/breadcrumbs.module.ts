@@ -36,7 +36,12 @@ import { ESBreadcrumbsBackDirective } from './directives/breadcrumbs-back.direct
     MatMenuModule,
     MatRippleModule
   ],
-  exports: [ESBreadcrumbsComponent, ESBreadcrumbsMoreDirective, ESBreadcrumbsSeparatorDirective, ESBreadcrumbsBackDirective],
+  exports: [
+    ESBreadcrumbsComponent,
+    ESBreadcrumbsMoreDirective,
+    ESBreadcrumbsSeparatorDirective,
+    ESBreadcrumbsBackDirective
+  ],
   providers: [ESBreadcrumbsResolver]
 })
 export class ESBreadcrumbsModule {}
