@@ -20,10 +20,12 @@ import { ESLocaleService, ESLocale } from '../locale';
 
 export interface ESAlertDefaultOptions {
   typography?: string;
+  titleTypography?: string;
   iconMapping?: { [key in ESAlertVariant]?: { icon?: string; svgIcon?: string } };
 }
 
 const DEFAULT_TYPOGRAPHY = 'es-body-100';
+const DEFAULT_TITLE_TYPOGRAPHY = 'es-body-100';
 
 const DEFAULT_ICON_MAPPING = {
   default: { icon: 'info' },
@@ -64,6 +66,22 @@ export class ESAlertComponent {
   public set typography(value: string) {
     this._typography =
       value || (this.defaultOptions && this.defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
+  }
+
+  private _titleTypography;
+
+  /**
+   * Class applied to title.
+   */
+  @Input()
+  public get titleTypography(): string {
+    return this._titleTypography;
+  }
+  public set titleTypography(value: string) {
+    this._titleTypography =
+      value ||
+      (this.defaultOptions && this.defaultOptions.titleTypography) ||
+      DEFAULT_TITLE_TYPOGRAPHY;
   }
 
   private _closable = false;
@@ -124,6 +142,8 @@ export class ESAlertComponent {
     this.locale$ = this.localeService.locale();
 
     this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
+    this.titleTypography =
+      (defaultOptions && defaultOptions.titleTypography) || DEFAULT_TITLE_TYPOGRAPHY;
     this.iconMapping = { ...DEFAULT_ICON_MAPPING, ...defaultOptions?.iconMapping };
   }
 

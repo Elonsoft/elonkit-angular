@@ -2,29 +2,49 @@
   border-radius: 6px;
   border-style: solid;
   border-width: 1px;
-  padding: 18px;
+  box-sizing: border-box;
+  min-height: 56px;
+  padding: 7px 16px;
 
   &__content {
     display: flex;
   }
 
-  &__text {
-    position: relative;
-    top: 2px;
+  &__text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 40px;
 
     &:not(:last-child) {
       margin-right: 10px;
     }
   }
 
-  &__icon {
-    &_display {
-      margin-right: 10px;
+  &__title {
+    font-weight: 700;
+
+    &:empty {
+      display: none;
     }
+  }
+
+  &__text {
+    position: relative;
+  }
+
+  &__icon {
+    margin: 8px 8px 0 0;
+    min-width: 24px;
 
     &_close.mat-icon-button {
+      border-radius: 4px;
+      height: 24px;
+      line-height: 22px;
       margin: -8px;
       margin-left: auto;
+      margin-top: 8px;
+      width: 24px;
     }
   }
 }

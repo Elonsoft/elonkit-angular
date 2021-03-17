@@ -6,14 +6,19 @@
 >
   <div class="es-alert__content">
     <mat-icon
-      class="es-alert__icon es-alert__icon_display"
+      class="es-alert__icon"
       [ngClass]="'es-alert__icon_variant_' + variant"
       [svgIcon]="currentIcon.svgIcon"
     >
       {{ currentIcon.icon || '' }}
     </mat-icon>
-    <div class="es-alert__text" [ngClass]="typography">
-      <ng-content></ng-content>
+    <div class="es-alert__text-wrapper">
+      <div class="es-alert__title" [ngClass]="titleTypography">
+        <ng-content select="[role=title]"></ng-content>
+      </div>
+      <div class="es-alert__text" [ngClass]="typography">
+        <ng-content></ng-content>
+      </div>
     </div>
     <button
       *ngIf="closable"

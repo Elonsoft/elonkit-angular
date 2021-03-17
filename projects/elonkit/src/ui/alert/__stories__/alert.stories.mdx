@@ -18,7 +18,8 @@ import {
   args={{
     content: '',
     variant: 'info',
-    closable: false
+    closable: false,
+    title: ''
   }}
   argTypes={{
     variant: {
@@ -41,6 +42,10 @@ export const getContent = (args, context) => {
   return args.content || (context.globals.locale === 'en' ? 'Message' : 'Сообщение');
 };
 
+export const getTitle = (args, context) => {
+  return args.title || (context.globals.locale === 'en' ? 'Title' : 'Заголовок');
+};
+
 export const TemplateBasic = (args, context) => ({
   template: `
         <es-alert
@@ -48,13 +53,19 @@ export const TemplateBasic = (args, context) => ({
           [closable]="closable"
           (closed)="onClose()"
         >
+          <ng-container role="title">{{title}}</ng-container>
           {{content}}
         </es-alert>
       `,
   moduleMetadata: {
     imports: [ESAlertModule]
   },
-  props: { ...args, content: getContent(args, context), onClose: action('onClose') }
+  props: {
+    ...args,
+    title: getTitle(args, context),
+    content: getContent(args, context),
+    onClose: action('onClose')
+  }
 });
 
 <Canvas source={ALERT_STORY_BASIC_SOURCE}>
@@ -77,6 +88,7 @@ We can add actions.
           [closable]="closable"
           (closed)="onClose()"
         >
+          <ng-container role="title">{{title}}</ng-container>
           {{content}}
           <es-alert-actions>
             <button mat-flat-button (click)="onAction()">Action</button>
@@ -89,6 +101,7 @@ We can add actions.
       },
       props: {
         ...args,
+        title: getTitle(args, context),
         content: getContent(args, context),
         onClose: action('onClose'),
         onAction: action('onAction'),
@@ -115,6 +128,7 @@ We can override default icon mapping and individual icons.
       },
       props: {
         ...args,
+        title: getTitle(args, context),
         content: getContent(args, context),
         onClose: action('onClose')
       }
@@ -139,6 +153,7 @@ import { ES_ALERT_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/alert';
       provide: ES_ALERT_DEFAULT_OPTIONS,
       useValue: {
         typography: 'mat-body-2',
+        titleTypography: 'mat-body-2',
         iconMapping: {
           default: { icon: 'info' },
           info: { icon: 'info' },

@@ -44,7 +44,7 @@
     &__icon {
       &_variant {
         &_default {
-          color: mat-color($mono-a);
+          color: mat-color($mono-a, A500);
         }
 
         &_info {
@@ -62,6 +62,10 @@
         &_error {
           color: mat-color($warn);
         }
+      }
+
+      &_close {
+        color: mat-color($mono-a, A500);
       }
     }
   }

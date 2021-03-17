@@ -54,6 +54,7 @@
     "@angular/compiler-cli": "~9.1.10",
     "@angular/language-service": "~9.1.10",
     "@babel/core": "~7.12.17",
+    "@babel/helper-validator-option": "^7.12.11",
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^9.0.1",
     "@compodoc/compodoc": "~1.1.11",

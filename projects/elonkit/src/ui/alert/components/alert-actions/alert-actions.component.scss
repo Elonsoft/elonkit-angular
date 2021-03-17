@@ -1,11 +1,11 @@
 .es-alert-actions {
   display: grid;
-  gap: 16px;
+  gap: 8px;
   grid-auto-flow: column;
   justify-content: flex-start;
-  margin-bottom: -6px;
-  margin-left: 34px;
-  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 32px;
+  margin-top: 12px;
 
   .mat-button-base {
     line-height: 32px;

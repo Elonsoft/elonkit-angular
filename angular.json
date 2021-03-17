@@ -32,11 +32,16 @@
               "projects/elonkit/tsconfig.lib.json",
               "projects/elonkit/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "elonkit"
+  "defaultProject": "elonkit",
+  "cli": {
+    "analytics": false
+  }
 }
