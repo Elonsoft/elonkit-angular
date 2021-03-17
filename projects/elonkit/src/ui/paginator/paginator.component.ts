@@ -298,6 +298,10 @@ export class ESPaginatorComponent {
   /**
    * Prevent letter typing
    */
+  /**
+   * @internal
+   * @ignore
+   */
   public onKeyPress(event: KeyboardEvent) {
     const key = event.key;
     const regex = /[0-9]/;

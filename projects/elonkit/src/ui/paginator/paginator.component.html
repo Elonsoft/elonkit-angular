@@ -70,7 +70,7 @@
           min="1"
           [max]="pagesCount"
           placeholder="{{ page }} {{ locale.paginator.labelPage }}"
-          (onKeyPress)="onKeyPress($event)"
+          (keypress)="onKeyPress($event)"
         />
       </mat-form-field>
     </form>
