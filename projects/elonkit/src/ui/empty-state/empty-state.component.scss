@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   max-width: 600px;
+  padding: 24px;
 
   &__image {
     margin-bottom: 12px;
@@ -26,5 +27,9 @@
     &:not(:last-child) {
       margin-bottom: 20px;
     }
+  }
+
+  .mat-stroked-button {
+    line-height: 46px;
   }
 }
