@@ -3,6 +3,11 @@
   display: flex;
   overflow: hidden;
 
+  &__link-back-wrapper {
+    align-content: center;
+    display: flex;
+  }
+
   &__breadcrumb {
     &:last-child {
       margin-right: 0;

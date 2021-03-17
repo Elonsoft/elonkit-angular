@@ -142,12 +142,15 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * @internal
    * @ignore
    */
-  @HostListener('window:resize') public onResize(backLabel?: string) {
-    const element = this.elementNavigation.nativeElement;
-    const goBackLabelWidth = this.getLabelWidth(backLabel);
+  @ViewChild('backButton', { static: true }) public elementBackButton: ElementRef<HTMLElement>;
 
-    // 9: mat-icon width; 8: go back button padding (4+4)
-    this.goBackButtonWidth = goBackLabelWidth + 9 + 8;
+  /**
+   * @internal
+   * @ignore
+   */
+  @HostListener('window:resize') public onResize() {
+    const element = this.elementNavigation.nativeElement;
+    const goBackButton = this.elementBackButton.nativeElement;
 
     if (element && this.breadcrumbs.length > 2) {
       const sizes = this.sizes;
@@ -171,7 +174,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
       });
       let scrollWidth =
         widths.reduce((acc, w) => acc + w, 0) + sizes.separator * (widths.length - 1);
-      const clientWidth = element.clientWidth - this.goBackButtonWidth;
+      const clientWidth = element.clientWidth - goBackButton.clientWidth;
 
       const collapseIndexes = [];
       const collapseBreadcrumbs = [];
@@ -240,8 +243,8 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
         this.changeDetector.detectChanges();
       });
 
-    this.locale$.subscribe((value) => {
-      this.onResize(value.breadcrumbs.labelBack);
+    this.locale$.pipe(takeUntil(this.destroyed$)).subscribe((value) => {
+      this.onResize();
     });
     this.windowHistoryLength = window.history.length;
   }

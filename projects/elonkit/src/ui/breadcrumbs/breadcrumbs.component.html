@@ -1,18 +1,20 @@
 <nav #navigation class="es-breadcrumbs">
-  <button
-    type="button"
-    *ngIf="withBackButton"
-    [disabled]="!windowHistoryLength"
-    (click)="onClick()"
-    [attr.aria-label]="(locale$ | async).breadcrumbs.labelBack"
-    class="es-breadcrumbs__link-back"
-    [ngClass]="typography"
-    mat-ripple
-  >
-  <ng-container *ngTemplateOutlet="back"></ng-container>
-    <span>{{(locale$ | async).breadcrumbs.labelBack}}</span>
-  </button>
-  <div *ngIf="withBackButton" class="es-breadcrumbs__separator es-breadcrumbs__separator_single">
+  <div #backButton class="es-breadcrumbs__link-back-wrapper">
+    <button
+      type="button"
+      *ngIf="withBackButton"
+      [disabled]="!windowHistoryLength"
+      (click)="onClick()"
+      [attr.aria-label]="(locale$ | async).breadcrumbs.labelBack"
+      class="es-breadcrumbs__link-back"
+      [ngClass]="typography"
+      mat-ripple
+    >
+      <ng-container *ngTemplateOutlet="back"></ng-container>
+      <span>{{(locale$ | async).breadcrumbs.labelBack}}</span>
+    </button>
+    <div *ngIf="withBackButton" class="es-breadcrumbs__separator es-breadcrumbs__separator_single">
+    </div>
   </div>
   <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
     <ng-container *ngIf="!collapseIndexes.includes(i)">
