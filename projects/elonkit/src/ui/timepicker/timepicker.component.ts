@@ -48,10 +48,10 @@ export class ESTimepickerComponent
    * Enable seconds input.
    */
   @Input()
-  public get withSeconds(): boolean {
+  public get withSeconds() {
     return this._withSeconds;
   }
-  public set withSeconds(withSeconds: boolean) {
+  public set withSeconds(withSeconds: any) {
     this._withSeconds = coerceBooleanProperty(withSeconds);
 
     if (this.withSeconds) {
@@ -70,10 +70,10 @@ export class ESTimepickerComponent
    * Mark input as required and forbid clearing existing value.
    */
   @Input()
-  public get required(): boolean {
+  public get required() {
     return this._required;
   }
-  public set required(required: boolean) {
+  public set required(required: any) {
     this._required = coerceBooleanProperty(required);
     this.stateChanges.next();
   }
@@ -84,16 +84,15 @@ export class ESTimepickerComponent
    * Disable input.
    */
   @Input()
-  public get disabled(): boolean {
+  public get disabled() {
     return this._disabled;
   }
-  public set disabled(disabled: boolean) {
+  public set disabled(disabled: any) {
     this._disabled = coerceBooleanProperty(disabled);
     this.stateChanges.next();
   }
 
   /**
-   * @internal
    * @ignore
    */
   public stateChanges = new Subject<void>();
@@ -102,7 +101,6 @@ export class ESTimepickerComponent
   private _value = '';
 
   /**
-   * @internal
    * @ignore
    */
   public get value() {
@@ -116,7 +114,6 @@ export class ESTimepickerComponent
   private _focused = false;
 
   /**
-   * @internal
    * @ignore
    */
   public get focused() {
@@ -128,7 +125,6 @@ export class ESTimepickerComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public get empty(): boolean {
@@ -136,7 +132,6 @@ export class ESTimepickerComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public get placeholder(): string {
@@ -147,7 +142,6 @@ export class ESTimepickerComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public get errorState(): boolean {
@@ -164,19 +158,16 @@ export class ESTimepickerComponent
   private static nextId = 0;
 
   /**
-   * @internal
    * @ignore
    */
   @HostBinding() public id = `es-timepicker-${ESTimepickerComponent.nextId++}`;
 
   /**
-   * @internal
    * @ignore
    */
   @HostBinding('attr.aria-describedby') public describedBy = '';
 
   /**
-   * @internal
    * @ignore
    */
   @HostBinding('class.floating') public get shouldLabelFloat() {
@@ -194,9 +185,6 @@ export class ESTimepickerComponent
      * @internal
      */
     public changeDetector: ChangeDetectorRef,
-    /**
-     * @internal
-     */
     @Optional() @Self() public ngControl: NgControl,
     /**
      * @internal
@@ -215,7 +203,6 @@ export class ESTimepickerComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngOnDestroy() {
@@ -223,7 +210,6 @@ export class ESTimepickerComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public setDescribedByIds(ids: string[]) {
@@ -231,7 +217,6 @@ export class ESTimepickerComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public writeValue(value: any) {
@@ -247,7 +232,6 @@ export class ESTimepickerComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public registerOnChange(onChange: (value: any) => void) {
@@ -261,7 +245,6 @@ export class ESTimepickerComponent
   public onChange = (_: any) => {};
 
   /**
-   * @internal
    * @ignore
    */
   public registerOnTouched(onTouched: () => void) {
@@ -320,7 +303,6 @@ export class ESTimepickerComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public onContainerClick() {

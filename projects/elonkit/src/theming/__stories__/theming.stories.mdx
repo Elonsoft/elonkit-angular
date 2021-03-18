@@ -25,10 +25,10 @@ Import theming module.
 Use a built-in theme or define your own.
 
 ```scss
-$theme: mat-light-theme($es-light-primary, $es-light-accent, $es-light-warn);
-```
+@import '@elonsoft/elonkit/theming/presets/light';
 
-```scss
+$theme: mat-light-theme($es-light-primary, $es-light-accent, $es-light-warn);
+
 $es-theme: es-light-theme(
   (
     colors: $es-light-theme

@@ -197,7 +197,6 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngOnInit() {
@@ -211,7 +210,6 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngOnDestroy() {
@@ -219,7 +217,6 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngAfterContentInit() {

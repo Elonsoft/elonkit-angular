@@ -11,7 +11,7 @@
   @include angular-material-theme($theme);
 
   @include es-theme($theme, $es-theme);
-  @include es-overrides($es-theme);
+  @include es-overrides($es-theme, $es-theme);
   @include es-typography($es-theme);
 
   @include es-colors-story-theme($theme, $es-theme);
