@@ -8,8 +8,8 @@ $badge-size: 16;
   > :nth-child(2) {
     display: block;
     mask: radial-gradient(
-      circle at calc(var(--childElement) - var(--right) - var(--borderSize))
-        calc(var(--childElement) - var(--bottom) - var(--borderSize)),
+      circle at calc(var(--childElement) - var(--offsetHorizontal) - var(--borderSize))
+        calc(var(--childElement) - var(--offsetVertical) - var(--borderSize)),
       transparent var(--transparent),
       #fff 0
     );

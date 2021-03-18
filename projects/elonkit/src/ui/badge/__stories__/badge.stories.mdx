@@ -39,7 +39,10 @@ Basic badge with no image:
     args={{
       size: 14,
       color: '',
-      borderSize: 2
+      borderSize: 2,
+      position: 'above after',
+      offsetHorizontal: '',
+      offsetVertical: ''
     }}
     argTypes={{
       size: {
@@ -47,15 +50,41 @@ Basic badge with no image:
       },
       borderSize: {
         control: 'number'
+      },
+      offsetHorizontal: {
+        control: 'number'
+      },
+      offsetVertical: {
+        control: 'number'
+      },
+      position: {
+        control: {
+          type: 'select',
+          options: ['above before', 'above after', 'below before', 'below after']
+        }
       }
     }}
   >
     {((args) => ({
       template: `
-        <es-badge [size]="size" [color]="color" [borderSize]="borderSize">
+        <es-badge
+          [size]="size"
+          [color]="color"
+          [borderSize]="borderSize"
+          [position]="position"
+          [offsetHorizontal]="offsetHorizontal"
+          [offsetVertical]="offsetVertical"
+        >
           <es-avatar></es-avatar>
         </es-badge>
-        <es-badge [size]="size" [color]="color" [borderSize]="borderSize">
+        <es-badge
+          [size]="size"
+          [color]="color"
+          [borderSize]="borderSize"
+          [position]="position"
+          [offsetHorizontal]="offsetHorizontal"
+          [offsetVertical]="offsetVertical"
+        >
           <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
@@ -91,7 +120,10 @@ Badge with icon:
       size: 14,
       src: '/icons/avatar/star.svg',
       alt: 'icon',
-      borderSize: 2
+      borderSize: 2,
+      position: 'below after',
+      offsetHorizontal: '',
+      offsetVertical: ''
     }}
     argTypes={{
       size: {
@@ -99,15 +131,43 @@ Badge with icon:
       },
       borderSize: {
         control: 'number'
+      },
+      offsetHorizontal: {
+        control: 'number'
+      },
+      offsetVertical: {
+        control: 'number'
+      },
+      position: {
+        control: {
+          type: 'select',
+          options: ['above before', 'above after', 'below before', 'below after']
+        }
       }
     }}
   >
     {((args) => ({
       template: `
-        <es-badge [size]="size" [src]="src" [alt]="alt" [borderSize]="borderSize">
+        <es-badge
+          [size]="size"
+          [src]="src"
+          [alt]="alt"
+          [borderSize]="borderSize"
+          [position]="position"
+          [offsetHorizontal]="offsetHorizontal"
+          [offsetVertical]="offsetVertical"
+        >
           <es-avatar></es-avatar>
         </es-badge>
-        <es-badge [size]="size" [src]="src" [alt]="alt" [borderSize]="borderSize">
+        <es-badge
+          [size]="size"
+          [src]="src"
+          [alt]="alt"
+          [borderSize]="borderSize"
+          [position]="position"
+          [offsetHorizontal]="offsetHorizontal"
+          [offsetVertical]="offsetVertical"
+        >
           <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
@@ -142,7 +202,9 @@ Badge with count:
       size: 14,
       color: '',
       count: 1,
-      borderSize: 2
+      borderSize: 2,
+      position: 'below after',
+      offsetVertical: ''
     }}
     argTypes={{
       size: {
@@ -153,15 +215,43 @@ Badge with count:
       },
       borderSize: {
         control: 'number'
+      },
+      offsetHorizontal: {
+        control: 'number'
+      },
+      offsetVertical: {
+        control: 'number'
+      },
+      position: {
+        control: {
+          type: 'select',
+          options: ['above before', 'above after', 'below before', 'below after']
+        }
       }
     }}
   >
     {((args) => ({
       template: `
-        <es-badge [size]="size" [color]="color" [borderSize]="borderSize" [count]="count">
+        <es-badge
+          [size]="size"
+          [color]="color"
+          [borderSize]="borderSize"
+          [count]="count"
+          [position]="position"
+          [offsetHorizontal]="offsetHorizontal"
+          [offsetVertical]="offsetVertical"
+        >
           <es-avatar></es-avatar>
         </es-badge>
-        <es-badge [size]="size" [color]="color" [borderSize]="borderSize" [count]="count">
+        <es-badge
+          [size]="size"
+          [color]="color"
+          [borderSize]="borderSize"
+          [count]="count"
+          [position]="position"
+          [offsetHorizontal]="offsetHorizontal"
+          [offsetVertical]="offsetVertical"
+        >
           <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
@@ -188,7 +278,23 @@ ESBadgeDefaultOptions defines default badge size
 ```ts
 export interface ESBadgeDefaultOptions {
   size?: number;
+  position?: ESBadgePositionVariant;
+  borderSize?: number;
 }
+```
+
+ESBadgePositionVariant defines badge position type
+
+```ts
+export type ESBadgePositionVariant =
+  | 'before'
+  | 'after'
+  | 'above'
+  | 'below'
+  | 'above before'
+  | 'above after'
+  | 'below before'
+  | 'below after';
 ```
 
 Injection token that can be used to configure the default options for all components within an app.
