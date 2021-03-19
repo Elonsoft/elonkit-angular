@@ -1,12 +1,13 @@
 import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
+import { CoreModule } from '~storybook/core.module';
 
 import { action } from '@storybook/addon-actions';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 
-import { ESCoreModule } from '../../core';
+import { ESIconsService } from '../../icons';
 import { ESEmptyStateModule, ESEmptyStateComponent } from '..';
 
 import { EMPTY_STATE_STORY_BASIC_SOURCE } from './empty-state-story-basic';
@@ -61,11 +62,11 @@ export const getSubheading = (args, context) => {
 };
 
 <Canvas source={EMPTY_STATE_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='170px'>
+  <Story name='Basic' height='200px'>
     {((args, context) => ({
       template: `<es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading"></es-empty-state>`,
       moduleMetadata: {
-        imports: [HttpClientModule, ESCoreModule, ESEmptyStateModule]
+        imports: [HttpClientModule, CoreModule, ESEmptyStateModule]
       },
       props: {
         ...args,
@@ -79,7 +80,7 @@ export const getSubheading = (args, context) => {
 We can include action button.
 
 <Canvas source={EMPTY_STATE_STORY_BUTTON_SOURCE}>
-  <Story name='Button' height='200px'>
+  <Story name='Button' height='230px'>
     {((args, context) => ({
       template: `
        <es-empty-state [icon]="icon" [heading]="heading" [subheading]="subheading">
@@ -87,7 +88,7 @@ We can include action button.
         </es-empty-state>
       `,
       moduleMetadata: {
-        imports: [HttpClientModule, MatButtonModule, ESCoreModule, ESEmptyStateModule]
+        imports: [HttpClientModule, MatButtonModule, CoreModule, ESEmptyStateModule]
       },
       props: {
         ...args,
