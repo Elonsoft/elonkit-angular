@@ -1,15 +1,7 @@
 <div class="es-badge">
   <div class="es-badge__content"
     [ngClass]="{ 'es-badge__content_with-icon': src,  'es-badge__content_with-count': count}"
-    [ngStyle]="{
-      'height.px': size,
-      'width.px': size,
-      'top.px': top,
-      'right.px': right,
-      'bottom.px': bottom,
-      'left.px': left,
-      'background-color': color
-    }"
+    [ngStyle]="stylesObject()"
   >
     <img
       *ngIf="src"

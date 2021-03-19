@@ -18,3 +18,10 @@ export enum ESBadgePositions {
   BelowBefore = 'below before',
   BelowAfter = 'below after'
 }
+
+export interface ESBadgePositionStyles {
+  'top.px'?: number;
+  'right.px'?: number;
+  'bottom.px'?: number;
+  'left.px'?: number;
+}

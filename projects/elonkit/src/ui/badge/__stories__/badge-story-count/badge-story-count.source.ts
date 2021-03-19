@@ -7,8 +7,6 @@ export const BADGE_STORY_COUNT_SOURCE = {
     [borderSize]="borderSize"
     [count]="count"
     [position]="position"
-    [offsetHorizontal]="offsetHorizontal"
-    [offsetVertical]="offsetVertical"
   >
     <es-avatar></es-avatar>
   </es-badge>
@@ -19,8 +17,6 @@ export const BADGE_STORY_COUNT_SOURCE = {
     [borderSize]="borderSize"
     [count]="count"
     [position]="position"
-    [offsetHorizontal]="offsetHorizontal"
-    [offsetVertical]="offsetVertical"
   >
     <button type="button" color="primary" mat-icon-button>
       <mat-icon>favorite</mat-icon>

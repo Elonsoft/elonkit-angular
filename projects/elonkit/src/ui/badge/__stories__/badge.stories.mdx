@@ -11,12 +11,35 @@ import { ESAvatarModule } from '@elonsoft/elonkit/ui/avatar';
 
 import { BADGE_STORY_BASIC_SOURCE } from './badge-story-basic';
 import { BADGE_STORY_ICON_SOURCE } from './badge-story-icon';
+import { BADGE_STORY_COUNT_SOURCE } from './badge-story-count';
+import { BADGE_STORY_CUSTOM_SOURCE } from './badge-story-custom';
 
-<Meta title='UI/Badge' />
+<Meta
+  title='UI/Badge'
+  args={{
+    size: 14,
+    borderSize: 2,
+    position: 'below after'
+  }}
+  argTypes={{
+    size: {
+      control: 'number'
+    },
+    borderSize: {
+      control: 'number'
+    },
+    position: {
+      control: {
+        type: 'select',
+        options: ['above before', 'above after', 'below before', 'below after']
+      }
+    }
+  }}
+/>
 
 # Badge
 
-This component allows to display default or custom badge.
+Generates a badge component to the different positions of its children.
 
 ## Demos
 
@@ -26,42 +49,17 @@ This component allows to display default or custom badge.
 
 ### Basic badge
 
-Basic badge with no image:
+Basic badge with no image using color input as background color and borderSize input as border size:
 
 ####
-
-`color` - background color;
-`borderColor` - border color;
 
 <Canvas source={BADGE_STORY_BASIC_SOURCE}>
   <Story
     name='Basic'
-    args={{
-      size: 14,
-      color: '',
-      borderSize: 2,
-      position: 'above after',
-      offsetHorizontal: '',
-      offsetVertical: ''
-    }}
+    args={{ color: '' }}
     argTypes={{
-      size: {
-        control: 'number'
-      },
-      borderSize: {
-        control: 'number'
-      },
-      offsetHorizontal: {
-        control: 'number'
-      },
-      offsetVertical: {
-        control: 'number'
-      },
-      position: {
-        control: {
-          type: 'select',
-          options: ['above before', 'above after', 'below before', 'below after']
-        }
+      color: {
+        control: 'string'
       }
     }}
   >
@@ -74,6 +72,7 @@ Basic badge with no image:
           [position]="position"
           [offsetHorizontal]="offsetHorizontal"
           [offsetVertical]="offsetVertical"
+          [positions]="positions"
         >
           <es-avatar></es-avatar>
         </es-badge>
@@ -84,6 +83,7 @@ Basic badge with no image:
           [position]="position"
           [offsetHorizontal]="offsetHorizontal"
           [offsetVertical]="offsetVertical"
+          [positions]="positions"
         >
           <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
@@ -106,43 +106,23 @@ Basic badge with no image:
 
 ### Icon badge
 
-Badge with icon:
+Badge with icon using src input as path to icon and alt input as text for alt attribute:
 
 ####
-
-`src` - path to icon;
-`alt` - text for alt attribute;
 
 <Canvas source={BADGE_STORY_ICON_SOURCE}>
   <Story
     name='Icon'
     args={{
-      size: 14,
       src: '/icons/avatar/star.svg',
-      alt: 'icon',
-      borderSize: 2,
-      position: 'below after',
-      offsetHorizontal: '',
-      offsetVertical: ''
+      alt: 'icon'
     }}
     argTypes={{
-      size: {
-        control: 'number'
+      src: {
+        control: 'string'
       },
-      borderSize: {
-        control: 'number'
-      },
-      offsetHorizontal: {
-        control: 'number'
-      },
-      offsetVertical: {
-        control: 'number'
-      },
-      position: {
-        control: {
-          type: 'select',
-          options: ['above before', 'above after', 'below before', 'below after']
-        }
+      alt: {
+        control: 'string'
       }
     }}
   >
@@ -154,8 +134,6 @@ Badge with icon:
           [alt]="alt"
           [borderSize]="borderSize"
           [position]="position"
-          [offsetHorizontal]="offsetHorizontal"
-          [offsetVertical]="offsetVertical"
         >
           <es-avatar></es-avatar>
         </es-badge>
@@ -165,8 +143,6 @@ Badge with icon:
           [alt]="alt"
           [borderSize]="borderSize"
           [position]="position"
-          [offsetHorizontal]="offsetHorizontal"
-          [offsetVertical]="offsetVertical"
         >
           <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
@@ -189,44 +165,23 @@ Badge with icon:
 
 ### Count badge
 
-Badge with count:
+Badge with count using count input as count number:
 
 ####
 
-`count` - count number;
-
-<Canvas source={BADGE_STORY_BASIC_SOURCE}>
+<Canvas source={BADGE_STORY_COUNT_SOURCE}>
   <Story
     name='Count'
     args={{
-      size: 14,
       color: '',
-      count: 1,
-      borderSize: 2,
-      position: 'below after',
-      offsetVertical: ''
+      count: 1
     }}
     argTypes={{
-      size: {
-        control: 'number'
+      color: {
+        control: 'string'
       },
       count: {
         control: 'number'
-      },
-      borderSize: {
-        control: 'number'
-      },
-      offsetHorizontal: {
-        control: 'number'
-      },
-      offsetVertical: {
-        control: 'number'
-      },
-      position: {
-        control: {
-          type: 'select',
-          options: ['above before', 'above after', 'below before', 'below after']
-        }
       }
     }}
   >
@@ -238,8 +193,6 @@ Badge with count:
           [borderSize]="borderSize"
           [count]="count"
           [position]="position"
-          [offsetHorizontal]="offsetHorizontal"
-          [offsetVertical]="offsetVertical"
         >
           <es-avatar></es-avatar>
         </es-badge>
@@ -249,6 +202,70 @@ Badge with count:
           [borderSize]="borderSize"
           [count]="count"
           [position]="position"
+        >
+          <button type="button" color="primary" mat-icon-button>
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </es-badge>
+      `,
+      moduleMetadata: {
+        imports: [ESBadgeModule, ESAvatarModule, MatButtonModule, MatIconModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+####
+
+### Custom badge
+
+Badge with custom position. If position input is undefined use offsetHorizontal/offsetVertical inputs
+to set horizontal and vertical offset of child element mask; to change badge positions use
+positions input as object of positions:
+
+<Canvas source={BADGE_STORY_CUSTOM_SOURCE}>
+  <Story
+    name='Custom'
+    args={{
+      position: '',
+      offsetHorizontal: 4,
+      offsetVertical: 20,
+      positions: { 'top.px': '11', 'right.px': '-2' }
+    }}
+    argTypes={{
+      position: {
+        control: {
+          type: 'select',
+          options: ['above before', 'above after', 'below before', 'below after']
+        }
+      },
+      positions: {
+        control: { type: 'object' }
+      },
+      offsetHorizontal: {
+        control: 'number'
+      },
+      offsetVertical: {
+        control: 'number'
+      }
+    }}
+  >
+    {((args) => ({
+      template: `
+        <es-badge
+          [position]="position"
+          [positions]="positions"
+          [offsetHorizontal]="offsetHorizontal"
+          [offsetVertical]="offsetVertical"
+        >
+          <es-avatar></es-avatar>
+        </es-badge>
+        <es-badge
+          [position]="position"
+          [positions]="positions"
           [offsetHorizontal]="offsetHorizontal"
           [offsetVertical]="offsetVertical"
         >
@@ -266,6 +283,10 @@ Badge with count:
     })).bind({})}
   </Story>
 </Canvas>
+
+####
+
+####
 
 ## API
 
@@ -287,14 +308,21 @@ ESBadgePositionVariant defines badge position type
 
 ```ts
 export type ESBadgePositionVariant =
-  | 'before'
-  | 'after'
-  | 'above'
-  | 'below'
   | 'above before'
   | 'above after'
   | 'below before'
   | 'below after';
+```
+
+ESBadgePositionStyles defines types for object of custom positions
+
+```ts
+export interface ESBadgePositionStyles {
+  'top.px'?: number;
+  'right.px'?: number;
+  'bottom.px'?: number;
+  'left.px'?: number;
+}
 ```
 
 Injection token that can be used to configure the default options for all components within an app.
