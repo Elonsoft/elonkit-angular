@@ -28,7 +28,7 @@ import { AnimationEvent } from '@angular/animations';
 
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { getNextFocusableElement } from '@elonkit/cdk/a11y';
+import { getNextFocusableElement } from '../../cdk/a11y';
 
 import { matTooltipAnimations, TooltipVisibility } from '@angular/material/tooltip';
 
@@ -79,7 +79,7 @@ export class ESTooltipComponent implements OnDestroy {
     }
   }
 
-  @HostListener('mouseenter', ['$event']) public onMouseEnter() {
+  @HostListener('mouseenter') public onMouseEnter() {
     this.parent.cancelPossiblyHide();
   }
 
@@ -249,7 +249,6 @@ export class ESTooltipComponent implements OnDestroy {
   ) {}
 
   /**
-   * @internal
    * @ignore
    */
   public ngOnDestroy() {

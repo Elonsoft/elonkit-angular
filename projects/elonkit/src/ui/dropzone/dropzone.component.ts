@@ -17,7 +17,7 @@ import {
 import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-import { validateFileType } from '~utils/validate-file-type';
+import { validateFileType } from '../../utils/validate-file-type';
 import {
   ESDropzoneFile,
   ESDropzoneDefaultOptions,
@@ -201,7 +201,6 @@ export class ESDropzoneComponent implements ControlValueAccessor, DoCheck {
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngDoCheck(): void {
@@ -213,7 +212,6 @@ export class ESDropzoneComponent implements ControlValueAccessor, DoCheck {
   }
 
   /**
-   * @internal
    * @ignore
    */
   public writeValue(files: ESDropzoneFile[]): void {
@@ -221,7 +219,6 @@ export class ESDropzoneComponent implements ControlValueAccessor, DoCheck {
   }
 
   /**
-   * @internal
    * @ignore
    */
   public registerOnChange(fn: any): void {
@@ -229,7 +226,6 @@ export class ESDropzoneComponent implements ControlValueAccessor, DoCheck {
   }
 
   /**
-   * @internal
    * @ignore
    */
   public registerOnTouched(fn: any): void {}

@@ -15,7 +15,6 @@ import {
 import { FormControl, FormControlName, NgModel } from '@angular/forms';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
-import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 
 import { Observable } from 'rxjs';
 
@@ -41,13 +40,8 @@ export const ES_INLINE_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<ESInlineF
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {
-        appearance: 'standard'
-      }
-    },
-    {
-      provide: MAT_LABEL_GLOBAL_OPTIONS, // tslint:disable-line deprecation
-      useValue: {
-        float: 'never'
+        appearance: 'standard',
+        floatLabel: 'never'
       }
     }
   ]

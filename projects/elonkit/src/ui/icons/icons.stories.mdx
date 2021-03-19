@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title='Guides/Icons' />
+
+# Icons
+
+Some components require custom svg icons.
+
+First, we need to add library assets to `angular.json` config:
+
+```json
+"assets": [
+  "src/favicon.ico",
+  "src/assets",
+  {
+    "glob": "**/*",
+    "input": "./node_modules/@elonsoft/elonkit/assets",
+    "output": "./assets"
+  }
+],
+```
+
+And then inject `ESIconsService` and call `register` method:
+
+```ts
+import { MatIconModule } from '@angular/material/icon';
+import { ESIconsService } from '@elonsoft/elonkit';
+
+NgModule({
+  imports: [MatIconModule],
+  providers: [ESIconsService]
+});
+export class AppModule {
+  constructor(private iconsService: ESIconsService) {
+    this.iconsService.register();
+  }
+}
+```
+
+We can override built-in icons:
+
+```ts
+this.iconsService.register({
+  'es-empty-state': {
+    box: './assets/icons/new-box.svg'
+  }
+});
+```

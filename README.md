@@ -13,34 +13,6 @@ yarn add @elonsoft/elonkit angular2-text-mask text-mask-addons
 
 ## Usage
 
-In your global styles import components theme and include it with Angular Material theme as a first argument.
-
-```scss
-@import '@elonsoft/elonkit/theme';
-
-$es-theme: es-light-theme(
-  (
-    colors: $es-light-theme
-  )
-);
-
-@include es-theme($theme, $es-theme);
-```
-
-Add library assets to your `angular.json` config:
-
-```json
-"assets": [
-  "src/favicon.ico",
-  "src/assets",
-  {
-    "glob": "**/*",
-    "input": "./node_modules/@elonsoft/elonkit/assets",
-    "output": "./assets"
-  }
-],
-```
-
 For a full list of componets and usage examples check out our [documentation website](https://elonkit.elonsoft.ru/).
 
 ## Contributing

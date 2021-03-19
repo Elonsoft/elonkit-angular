@@ -28,7 +28,7 @@ import {
 } from '@angular/core';
 
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
-import { getInnerFocusableElement } from '@elonkit/cdk/a11y';
+import { getInnerFocusableElement } from '../../cdk/a11y';
 
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput, coerceBooleanProperty, NumberInput } from '@angular/cdk/coercion';
@@ -181,7 +181,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   public get disabled() {
     return this._disabled;
   }
-  public set disabled(value) {
+  public set disabled(value: any) {
     this._disabled = coerceBooleanProperty(value);
 
     // If tooltip is disabled, hide immediately.
@@ -237,7 +237,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   public get arrow() {
     return this._arrow;
   }
-  public set arrow(value) {
+  public set arrow(value: any) {
     this._arrow = coerceBooleanProperty(value);
   }
 
@@ -250,7 +250,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   public get interactive() {
     return this._interactive;
   }
-  public set interactive(value) {
+  public set interactive(value: any) {
     this._interactive = coerceBooleanProperty(value);
   }
 
@@ -443,7 +443,6 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngAfterViewInit() {
@@ -466,7 +465,6 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   }
 
   /**
-   * @internal
    * @ignore
    * Dispose the tooltip when destroyed.
    */

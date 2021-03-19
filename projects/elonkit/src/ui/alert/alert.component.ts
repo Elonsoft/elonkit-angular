@@ -90,10 +90,10 @@ export class ESAlertComponent {
    * Show close button.
    */
   @Input()
-  public get closable(): boolean {
+  public get closable() {
     return this._closable;
   }
-  public set closable(closable: boolean) {
+  public set closable(closable: any) {
     this._closable = coerceBooleanProperty(closable);
   }
 
