@@ -12,7 +12,6 @@
       &:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,
       .cdk-mouse-focused .mat-slider-thumb,
       .mat-slider-thumb {
-        background: #3f51b5;
         border: 0;
         height: 18px;
         transform: scale(0.7);
@@ -20,10 +19,7 @@
       }
 
       .mat-slider-focus-ring {
-        background-color: rgba(0, 0, 0, 0.12);
-
         height: 24px;
-
         right: -13px;
         top: -11px;
         width: 24px;
@@ -32,7 +28,6 @@
 
     &.mat-slider-horizontal {
       height: 40px;
-      max-width: 192px;
       min-width: 50px;
 
       .mat-slider-wrapper {
@@ -47,11 +42,6 @@
         border-radius: 16px;
         height: 4px;
       }
-
-      .mat-slider-track-wrapper,
-      .mat-slider-track-background {
-        background: #c8cde4;
-      }
     }
   }
 
@@ -63,9 +53,7 @@
     $scale: $height / ($base / 2);
     $offset: -#{$size / 2}px;
 
-    background: rgba(0, 0, 0, 0.54);
     border-radius: 4px;
-    color: #fff;
     display: none;
     font-size: 12px;
     letter-spacing: 0.4px;
@@ -75,7 +63,6 @@
     z-index: 1000;
 
     &::after {
-      background: linear-gradient(-45deg, rgba(0, 0, 0, 0.54) 50%, transparent 50%);
       border-bottom-right-radius: 2px;
       content: '';
       height: #{$size}px;

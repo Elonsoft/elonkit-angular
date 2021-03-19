@@ -1,0 +1,38 @@
+@mixin es-audio-player-time-slider-theme($theme, $elonkit-theme) {
+  $mono-a: map-get($elonkit-theme, mono-a);
+  $primary: map-get($theme, primary);
+
+  .es-audio-player-time-slider {
+    &__slider {
+      &.mat-slider {
+        &:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,
+        &:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb,
+        &:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,
+        .cdk-mouse-focused .mat-slider-thumb,
+        .mat-slider-thumb {
+          background: mat-color($primary, 500);
+        }
+
+        .mat-slider-focus-ring {
+          background-color: mat-color($mono-a, A200);
+        }
+      }
+
+      &.mat-slider-horizontal {
+        .mat-slider-track-wrapper,
+        .mat-slider-track-background {
+          background: mat-color($primary, 100);
+        }
+      }
+    }
+
+    &__tooltip {
+      background-color: mat-color($mono-a, A600);
+      color: #fff;
+
+      &::after {
+        background: linear-gradient(-45deg, mat-color($mono-a, A600) 50%, transparent 50%);
+      }
+    }
+  }
+}

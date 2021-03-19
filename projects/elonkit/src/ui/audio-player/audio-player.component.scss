@@ -1,7 +1,6 @@
 .es-audio-player {
   align-items: center;
 
-  background: rgba(0, 0, 0, 0.04);
   border-radius: 40px;
 
   display: flex;
@@ -9,7 +8,6 @@
 
   font-family: 'Roboto';
   height: 40px;
-  max-width: 336px;
   padding: 0 12px;
 
   &__button {
@@ -32,13 +30,14 @@
   }
 
   &__label {
-    color: rgba(0, 0, 0, 0.72);
-    font-size: 12px;
     letter-spacing: 0.4px;
-    line-height: 16px;
-    margin-left: 16px;
     position: relative;
     user-select: none;
+
+    &,
+    &.dark {
+      margin-left: 16px !important;
+    }
 
     &-prefix {
       &::before {
@@ -50,10 +49,12 @@
   }
 
   &__volume {
+    height: 24px;
     margin-left: 12px;
   }
 
   &__options {
+    height: 24px;
     margin-left: 8px;
   }
 }

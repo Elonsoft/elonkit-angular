@@ -6,7 +6,10 @@ import {
   ChangeDetectionStrategy,
   Input
 } from '@angular/core';
-import { ESAudioPlayerLocale } from '../../audio-player.component.locale';
+
+import { Observable } from 'rxjs';
+
+import { ESLocale, ESLocaleService } from '../../../locale';
 
 @Component({
   selector: 'es-audio-player-options',
@@ -29,14 +32,14 @@ export class ESAudioPlayerOptionsComponent {
   public src: string;
 
   /**
-   * Event emitted when playback rate is change.
+   * Event emitted when playback rate is changed.
    */
-  @Output() public changePlaybackRate = new EventEmitter();
+  @Output() public playbackRateChanged = new EventEmitter();
 
   /**
    * Event emitted when need to download audio track.
    */
-  @Output() public audioDownload = new EventEmitter();
+  @Output() public downloadClicked = new EventEmitter();
 
   /**
    * @internal
@@ -54,12 +57,19 @@ export class ESAudioPlayerOptionsComponent {
    * @internal
    * @ignore
    */
+  public locale$: Observable<ESLocale>;
+
+  /**
+   * @ignore
+   */
   constructor(
     /**
      * @internal
      */
-    public locale: ESAudioPlayerLocale
-  ) {}
+    public localeService: ESLocaleService
+  ) {
+    this.locale$ = this.localeService.locale();
+  }
 
   /**
    * @internal
@@ -67,6 +77,6 @@ export class ESAudioPlayerOptionsComponent {
    */
   public onChangePlaybackRate(value: number) {
     this.currentRate = value;
-    this.changePlaybackRate.emit(value);
+    this.playbackRateChanged.emit(value);
   }
 }

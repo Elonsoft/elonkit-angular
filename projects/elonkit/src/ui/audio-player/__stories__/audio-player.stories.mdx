@@ -1,17 +1,19 @@
-import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
-import { Canvas } from '~storybook/components';
-import { action } from '@storybook/addon-actions';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AUDIO_PLAYER_STORY_BASIC_SOURCE } from './audio-player-story-basic';
+import { action } from '@storybook/addon-actions';
+import { Canvas } from '~storybook/components';
+import { CoreModule } from '~storybook/core.module';
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 
 import {
-  AUDIO_PLAYER_STORY_LOCALE_SOURCE,
-  AudioPlayerStoryLocaleComponent,
-  AudioPlayerStoryLocaleModule
-} from './audio-player-story-locale';
+  AudioPlayerStoryBasicComponent,
+  AudioPlayerStoryBasicModule,
+  AUDIO_PLAYER_STORY_BASIC_SOURCE
+} from './audio-player-story-basic';
 
-import { ESAudioPlayerModule, ESAudioPlayerComponent } from '..';
+import { ESIconsService } from '../../icons';
+
+import { ESAudioPlayerComponent } from '..';
 
 <Meta title='UI/Audio Player' />
 
@@ -22,27 +24,27 @@ Audio player allows users to play audio tracks.
 ## Demos
 
 <Canvas source={AUDIO_PLAYER_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='170px'>
-    {((args, context) => ({
-      template: `<es-audio-player source='https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3' volume="100"></es-audio-player>`,
-      moduleMetadata: {
-        imports: [BrowserAnimationsModule, ESAudioPlayerModule]
+  <Story
+    name='Basic'
+    height='170px'
+    args={{
+      source:
+        'https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3',
+      volume: 45
+    }}
+    argTypes={{
+      source: {
+        control: 'text'
       },
-      props: {
-        ...args
+      volume: {
+        control: 'number'
       }
-    })).bind({})}
-  </Story>
-</Canvas>
-
-We can override default locale which is used for menu items.
-
-<Canvas source={AUDIO_PLAYER_STORY_LOCALE_SOURCE}>
-  <Story name='Locale' height='110px'>
-    {((args, context) => ({
-      component: AudioPlayerStoryLocaleComponent,
+    }}
+  >
+    {((args) => ({
+      component: AudioPlayerStoryBasicComponent,
       moduleMetadata: {
-        imports: [BrowserAnimationsModule, AudioPlayerStoryLocaleModule]
+        imports: [AudioPlayerStoryBasicModule]
       },
       props: {
         ...args

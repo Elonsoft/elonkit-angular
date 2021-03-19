@@ -7,6 +7,10 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
+import { ESLocale, ESLocaleService } from '../../../locale';
+
 @Component({
   selector: 'es-audio-player-volume',
   templateUrl: './audio-player-volume.component.html',
@@ -20,6 +24,7 @@ export class ESAudioPlayerVolumeComponent {
    */
   @Input()
   public set volume(value: number) {
+    this.isMute = !value;
     this._volume = value;
   }
   public get volume(): number {
@@ -30,7 +35,7 @@ export class ESAudioPlayerVolumeComponent {
   /**
    * Event emitted when need change volume.
    */
-  @Output() public changeVolume = new EventEmitter();
+  @Output() public volumeChanged = new EventEmitter();
 
   /**
    * @internal
@@ -42,13 +47,31 @@ export class ESAudioPlayerVolumeComponent {
    * @internal
    * @ignore
    */
-  public previuseVolume: number;
+  public previuseVolume = 0;
 
   /**
    * @internal
    * @ignore
    */
   public isMoveSlider = false;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
+
+  /**
+   * @ignore
+   */
+  constructor(
+    /**
+     * @internal
+     */
+    public localeService: ESLocaleService
+  ) {
+    this.locale$ = this.localeService.locale();
+  }
 
   /**
    * @internal
@@ -63,8 +86,7 @@ export class ESAudioPlayerVolumeComponent {
     if (!value) {
       this.previuseVolume = 0;
     }
-
-    this.changeVolume.emit(value / 100);
+    this.volumeChanged.emit(value);
   }
 
   /**
@@ -75,7 +97,7 @@ export class ESAudioPlayerVolumeComponent {
     this.isMoveSlider = true;
     this.isMute = !value;
 
-    this.changeVolume.emit(value / 100);
+    this.volumeChanged.emit(value);
   }
 
   /**
@@ -92,16 +114,6 @@ export class ESAudioPlayerVolumeComponent {
       this.volume = this.previuseVolume;
     }
 
-    this.changeVolume.emit(this.volume / 100);
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  public get src() {
-    const iconName = this.isMute ? 'mute' : 'un-mute';
-
-    return `./assets/elonkit/audio-player/${iconName}.svg`;
+    this.volumeChanged.emit(this.volume);
   }
 }

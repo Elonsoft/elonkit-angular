@@ -22,5 +22,16 @@ export const en = {
     labelHH: 'HH',
     labelMM: 'MM',
     labelSS: 'SS'
+  },
+  audioPlayer: {
+    labelPlay: 'Play',
+    labelPause: 'Pause',
+    labelMute: 'Mute',
+    labelUnmute: 'Unmute',
+    labelOptions: 'Options',
+    labelRate: 'Rate',
+    labelDownload: 'Download',
+    labelBack: 'Back',
+    labelNormal: 'Normal'
   }
 };

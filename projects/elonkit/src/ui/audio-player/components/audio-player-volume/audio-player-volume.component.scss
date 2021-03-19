@@ -1,7 +1,9 @@
 .es-audio-player-volume {
   &__button {
-    height: 24px;
-    width: 24px;
+    &.mat-icon-button {
+      height: 24px;
+      width: 24px;
+    }
 
     .mat-button-wrapper {
       display: flex;
@@ -26,7 +28,6 @@
       &:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,
       .cdk-mouse-focused .mat-slider-thumb,
       .mat-slider-thumb {
-        background: #fff;
         border: 0;
         height: 18px;
         right: -10px;
@@ -35,7 +36,6 @@
       }
 
       .mat-slider-focus-ring {
-        background-color: rgba(0, 0, 0, 0.12);
         bottom: -10px;
 
         height: 18px;
@@ -51,13 +51,7 @@
         .mat-slider-track-fill,
         .mat-slider-track-wrapper,
         .mat-slider-track-background {
-          background: #fff;
           width: 4px;
-        }
-
-        .mat-slider-track-wrapper,
-        .mat-slider-track-background {
-          background: #ababab;
         }
       }
 

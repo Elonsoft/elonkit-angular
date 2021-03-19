@@ -12,6 +12,10 @@ import {
   Inject
 } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
+import { ESLocale, ESLocaleService } from '../locale';
+
 export interface ESAudioPlayerDefaultOptions {
   rates?: number[];
 }
@@ -46,13 +50,23 @@ export class ESAudioPlayerComponent implements OnDestroy {
    *  Default or previously set volume value in the range from 0 to 100.
    */
   @Input()
-  public volume = 100;
+  public set volume(value: number) {
+    this._volume = value > 100 ? 100 : value;
+
+    this.onSetVolume(this._volume);
+  }
+  public get volume(): number {
+    return this._volume;
+  }
+  private _volume = 100;
 
   /**
    * Source of audio track.
    */
   @Input()
   public set source(value: string) {
+    this.isAudioDataLoaded = false;
+
     if (value) {
       this.audio.src = value;
 
@@ -73,7 +87,7 @@ export class ESAudioPlayerComponent implements OnDestroy {
   @Output() public audioDownload = new EventEmitter();
 
   /**
-   * Event emitted when volume change.
+   * Event emitted when volume changed.
    */
   @Output() public volumeChanged = new EventEmitter<number>();
 
@@ -93,6 +107,12 @@ export class ESAudioPlayerComponent implements OnDestroy {
    * @internal
    * @ignore
    */
+  public isAudioDataLoaded = false;
+
+  /**
+   * @internal
+   * @ignore
+   */
   public displayedTime = DEFAULT_TIME;
 
   /**
@@ -102,9 +122,54 @@ export class ESAudioPlayerComponent implements OnDestroy {
   public isDisplayedLeftTime = true;
 
   /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
+
+  private onEnded = () => {
+    // this.isAudioDataLoaded = false;
+    this.audioEnded.emit(true);
+  };
+
+  private onLoadedData = ({ target }: Event) => {
+    const { duration, currentTime } = target as any;
+    this.isAudioDataLoaded = true;
+    this.audio.volume = this.volume / 100;
+
+    this.displayedTime = this.isDisplayedLeftTime
+      ? this.formatTime(duration - currentTime)
+      : this.formatTime(currentTime);
+
+    // tslint:disable-next-line: no-string-literal
+    if (!this.changeDetector['destroyed']) {
+      this.changeDetector.detectChanges();
+    }
+  };
+
+  private onTimeUpdate = ({ target }: Event) => {
+    const { duration, currentTime } = target as any;
+
+    this.audioCurrentTime = currentTime;
+
+    this.displayedTime = this.isDisplayedLeftTime
+      ? this.formatTime(duration - currentTime)
+      : this.formatTime(currentTime);
+
+    // tslint:disable-next-line: no-string-literal
+    if (!this.changeDetector['destroyed']) {
+      this.changeDetector.detectChanges();
+    }
+  };
+
+  /**
    * @ignore
    */
   constructor(
+    /**
+     * @internal
+     */
+    public localeService: ESLocaleService,
     /**
      * @internal
      */
@@ -117,6 +182,7 @@ export class ESAudioPlayerComponent implements OnDestroy {
     private defaultOptions: ESAudioPlayerDefaultOptions
   ) {
     this.rates = defaultOptions?.rates;
+    this.locale$ = this.localeService.locale();
   }
 
   /**
@@ -125,6 +191,8 @@ export class ESAudioPlayerComponent implements OnDestroy {
   public ngOnDestroy() {
     this.audio.src = null;
     this.audio.removeEventListener('ended', this.onEnded);
+    this.audio.removeEventListener('loadeddata', this.onLoadedData);
+    this.audio.removeEventListener('timeupdate', this.onTimeUpdate);
   }
 
   /**
@@ -140,8 +208,10 @@ export class ESAudioPlayerComponent implements OnDestroy {
    * @ignore
    */
   public onSetVolume(value: number) {
-    this.audio.volume = value;
-    this.volumeChanged.emit(value);
+    if (this.audio) {
+      this.audio.volume = value / 100;
+      this.volumeChanged.emit(value);
+    }
   }
 
   /**
@@ -164,16 +234,6 @@ export class ESAudioPlayerComponent implements OnDestroy {
    * @internal
    * @ignore
    */
-  public get src() {
-    const iconName = this.audio.paused ? 'play' : 'pause';
-
-    return `./assets/elonkit/audio-player/${iconName}.svg`;
-  }
-
-  /**
-   * @internal
-   * @ignore
-   */
   public changeDisplayedTime() {
     this.isDisplayedLeftTime = !this.isDisplayedLeftTime;
 
@@ -183,41 +243,10 @@ export class ESAudioPlayerComponent implements OnDestroy {
   }
 
   private addEventsListener() {
-    this.audio.addEventListener('loadeddata', ({ target }) => {
-      const { duration, currentTime } = target as any;
-      this.audio.volume = this.volume / 100;
-
-      this.displayedTime = this.isDisplayedLeftTime
-        ? this.formatTime(duration - currentTime)
-        : this.formatTime(currentTime);
-
-      // tslint:disable-next-line: no-string-literal
-      if (!this.changeDetector['destroyed']) {
-        this.changeDetector.detectChanges();
-      }
-    });
-
+    this.audio.addEventListener('loadeddata', this.onLoadedData);
+    this.audio.addEventListener('timeupdate', this.onTimeUpdate);
     this.audio.addEventListener('ended', this.onEnded);
-
-    this.audio.addEventListener('timeupdate', ({ target }) => {
-      const { duration, currentTime } = target as any;
-
-      this.audioCurrentTime = currentTime;
-
-      this.displayedTime = this.isDisplayedLeftTime
-        ? this.formatTime(duration - currentTime)
-        : this.formatTime(currentTime);
-
-      // tslint:disable-next-line: no-string-literal
-      if (!this.changeDetector['destroyed']) {
-        this.changeDetector.detectChanges();
-      }
-    });
   }
-
-  private onEnded = () => {
-    this.audioEnded.emit(true);
-  };
 
   private formatTime(time: number): string {
     if (!time) {

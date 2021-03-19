@@ -1,14 +1,15 @@
-<div></div>
-
-<div class="es-audio-player">
+<div *ngIf="locale$ | async as locale" class="es-audio-player">
   <button
     mat-icon-button
-    isIconButton="true"
     class="es-audio-player__button"
     disableRipple="true"
+    [attr.aria-label]="
+      this.audio.paused ? locale.audioPlayer.labelPlay : locale.audioPlayer.labelPause
+    "
+    [disabled]="!isAudioDataLoaded"
     (click)="onPlayback()"
   >
-    <img [src]="src" />
+    <mat-icon svgIcon="es-audio-player:{{ this.audio.paused ? 'play' : 'pause' }}"></mat-icon>
   </button>
 
   <es-audio-player-time-slider
@@ -19,7 +20,7 @@
   ></es-audio-player-time-slider>
 
   <label
-    class="es-audio-player__label"
+    class="es-audio-player__label es-caption"
     [ngClass]="{ 'es-audio-player__label-prefix': isDisplayedLeftTime }"
     (click)="changeDisplayedTime()"
   >
@@ -29,14 +30,14 @@
   <es-audio-player-volume
     class="es-audio-player__volume"
     [volume]="volume"
-    (changeVolume)="onSetVolume($event)"
+    (volumeChanged)="onSetVolume($event)"
   ></es-audio-player-volume>
 
   <es-audio-player-options
     class="es-audio-player__options"
     [src]="audio?.src"
     [rates]="rates"
-    (changePlaybackRate)="onSetPlaybackRate($event)"
-    (audioDownload)="audioDownload.emit()"
+    (playbackRateChanged)="onSetPlaybackRate($event)"
+    (downloadClicked)="audioDownload.emit()"
   ></es-audio-player-options>
 </div>

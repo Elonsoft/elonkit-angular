@@ -1,83 +1,107 @@
-<button
-  mat-icon-button
-  class="es-audio-player-options__button"
-  disableRipple="true"
-  esTooltip
-  [esTooltipContent]="content"
-  esTooltipClass="es-audio-player-options__tooltip"
-  esTooltipArrow
-  esTooltipInteractive
->
-  <img src="./assets/elonkit/audio-player/more-vert.svg" />
-</button>
+<ng-container *ngIf="locale$ | async as locale">
+  <button
+    mat-icon-button
+    class="es-audio-player-options__button"
+    data-testid="options"
+    disableRipple="true"
+    esTooltip
+    [esTooltipContent]="content"
+    esTooltipClass="es-audio-player-options__tooltip"
+    esTooltipArrow
+    esTooltipInteractive
+    [attr.aria-label]="locale.audioPlayer.options"
+  >
+    <mat-icon svgIcon="es-audio-player:more-vert"></mat-icon>
+  </button>
 
-<ng-template #content>
-  <div class="es-audio-player-options__menu" [style.display]="isRatePage ? 'none' : 'flex'">
-    <button
-      class="es-audio-player-options__menu-item"
-      mat-button
-      disableRipple
-      (click)="isRatePage = !isRatePage"
-    >
-      <div class="es-audio-player-options__item-content">
-        <img class="es-audio-player-options__icon" src="./assets/elonkit/audio-player/speed.svg" />
-        <div class="es-audio-player-options__label-container">
-          <label>{{ locale.labelSpeed }}</label>
-          <label class="es-audio-player-options__sub-label">{{
-            currentRate === 1 ? locale.labelNormal : currentRate
+  <ng-template #content>
+    <div class="es-audio-player-options__menu" [style.display]="isRatePage ? 'none' : 'flex'">
+      <button
+        class="es-audio-player-options__menu-item"
+        mat-button
+        disableRipple
+        [attr.aria-label]="locale.audioPlayer.labelRate"
+        (click)="isRatePage = !isRatePage"
+      >
+        <div class="es-audio-player-options__item-content es-body-100">
+          <mat-icon
+            class="es-audio-player-options__icon"
+            svgIcon="es-audio-player:speed"
+          ></mat-icon>
+
+          <div class="es-audio-player-options__label-container">
+            <label>{{ locale.audioPlayer.labelRate }}</label>
+            <label class="es-audio-player-options__sub-label es-caption">{{
+              currentRate === 1 ? locale.audioPlayer.labelNormal : currentRate
+            }}</label>
+          </div>
+
+          <mat-icon
+            class="es-audio-player-options__icon_dark es-audio-player-options__icon_ml-auto"
+            svgIcon="es-audio-player:chevron-right"
+          ></mat-icon>
+        </div>
+      </button>
+      <button
+        mat-button
+        class="es-audio-player-options__menu-item"
+        data-testid="download"
+        disableRipple
+        [disabled]="!src"
+        [attr.aria-label]="locale.audioPlayer.labelDownload"
+        (click)="downloadClicked.emit()"
+      >
+        <div class="es-audio-player-options__item-content es-body-100">
+          <mat-icon
+            class="es-audio-player-options__icon"
+            svgIcon="es-audio-player:download"
+          ></mat-icon>
+
+          <label class="es-audio-player-options__label_ml-18">{{
+            locale.audioPlayer.labelDownload
           }}</label>
         </div>
-        <img
-          class="es-audio-player-options__icon_ml"
-          src="./assets/elonkit/audio-player/chevron-right.svg"
-        />
-      </div>
-    </button>
-    <button
-      mat-button
-      class="es-audio-player-options__menu-item"
-      disableRipple
-      [disabled]="!src"
-      (click)="audioDownload.emit()"
-    >
-      <div class="es-audio-player-options__item-content">
-        <img
-          class="es-audio-player-options__icon"
-          src="./assets/elonkit/audio-player/download.svg"
-        />
-        <label class="es-audio-player-options__label_ml-18">{{ locale.labelDownload }}</label>
-      </div>
-    </button>
-  </div>
+      </button>
+    </div>
 
-  <div class="es-audio-player-options__menu" [style.display]="!isRatePage ? 'none' : 'flex'">
-    <button
-      mat-button
-      class="es-audio-player-options__menu-item"
-      disableRipple
-      (click)="isRatePage = !isRatePage"
-    >
-      <div class="es-audio-player-options__item-content">
-        <img src="./assets/elonkit/audio-player/chevron-left.svg" />
-        <label class="es-audio-player-options__label_ml-18">{{ locale.labelBack }}</label>
-      </div>
-    </button>
-    <mat-divider class="es-audio-player-options__divider"></mat-divider>
-    <button
-      *ngFor="let rate of rates"
-      mat-button
-      class="es-audio-player-options__menu-item"
-      disableRipple
-      (click)="onChangePlaybackRate(rate)"
-    >
-      <div class="es-audio-player-options__item-content">
-        <label>{{ rate === 1 ? locale.labelNormal : rate }}</label>
-        <img
-          class="es-audio-player-options__icon_ml"
-          *ngIf="rate === currentRate"
-          src="./assets/elonkit/audio-player/check.svg"
-        />
-      </div>
-    </button>
-  </div>
-</ng-template>
+    <div class="es-audio-player-options__menu" [style.display]="!isRatePage ? 'none' : 'flex'">
+      <button
+        mat-button
+        class="es-audio-player-options__menu-item"
+        disableRipple
+        [attr.aria-label]="locale.audioPlayer.labelBack"
+        (click)="isRatePage = !isRatePage"
+      >
+        <div class="es-audio-player-options__item-content es-body-100">
+          <mat-icon
+            class="es-audio-player-options__icon"
+            svgIcon="es-audio-player:chevron-left"
+          ></mat-icon>
+
+          <label class="es-audio-player-options__label_ml-18">{{
+            locale.audioPlayer.labelBack
+          }}</label>
+        </div>
+      </button>
+      <mat-divider class="es-audio-player-options__divider"></mat-divider>
+      <button
+        *ngFor="let rate of rates"
+        mat-button
+        class="es-audio-player-options__menu-item"
+        disableRipple
+        [attr.aria-label]="locale.audioPlayer.labelRate + ' ' + rate"
+        (click)="onChangePlaybackRate(rate)"
+      >
+        <div class="es-audio-player-options__item-content es-body-100">
+          <label>{{ rate === 1 ? locale.audioPlayer.labelNormal : rate }}</label>
+
+          <mat-icon
+            *ngIf="rate === currentRate"
+            class="es-audio-player-options__icon es-audio-player-options__icon_ml-auto"
+            svgIcon="es-audio-player:check"
+          ></mat-icon>
+        </div>
+      </button>
+    </div>
+  </ng-template>
+</ng-container>

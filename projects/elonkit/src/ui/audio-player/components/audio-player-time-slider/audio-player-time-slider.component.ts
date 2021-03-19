@@ -37,7 +37,7 @@ export class ESAudioPlayerTimeSliderComponent {
   }
   private _audioCurrentTime: number;
 
-  /** Emits the current playback position, in seconds. */
+  /** Event emitted when current playback position is changed, in seconds. */
   @Output() public timeUpdated = new EventEmitter();
 
   /**
@@ -69,6 +69,11 @@ export class ESAudioPlayerTimeSliderComponent {
    * @ignore
    */
   public tooltipPosition: string | null = null;
+
+  /**
+   * @ignore
+   */
+  constructor(private renderer2: Renderer2, private elementRef: ElementRef<HTMLElement>) {}
 
   /**
    * @internal
@@ -136,12 +141,6 @@ export class ESAudioPlayerTimeSliderComponent {
       this.hideTooltip();
     }
   }
-
-  /**
-   * @internal
-   * @ignore
-   */
-  constructor(private renderer2: Renderer2, private elementRef: ElementRef<HTMLElement>) {}
 
   /**
    *
