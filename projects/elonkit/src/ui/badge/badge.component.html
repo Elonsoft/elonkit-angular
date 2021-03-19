@@ -1,19 +1,13 @@
 <div class="es-badge">
   <div class="es-badge__content"
-    [ngClass]="{ 'es-badge__content_with-icon': src,  'es-badge__content_with-count': count}"
     [ngStyle]="stylesObject()"
   >
-    <img
-      *ngIf="src"
-      class="es-badge__img"
-      [src]="src"
-      [alt]="alt"
-    />
-    <span *ngIf="count" data-testid="badge" class="es-caption es-badge__count">
-      {{count}}
-    </span>
+    <ng-content select="[es-role=icon]"></ng-content>
+    <div data-testid="badge" class="es-caption es-badge__count">
+      <ng-content select="[es-role=count]"></ng-content>
+    </div>
   </div>
   <div #childElement>
-    <ng-content></ng-content>
+    <ng-content select="[es-role=child]"></ng-content>
   </div>
 </div>

@@ -4,6 +4,11 @@ import { render } from '@testing-library/angular';
 import { ESBadgeModule } from '../badge.module';
 import { ESBadgeComponent } from '../badge.component';
 
+@Component({
+  template: ` <es-badge><span es-role="count">Count</span></es-badge> `
+})
+class BadgeWrapperComponent {}
+
 describe('Badge', () => {
   it('Should change badge size', async () => {
     const component = await render(ESBadgeComponent, {
@@ -17,27 +22,35 @@ describe('Badge', () => {
     expect(component.fixture.componentInstance.size).toBe(40);
   });
 
-  it('Should render alt text on icon', async () => {
+  it('Should change badge offsetVertical', async () => {
     const component = await render(ESBadgeComponent, {
       componentProperties: {
-        src: './test-path-to-icon',
-        alt: 'alt text'
+        offsetVertical: 10
       },
       imports: [ESBadgeModule],
       excludeComponentDeclaration: true
     });
 
-    expect(component.getByAltText('alt text')).toBeInTheDocument();
+    expect(component.fixture.componentInstance.offsetVertical).toBe(10);
   });
 
-  it('Should change badge count', async () => {
+  it('Should change badge offsetHorizontal', async () => {
     const component = await render(ESBadgeComponent, {
       componentProperties: {
-        count: 1
+        offsetHorizontal: 20
       },
       imports: [ESBadgeModule],
       excludeComponentDeclaration: true
     });
-    expect(component.getByTestId('badge')).toHaveClass('es-caption es-badge__count');
+
+    expect(component.fixture.componentInstance.offsetHorizontal).toBe(20);
+  });
+
+  it('Should accept count', async () => {
+    const component = await render(BadgeWrapperComponent, {
+      imports: [ESBadgeModule]
+    });
+
+    expect(component.getByText('Count')).toBeInTheDocument();
   });
 });

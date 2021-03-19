@@ -39,7 +39,8 @@ import { BADGE_STORY_CUSTOM_SOURCE } from './badge-story-custom';
 
 # Badge
 
-Generates a badge component to the different positions of its children.
+Generates a badge component to the different positions of its children. Pass children component
+with attribute es-role="child"
 
 ## Demos
 
@@ -70,22 +71,16 @@ Basic badge with no image using color input as background color and borderSize i
           [color]="color"
           [borderSize]="borderSize"
           [position]="position"
-          [offsetHorizontal]="offsetHorizontal"
-          [offsetVertical]="offsetVertical"
-          [positions]="positions"
         >
-          <es-avatar></es-avatar>
+          <es-avatar es-role="child"></es-avatar>
         </es-badge>
         <es-badge
           [size]="size"
           [color]="color"
           [borderSize]="borderSize"
           [position]="position"
-          [offsetHorizontal]="offsetHorizontal"
-          [offsetVertical]="offsetVertical"
-          [positions]="positions"
         >
-          <button type="button" color="primary" mat-icon-button>
+          <button es-role="child" type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
         </es-badge>
@@ -106,45 +101,29 @@ Basic badge with no image using color input as background color and borderSize i
 
 ### Icon badge
 
-Badge with icon using src input as path to icon and alt input as text for alt attribute:
+Badge with icon. Pass icon via ng-content with attribute es-role="icon":
 
 ####
 
 <Canvas source={BADGE_STORY_ICON_SOURCE}>
-  <Story
-    name='Icon'
-    args={{
-      src: '/icons/avatar/star.svg',
-      alt: 'icon'
-    }}
-    argTypes={{
-      src: {
-        control: 'string'
-      },
-      alt: {
-        control: 'string'
-      }
-    }}
-  >
+  <Story name='Icon'>
     {((args) => ({
       template: `
         <es-badge
           [size]="size"
-          [src]="src"
-          [alt]="alt"
           [borderSize]="borderSize"
           [position]="position"
         >
-          <es-avatar></es-avatar>
+          <mat-icon es-role="icon" color="primary">face</mat-icon>
+          <es-avatar es-role="child"></es-avatar>
         </es-badge>
         <es-badge
           [size]="size"
-          [src]="src"
-          [alt]="alt"
           [borderSize]="borderSize"
           [position]="position"
         >
-          <button type="button" color="primary" mat-icon-button>
+          <mat-icon es-role="icon" color="primary">face</mat-icon>
+          <button es-role="child" type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
         </es-badge>
@@ -165,7 +144,7 @@ Badge with icon using src input as path to icon and alt input as text for alt at
 
 ### Count badge
 
-Badge with count using count input as count number:
+Badge with count. Pass count via ng-content with attribute es-role="count":
 
 ####
 
@@ -173,15 +152,11 @@ Badge with count using count input as count number:
   <Story
     name='Count'
     args={{
-      color: '',
-      count: 1
+      color: ''
     }}
     argTypes={{
       color: {
         control: 'string'
-      },
-      count: {
-        control: 'number'
       }
     }}
   >
@@ -191,19 +166,19 @@ Badge with count using count input as count number:
           [size]="size"
           [color]="color"
           [borderSize]="borderSize"
-          [count]="count"
           [position]="position"
         >
-          <es-avatar></es-avatar>
+          <span es-role="count">1</span>
+          <es-avatar es-role="child"></es-avatar>
         </es-badge>
         <es-badge
           [size]="size"
           [color]="color"
           [borderSize]="borderSize"
-          [count]="count"
           [position]="position"
         >
-          <button type="button" color="primary" mat-icon-button>
+          <span es-role="count">1</span>
+          <button es-role="child" type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
         </es-badge>
@@ -261,7 +236,7 @@ positions input as object of positions:
           [offsetHorizontal]="offsetHorizontal"
           [offsetVertical]="offsetVertical"
         >
-          <es-avatar></es-avatar>
+          <es-avatar es-role="child"></es-avatar>
         </es-badge>
         <es-badge
           [position]="position"
@@ -269,7 +244,7 @@ positions input as object of positions:
           [offsetHorizontal]="offsetHorizontal"
           [offsetVertical]="offsetVertical"
         >
-          <button type="button" color="primary" mat-icon-button>
+          <button es-role="child" type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
         </es-badge>

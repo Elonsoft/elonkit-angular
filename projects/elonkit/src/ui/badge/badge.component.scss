@@ -23,17 +23,12 @@ $badge-size: 16;
     justify-content: center;
     position: absolute;
     z-index: 1000;
-  }
 
-  &__img {
-    height: 96%;
-    object-fit: cover;
-    width: 96%;
-  }
-
-  &__count {
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 16px;
+    [es-role='icon'] {
+      border-radius: 50%;
+      font-size: 16px;
+      height: fit-content;
+      width: fit-content;
+    }
   }
 }

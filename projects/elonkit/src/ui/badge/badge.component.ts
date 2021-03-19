@@ -95,28 +95,6 @@ export class ESBadgeComponent {
   }
   private _positions: ESBadgePositionStyles;
 
-  /**
-   * Path to image to display icon.
-   */
-  @Input() public src?: string;
-
-  /**
-   * Alt text for icon
-   */
-  @Input() public alt?: string;
-
-  /**
-   * Defines badge count.
-   */
-  @Input()
-  public get count(): number {
-    return this._count;
-  }
-  public set count(value: number) {
-    this._count = coerceNumberProperty(value);
-  }
-  private _count: number;
-
   private badgePosition = ESBadgePositions;
 
   /**

@@ -7,7 +7,7 @@ export const BADGE_STORY_BASIC_SOURCE = {
     [borderSize]="borderSize"
     [position]="position"
   >
-    <es-avatar></es-avatar>
+    <es-avatar es-role="child"></es-avatar>
   </es-badge>
   <es-badge
     [size]="size"
@@ -16,7 +16,7 @@ export const BADGE_STORY_BASIC_SOURCE = {
     [borderSize]="borderSize"
     [position]="position"
   >
-    <button type="button" color="primary" mat-icon-button>
+    <button es-role="child" type="button" color="primary" mat-icon-button>
       <mat-icon>favorite</mat-icon>
     </button>
   </es-badge>
