@@ -144,7 +144,6 @@ export class ESBadgeComponent {
   public childElement: ElementRef;
 
   /**
-   * @internal
    * @ignore
    */
   constructor(
