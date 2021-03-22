@@ -37,13 +37,11 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit {
   public destroyed$ = new Subject();
 
   /**
-   * @internal
    * @ignore
    */
   constructor(private _elementRef: ElementRef, private renderer: Renderer2) {}
 
   /**
-   * @internal
    * @ignore
    */
   public ngOnInit() {
@@ -51,7 +49,6 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit {
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngAfterContentInit() {

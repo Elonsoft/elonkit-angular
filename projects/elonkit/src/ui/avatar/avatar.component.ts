@@ -76,7 +76,6 @@ export class ESAvatarComponent {
   private _variant: ESAvatarVariant;
 
   /**
-   * @internal
    * @ignore
    */
   constructor(
