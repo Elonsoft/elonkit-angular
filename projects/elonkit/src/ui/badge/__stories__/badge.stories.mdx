@@ -72,7 +72,7 @@ Basic badge with no image using color input as background color and borderSize i
           [borderSize]="borderSize"
           [position]="position"
         >
-          <es-avatar es-role="child"></es-avatar>
+          <es-avatar></es-avatar>
         </es-badge>
         <es-badge
           [size]="size"
@@ -80,7 +80,7 @@ Basic badge with no image using color input as background color and borderSize i
           [borderSize]="borderSize"
           [position]="position"
         >
-          <button es-role="child" type="button" color="primary" mat-icon-button>
+          <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
         </es-badge>
@@ -115,7 +115,7 @@ Badge with icon. Pass icon via ng-content with attribute es-role="icon":
           [position]="position"
         >
           <mat-icon es-role="icon" color="primary">face</mat-icon>
-          <es-avatar es-role="child"></es-avatar>
+          <es-avatar></es-avatar>
         </es-badge>
         <es-badge
           [size]="size"
@@ -123,7 +123,7 @@ Badge with icon. Pass icon via ng-content with attribute es-role="icon":
           [position]="position"
         >
           <mat-icon es-role="icon" color="primary">face</mat-icon>
-          <button es-role="child" type="button" color="primary" mat-icon-button>
+          <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
         </es-badge>
@@ -169,7 +169,7 @@ Badge with count. Pass count via ng-content with attribute es-role="count":
           [position]="position"
         >
           <span es-role="count">1</span>
-          <es-avatar es-role="child"></es-avatar>
+          <es-avatar></es-avatar>
         </es-badge>
         <es-badge
           [size]="size"
@@ -178,7 +178,7 @@ Badge with count. Pass count via ng-content with attribute es-role="count":
           [position]="position"
         >
           <span es-role="count">1</span>
-          <button es-role="child" type="button" color="primary" mat-icon-button>
+          <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
         </es-badge>
@@ -236,7 +236,7 @@ positions input as object of positions:
           [offsetHorizontal]="offsetHorizontal"
           [offsetVertical]="offsetVertical"
         >
-          <es-avatar es-role="child"></es-avatar>
+          <es-avatar></es-avatar>
         </es-badge>
         <es-badge
           [position]="position"
@@ -244,7 +244,7 @@ positions input as object of positions:
           [offsetHorizontal]="offsetHorizontal"
           [offsetVertical]="offsetVertical"
         >
-          <button es-role="child" type="button" color="primary" mat-icon-button>
+          <button type="button" color="primary" mat-icon-button>
             <mat-icon>favorite</mat-icon>
           </button>
         </es-badge>
@@ -274,19 +274,20 @@ ESBadgeDefaultOptions defines default badge size
 ```ts
 export interface ESBadgeDefaultOptions {
   size?: number;
-  position?: ESBadgePositionVariant;
+  position?: ESBadgePosition;
   borderSize?: number;
 }
 ```
 
-ESBadgePositionVariant defines badge position type
+ESBadgePosition defines badge position type
 
 ```ts
-export type ESBadgePositionVariant =
-  | 'above before'
-  | 'above after'
-  | 'below before'
-  | 'below after';
+export enum ESBadgePosition {
+  AboveBefore = 'above before',
+  AboveAfter = 'above after',
+  BelowBefore = 'below before',
+  BelowAfter = 'below after'
+}
 ```
 
 ESBadgePositionStyles defines types for object of custom positions

@@ -12,12 +12,7 @@ import {
 } from '@angular/core';
 
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import {
-  ESBadgeDefaultOptions,
-  ESBadgePositionVariant,
-  ESBadgePositions,
-  ESBadgePositionStyles
-} from './badge.types';
+import { ESBadgeDefaultOptions, ESBadgePosition, ESBadgePositionStyles } from './badge.types';
 
 export const ES_BADGE_DEFAULT_OPTIONS = new InjectionToken<ESBadgeDefaultOptions>(
   'ES_BADGE_DEFAULT_OPTIONS'
@@ -47,16 +42,16 @@ export class ESBadgeComponent {
    * Defines badge position.
    */
   @Input()
-  public get position(): ESBadgePositionVariant {
+  public get position(): ESBadgePosition {
     return this._position;
   }
-  public set position(value: ESBadgePositionVariant) {
+  public set position(value: ESBadgePosition) {
     this._position = value;
     if (this._position) {
       this.setPositions();
     }
   }
-  private _position: ESBadgePositionVariant;
+  private _position: ESBadgePosition;
 
   /**
    * Defines badge border width in pixels.
@@ -95,7 +90,7 @@ export class ESBadgeComponent {
   }
   private _positions: ESBadgePositionStyles;
 
-  private badgePosition = ESBadgePositions;
+  private badgePosition = ESBadgePosition;
 
   /**
    * Defines badge vertical offset.
@@ -113,7 +108,7 @@ export class ESBadgeComponent {
       );
       this.setStyles();
       this.changeDetector.markForCheck();
-    }, 800);
+    });
   }
   private _offsetVertical: number;
 
@@ -133,7 +128,7 @@ export class ESBadgeComponent {
       );
       this.setStyles();
       this.changeDetector.markForCheck();
-    }, 800);
+    });
   }
   private _offsetHorizontal: number;
 
@@ -170,37 +165,36 @@ export class ESBadgeComponent {
     setTimeout(() => {
       const childElement = this.childElement.nativeElement.offsetWidth;
       const transparent = this.size / 2 + this.borderSize;
+      let offsetVertical = childElement - transparent;
+      let offsetHorizontal = this.borderSize * 2;
 
       switch (this.position) {
         case this.badgePosition.AboveAfter: {
           this.positions = { 'top.px': 0, 'right.px': -1 };
-          this.offsetVertical = childElement - transparent;
-          this.offsetHorizontal = this.borderSize * 2;
           break;
         }
         case this.badgePosition.AboveBefore: {
           this.positions = { 'top.px': 0, 'left.px': 0 };
-          this.offsetVertical = childElement - transparent;
-          this.offsetHorizontal = this.offsetVertical;
+          offsetHorizontal = offsetVertical;
           break;
         }
         case this.badgePosition.BelowAfter: {
           this.positions = { 'bottom.px': -1, 'right.px': -1 };
-          this.offsetVertical = this.borderSize * 2;
-          this.offsetHorizontal = this.borderSize * 2;
+          offsetVertical = this.borderSize * 2;
+          offsetHorizontal = this.borderSize * 2;
           break;
         }
         case this.badgePosition.BelowBefore: {
           this.positions = { 'left.px': 0, 'bottom.px': -1 };
-          this.offsetVertical = this.borderSize * 2;
-          this.offsetHorizontal = childElement - transparent;
+          offsetVertical = this.borderSize * 2;
+          offsetHorizontal = childElement - transparent;
           break;
         }
       }
-      this.setOffsets();
+      this.setOffsets(offsetVertical, offsetHorizontal);
       this.setStyles();
       this.changeDetector.markForCheck();
-    }, 800);
+    });
   }
 
   /**
@@ -216,14 +210,14 @@ export class ESBadgeComponent {
     };
   }
 
-  private setOffsets(): void {
+  private setOffsets(offsetVertical, offsetHorizontal): void {
     this._elementRef.nativeElement.style.setProperty(
       '--offsetVertical',
-      `${this.offsetVertical + `px`}`
+      `${offsetVertical + `px`}`
     );
     this._elementRef.nativeElement.style.setProperty(
       '--offsetHorizontal',
-      `${this.offsetHorizontal + `px`}`
+      `${offsetHorizontal + `px`}`
     );
   }
 

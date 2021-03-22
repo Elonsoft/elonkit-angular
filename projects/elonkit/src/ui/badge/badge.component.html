@@ -3,11 +3,11 @@
     [ngStyle]="stylesObject()"
   >
     <ng-content select="[es-role=icon]"></ng-content>
-    <div data-testid="badge" class="es-caption es-badge__count">
+    <div data-testid="badge" class="es-caption">
       <ng-content select="[es-role=count]"></ng-content>
     </div>
   </div>
   <div #childElement>
-    <ng-content select="[es-role=child]"></ng-content>
+    <ng-content></ng-content>
   </div>
 </div>

@@ -1,18 +1,12 @@
 export interface ESBadgeDefaultOptions {
   size?: number;
-  position?: ESBadgePositionVariant;
+  position?: ESBadgePosition;
   borderSize?: number;
   offsetVertical?: number;
   offsetHorizontal?: number;
 }
 
-export type ESBadgePositionVariant =
-  | 'above before'
-  | 'above after'
-  | 'below before'
-  | 'below after';
-
-export enum ESBadgePositions {
+export enum ESBadgePosition {
   AboveBefore = 'above before',
   AboveAfter = 'above after',
   BelowBefore = 'below before',
