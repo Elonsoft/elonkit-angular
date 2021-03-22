@@ -141,7 +141,6 @@ export class ESPaginatorComponent {
   public locale$: Observable<ESLocale>;
 
   /**
-   * @internal
    * @ignore
    */
   constructor(
