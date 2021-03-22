@@ -8,7 +8,8 @@ import {
   EventEmitter,
   InjectionToken,
   Optional,
-  Inject
+  Inject,
+  HostListener
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -140,7 +141,6 @@ export class ESPaginatorComponent {
   public locale$: Observable<ESLocale>;
 
   /**
-   * @internal
    * @ignore
    */
   constructor(
@@ -291,6 +291,38 @@ export class ESPaginatorComponent {
     if (this.pageGoTo) {
       const page = Math.max(1, Math.min(+this.pageGoTo, this.pagesCount));
       this.pageChange.emit(page);
+    }
+  }
+
+  /**
+   * Prevent letter typing
+   */
+  /**
+   * @internal
+   * @ignore
+   */
+  public onKeyPress(event: KeyboardEvent) {
+    const key = event.key;
+    const regex = /[0-9]/;
+
+    if (key === 'Enter' || regex.test(key)) {
+      return;
+    }
+
+    event.preventDefault();
+  }
+
+  @HostListener('window:keydown.shift.arrowright', ['$event']) public onKeyWrightDown(
+    event: KeyboardEvent
+  ) {
+    this.onNextPage();
+  }
+
+  @HostListener('window:keydown.shift.arrowleft', ['$event']) public onKeyLeftDown(
+    event: KeyboardEvent
+  ) {
+    if (this.page !== 1) {
+      this.onPrevPage();
     }
   }
 }

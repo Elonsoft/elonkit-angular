@@ -1,4 +1,5 @@
 .es-paginator {
+  align-items: baseline;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -15,7 +16,7 @@
   &__select {
     display: block;
     margin-left: 4px;
-    margin-right: 24px;
+    margin-right: 18px;
 
     &.mat-select {
       width: 40px;
@@ -27,11 +28,19 @@
   }
 
   &__form {
-    margin-left: 20px;
+    margin-left: 16px;
   }
 
   &__input {
-    width: 80px;
+    appearance: textfield;
+    width: 64px;
+
+    &.mat-form-field-appearance-outline .mat-form-field-flex {
+      padding-bottom: 0;
+      padding-left: 0.6em;
+      padding-right: 0.6em;
+      padding-top: 0;
+    }
 
     &.mat-form-field-appearance-outline .mat-form-field-wrapper {
       margin-bottom: 0;
@@ -49,12 +58,21 @@
     .mat-form-field-subscript-wrapper {
       display: none;
     }
+
+    .mat-input-element {
+      appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none !important;
+        margin: 0 !important;
+      }
+    }
   }
 
   &__items {
     align-items: center;
     display: flex;
-    margin-bottom: 16px;
     margin-left: -12px;
   }
 
@@ -64,10 +82,16 @@
     font-size: 12px;
     justify-content: center;
 
+    &-icon {
+      opacity: 0.38;
+    }
+
     &,
     &.mat-icon-button {
+      height: 32px;
       line-height: unset;
-      margin: 0 2px;
+      margin: 0;
+      width: 32px;
     }
 
     &:first-child {
@@ -91,11 +115,18 @@
     }
 
     &_gap {
-      width: 40px;
+      align-items: center;
+      color: inherit;
+      display: flex;
+      width: 32px;
 
       &:hover {
         background: none;
       }
+    }
+
+    &-icon {
+      margin-top: 12px;
     }
   }
 }

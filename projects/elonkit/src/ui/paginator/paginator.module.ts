@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 import { ESPaginatorComponent } from './paginator.component';
+import { ESTooltipModule } from '../tooltip';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ESPaginatorComponent } from './paginator.component';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    ESTooltipModule
   ],
   exports: [ESPaginatorComponent],
   declarations: [ESPaginatorComponent]
