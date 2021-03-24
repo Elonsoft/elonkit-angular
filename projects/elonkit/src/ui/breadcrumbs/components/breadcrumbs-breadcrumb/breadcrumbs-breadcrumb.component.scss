@@ -45,7 +45,7 @@
 
   &__menu {
     &.mat-icon-button {
-      border-radius: unset;
+      border-radius: 4px;
       height: 24px;
       line-height: 20px;
       width: 20px;
@@ -63,6 +63,21 @@
       justify-content: center;
       line-height: 20px;
       width: 20px;
+    }
+
+    &-content {
+      .mat-menu-content:not(:empty) {
+        padding-bottom: 4px;
+        padding-top: 4px;
+      }
+
+      .mat-menu-item {
+        align-items: center;
+        display: flex;
+        height: 32px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
     }
   }
 }

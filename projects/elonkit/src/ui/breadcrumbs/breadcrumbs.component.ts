@@ -74,12 +74,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   public windowHistoryLength: number;
 
   /**
-   * Width of go back button
-   */
-  private goBackButtonWidth: number;
-
-  /**
-   * This defines using go back button or not
+   * Whether to show Back button.
    */
   @Input() public withBackButton: ESBreadcrumb;
 
