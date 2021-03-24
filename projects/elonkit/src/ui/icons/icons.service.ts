@@ -29,6 +29,9 @@ export const ES_SVG_ICONS = {
     'play',
     'speed',
     'un-mute'
+  ] as const,
+  'es-table-actions': [
+    'close',
   ] as const
 };
 

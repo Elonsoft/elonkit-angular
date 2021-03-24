@@ -1,0 +1,15 @@
+<div class="es-table-actions">
+  <ng-content></ng-content>
+  <div class="es-table-actions__content">
+    <span class="es-table-actions__total es-h6">
+      Выбрано {{total}}
+    </span>
+    <div class="es-table-actions__actions">
+      <ng-content select="[role=actions]"></ng-content>
+      <div class="es-table-actions__separator"></div>
+      <button (click)="onCloseClick()" class="es-table-actions__action" mat-icon-button>
+        <mat-icon svgIcon="es-table-actions:close"></mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

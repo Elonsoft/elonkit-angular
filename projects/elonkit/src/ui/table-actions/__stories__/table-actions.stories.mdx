@@ -1,0 +1,78 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { action } from '@storybook/addon-actions';
+import { CoreModule } from '~storybook/core.module';
+import { ESTableActionsComponent } from '..';
+
+import { ES_TABLE_ACTIONS_DEFAULT_OPTIONS } from '';
+
+import {
+  TableActionsStoryBasicComponent,
+  TableActionsStoryBasicModule,
+  TABLE_ACTIONS_SOURCE
+} from './table-actions-story-basic';
+
+<Meta
+  title='UI/Table-Actions'
+  args={{
+    total: 10
+  }}
+  argTypes={{
+    total: {
+      control: 'number'
+    }
+  }}
+/>
+
+# Table actions
+
+Table actions
+
+## Demos
+
+<Canvas source={TABLE_ACTIONS_SOURCE}>
+  <Story name='Basic' height='400px'>
+    {((args) => ({
+      component: TableActionsStoryBasicComponent,
+      moduleMetadata: {
+        imports: [TableActionsStoryBasicModule, CoreModule]
+      },
+      props: {
+        ...args,
+        onAction: action('onAction')
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={ESTableActionsComponent} />
+
+## Interfaces
+
+```ts
+export interface ESTableActionsDefaultOptions {
+  total?: number;
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_TABLE_ACTIONS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/table-actions';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_TABLE_ACTIONS_DEFAULT_OPTIONS,
+      useValue: {
+        total: 10,
+      }
+    }
+  ]
+})
+```

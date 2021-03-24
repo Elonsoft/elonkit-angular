@@ -1,0 +1,16 @@
+.table-actions {
+  padding: 30px;
+  width: 80%;
+
+  .mat-elevation-z8 {
+    box-shadow: none;
+  }
+
+  &__story-table {
+    width: 100%;
+  }
+
+  &__button {
+    opacity: 0.6;
+  }
+}
