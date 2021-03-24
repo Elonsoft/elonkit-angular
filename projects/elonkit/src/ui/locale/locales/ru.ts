@@ -38,5 +38,8 @@ export const ru = {
   avatar: {
     labelAvatar: 'Аватар',
     labelStatus: 'Статус'
+  },
+  tableActions: {
+    title: 'Выбрано'
   }
 };

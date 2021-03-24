@@ -1,21 +1,15 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   ViewEncapsulation,
   Input,
-  InjectionToken,
   Output,
-  Optional,
-  Inject,
   EventEmitter
 } from '@angular/core';
 
-import { ESTableActionsDefaultOptions } from './table-actions.types';
+import { ESLocaleService, ESLocale } from '../locale';
 
-export const ES_TABLE_ACTIONS_DEFAULT_OPTIONS = new InjectionToken<ESTableActionsDefaultOptions>(
-  'ES_TABLE_ACTIONS_DEFAULT_OPTIONS'
-);
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'es-table-actions',
@@ -25,18 +19,17 @@ export const ES_TABLE_ACTIONS_DEFAULT_OPTIONS = new InjectionToken<ESTableAction
   encapsulation: ViewEncapsulation.None
 })
 export class ESTableActionsComponent {
-
   private _total;
 
   /**
-   * Total number of selected rows
+   * Total number of selected rows.
    */
   @Input()
-  public get total(): ESTableActionsDefaultOptions {
+  public get total(): any {
     return this._total;
   }
-  public set total(value: ESTableActionsDefaultOptions) {
-    this._total = value || this.defaultOptions?.total || null;
+  public set total(value: any) {
+    this._total = value || null;
   }
 
   /**
@@ -47,13 +40,27 @@ export class ESTableActionsComponent {
   /**
    * Emit closed button click
    */
+  /**
+   * @internal
+   * @ignore
+   */
   public onCloseClick(): void {
     this.closed.emit();
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
+
   constructor(
-    @Optional()
-    @Inject(ES_TABLE_ACTIONS_DEFAULT_OPTIONS)
-    private defaultOptions: ESTableActionsDefaultOptions,
-  ) {}
+    /**
+     * @internal
+     * @ignore
+     */
+    public localeService: ESLocaleService
+  ) {
+    this.locale$ = this.localeService.locale();
+  }
 }

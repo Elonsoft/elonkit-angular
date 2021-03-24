@@ -2,7 +2,7 @@
   <ng-content></ng-content>
   <div class="es-table-actions__content">
     <span class="es-table-actions__total es-h6">
-      Выбрано {{total}}
+      {{(locale$ | async).tableActions.title}} {{total}}
     </span>
     <div class="es-table-actions__actions">
       <ng-content select="[role=actions]"></ng-content>

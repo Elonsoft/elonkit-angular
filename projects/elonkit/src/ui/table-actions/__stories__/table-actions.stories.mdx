@@ -5,8 +5,6 @@ import { action } from '@storybook/addon-actions';
 import { CoreModule } from '~storybook/core.module';
 import { ESTableActionsComponent } from '..';
 
-import { ES_TABLE_ACTIONS_DEFAULT_OPTIONS } from '';
-
 import {
   TableActionsStoryBasicComponent,
   TableActionsStoryBasicModule,
@@ -27,7 +25,8 @@ import {
 
 # Table actions
 
-Table actions
+Table actions component. Show tables selected elements and provide actions on them.
+All actions buttons, besides close button, could be passing via ng-content.
 
 ## Demos
 
@@ -49,30 +48,3 @@ Table actions
 ## API
 
 <ArgsTable of={ESTableActionsComponent} />
-
-## Interfaces
-
-```ts
-export interface ESTableActionsDefaultOptions {
-  total?: number;
-}
-```
-
-## Constants
-
-Injection token that can be used to configure the default options for all components within an app.
-
-```ts
-import { ES_TABLE_ACTIONS_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/table-actions';
-
-@NgModule({
-  providers: [
-    {
-      provide: ES_TABLE_ACTIONS_DEFAULT_OPTIONS,
-      useValue: {
-        total: 10,
-      }
-    }
-  ]
-})
-```

@@ -26,11 +26,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./table-actions-story-basic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class TableActionsStoryBasicComponent {
   public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   public dataSource = ELEMENT_DATA;
   public total = 10;
 
-  public onAction():void {}
+  public onAction(): void {}
 }
