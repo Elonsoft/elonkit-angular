@@ -8,7 +8,8 @@ import {
   ContentChildren,
   QueryList,
   AfterContentInit,
-  Renderer2
+  Renderer2,
+  OnDestroy
 } from '@angular/core';
 
 import { ESAvatarComponent } from './avatar.component';
@@ -22,7 +23,7 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ESAvatarGroupComponent implements OnInit, AfterContentInit {
+export class ESAvatarGroupComponent implements OnInit, AfterContentInit, OnDestroy {
   @ContentChildren(ESAvatarComponent, { read: ElementRef }) private avatars: QueryList<ElementRef>;
   /**
    * Defines size of the avatar in pixels.
@@ -30,11 +31,7 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit {
   @Input()
   public size: number;
 
-  /**
-   * @internal
-   * @ignore
-   */
-  public destroyed$ = new Subject();
+  private destroyed$ = new Subject();
 
   /**
    * @ignore
@@ -65,4 +62,11 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit {
       this.renderer.setStyle(avatar.nativeElement, 'z-index', index);
     });
   };
+
+  /**
+   * @ignore
+   */
+  public ngOnDestroy() {
+    this.destroyed$.next();
+  }
 }

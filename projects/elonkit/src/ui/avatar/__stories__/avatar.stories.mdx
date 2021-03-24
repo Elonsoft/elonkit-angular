@@ -10,17 +10,9 @@ import { AVATAR_STORY_IMAGE_SOURCE } from './avatar-story-image';
 
 import { AVATAR_STORY_NO_IMAGE_ICON_SOURCE } from './avatar-story-no-image-icon';
 
-import {
-  AvatarStoryNoImageTypographyModule,
-  AvatarStoryNoImageTypographyComponent,
-  AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE
-} from './avatar-story-no-image-typography';
+import { AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE } from './avatar-story-no-image-typography';
 
-import {
-  AvatarStoryGroupModule,
-  AvatarStoryGroupComponent,
-  AVATAR_STORY_GROUP_SOURCE
-} from './avatar-story-group';
+import { AVATAR_STORY_GROUP_SOURCE } from './avatar-story-group';
 
 <Meta
   title='UI/Avatar'
@@ -47,8 +39,6 @@ This component allows to display default or custom avatar.
 ####
 
 ####
-
-### Image avatars
 
 We can create image avatars by passing `src` input to the component.
 
@@ -79,8 +69,6 @@ We can create image avatars by passing `src` input to the component.
   </Story>
 </Canvas>
 
-### Icon avatars
-
 When src input is missing or falsy, content is used instead. Icon or text can be used for a content.
 
 <Canvas source={AVATAR_STORY_NO_IMAGE_ICON_SOURCE}>
@@ -104,10 +92,6 @@ When src input is missing or falsy, content is used instead. Icon or text can be
   </Story>
 </Canvas>
 
-### Text avatars
-
-Are created by passing typography via ng-content instead of src input.
-
 <Canvas source={AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE}>
   <Story
     name='Text'
@@ -120,7 +104,7 @@ Are created by passing typography via ng-content instead of src input.
         <es-avatar
           [size]="size"
           [variant]="variant"
-          [typography]="typography">
+          [typography]="">
           НФ
         </es-avatar>
       `,
@@ -134,13 +118,7 @@ Are created by passing typography via ng-content instead of src input.
   </Story>
 </Canvas>
 
-### Group avatars
-
 We can use avatar group to render avatars as a stack.
-
-####
-
-`size` - size of all avatars in group;
 
 <Canvas source={AVATAR_STORY_GROUP_SOURCE}>
   <Story
@@ -153,22 +131,19 @@ We can use avatar group to render avatars as a stack.
     {((args) => ({
       template: `
         <es-avatar-group
-        [size]="size"
+          [size]="size"
         >
           <es-avatar
-            class="es-avatar-group__avatar"
             [size]="size"
             [alt]="alt"
             [src]="src"
           ></es-avatar>
           <es-avatar
-            class="es-avatar-group__avatar"
             [size]="size"
             [alt]="alt"
             [src]="src"
           ></es-avatar>
           <es-avatar
-            class="es-avatar-group__avatar"
             [size]="size"
             [alt]="alt"
             [src]="src"
@@ -187,11 +162,11 @@ We can use avatar group to render avatars as a stack.
 
 ## API
 
-### Avatar component
+### ESAvatarComponent
 
 <ArgsTable of={ESAvatarComponent} />
 
-### Avatar group component
+### ESAvatarGroupComponent
 
 <ArgsTable of={ESAvatarGroupComponent} />
 

@@ -1,10 +1,10 @@
 @mixin es-avatar-theme($theme, $elonkit-theme) {
   $cl-mono-a: map-get($elonkit-theme, mono-a);
-  $cl-success: map-get($elonkit-theme, positive);
   $cl-mono-b: map-get($elonkit-theme, mono-b);
 
   .es-avatar {
     background: mat-color($cl-mono-a, A100);
+    border: 2px solid mat-color($cl-mono-b, 500);
     color: mat-color($cl-mono-a, A500);
   }
 }

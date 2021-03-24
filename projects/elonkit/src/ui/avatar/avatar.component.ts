@@ -33,13 +33,13 @@ export class ESAvatarComponent {
    * Size of the avatar in pixels.
    */
   @Input()
-  public get size(): number {
+  public get size(): any {
     return this._size;
   }
-  public set size(value: number) {
+  public set size(value: any) {
     this._size = coerceNumberProperty(value, 40);
   }
-  private _size: number;
+  private _size: any;
 
   /**
    * Class applied to text.

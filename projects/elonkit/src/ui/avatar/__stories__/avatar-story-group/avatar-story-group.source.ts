@@ -6,29 +6,26 @@ export const AVATAR_STORY_GROUP_SOURCE = {
   export class AppComponent {
     @Input()
     public size: number;
-
-    public avatars = [
-      {
-        size: 40,
-        src: '/img/es-logo.png',
-        alt: 'alt text'
-      },
-      { src: null, size: 40 },
-      { src: null, size: 40, typography: 'typography' }
-    ];
   }
   `,
   html: `
   <es-avatar-group
-  [size]="size"
+    [size]="size"
   >
     <es-avatar
-      *ngFor="let avatar of avatars; index as i"
-      class="es-avatar-group__avatar"
-      [size]="avatar.size"
-      [alt]="avatar.alt"
-      [src]="avatar.src"
-      [typography]="avatar.typography"
+      [size]="size"
+      [alt]="alt"
+      [src]="src"
+    ></es-avatar>
+    <es-avatar
+      [size]="size"
+      [alt]="alt"
+      [src]="src"
+    ></es-avatar>
+    <es-avatar
+      [size]="size"
+      [alt]="alt"
+      [src]="src"
     ></es-avatar>
   </es-avatar-group>
   `

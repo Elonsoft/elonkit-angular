@@ -4,7 +4,7 @@ export const AVATAR_STORY_NO_IMAGE_ICON_SOURCE = {
     [size]="size"
     [variant]="variant"
   >
-    <mat-icon>thumb_up</mat-icon>
+    <mat-icon>person</mat-icon>
   </es-avatar>
   `
 };

@@ -1,1 +1,1 @@
-export { AVATAR_STORY_NO_IMAGE_ICON_SOURCE } from './avatr-story-no-image-icon.source';
+export { AVATAR_STORY_NO_IMAGE_ICON_SOURCE } from './avatar-story-no-image-icon.source';
