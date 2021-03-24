@@ -1,5 +1,8 @@
 import { create } from '@storybook/theming/create';
 
+import logoLight from './assets/logo-light.svg'
+import logoDark from './assets/logo-dark.svg'
+
 export const light = create({
   base: 'light',
 
@@ -7,6 +10,7 @@ export const light = create({
   fontCode: 'monospace',
 
   brandTitle: 'Elonsoft',
+  brandImage: logoLight,
   brandUrl: 'https://elonsoft.ru/'
 });
 
@@ -18,5 +22,6 @@ export const dark = create({
   fontCode: 'monospace',
 
   brandTitle: 'Elonsoft',
+  brandImage: logoDark,
   brandUrl: 'https://elonsoft.ru/'
 });
