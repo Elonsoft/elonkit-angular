@@ -2,14 +2,13 @@
   <button
     mat-icon-button
     class="es-audio-player-volume__button"
-    data-testid="volume"
     disableRipple="true"
     esTooltip
     [esTooltipContent]="content"
     esTooltipArrow
     esTooltipInteractive
     [esTooltipDisableCloseClickListener]="true"
-    [attr.aria-label]="this.isMute ? locale.audioPlayer.labelUnMute : locale.audioPlayer.labelMute"
+    [attr.aria-label]="this.isMute ? locale.audioPlayer.labelUnmute : locale.audioPlayer.labelMute"
     (click)="onMute()"
   >
     <mat-icon svgIcon="es-audio-player:{{ this.isMute ? 'mute' : 'un-mute' }}"></mat-icon>
@@ -29,7 +28,7 @@
         (change)="onVolumeChanged($event.value)"
         (input)="onVolumeSliderMove($event.value)"
       ></mat-slider>
-      <label>{{ sliderVolume.value }}</label>
+      <label class="es-caption">{{ sliderVolume.value }}</label>
     </div>
   </ng-template>
 </ng-container>

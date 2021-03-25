@@ -1,12 +1,12 @@
-@import './ui/alert/alert.component.theme';
-@import './ui/audio-player/audio-player.component.theme';
-@import './ui/breadcrumbs/breadcrumbs.component.theme';
-@import './ui/dropzone/dropzone.component.theme';
-@import './ui/empty-state/empty-state.component.theme';
-@import './ui/inline-form-field/inline-form-field.component.theme';
-@import './ui/paginator/paginator.component.theme';
-@import './ui/surface/surface.component.theme';
-@import './ui/tooltip/tooltip.component.theme';
+@import '../ui/alert/alert.component.theme';
+@import '../ui/audio-player/audio-player.component.theme';
+@import '../ui/breadcrumbs/breadcrumbs.component.theme';
+@import '../ui/dropzone/dropzone.component.theme';
+@import '../ui/empty-state/empty-state.component.theme';
+@import '../ui/inline-form-field/inline-form-field.component.theme';
+@import '../ui/paginator/paginator.component.theme';
+@import '../ui/surface/surface.component.theme';
+@import '../ui/tooltip/tooltip.component.theme';
 
 @function es-make-theme($es-theme) {
   $result: $es-theme;

@@ -33,7 +33,7 @@ export class ESAudioPlayerVolumeComponent {
   private _volume: number;
 
   /**
-   * Event emitted when need change volume.
+   * Event emitted when user changes volume.
    */
   @Output() public volumeChanged = new EventEmitter();
 

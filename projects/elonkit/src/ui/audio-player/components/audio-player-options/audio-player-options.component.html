@@ -2,14 +2,13 @@
   <button
     mat-icon-button
     class="es-audio-player-options__button"
-    data-testid="options"
     disableRipple="true"
     esTooltip
     [esTooltipContent]="content"
     esTooltipClass="es-audio-player-options__tooltip"
     esTooltipArrow
     esTooltipInteractive
-    [attr.aria-label]="locale.audioPlayer.options"
+    [attr.aria-label]="locale.audioPlayer.labelOptions"
   >
     <mat-icon svgIcon="es-audio-player:more-vert"></mat-icon>
   </button>
@@ -45,7 +44,6 @@
       <button
         mat-button
         class="es-audio-player-options__menu-item"
-        data-testid="download"
         disableRipple
         [disabled]="!src"
         [attr.aria-label]="locale.audioPlayer.labelDownload"

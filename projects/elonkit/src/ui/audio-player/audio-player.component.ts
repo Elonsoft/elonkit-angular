@@ -9,7 +9,8 @@ import {
   ChangeDetectorRef,
   InjectionToken,
   Optional,
-  Inject
+  Inject,
+  AfterViewInit
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -33,7 +34,7 @@ const DEFAULT_TIME = '00:00:00';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ESAudioPlayerComponent implements OnDestroy {
+export class ESAudioPlayerComponent implements AfterViewInit, OnDestroy {
   /**
    *  Array of playback rates for audio.
    */
@@ -71,8 +72,6 @@ export class ESAudioPlayerComponent implements OnDestroy {
       this.audio.src = value;
 
       this.audioCurrentTime = 0;
-
-      this.addEventsListener();
     }
   }
 
@@ -183,6 +182,15 @@ export class ESAudioPlayerComponent implements OnDestroy {
   ) {
     this.rates = defaultOptions?.rates;
     this.locale$ = this.localeService.locale();
+  }
+
+  /**
+   * @ignore
+   */
+  public ngAfterViewInit() {
+    if (this.audio) {
+      this.addEventsListener();
+    }
   }
 
   /**

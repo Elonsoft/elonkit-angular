@@ -1,5 +1,6 @@
 @mixin es-audio-player-time-slider-theme($theme, $elonkit-theme) {
   $mono-a: map-get($elonkit-theme, mono-a);
+  $mono-b: map-get($elonkit-theme, mono-b);
   $primary: map-get($theme, primary);
 
   .es-audio-player-time-slider {
@@ -28,7 +29,7 @@
 
     &__tooltip {
       background-color: mat-color($mono-a, A600);
-      color: #fff;
+      color: mat-color($mono-b, 500);
 
       &::after {
         background: linear-gradient(-45deg, mat-color($mono-a, A600) 50%, transparent 50%);

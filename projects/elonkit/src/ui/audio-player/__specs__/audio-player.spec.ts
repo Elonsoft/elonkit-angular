@@ -1,10 +1,9 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { HttpClientModule } from '@angular/common/http';
 import { inject } from '@angular/core/testing';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 
-import { getByTestId, render, RenderResult } from '@testing-library/angular';
-
-import { CoreModule } from '~storybook/core.module';
+import { getByLabelText, render, RenderResult } from '@testing-library/angular';
+import { en } from '../../locale';
 
 import { ESAudioPlayerComponent } from '../audio-player.component';
 import { ESAudioPlayerModule } from '../audio-player.module';
@@ -26,7 +25,7 @@ describe('AudioPlayer', () => {
         audioDownload: { emit: onDownloadAudio } as any,
         volumeChanged: { emit: onVolumeChanged } as any
       },
-      imports: [HttpClientModule, CoreModule, ESAudioPlayerModule],
+      imports: [MatIconTestingModule, ESAudioPlayerModule],
       excludeComponentDeclaration: true
     });
 
@@ -39,22 +38,24 @@ describe('AudioPlayer', () => {
   afterEach(inject([OverlayContainer], (currentOverlay: OverlayContainer) => {
     currentOverlay.ngOnDestroy();
     overlay.ngOnDestroy();
+
+    jest.restoreAllMocks();
   }));
 
   it('Should change volume', async () => {
-    component.click(component.getByTestId('volume'));
+    component.click(component.getByLabelText(en.audioPlayer.labelMute));
 
     expect(onVolumeChanged).toBeCalledWith(0);
 
-    component.click(component.getByTestId('volume'));
+    component.click(component.getByLabelText(en.audioPlayer.labelUnmute));
 
     expect(onVolumeChanged).toBeCalledWith(VOLUME);
   });
 
   it('Should download audio', async () => {
-    component.mouseEnter(component.getByTestId('options'));
+    component.mouseEnter(component.getByLabelText(en.audioPlayer.labelOptions));
 
-    component.click(getByTestId(overlayElement, 'download'));
+    component.click(getByLabelText(overlayElement, en.audioPlayer.labelDownload));
 
     expect(onDownloadAudio).toBeCalled();
   });
