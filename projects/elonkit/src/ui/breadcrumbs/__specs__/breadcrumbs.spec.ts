@@ -126,7 +126,7 @@ describe('Breadcrumbs', () => {
     }));
 
     it('Should collapse', inject([Location], async (location: Location) => {
-      setWidth(component, 150);
+      setWidth(component, 125);
 
       await component.navigate('/categories/1/1/edit');
       await component.fixture.whenStable();

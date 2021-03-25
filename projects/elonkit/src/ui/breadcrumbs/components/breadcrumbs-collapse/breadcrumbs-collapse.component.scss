@@ -19,18 +19,4 @@
     height: 24px;
     width: 24px;
   }
-
-  &__menu {
-    .mat-menu-content:not(:empty) {
-      padding-bottom: 4px;
-      padding-top: 4px;
-    }
-
-    .mat-menu-item {
-      align-items: center;
-      display: flex;
-      height: 32px;
-      padding-left: 16px;
-    }
-  }
 }

@@ -67,4 +67,21 @@
     display: flex;
     margin-right: 5px;
   }
+
+  &-menu {
+    min-height: auto !important;
+
+    .mat-menu-content:not(:empty) {
+      padding-bottom: 4px;
+      padding-top: 4px;
+    }
+
+    .mat-menu-item {
+      align-items: center;
+      display: flex;
+      height: 32px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
 }

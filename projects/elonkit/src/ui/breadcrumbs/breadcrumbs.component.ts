@@ -45,7 +45,7 @@ export interface ESBreadcrumbsDefaultOptions {
 export const ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY = 'es-caption';
 
 export const ES_BREADCRUMBS_DEFAULT_SIZES = {
-  itemPadding: 8,
+  itemPadding: 4,
   icon: 24,
   iconMargin: 4,
   menu: 20,
@@ -150,9 +150,10 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     if (element && this.breadcrumbs.length > 2) {
       const sizes = this.sizes;
       const widths = this.breadcrumbs.map(({ data: { label, icon, breadcrumbs } }) => {
-        let result = sizes.itemPadding;
+        let result = 0;
 
         if (label) {
+          result += sizes.itemPadding;
           result += this.getLabelWidth(label);
         }
         if (icon) {

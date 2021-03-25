@@ -20,7 +20,7 @@
     <ng-container *ngTemplateOutlet="moreTemplate"></ng-container>
   </ng-container>
 </button>
-<mat-menu #menu="matMenu" yPosition="below" class="es-breadcrumbs-collapse__menu">
+<mat-menu #menu="matMenu" yPosition="below" class="es-breadcrumbs-menu">
   <ng-container *ngFor="let breadcrumb of breadcrumbs">
     <a *ngIf="!breadcrumb.data.breadcrumbs" mat-menu-item [routerLink]="[breadcrumb.path]" class="es-caption">
       <mat-icon *ngIf="breadcrumb.data.icon">{{ breadcrumb.data.icon }}</mat-icon>
@@ -31,7 +31,7 @@
         <mat-icon *ngIf="breadcrumb.data.icon">{{ breadcrumb.data.icon }}</mat-icon>
         {{ breadcrumb.data.label }}
       </button>
-      <mat-menu #subMenu="matMenu" class="es-breadcrumbs-collapse__menu">
+      <mat-menu #subMenu="matMenu" class="es-breadcrumbs-menu">
         <a
           *ngFor="let item of breadcrumb.data.breadcrumbs"
           mat-menu-item
