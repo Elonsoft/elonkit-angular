@@ -1,0 +1,7 @@
+@mixin es-avatar-group-theme($theme, $elonkit-theme) {
+  $cl-mono-b: map-get($elonkit-theme, mono-b);
+
+  .es-avatar {
+    border: 2px solid mat-color($cl-mono-b, 500);
+  }
+}

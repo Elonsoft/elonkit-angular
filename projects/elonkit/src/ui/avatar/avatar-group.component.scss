@@ -11,25 +11,23 @@
     &:not(:first-child) {
       margin-left: -12px;
     }
-  }
-}
 
-/* change the white border to mask only if it's supported: */
-@supports (mask: radial-gradient(transparent 12px, black 0)) {
-  /* stylelint-disable-next-line */
-  .es-avatar-group__avatar {
-    border: unset;
+    /* change the white border to mask only if it's supported: */
+    @supports (mask: radial-gradient(transparent 12px, black 0)) {
+      /* stylelint-disable-next-line */
+      border: unset;
 
-    &:not(:last-of-type) {
-      mask: radial-gradient(
-        circle at calc((var(--size) * 0.75) + ((var(--size) / 2) + 2px)),
-        transparent calc((var(--size) / 2) + 2px),
-        #fff 0
-      );
-    }
+      &:not(:last-of-type) {
+        mask: radial-gradient(
+          circle at calc((var(--size) * 0.75) + ((var(--size) / 2) + 2px)),
+          transparent calc((var(--size) / 2) + 2px),
+          #fff 0
+        );
+      }
 
-    &:not(:first-of-type) {
-      margin-left: calc(var(--size) * -0.25);
+      &:not(:first-of-type) {
+        margin-left: calc(var(--size) * -0.25);
+      }
     }
   }
 }

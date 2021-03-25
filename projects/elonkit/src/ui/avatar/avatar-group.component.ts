@@ -42,7 +42,7 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit, OnDestr
    * @ignore
    */
   public ngOnInit() {
-    this._elementRef.nativeElement.style.setProperty('--size', `${this.size - 2 + `px`}`);
+    this._elementRef.nativeElement.style.setProperty('--size', `${this.size + 5 + `px`}`);
   }
 
   /**
