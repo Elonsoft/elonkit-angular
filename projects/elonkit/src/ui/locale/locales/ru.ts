@@ -22,5 +22,16 @@ export const ru = {
     labelHH: 'ЧЧ',
     labelMM: 'ММ',
     labelSS: 'СС'
+  },
+  audioPlayer: {
+    labelPlay: 'Слушать',
+    labelPause: 'Пауза',
+    labelMute: 'Выключить звук',
+    labelUnmute: 'Включить звук',
+    labelOptions: 'Опции',
+    labelRate: 'Скорость',
+    labelDownload: 'Скачать',
+    labelBack: 'Назад',
+    labelNormal: 'Обычная'
   }
 };

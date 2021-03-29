@@ -1,0 +1,56 @@
+.es-audio-player {
+  align-items: center;
+  border-radius: 40px;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 40px;
+  padding: 0 12px;
+
+  &__button {
+    &.mat-icon-button {
+      height: 24px;
+      width: 24px;
+    }
+
+    .mat-button-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &__time-slider {
+    display: flex;
+    flex: 1;
+    margin-left: 12px;
+    position: relative;
+  }
+
+  &__label {
+    letter-spacing: 0.4px;
+    position: relative;
+    user-select: none;
+
+    &,
+    &.dark {
+      margin-left: 16px !important;
+    }
+
+    &-prefix {
+      &::before {
+        content: '-';
+        left: -6px;
+        position: absolute;
+      }
+    }
+  }
+
+  &__volume {
+    height: 24px;
+    margin-left: 12px;
+  }
+
+  &__options {
+    height: 24px;
+    margin-left: 8px;
+  }
+}

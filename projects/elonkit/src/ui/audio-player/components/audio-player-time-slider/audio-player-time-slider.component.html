@@ -1,0 +1,20 @@
+<mat-slider
+  #timeLine
+  class="es-audio-player-time-slider__slider"
+  color="primary"
+  step="1"
+  [max]="duration"
+  [(ngModel)]="audioCurrentTime"
+  (change)="onSeekTo($event)"
+></mat-slider>
+
+<div
+  #timeTooltip
+  class="es-audio-player-time-slider__tooltip es-caption"
+  [ngClass]="{
+    'es-audio-player-time-slider__tooltip_top': tooltipPosition === 'top',
+    'es-audio-player-time-slider__tooltip_bottom': tooltipPosition === 'bottom'
+  }"
+>
+  {{ tooltipTime }}
+</div>

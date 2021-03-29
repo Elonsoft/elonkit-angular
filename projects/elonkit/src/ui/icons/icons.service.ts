@@ -17,6 +17,18 @@ export const ES_SVG_ICONS = {
     'smile',
     'wi-fi',
     'wi-fi-off'
+  ] as const,
+  'es-audio-player': [
+    'check',
+    'chevron-left',
+    'chevron-right',
+    'download',
+    'more-vert',
+    'mute',
+    'pause',
+    'play',
+    'speed',
+    'un-mute'
   ] as const
 };
 
