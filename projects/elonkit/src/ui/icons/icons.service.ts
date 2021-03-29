@@ -30,9 +30,7 @@ export const ES_SVG_ICONS = {
     'speed',
     'un-mute'
   ] as const,
-  'es-table-actions': [
-    'close',
-  ] as const
+  'es-table-actions': ['close'] as const
 };
 
 @Injectable()
