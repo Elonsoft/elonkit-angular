@@ -15,7 +15,6 @@
     /* change the white border to mask only if it's supported: */
     @supports (mask: radial-gradient(transparent 12px, black 0)) {
       /* stylelint-disable-next-line */
-      border: unset;
 
       &:not(:last-of-type) {
         mask: radial-gradient(
@@ -26,7 +25,11 @@
       }
 
       &:not(:first-of-type) {
-        margin-left: calc(var(--size) * -0.25);
+        margin-left: calc((var(--size) * -0.25) + 2.2px);
+      }
+
+      .es-avatar {
+        border: unset !important;
       }
     }
   }
