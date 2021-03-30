@@ -107,7 +107,6 @@ export class ESBadgeComponent {
         `${this._offsetVertical + `px`}`
       );
       this.setStyles();
-      this.changeDetector.markForCheck();
     });
   }
   private _offsetVertical: number;
@@ -127,7 +126,6 @@ export class ESBadgeComponent {
         `${this._offsetHorizontal + `px`}`
       );
       this.setStyles();
-      this.changeDetector.markForCheck();
     });
   }
   private _offsetHorizontal: number;
@@ -192,7 +190,6 @@ export class ESBadgeComponent {
         }
       }
       this.setOffsets(offsetVertical, offsetHorizontal);
-      this.changeDetector.markForCheck();
     });
   }
 
@@ -218,6 +215,7 @@ export class ESBadgeComponent {
       '--offsetHorizontal',
       `${offsetHorizontal + `px`}`
     );
+    this.changeDetector.markForCheck();
   }
 
   private setStyles() {
@@ -228,5 +226,6 @@ export class ESBadgeComponent {
       `${this.size / 2 + this.borderSize + 1 + `px`}`
     );
     this._elementRef.nativeElement.style.setProperty('--childElement', `${childElement + `px`}`);
+    this.changeDetector.markForCheck();
   }
 }
