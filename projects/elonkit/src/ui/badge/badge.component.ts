@@ -192,7 +192,6 @@ export class ESBadgeComponent {
         }
       }
       this.setOffsets(offsetVertical, offsetHorizontal);
-      this.setStyles();
       this.changeDetector.markForCheck();
     });
   }
