@@ -20,22 +20,23 @@
     <ng-container *ngTemplateOutlet="moreTemplate"></ng-container>
   </ng-container>
 </button>
-<mat-menu #menu="matMenu" yPosition="below">
+<mat-menu #menu="matMenu" yPosition="below" class="es-breadcrumbs__menu">
   <ng-container *ngFor="let breadcrumb of breadcrumbs">
-    <a *ngIf="!breadcrumb.data.breadcrumbs" mat-menu-item [routerLink]="[breadcrumb.path]">
+    <a *ngIf="!breadcrumb.data.breadcrumbs" mat-menu-item [routerLink]="[breadcrumb.path]" class="es-caption">
       <mat-icon *ngIf="breadcrumb.data.icon">{{ breadcrumb.data.icon }}</mat-icon>
       {{ breadcrumb.data.label }}
     </a>
     <ng-container *ngIf="breadcrumb.data.breadcrumbs">
-      <button mat-menu-item [matMenuTriggerFor]="subMenu">
+      <button mat-menu-item [matMenuTriggerFor]="subMenu" class="es-caption">
         <mat-icon *ngIf="breadcrumb.data.icon">{{ breadcrumb.data.icon }}</mat-icon>
         {{ breadcrumb.data.label }}
       </button>
-      <mat-menu #subMenu="matMenu">
+      <mat-menu #subMenu="matMenu" class="es-breadcrumbs__menu">
         <a
           *ngFor="let item of breadcrumb.data.breadcrumbs"
           mat-menu-item
           [routerLink]="[breadcrumb.parentPath, item.path]"
+          class="es-caption"
         >
           <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
           <mat-icon *ngIf="item.svgIcon" [svgIcon]="item.svgIcon"></mat-icon>

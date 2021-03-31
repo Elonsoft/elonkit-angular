@@ -1,6 +1,6 @@
 export const BREADCRUMBS_STORY_BASIC_SOURCE = {
   html: `
-  <es-breadcrumbs></es-breadcrumbs>
+  <es-breadcrumbs [withBackButton]="withBackButton"></es-breadcrumbs>
   `,
   ts: `
   import { ESBreadcrumbsModule, ESBreadcrumbsResolver } from '@elonsoft/elonkit/ui/breadcrumbs';
@@ -9,7 +9,7 @@ export const BREADCRUMBS_STORY_BASIC_SOURCE = {
     {
       path: '',
       data: {
-        breadcrumb: { icon: 'home', ariaLabel: 'Home' }
+        breadcrumb: { icon: 'home', ariaLabel: 'Home' },
       },
       resolve: {
         breadcrumb: ESBreadcrumbsResolver

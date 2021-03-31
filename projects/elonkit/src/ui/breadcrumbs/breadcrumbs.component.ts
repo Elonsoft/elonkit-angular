@@ -17,7 +17,7 @@ import {
   TemplateRef
 } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 
 import { ESBreadcrumb } from './breadcrumbs.types';
@@ -25,6 +25,8 @@ import { ESBreadcrumbsService } from './breadcrumbs.service';
 
 import { ESBreadcrumbsMoreDirective } from './directives/breadcrumbs-more.directive';
 import { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separator.directive';
+import { ESBreadcrumbsBackDirective } from './directives/breadcrumbs-back.directive';
+import { ESLocaleService, ESLocale } from '../locale';
 
 export interface ESBreadcrumbsDefaultOptionsSizes {
   itemPadding: number;
@@ -43,7 +45,7 @@ export interface ESBreadcrumbsDefaultOptions {
 export const ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY = 'es-caption';
 
 export const ES_BREADCRUMBS_DEFAULT_SIZES = {
-  itemPadding: 8,
+  itemPadding: 4,
   icon: 24,
   iconMargin: 4,
   menu: 20,
@@ -64,6 +66,17 @@ export const ES_BREADCRUMBS_DEFAULT_OPTIONS = new InjectionToken<ESBreadcrumbsDe
 })
 export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentInit {
   private _typography;
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public windowHistoryLength: number;
+
+  /**
+   * Whether to show Back button.
+   */
+  @Input() public withBackButton: ESBreadcrumb;
 
   /**
    * Class applied to breadcrumb labels.
@@ -99,6 +112,12 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
   /**
    * @ignore
    */
+  @ContentChild(ESBreadcrumbsBackDirective, { read: TemplateRef, static: false })
+  public backTemplate: any;
+
+  /**
+   * @ignore
+   */
   @ContentChild(ESBreadcrumbsSeparatorDirective, { read: TemplateRef, static: false })
   public separatorTemplate: any;
 
@@ -118,14 +137,23 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    * @internal
    * @ignore
    */
+  @ViewChild('backButton', { static: true }) public elementBackButton: ElementRef<HTMLElement>;
+
+  /**
+   * @internal
+   * @ignore
+   */
   @HostListener('window:resize') public onResize() {
     const element = this.elementNavigation.nativeElement;
+    const goBackButton = this.elementBackButton.nativeElement;
+
     if (element && this.breadcrumbs.length > 2) {
       const sizes = this.sizes;
-
       const widths = this.breadcrumbs.map(({ data: { label, icon, breadcrumbs } }) => {
-        let result = sizes.itemPadding;
+        let result = 0;
+
         if (label) {
+          result += sizes.itemPadding;
           result += this.getLabelWidth(label);
         }
         if (icon) {
@@ -137,12 +165,12 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
         if (breadcrumbs) {
           result += sizes.menu;
         }
+
         return result;
       });
-
       let scrollWidth =
         widths.reduce((acc, w) => acc + w, 0) + sizes.separator * (widths.length - 1);
-      const clientWidth = element.clientWidth;
+      const clientWidth = element.clientWidth - goBackButton.clientWidth;
 
       const collapseIndexes = [];
       const collapseBreadcrumbs = [];
@@ -190,10 +218,13 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     private breadcrumbsService: ESBreadcrumbsService,
     @Optional()
     @Inject(ES_BREADCRUMBS_DEFAULT_OPTIONS)
-    private defaultOptions: ESBreadcrumbsDefaultOptions
+    private defaultOptions: ESBreadcrumbsDefaultOptions,
+
+    private localeService: ESLocaleService
   ) {
     this.typography = defaultOptions?.typography || ES_BREADCRUMBS_DEFAULT_TYPOGRAPHY;
     this.sizes = defaultOptions?.sizes || ES_BREADCRUMBS_DEFAULT_SIZES;
+    this.locale$ = this.localeService.locale();
   }
 
   /**
@@ -207,6 +238,11 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
         this.onResize();
         this.changeDetector.detectChanges();
       });
+
+    this.locale$.pipe(takeUntil(this.destroyed$)).subscribe((value) => {
+      this.onResize();
+    });
+    this.windowHistoryLength = window.history.length;
   }
 
   /**
@@ -233,11 +269,27 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
     }
   }
 
+  /**
+   * @internal
+   * @ignore
+   */
+  public locale$: Observable<ESLocale>;
+
   private getLabelWidth(text: string) {
     const container = this.elementWidth.nativeElement;
     container.textContent = text;
     const width = container.clientWidth + 1;
     container.textContent = '';
     return width;
+  }
+
+  /**
+   * @internal
+   * @ignore
+   */
+  public onClick() {
+    if (window.history.length) {
+      window.history.back();
+    }
   }
 }

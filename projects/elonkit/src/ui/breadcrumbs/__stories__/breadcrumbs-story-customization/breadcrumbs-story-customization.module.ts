@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-
+import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { BreadcrumbsStoryCustomizationComponent } from './breadcrumbs-story-customization.component';
@@ -121,6 +121,7 @@ const ROUTES = [
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     MatIconModule,
     ESBreadcrumbsModule,
     RouterTestingModule.withRoutes(ROUTES)

@@ -15,6 +15,7 @@ import { ESBreadcrumbsCollapseComponent } from './components/breadcrumbs-collaps
 
 import { ESBreadcrumbsMoreDirective } from './directives/breadcrumbs-more.directive';
 import { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separator.directive';
+import { ESBreadcrumbsBackDirective } from './directives/breadcrumbs-back.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separa
     ESBreadcrumbsCollapseComponent,
 
     ESBreadcrumbsMoreDirective,
-    ESBreadcrumbsSeparatorDirective
+    ESBreadcrumbsSeparatorDirective,
+    ESBreadcrumbsBackDirective
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,12 @@ import { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separa
     MatMenuModule,
     MatRippleModule
   ],
-  exports: [ESBreadcrumbsComponent, ESBreadcrumbsMoreDirective, ESBreadcrumbsSeparatorDirective],
+  exports: [
+    ESBreadcrumbsComponent,
+    ESBreadcrumbsMoreDirective,
+    ESBreadcrumbsSeparatorDirective,
+    ESBreadcrumbsBackDirective
+  ],
   providers: [ESBreadcrumbsResolver]
 })
 export class ESBreadcrumbsModule {}

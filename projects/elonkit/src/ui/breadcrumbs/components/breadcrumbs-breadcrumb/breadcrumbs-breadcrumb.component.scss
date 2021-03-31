@@ -15,7 +15,6 @@
     height: 24px;
     min-width: 0;
     overflow: hidden;
-    padding: 0 4px;
     text-decoration: none;
     transition: 200ms;
 
@@ -35,12 +34,14 @@
 
   &__label {
     overflow: hidden;
+    padding: 4px;
     text-overflow: ellipsis;
   }
 
   &__menu {
     &.mat-icon-button {
-      height: 20px;
+      border-radius: 4px;
+      height: 24px;
       line-height: 20px;
       width: 20px;
 
@@ -53,7 +54,7 @@
     .mat-icon {
       align-items: center;
       display: flex;
-      height: 20px;
+      height: 24px;
       justify-content: center;
       line-height: 20px;
       width: 20px;

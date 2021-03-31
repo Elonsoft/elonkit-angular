@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { ESBreadcrumbsModule } from '..';
-import { ESLocaleService, ru } from '../../locale';
+import { ESLocaleService, en, ru } from '../../locale';
 
 import {
   ROUTES,
@@ -55,7 +55,10 @@ describe('Breadcrumbs', () => {
           ItemsListResolver,
           ItemsShowResolver,
           ItemsShowBreadcrumbsResolver
-        ]
+        ],
+        componentProperties: {
+          withBackButton: true
+        }
       });
 
       inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -123,12 +126,13 @@ describe('Breadcrumbs', () => {
     }));
 
     it('Should collapse', inject([Location], async (location: Location) => {
-      setWidth(component, 150);
+      setWidth(component, 125);
 
       await component.navigate('/categories/1/1/edit');
       await component.fixture.whenStable();
 
       expect(component.queryByLabelText('Home')).not.toBeNull();
+      expect(component.queryAllByText(en.breadcrumbs.labelBack)).not.toBeNull();
       expect(component.queryByText('Categories')).toBeNull();
       expect(component.queryByText('Category 1')).toBeNull();
       expect(component.queryByText('Item #1-1')).not.toBeNull();

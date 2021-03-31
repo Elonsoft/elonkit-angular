@@ -1,16 +1,22 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  OnInit,
+  Input
+} from '@angular/core';
 import { Router } from '@angular/router';
-
 import { ES_BREADCRUMBS_DEFAULT_SIZES } from '../..';
 
 @Component({
   selector: 'es-breadcrumbs-customization',
   template: `
     <div class="customization">
-      <es-breadcrumbs typography="mat-body-1" [sizes]="sizes">
+      <es-breadcrumbs typography="mat-body-1" [sizes]="sizes" [withBackButton]="withBackButton">
         <mat-icon *esBreadcrumbsSeparator class="es-breadcrumbs__separator">
           chevron_right
         </mat-icon>
+        <mat-icon *esBreadcrumbsBack> keyboard_backspace </mat-icon>
         <mat-icon *esBreadcrumbsMore> more_horiz </mat-icon>
       </es-breadcrumbs>
       <br />
@@ -26,6 +32,8 @@ export class BreadcrumbsStoryCustomizationComponent implements OnInit {
     ...ES_BREADCRUMBS_DEFAULT_SIZES,
     separator: 24
   };
+
+  @Input() public withBackButton: boolean;
 
   constructor(private router: Router) {}
 

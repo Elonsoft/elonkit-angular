@@ -10,9 +10,12 @@ export const BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE = {
   };
   `,
   html: `
-  <es-breadcrumbs typography="mat-body-2" [sizes]="sizes">
+  <es-breadcrumbs typography="mat-body-2" [sizes]="sizes" [withBackButton]="withBackButton">
     <mat-icon *esBreadcrumbsSeparator class="es-breadcrumbs__separator">
       chevron_right
+    </mat-icon>
+    <mat-icon *esBreadcrumbsBack>
+      keyboard_backspace
     </mat-icon>
     <mat-icon *esBreadcrumbsMore>
       more_horiz

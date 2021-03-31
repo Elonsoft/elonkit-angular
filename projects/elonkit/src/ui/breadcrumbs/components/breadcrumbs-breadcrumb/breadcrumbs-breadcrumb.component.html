@@ -22,11 +22,12 @@
     >
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
-    <mat-menu #breadcrumbsMenu="matMenu" xPosition="before" yPosition="below">
+    <mat-menu #breadcrumbsMenu="matMenu" xPosition="before" yPosition="below" class="es-breadcrumbs__menu">
       <a
         *ngFor="let item of breadcrumb.data.breadcrumbs"
         mat-menu-item
         [routerLink]="[breadcrumb.parentPath, item.path]"
+        class="es-caption"
       >
         <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
         <mat-icon *ngIf="item.svgIcon" [svgIcon]="item.svgIcon"></mat-icon>
