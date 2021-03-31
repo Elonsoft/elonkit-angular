@@ -1,0 +1,39 @@
+.es-avatar {
+  position: relative;
+
+  &__img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  &__default {
+    display: flex;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  &_variant_square {
+    border-radius: 8px;
+    // stylelint-disable-next-line
+    .es-avatar__img {
+      border-radius: 5px;
+    }
+  }
+
+  &_variant_round {
+    border-radius: 50%;
+    // stylelint-disable-next-line
+    .es-avatar__img {
+      border-radius: 50%;
+    }
+  }
+}

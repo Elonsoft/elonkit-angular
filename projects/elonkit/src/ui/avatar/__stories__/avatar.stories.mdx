@@ -1,0 +1,209 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+import { action } from '@storybook/addon-actions';
+
+import { MatIconModule } from '@angular/material/icon';
+
+import { ESAvatarComponent, ESAvatarModule, ESAvatarGroupComponent } from '..';
+
+import { AVATAR_STORY_IMAGE_SOURCE } from './avatar-story-image';
+
+import { AVATAR_STORY_NO_IMAGE_ICON_SOURCE } from './avatar-story-no-image-icon';
+
+import { AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE } from './avatar-story-no-image-typography';
+
+import { AVATAR_STORY_GROUP_SOURCE } from './avatar-story-group';
+
+<Meta
+  title='UI/Avatar'
+  args={{
+    size: 40,
+    variant: 'round'
+  }}
+  argTypes={{
+    variant: {
+      control: { type: 'select', options: ['round', 'square'] }
+    },
+    size: {
+      control: 'number'
+    }
+  }}
+/>
+
+# Avatar
+
+This component allows to display default or custom avatar.
+
+## Demos
+
+####
+
+####
+
+We can create image avatars by passing `src` input to the component.
+
+<Canvas source={AVATAR_STORY_IMAGE_SOURCE}>
+  <Story
+    name='Image'
+    args={{
+      src: '/img/es-logo.png',
+      alt: 'Elonsoft'
+    }}
+  >
+    {((args) => ({
+      template: `
+        <es-avatar
+          [size]="size"
+          [src]="src"
+          [alt]="alt"
+          [variant]="variant"
+        ></es-avatar>
+      `,
+      moduleMetadata: {
+        imports: [ESAvatarModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+When src input is missing or falsy, content is used instead. Icon or text can be used for a content.
+
+<Canvas source={AVATAR_STORY_NO_IMAGE_ICON_SOURCE}>
+  <Story name='Icon'>
+    {((args) => ({
+      template: `
+        <es-avatar
+          [size]="size"
+          [variant]="variant"
+        >
+          <mat-icon>person</mat-icon>
+        </es-avatar>
+      `,
+      moduleMetadata: {
+        imports: [ESAvatarModule, MatIconModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<Canvas source={AVATAR_STORY_NO_IMAGE_TYPOGRAPHY_SOURCE}>
+  <Story
+    name='Text'
+    args={{
+      typography: ''
+    }}
+  >
+    {((args) => ({
+      template: `
+        <es-avatar
+          [size]="size"
+          [variant]="variant"
+          [typography]="">
+          НФ
+        </es-avatar>
+      `,
+      moduleMetadata: {
+        imports: [ESAvatarModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+We can use avatar group to render avatars as a stack. Size input of avatar group and nested avatars must match.
+
+<Canvas source={AVATAR_STORY_GROUP_SOURCE}>
+  <Story
+    name='Group'
+    args={{
+      src: '/img/es-logo.png',
+      alt: 'Elonsoft'
+    }}
+  >
+    {((args) => ({
+      template: `
+        <es-avatar-group
+          [size]="size"
+        >
+          <es-avatar
+            [size]="size"
+            [alt]="alt"
+            [src]="src"
+          ></es-avatar>
+          <es-avatar
+            [size]="size"
+            [alt]="alt"
+            [src]="src"
+          ></es-avatar>
+          <es-avatar
+            [size]="size"
+            [alt]="alt"
+            [src]="src"
+          ></es-avatar>
+        </es-avatar-group>
+      `,
+      moduleMetadata: {
+        imports: [ESAvatarModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+### ESAvatarComponent
+
+<ArgsTable of={ESAvatarComponent} />
+
+### ESAvatarGroupComponent
+
+<ArgsTable of={ESAvatarGroupComponent} />
+
+## Interfaces
+
+ESAvatarDefaultOptions ESAvatarVariant defines default avatar form
+
+```ts
+export interface ESAvatarDefaultOptions {
+  size?: number;
+  typography?: string;
+  variant?: ESAvatarVariant;
+}
+```
+
+```ts
+export enum ESAvatarVariant {
+  Round = 'round',
+  Square = 'square'
+}
+```
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_AVATAR_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/avatar';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_AVATAR_DEFAULT_OPTIONS,
+      useValue: {
+        size: 40,
+        variant: 'round',
+        typography: 'typography'
+      }
+    }
+  ]
+})
+```

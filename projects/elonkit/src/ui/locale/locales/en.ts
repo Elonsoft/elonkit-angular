@@ -33,5 +33,9 @@ export const en = {
     labelDownload: 'Download',
     labelBack: 'Back',
     labelNormal: 'Normal'
+  },
+  avatar: {
+    labelAvatar: 'Avatar',
+    labelStatus: 'Status'
   }
 };

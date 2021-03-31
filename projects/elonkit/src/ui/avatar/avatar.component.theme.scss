@@ -1,0 +1,11 @@
+@import './avatar-group.component.theme';
+
+@mixin es-avatar-theme($theme, $elonkit-theme) {
+  $cl-mono-a: map-get($elonkit-theme, mono-a);
+  @include es-avatar-group-theme($theme, $elonkit-theme);
+
+  .es-avatar {
+    background: mat-color($cl-mono-a, A100);
+    color: mat-color($cl-mono-a, A500);
+  }
+}

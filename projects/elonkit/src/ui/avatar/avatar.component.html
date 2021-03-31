@@ -1,0 +1,18 @@
+<div
+  data-testid="avatar"
+  class="es-avatar"
+  [ngStyle]="{ 'height.px': size, 'width.px': size }"
+  [ngClass]="{ 'es-avatar_variant_round': variant === avatarVariant.Round,  'es-avatar_variant_square': variant === avatarVariant.Square}"
+>
+  <img
+    *ngIf="src"
+    class="es-avatar__img"
+    [src]="src"
+    [alt]="alt"
+  />
+  <div *ngIf="!src" data-testid="typography" class="es-avatar__default" [ngClass]="typography">
+    <ng-content>
+
+    </ng-content>
+  </div>
+</div>
