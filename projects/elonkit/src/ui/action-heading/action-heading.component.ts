@@ -11,10 +11,10 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 
-export type ActionHeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type ESActionHeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export interface ESActonHeadingDefaultOptions {
-  type?: ActionHeadingType;
+  type?: ESActionHeadingType;
   typography?: string;
   actionIcon?: string;
   actionSvgIcon?: string;
@@ -33,7 +33,7 @@ export const ES_ACTION_HEADING_DEFAULT_OPTIONS = new InjectionToken<ESActonHeadi
   encapsulation: ViewEncapsulation.None
 })
 export class ESActionHeadingComponent {
-  private _type: ActionHeadingType;
+  private _type: ESActionHeadingType;
   private _typography: string;
   private _actionIcon: string;
   private _actionSvgIcon: string;
@@ -49,10 +49,10 @@ export class ESActionHeadingComponent {
    * Heading text type.
    */
   @Input()
-  public get type(): ActionHeadingType {
+  public get type(): ESActionHeadingType {
     return this._type;
   }
-  public set type(value: ActionHeadingType) {
+  public set type(value: ESActionHeadingType) {
     this._type = value || this.defaultOptions?.type || 'h1';
   }
 
@@ -64,8 +64,9 @@ export class ESActionHeadingComponent {
     return this._typography;
   }
   public set typography(value: string) {
-    this._typography = value || this.defaultOptions?.typography || 'mat-h1';
+    this._typography = value || this.defaultOptions?.typography || 'es-h1';
   }
+
   /**
    * Action icon.
    */
@@ -111,6 +112,9 @@ export class ESActionHeadingComponent {
   @Output()
   public action: EventEmitter<any> = new EventEmitter();
 
+  /**
+   * @ignore
+   */
   constructor(
     /**
      * @internal

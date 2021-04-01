@@ -3,13 +3,12 @@
   display: flex;
 
   &__title {
-    letter-spacing: 0.25px;
-    margin: 0 16px 0 0;
+    margin-right: 16px !important;
   }
 
   &__action {
     &.mat-mini-fab {
-      box-shadow: none;
+      box-shadow: none !important;
 
       &:active {
         box-shadow: none !important;

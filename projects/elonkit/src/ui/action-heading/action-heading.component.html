@@ -1,10 +1,12 @@
 <div class="es-action-heading">
-  <h1 *ngIf="type === 'h1'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h1>
-  <h2 *ngIf="type === 'h2'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h2>
-  <h3 *ngIf="type === 'h3'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h3>
-  <h4 *ngIf="type === 'h4'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h4>
-  <h5 *ngIf="type === 'h5'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h5>
-  <h6 *ngIf="type === 'h6'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h6>
+  <ng-container [ngSwitch]="type">
+    <h1 *ngSwitchCase="'h1'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h1>
+    <h2 *ngSwitchCase="'h2'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h2>
+    <h3 *ngSwitchCase="'h3'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h3>
+    <h4 *ngSwitchCase="'h4'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h4>
+    <h5 *ngSwitchCase="'h5'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h5>
+    <h6 *ngSwitchCase="'h6'" class="es-action-heading__title" [ngClass]="typography">{{ text }}</h6>
+  </ng-container>
 
   <button
     class="es-action-heading__action"
