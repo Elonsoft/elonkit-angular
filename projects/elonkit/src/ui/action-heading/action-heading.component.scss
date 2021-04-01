@@ -1,25 +1,19 @@
-:host {
+.es-action-heading {
   align-items: center;
   display: flex;
-}
 
-.title {
-  letter-spacing: 0.25px;
-  margin-right: 16px;
-}
-
-h1 .title {
-  @media (min-width: 1025px) {
-    font-size: 34px;
+  &__title {
+    letter-spacing: 0.25px;
+    margin: 0 16px 0 0;
   }
-}
 
-.add-button {
-  &.mat-mini-fab {
-    box-shadow: none;
+  &__action {
+    &.mat-mini-fab {
+      box-shadow: none;
 
-    &:active {
-      box-shadow: none !important;
+      &:active {
+        box-shadow: none !important;
+      }
     }
   }
 }
