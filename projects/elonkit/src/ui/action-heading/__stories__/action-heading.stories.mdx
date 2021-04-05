@@ -5,25 +5,33 @@ import { action } from '@storybook/addon-actions';
 
 import { ESActionHeadingModule, ESActionHeadingComponent } from '..';
 
-import {
-  ActionHeadingStoryBasicComponent,
-  ActionHeadingStoryBasicModule,
-  ACTION_HEADING_STORY_BASIC_SOURCE
-} from './action-heading-story-basic';
+import { ACTION_HEADING_STORY_BASIC_SOURCE } from './action-heading-story-basic';
 
-import {
-  ActionHeadingStoryCustomizationComponent,
-  ActionHeadingStoryCustomizationModule,
-  ACTION_HEADING_STORY_CUSTOMIZATION_SOURCE
-} from './action-heading-story-customization';
-
-import {
-  ActionHeadingStoryClickComponent,
-  ActionHeadingStoryClickModule,
-  ACTION_HEADING_STORY_CLICK_SOURCE
-} from './action-heading-story-click';
-
-<Meta title='UI/ActionHeading' />
+<Meta
+  title='UI/Action Heading'
+  args={{
+    text: '',
+    actionLabel: 'add',
+    actionIcon: 'add',
+    type: 'h1',
+    typography: 'es-h1',
+    color: 'primary'
+  }}
+  argTypes={{
+    type: {
+      control: { type: 'select', options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }
+    },
+    typography: {
+      control: {
+        type: 'select',
+        options: ['es-h1', 'es-h2', 'es-h3', 'es-h4', 'es-h5', 'es-h6']
+      }
+    },
+    color: {
+      control: { type: 'select', options: ['primary', 'warn', 'accent'] }
+    }
+  }}
+/>
 
 # Action Heading
 
@@ -31,45 +39,75 @@ The action heading component.
 
 ## Demos
 
-This is an example of a basic component.
+export const getText = (args, context) => {
+  return args.text || (context.globals.locale === 'en' ? 'Title' : 'Заголовок');
+};
+
+export const getActionLabel = (args, context) => {
+  return args.text || (context.globals.locale === 'en' ? 'Text' : 'Текст');
+};
 
 <Canvas source={ACTION_HEADING_STORY_BASIC_SOURCE}>
   <Story name='Basic' height='110px'>
-    {{
-      component: ActionHeadingStoryBasicComponent,
+    {((args, context) => ({
+      template: `
+        <es-action-heading
+          [text]="text"
+          [type]="type"
+          [typography]="typography"
+          [actionLabel]="actionLabel"
+          [actionIcon]="actionIcon"
+          [actionSvgIcon]="actionSvgIcon"
+          [color]="color"
+          (action)="onAction()">
+        </es-action-heading>
+      `,
       moduleMetadata: {
-        imports: [ActionHeadingStoryBasicModule]
+        imports: [ESActionHeadingModule]
+      },
+      props: {
+        ...args,
+        text: getText(args, context),
+        actionLabel: getActionLabel(args, context),
+        onAction: action('onAction')
       }
-    }}
-  </Story>
-</Canvas>
-
-This is an example of a component wraped into a container component, which overrides some styles of nested component.
-
-<Canvas source={ACTION_HEADING_STORY_CUSTOMIZATION_SOURCE}>
-  <Story name='Customization' height='110px'>
-    {{
-      component: ActionHeadingStoryCustomizationComponent,
-      moduleMetadata: {
-        imports: [ActionHeadingStoryCustomizationModule]
-      }
-    }}
-  </Story>
-</Canvas>
-
-This is an example of action click.
-
-<Canvas source={ACTION_HEADING_STORY_CLICK_SOURCE}>
-  <Story name='Click' height='110px'>
-    {{
-      component: ActionHeadingStoryClickComponent,
-      moduleMetadata: {
-        imports: [ActionHeadingStoryClickModule]
-      }
-    }}
+    })).bind({})}
   </Story>
 </Canvas>
 
 ## API
 
 <ArgsTable of={ESActionHeadingComponent} />
+
+## Interfaces
+
+```ts
+export interface ESActonHeadingDefaultOptions {
+  type?: ActionHeadingType;
+  typography?: string;
+  actionLabel?: string;
+  actionIcon?: string;
+  actionSvgIcon?: string;
+}
+
+export type ActionHeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_ACTION_HEADING_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/action-heading';
+@NgModule({
+  providers: [
+    {
+      provide: ES_ACTION_HEADING_DEFAULT_OPTIONS,
+      useValue: {
+        type: 'h2',
+        typography: 'mat-h2'
+      }
+    }
+  ]
+})
+```
