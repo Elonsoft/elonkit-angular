@@ -68,7 +68,7 @@ export class ESBadgeComponent {
   /**
    * Defines badge background color.
    */
-  @Input() public color: string
+  @Input() public color: string;
 
   /**
    * Defines badge custom positions.

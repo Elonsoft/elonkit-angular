@@ -48,14 +48,16 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit, OnDestr
   /**
    * @ignore
    */
-   public ngAfterContentInit() {
+  public ngAfterContentInit() {
     this.setAvatarsIndex(this.avatars);
-    this.avatars.changes.pipe(
-      filter((avatars) => !!avatars),
-      takeUntil(this.destroyed$)
-    ).subscribe((avatars) => {
-      this.setAvatarsIndex(avatars);
-    });
+    this.avatars.changes
+      .pipe(
+        filter((avatars) => !!avatars),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe((avatars) => {
+        this.setAvatarsIndex(avatars);
+      });
   }
 
   private setAvatarsIndex = (avatars): void => {
