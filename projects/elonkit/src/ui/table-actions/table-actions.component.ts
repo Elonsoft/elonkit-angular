@@ -24,13 +24,7 @@ export class ESTableActionsComponent {
   /**
    * Total number of selected rows.
    */
-  @Input()
-  public get total(): any {
-    return this._total;
-  }
-  public set total(value: any) {
-    this._total = value || null;
-  }
+  @Input() public total: number;
 
   /**
    * Event emitted when user clicks close button.
