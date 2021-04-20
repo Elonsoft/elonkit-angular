@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 
 import { ESAvatarComponent } from './avatar.component';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -50,10 +50,11 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit, OnDestr
    */
    public ngAfterContentInit() {
     this.setAvatarsIndex(this.avatars);
-    this.avatars.changes.pipe(takeUntil(this.destroyed$)).subscribe((avatars) => {
-      if (avatars) {
-        this.setAvatarsIndex(avatars);
-      }
+    this.avatars.changes.pipe(
+      filter((avatars) => !!avatars),
+      takeUntil(this.destroyed$)
+    ).subscribe((avatars) => {
+      this.setAvatarsIndex(avatars);
     });
   }
 

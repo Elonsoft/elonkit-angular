@@ -68,14 +68,7 @@ export class ESBadgeComponent {
   /**
    * Defines badge background color.
    */
-  @Input()
-  public get color(): string {
-    return this._color;
-  }
-  public set color(value: string) {
-    this._color = value;
-  }
-  private _color: string;
+  @Input() public color: string
 
   /**
    * Defines badge custom positions.
