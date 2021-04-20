@@ -38,5 +38,8 @@ export const en = {
   avatar: {
     labelAvatar: 'Avatar',
     labelStatus: 'Status'
+  },
+  tableActions: {
+    title: 'Selected'
   }
 };

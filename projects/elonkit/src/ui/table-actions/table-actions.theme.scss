@@ -1,0 +1,16 @@
+@mixin es-table-actions-theme($theme, $elonkit-theme) {
+  $accent: map-get($theme, accent);
+  $mono-a: map-get($elonkit-theme, mono-a);
+
+  .es-table-actions {
+    background-color: mat-color($accent, A100);
+
+    &__total {
+      color: mat-color($mono-a, 500);
+    }
+
+    &__separator {
+      background-color: mat-color($mono-a, A100);
+    }
+  }
+}

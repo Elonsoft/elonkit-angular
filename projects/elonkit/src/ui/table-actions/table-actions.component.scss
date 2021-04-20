@@ -1,0 +1,32 @@
+.es-table-actions {
+  box-sizing: border-box;
+
+  &__content {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px;
+    width: 100%;
+
+    span {
+      font-size: 16px;
+    }
+  }
+
+  &__total {
+    padding-left: 8px;
+  }
+
+  &__actions {
+    align-items: center;
+    display: flex;
+  }
+
+  &__separator {
+    height: 40px;
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 1px;
+  }
+}

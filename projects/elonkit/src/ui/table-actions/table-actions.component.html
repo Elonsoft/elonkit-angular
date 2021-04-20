@@ -1,0 +1,14 @@
+<div class="es-table-actions">
+  <div class="es-table-actions__content">
+    <span class="es-table-actions__total es-h6">
+      {{(locale$ | async).tableActions.title}} {{total}}
+    </span>
+    <div class="es-table-actions__actions">
+      <ng-content></ng-content>
+      <div class="es-table-actions__separator"></div>
+      <button (click)="onCloseClick()" class="es-table-actions__action" mat-icon-button>
+        <mat-icon svgIcon="es-table-actions:close"></mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

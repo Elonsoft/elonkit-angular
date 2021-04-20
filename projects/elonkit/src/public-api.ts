@@ -11,6 +11,7 @@ export * from './ui/inline-form-field';
 export * from './ui/paginator';
 export * from './ui/timepicker';
 export * from './ui/tooltip';
+export * from './ui/table-actions';
 
 export * from './ui/icons';
 export * from './ui/locale';

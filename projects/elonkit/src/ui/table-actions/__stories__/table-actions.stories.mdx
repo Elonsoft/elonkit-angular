@@ -1,0 +1,50 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { action } from '@storybook/addon-actions';
+import { CoreModule } from '~storybook/core.module';
+import { ESTableActionsComponent } from '..';
+
+import {
+  TableActionsStoryBasicComponent,
+  TableActionsStoryBasicModule,
+  TABLE_ACTIONS_SOURCE
+} from './table-actions-story-basic';
+
+<Meta
+  title='UI/Table-Actions'
+  args={{
+    total: 10
+  }}
+  argTypes={{
+    total: {
+      control: 'number'
+    }
+  }}
+/>
+
+# Table actions
+
+Table actions component. Show tables selected elements and provide actions on them.
+All actions buttons, besides close button, could be passing via ng-content.
+
+## Demos
+
+<Canvas source={TABLE_ACTIONS_SOURCE}>
+  <Story name='Basic' height='400px'>
+    {((args) => ({
+      component: TableActionsStoryBasicComponent,
+      moduleMetadata: {
+        imports: [TableActionsStoryBasicModule, CoreModule]
+      },
+      props: {
+        ...args,
+        onAction: action('onAction')
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={ESTableActionsComponent} />
