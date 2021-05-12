@@ -10,9 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { ESTooltipModule } from '../tooltip';
 
 import { ESAudioPlayerComponent } from './audio-player.component';
-import { ESAudioPlayerOptionsComponent } from './components/audio-player-options/audio-player-options.component';
-import { ESAudioPlayerTimeSliderComponent } from './components/audio-player-time-slider/audio-player-time-slider.component';
-import { ESAudioPlayerVolumeComponent } from './components/audio-player-volume/audio-player-volume.component';
+import { ESAudioPlayerOptionsComponent } from './components/audio-player-options';
+import { ESAudioPlayerTimeSliderComponent } from './components/audio-player-time-slider';
+import { ESAudioPlayerVolumeComponent } from './components/audio-player-volume';
 
 @NgModule({
   declarations: [

@@ -14,5 +14,6 @@ export { ESBreadcrumb, ESBreadcrumbData } from './breadcrumbs.types';
 export { ESBreadcrumbsBreadcrumbComponent } from './components/breadcrumbs-breadcrumb';
 export { ESBreadcrumbsCollapseComponent } from './components/breadcrumbs-collapse';
 
+export { ESBreadcrumbsBackDirective } from './directives/breadcrumbs-back.directive';
 export { ESBreadcrumbsMoreDirective } from './directives/breadcrumbs-more.directive';
 export { ESBreadcrumbsSeparatorDirective } from './directives/breadcrumbs-separator.directive';
