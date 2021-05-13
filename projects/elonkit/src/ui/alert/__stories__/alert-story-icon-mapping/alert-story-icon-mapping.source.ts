@@ -1,6 +1,6 @@
 export const ALERT_STORY_ICON_MAPPING_SOURCE = {
   ts: `
-  import { ES_ALERT_DEFAULT_OPTIONS } from '@elonsoft/elonkit/ui/alert';
+  import { ES_ALERT_DEFAULT_OPTIONS } from '@elonkit/angular/ui/alert';
 
   @NgModule({
     ...

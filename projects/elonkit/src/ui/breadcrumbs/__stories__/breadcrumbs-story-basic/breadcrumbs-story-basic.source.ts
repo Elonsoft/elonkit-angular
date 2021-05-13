@@ -3,7 +3,7 @@ export const BREADCRUMBS_STORY_BASIC_SOURCE = {
   <es-breadcrumbs [withBackButton]="withBackButton"></es-breadcrumbs>
   `,
   ts: `
-  import { ESBreadcrumbsModule, ESBreadcrumbsResolver } from '@elonsoft/elonkit/ui/breadcrumbs';
+  import { ESBreadcrumbsModule, ESBreadcrumbsResolver } from '@elonkit/angular/ui/breadcrumbs';
 
   const ROUTES = [
     {

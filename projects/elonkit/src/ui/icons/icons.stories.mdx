@@ -14,7 +14,7 @@ First, we need to add library assets to `angular.json` config:
   "src/assets",
   {
     "glob": "**/*",
-    "input": "./node_modules/@elonsoft/elonkit/assets",
+    "input": "./node_modules/@elonkit/angular/assets",
     "output": "./assets"
   }
 ],
@@ -24,7 +24,7 @@ And then inject `ESIconsService` and call `register` method:
 
 ```ts
 import { MatIconModule } from '@angular/material/icon';
-import { ESIconsService } from '@elonsoft/elonkit';
+import { ESIconsService } from '@elonkit/angular';
 
 NgModule({
   imports: [MatIconModule],
