@@ -33,9 +33,28 @@
     *ngIf="locale$ | async as locale"
     class="es-autocomplete-multiple__panel mat-elevation-z8"
     [ngStyle]="{ 'width.px': width }"
+    [formGroup]="form"
     cdkTrapFocus
     @panel
   >
+    <mat-button-toggle-group formControlName="scope" class="es-autocomplete-multiple__toggle-group">
+      <mat-button-toggle
+        class="es-autocomplete-multiple__button-toggle es-body-100"
+        [value]="searchScope.ALL"
+        >{{ locale.autocompliteMultiple.labelTabAll }}</mat-button-toggle
+      >
+      <mat-button-toggle
+        class="es-autocomplete-multiple__button-toggle es-body-100"
+        [value]="searchScope.SELECTED"
+        >{{ locale.autocompliteMultiple.labelTabSelected }}</mat-button-toggle
+      >
+      <mat-button-toggle
+        class="es-autocomplete-multiple__button-toggle es-body-100"
+        [value]="searchScope.NOT_SELECTED"
+        >{{ locale.autocompliteMultiple.labelTabNotSelected }}</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+
     <div class="es-autocomplete-search">
       <mat-icon
         class="es-autocomplete-search__icon"
@@ -45,12 +64,11 @@
       <input
         #input
         class="es-autocomplete-search__input es-subtitle-1"
+        formControlName="text"
         [placeholder]="placeholder"
-        [value]="text"
-        (input)="onInput($event)"
       />
       <button
-        *ngIf="text"
+        *ngIf="form.get('text').value"
         class="es-autocomplete-search__clear"
         mat-icon-button
         [attr.aria-label]="locale.autocompliteMultiple.labelClear"
@@ -60,7 +78,7 @@
       </button>
     </div>
 
-    <div *ngIf="(options$ | async).length" class="es-autocomplete-multiple__menu">
+    <div *ngIf="((filteredOptions$ | async) || []).length" class="es-autocomplete-multiple__menu">
       <button
         mat-button
         class="es-autocomplete-multiple__menu-button es-body-100"
@@ -80,7 +98,7 @@
     </div>
 
     <mat-selection-list
-      *ngIf="options$ | async as options"
+      *ngIf="filteredOptions$ | async as options"
       class="es-autocomplete-multiple__options"
       color="primary"
       (selectionChange)="onSelectionChange($event)"
@@ -89,9 +107,11 @@
       <mat-list-option
         *ngFor="let option of options"
         class="es-autocomplete-multiple__option"
+        [ngClass]="{ 'es-autocomplete-multiple__option_selected': matOption.selected }"
         checkboxPosition="before"
         [value]="option"
         [selected]="isSelected(option)"
+        #matOption
       >
         {{ displayWith(option) }}
       </mat-list-option>
