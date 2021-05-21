@@ -1,0 +1,62 @@
+@mixin es-autocomplete-multiple-theme($theme, $elonkit-theme) {
+  $mono-a: map-get($elonkit-theme, mono-a);
+  $surface: map-get($elonkit-theme, surface);
+  $warn: map-get($theme, warn);
+  $accent: map-get($theme, accent);
+
+  .es-autocomplete-multiple {
+    &__panel {
+      background-color: mat-color($surface, 4);
+    }
+
+    &__count {
+      color: mat-color($mono-a, A600);
+    }
+
+    &__menu {
+      border-bottom-color: mat-color($mono-a, A100);
+
+      &-button {
+        color: mat-color($mono-a, A700);
+      }
+    }
+
+    &__option {
+      // background-color: mat-color($accent, A100);
+    }
+
+    &__footer {
+      border-top-color: mat-color($mono-a, A100);
+      color: mat-color($mono-a, A600);
+    }
+  }
+
+  .es-autocomplete-search {
+    border-bottom-color: mat-color($mono-a, A100);
+
+    &__input {
+      color: mat-color($mono-a, A900);
+
+      &::placeholder {
+        color: mat-color($mono-a, A400);
+      }
+    }
+
+    &__icon {
+      color: mat-color($mono-a, A500);
+    }
+
+    &__clear.mat-icon-button {
+      color: mat-color($mono-a, A400);
+
+      &:hover,
+      &:focus {
+        color: mat-color($warn, 500);
+      }
+
+      .mat-button-focus-overlay {
+        background-color: mat-color($warn, A50);
+      }
+    }
+  }
+}

@@ -38,5 +38,16 @@ export const en = {
   avatar: {
     labelAvatar: 'Avatar',
     labelStatus: 'Status'
+  },
+  autocompliteMultiple: {
+    labelTabAll: 'All',
+    labelTabSelected: 'Selected',
+    labelTabNotSelected: 'Not selected',
+    labelClear: 'Clear',
+    labelChooseAll: 'Choose all',
+    labelRemoveChoice: 'Remove choice',
+    labelShown: 'Shown',
+    labelOf: 'of',
+    labelSelected: 'Selected'
   }
 };

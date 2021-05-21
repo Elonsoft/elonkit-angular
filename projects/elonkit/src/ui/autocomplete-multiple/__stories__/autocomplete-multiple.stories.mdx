@@ -1,0 +1,31 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { action } from '@storybook/addon-actions';
+
+import { ESAutocompleteMultipleComponent } from '..';
+
+import {
+  AutocompleteMultipleStoryBasicModule,
+  AutocompleteMultipleStoryBasicComponent,
+  AUTOCOMPLETE_MULTIPLE_STORY_BASIC_SOURCE
+} from './autocomplete-multiple-story-basic';
+
+<Meta title='UI/Autocomplete multiple' />
+
+# Autocomplete multiple
+
+Autocomplete-multiple
+
+## Demos
+
+<Canvas source={AUTOCOMPLETE_MULTIPLE_STORY_BASIC_SOURCE}>
+  <Story name='Basic' height='800px'>
+    {{
+      component: AutocompleteMultipleStoryBasicComponent,
+      moduleMetadata: {
+        imports: [AutocompleteMultipleStoryBasicModule]
+      }
+    }}
+  </Story>
+</Canvas>

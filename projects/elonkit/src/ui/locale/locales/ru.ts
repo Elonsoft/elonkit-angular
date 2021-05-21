@@ -38,5 +38,16 @@ export const ru = {
   avatar: {
     labelAvatar: 'Аватар',
     labelStatus: 'Статус'
+  },
+  autocompliteMultiple: {
+    labelTabAll: 'Всё',
+    labelTabSelected: 'Выбрано',
+    labelTabNotSelected: 'Не выбрано',
+    labelClear: 'Очистить',
+    labelChooseAll: 'Выбрать все',
+    labelRemoveChoice: 'Снять выбор',
+    labelShown: 'Показано',
+    labelOf: 'из',
+    labelSelected: 'Выбрано'
   }
 };
