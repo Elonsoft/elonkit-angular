@@ -1,0 +1,19 @@
+.es-autocomplete-multiple-story-basic {
+  max-width: 600px;
+
+  &__field.mat-form-field {
+    width: 250px;
+
+    &.mat-form-field-appearance-outline {
+      .mat-form-field-infix {
+        border-top: 0;
+        padding-bottom: 16px;
+        padding-top: 16px;
+      }
+
+      .mat-form-field-label {
+        top: 2.3em;
+      }
+    }
+  }
+}

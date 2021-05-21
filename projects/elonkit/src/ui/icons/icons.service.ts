@@ -29,7 +29,8 @@ export const ES_SVG_ICONS = {
     'play',
     'speed',
     'un-mute'
-  ] as const
+  ] as const,
+  'es-autocomplete-multiple': ['clear-small', 'clear', 'magnify', 'menu-down', 'menu-up'] as const
 };
 
 @Injectable()

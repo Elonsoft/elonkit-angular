@@ -1,0 +1,112 @@
+<div class="es-autocomplete-multiple es-subtitle-1">
+  <div class="es-autocomplete-multiple__value">
+    <ng-container *ngIf="value.length">
+      <div class="es-autocomplete-multiple__name">{{ displayWith(value[0]) }}</div>
+      <div *ngIf="value.length > 1" class="es-autocomplete-multiple__count">
+        +{{ value.length - 1 }}
+      </div>
+    </ng-container>
+  </div>
+  <button
+    #arrow
+    class="es-autocomplete-multiple__arrow"
+    mat-icon-button
+    [attr.aria-describedby]="describedBy"
+  >
+    <mat-icon
+      svgIcon="es-autocomplete-multiple:{{ this.isOpen ? 'menu-up' : 'menu-down' }}"
+    ></mat-icon>
+  </button>
+</div>
+
+<ng-template
+  cdkConnectedOverlay
+  cdkConnectedOverlayHasBackdrop
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayOffsetY]="8"
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="isOpen"
+  (backdropClick)="onClose()"
+  (detach)="onClose(true)"
+>
+  <div
+    *ngIf="locale$ | async as locale"
+    class="es-autocomplete-multiple__panel mat-elevation-z8"
+    [ngStyle]="{ 'width.px': width }"
+    cdkTrapFocus
+    @panel
+  >
+    <div class="es-autocomplete-search">
+      <mat-icon
+        class="es-autocomplete-search__icon"
+        matPrefix
+        svgIcon="es-autocomplete-multiple:magnify"
+      ></mat-icon>
+      <input
+        #input
+        class="es-autocomplete-search__input es-subtitle-1"
+        [placeholder]="placeholder"
+        [value]="text"
+        (input)="onInput($event)"
+      />
+      <button
+        *ngIf="text"
+        class="es-autocomplete-search__clear"
+        mat-icon-button
+        [attr.aria-label]="locale.autocompliteMultiple.labelClear"
+        (click)="onClear()"
+      >
+        <mat-icon svgIcon="es-autocomplete-multiple:clear"></mat-icon>
+      </button>
+    </div>
+
+    <div *ngIf="(options$ | async).length" class="es-autocomplete-multiple__menu">
+      <button
+        mat-button
+        class="es-autocomplete-multiple__menu-button es-body-100"
+        [attr.aria-label]="locale.autocompliteMultiple.labelChooseAll"
+        (click)="onSelectAll()"
+      >
+        {{ locale.autocompliteMultiple.labelChooseAll }}
+      </button>
+      <button
+        mat-button
+        class="es-autocomplete-multiple__menu-button es-body-100"
+        [attr.aria-label]="locale.autocompliteMultiple.labelRemoveChoice"
+        (click)="onDeSelectAll()"
+      >
+        {{ locale.autocompliteMultiple.labelRemoveChoice }}
+      </button>
+    </div>
+
+    <mat-selection-list
+      *ngIf="options$ | async as options"
+      class="es-autocomplete-multiple__options"
+      color="primary"
+      (selectionChange)="onSelectionChange($event)"
+      #selectionList
+    >
+      <mat-list-option
+        *ngFor="let option of options"
+        class="es-autocomplete-multiple__option"
+        checkboxPosition="before"
+        [value]="option"
+        [selected]="isSelected(option)"
+      >
+        {{ displayWith(option) }}
+      </mat-list-option>
+    </mat-selection-list>
+
+    <div class="es-autocomplete-multiple__footer es-caption">
+      <label>
+        {{
+          getShownCountInfo(
+            locale.autocompliteMultiple.labelShown,
+            locale.autocompliteMultiple.labelOf
+          )
+        }}</label
+      >
+      <label>{{ locale.autocompliteMultiple.labelSelected + ': ' + value.length }}</label>
+    </div>
+  </div>
+</ng-template>
