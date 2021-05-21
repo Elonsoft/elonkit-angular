@@ -35,6 +35,36 @@
     transform-origin: center top;
   }
 
+  &__toggle-group {
+    display: flex;
+
+    &.mat-button-toggle-group-appearance-standard {
+      border: 0 none;
+      border-radius: 0;
+    }
+  }
+
+  &__button-toggle {
+    flex: 1;
+
+    &.mat-button-toggle + &.mat-button-toggle {
+      border-left: 0 none;
+    }
+
+    &.mat-button-toggle-appearance-standard {
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+
+      &.mat-button-toggle-checked {
+        border-bottom-width: 2px;
+      }
+
+      .mat-button-toggle-label-content {
+        line-height: 32px;
+      }
+    }
+  }
+
   &__name {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -112,6 +142,7 @@
     background: none;
     border: 0;
     display: block;
+    flex: 1;
     height: 24px;
     outline: none;
     padding: 0;

@@ -13,7 +13,13 @@ import {
   Host,
   ElementRef
 } from '@angular/core';
-import { ControlValueAccessor, FormGroupDirective, NgControl } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgControl
+} from '@angular/forms';
 
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -23,12 +29,21 @@ import { MatButton } from '@angular/material/button';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { MatListOption, MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 
-import { Observable, Subject, BehaviorSubject, of } from 'rxjs';
-import { debounceTime, switchMap, catchError, shareReplay, takeUntil } from 'rxjs/operators';
+import { Observable, Subject, combineLatest, of } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  map,
+  shareReplay,
+  startWith,
+  switchMap,
+  tap
+} from 'rxjs/operators';
 
 import { ESLocale, ESLocaleService } from '../locale';
 
 import { ES_AUTOCOMPLETE_ANIMATIONS } from './autocomplete-multiple.animations';
+import { ESAutocompleteMultipleSearchScope } from '.';
 
 @Component({
   selector: 'es-autocomplete-multiple',
@@ -50,7 +65,7 @@ export class ESAutocompleteMultipleComponent
   @ViewChild('arrow', { static: true }) private arrow?: MatButton;
   @ViewChild('selectionList', { static: false }) private selectionList?: MatSelectionList;
 
-  @Input() public service!: (search: string) => Observable<any[]>;
+  @Input() public service!: (search: string, options?: any[]) => Observable<any[]>;
 
   @Input() public displayWith!: (option: any) => string;
 
@@ -102,12 +117,21 @@ export class ESAutocompleteMultipleComponent
 
   public isOpen = false;
   public width = 0;
+
+  public selectionChanged$ = new Subject();
+
   public options$: Observable<any[]>;
 
-  public text = '';
-  public text$ = new BehaviorSubject('');
+  public filteredOptions$: Observable<any[]>;
 
   public focused = false;
+
+  public searchScope = ESAutocompleteMultipleSearchScope;
+
+  public form = new FormGroup({
+    scope: new FormControl(this.searchScope.ALL),
+    text: new FormControl('')
+  });
 
   private count = 0;
 
@@ -145,16 +169,41 @@ export class ESAutocompleteMultipleComponent
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this as any;
     }
+    this.locale$ = this.localeService.locale();
 
-    this.options$ = this.text$.pipe(
+    this.options$ = this.form.valueChanges.pipe(
+      startWith({ scope: this.searchScope.ALL, text: '' }),
       debounceTime(400),
-      switchMap((text) => this.service(text).pipe(catchError(() => of([])))),
+      switchMap(({ scope, text }) => {
+        if (scope === this.searchScope.SELECTED) {
+          return this.service(text, this.value).pipe(catchError(() => of([])));
+        }
+
+        return this.service(text).pipe(catchError(() => of([])));
+      }),
       shareReplay(1)
     );
 
-    this.options$.pipe(takeUntil(this.destoryed$)).subscribe();
+    this.filteredOptions$ = combineLatest([
+      this.options$,
+      this.selectionChanged$.pipe(startWith(true))
+    ]).pipe(
+      debounceTime(100),
+      map(([options]) => {
+        const { scope } = this.form.value;
 
-    this.locale$ = this.localeService.locale();
+        if (scope === this.searchScope.SELECTED) {
+          return options.filter((option) => this.value.some((o) => o.id === option.id));
+        } else if (scope === this.searchScope.NOT_SELECTED) {
+          return options.filter((option) => !this.value.some((o) => o.id === option.id));
+        } else {
+          return options;
+        }
+      }),
+      tap((options) => {
+        this.count = options.length;
+      })
+    );
   }
 
   public ngOnInit() {
@@ -216,8 +265,7 @@ export class ESAutocompleteMultipleComponent
     this.onTouched();
     this.isOpen = false;
 
-    this.text = '';
-    this.text$.next('');
+    this.form.patchValue({ text: '', scope: this.searchScope.ALL });
 
     if (shouldFocusArrow && this.arrow) {
       this.focusMonitor.focusVia(this.arrow._elementRef.nativeElement, 'keyboard');
@@ -226,15 +274,8 @@ export class ESAutocompleteMultipleComponent
     this.stateChanges.next();
   }
 
-  public onInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.text = value;
-    this.text$.next(value);
-  }
-
   public onClear() {
-    this.text = '';
-    this.text$.next('');
+    this.form.patchValue({ text: '' });
   }
 
   public onSelectionChange(event: MatSelectionListChange) {
@@ -249,6 +290,9 @@ export class ESAutocompleteMultipleComponent
     }
 
     this.value = newValue;
+
+    this.selectionChanged$.next(true);
+
     this.onChange(newValue);
     this.stateChanges.next();
   }

@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-
 import { of } from 'rxjs';
 
 @Component({
@@ -29,8 +28,8 @@ export class AutocompleteMultipleStoryBasicComponent {
     ])
   });
 
-  public searchService = (text: string) => {
-    return of([
+  public searchService = (text: string, options?: any[]) => {
+    const o = [
       { id: 1, name: 'Estonia' },
       { id: 2, name: 'Iceland' },
       { id: 3, name: 'Norway' },
@@ -41,7 +40,21 @@ export class AutocompleteMultipleStoryBasicComponent {
       { id: 8, name: 'Albania' },
       { id: 9, name: 'Portugal' },
       { id: 10, name: 'Russia' }
-    ]);
+    ];
+
+    if (options) {
+      return of(
+        text.length
+          ? options.filter((option) => option.name.toLowerCase().includes(text.toLowerCase()))
+          : options
+      );
+    } else {
+      return of(
+        text.length
+          ? o.filter((option) => option.name.toLowerCase().includes(text.toLowerCase()))
+          : o
+      );
+    }
   };
 
   public displayWith = (value: { id: number; name: string }) => value.name;
