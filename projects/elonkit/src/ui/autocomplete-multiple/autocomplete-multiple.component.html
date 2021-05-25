@@ -1,12 +1,32 @@
 <div class="es-autocomplete-multiple es-subtitle-1">
   <div class="es-autocomplete-multiple__value">
-    <ng-container *ngIf="value.length">
-      <div class="es-autocomplete-multiple__name">{{ displayWith(value[0]) }}</div>
-      <div *ngIf="value.length > 1" class="es-autocomplete-multiple__count">
-        +{{ value.length - 1 }}
+    <mat-chip-list *ngIf="value.length" class="es-autocomplete-multiple__chip-list" #chipList>
+      <mat-chip
+        *ngFor="let option of this.value; index as i"
+        class="es-autocomplete-multiple__chip es-body-100"
+        removable
+        (removed)="onRemove(i)"
+      >
+        {{ displayWith(option) }}
+
+        <mat-icon matChipRemove svgIcon="es-autocomplete-multiple:clear-small"></mat-icon>
+      </mat-chip>
+
+      <div *ngIf="hiddenChipCount" class="es-autocomplete-multiple__count es-caption">
+        +{{ hiddenChipCount }}
       </div>
-    </ng-container>
+    </mat-chip-list>
   </div>
+
+  <button
+    *ngIf="value.length"
+    class="es-autocomplete-multiple__clear"
+    mat-icon-button
+    (click)="onRemoveAll($event)"
+  >
+    <mat-icon svgIcon="es-autocomplete-multiple:clear"></mat-icon>
+  </button>
+
   <button
     #arrow
     class="es-autocomplete-multiple__arrow"
@@ -91,7 +111,7 @@
         mat-button
         class="es-autocomplete-multiple__menu-button es-body-100"
         [attr.aria-label]="locale.autocompliteMultiple.labelRemoveChoice"
-        (click)="onDeSelectAll()"
+        (click)="onRemoveAll()"
       >
         {{ locale.autocompliteMultiple.labelRemoveChoice }}
       </button>
