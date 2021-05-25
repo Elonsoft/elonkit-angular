@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -22,6 +23,7 @@ import { ESAutocompleteMultipleComponent } from './autocomplete-multiple.compone
     ReactiveFormsModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatChipsModule,
     MatIconModule,
     MatInputModule,
     MatListModule,

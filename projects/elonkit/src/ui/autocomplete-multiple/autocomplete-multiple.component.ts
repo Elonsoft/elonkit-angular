@@ -11,7 +11,9 @@ import {
   Optional,
   Self,
   Host,
-  ElementRef
+  ElementRef,
+  AfterViewInit,
+  Renderer2
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -26,24 +28,31 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 
 import { MatButton } from '@angular/material/button';
+import { MatChipList } from '@angular/material/chips';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
-import { MatListOption, MatSelectionList, MatSelectionListChange } from '@angular/material/list';
+import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 
-import { Observable, Subject, combineLatest, of } from 'rxjs';
+import { Observable, Subject, combineLatest, of, BehaviorSubject } from 'rxjs';
 import {
   catchError,
   debounceTime,
+  filter,
   map,
   shareReplay,
   startWith,
   switchMap,
+  takeUntil,
   tap
 } from 'rxjs/operators';
 
+import { resizeObserver } from '../../utils/resize-observer';
 import { ESLocale, ESLocaleService } from '../locale';
 
 import { ES_AUTOCOMPLETE_ANIMATIONS } from './autocomplete-multiple.animations';
 import { ESAutocompleteMultipleSearchScope } from '.';
+
+const CHIP_LEFT_MARGIN = 4;
+const COUNT_WIDTH = 40;
 
 @Component({
   selector: 'es-autocomplete-multiple',
@@ -55,7 +64,7 @@ import { ESAutocompleteMultipleSearchScope } from '.';
   animations: ES_AUTOCOMPLETE_ANIMATIONS
 })
 export class ESAutocompleteMultipleComponent
-  implements MatFormFieldControl<any[]>, ControlValueAccessor, OnInit, OnDestroy {
+  implements MatFormFieldControl<any[]>, ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
   private static nextId = 0;
   @HostBinding() public id = `es-autocomplete-multiple-${ESAutocompleteMultipleComponent.nextId++}`;
   @HostBinding('style.display') public styleDisplay = 'block';
@@ -64,6 +73,7 @@ export class ESAutocompleteMultipleComponent
   @ViewChild('input', { static: false }) private input?: ElementRef<HTMLInputElement>;
   @ViewChild('arrow', { static: true }) private arrow?: MatButton;
   @ViewChild('selectionList', { static: false }) private selectionList?: MatSelectionList;
+  @ViewChild('chipList', { static: false }) private chipList?: MatChipList;
 
   @Input() public service!: (search: string, options?: any[]) => Observable<any[]>;
 
@@ -108,17 +118,20 @@ export class ESAutocompleteMultipleComponent
   public locale$: Observable<ESLocale>;
 
   public origin!: CdkOverlayOrigin;
+
   public describedBy = '';
 
   private destoryed$ = new Subject<void>();
+
   public stateChanges = new Subject<void>();
 
   public value: any[] = [];
 
   public isOpen = false;
+
   public width = 0;
 
-  public selectionChanged$ = new Subject();
+  public selectionChanged$ = new BehaviorSubject(null);
 
   public options$: Observable<any[]>;
 
@@ -132,6 +145,8 @@ export class ESAutocompleteMultipleComponent
     scope: new FormControl(this.searchScope.ALL),
     text: new FormControl('')
   });
+
+  public hiddenChipCount = 0;
 
   private count = 0;
 
@@ -161,6 +176,8 @@ export class ESAutocompleteMultipleComponent
     @Optional() @Host() private matFormField: MatFormField,
     private changeDetectorRef: ChangeDetectorRef,
     private focusMonitor: FocusMonitor,
+    private rendered2: Renderer2,
+    private elementRef: ElementRef,
     /**
      * @internal
      */
@@ -186,7 +203,7 @@ export class ESAutocompleteMultipleComponent
 
     this.filteredOptions$ = combineLatest([
       this.options$,
-      this.selectionChanged$.pipe(startWith(true))
+      this.selectionChanged$.pipe(filter(() => this.isOpen))
     ]).pipe(
       debounceTime(100),
       map(([options]) => {
@@ -216,6 +233,18 @@ export class ESAutocompleteMultipleComponent
     this.stateChanges.subscribe(() => {
       this.changeDetectorRef.detectChanges();
     });
+  }
+
+  public ngAfterViewInit() {
+    combineLatest([
+      // tslint:disable-next-line:deprecation
+      resizeObserver(this.elementRef.nativeElement).pipe(startWith(null), debounceTime(10)),
+      this.selectionChanged$
+    ])
+      .pipe(takeUntil(this.destoryed$))
+      .subscribe(() => {
+        this.updateDisplayedChips();
+      });
   }
 
   public ngOnDestroy() {
@@ -291,30 +320,29 @@ export class ESAutocompleteMultipleComponent
 
     this.value = newValue;
 
-    this.selectionChanged$.next(true);
-
-    this.onChange(newValue);
-    this.stateChanges.next();
+    this.changeState(this.value);
   }
 
   public onSelectAll() {
-    this.selectionList?.options.forEach((option: MatListOption) => {
-      if (!option.selected) {
-        option._setSelected(true);
+    this.value = this.selectionList.options.map((option) => option.value);
 
-        this.onSelectionChange({ option } as MatSelectionListChange);
-      }
-    });
+    this.changeState(this.value);
   }
 
-  public onDeSelectAll() {
-    this.selectionList?.options.forEach((option: MatListOption) => {
-      if (option.selected) {
-        option._setSelected(false);
+  public onRemoveAll(event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
 
-        this.onSelectionChange({ option } as MatSelectionListChange);
-      }
-    });
+    this.value = [];
+
+    this.changeState(this.value);
+  }
+
+  public onRemove(index: number) {
+    this.value.splice(index, 1);
+
+    this.changeState(this.value);
   }
 
   public isSelected(option: any) {
@@ -325,5 +353,55 @@ export class ESAutocompleteMultipleComponent
     const count = this.count - this.showedOptionsCount > 0 ? this.showedOptionsCount : this.count;
 
     return `${labelShown}: ${count} ${labelOf} ${this.count}`;
+  }
+
+  public updateDisplayedChips() {
+    if (this.chipList) {
+      let count = 0;
+
+      const chips = this.chipList.chips;
+
+      let isOverflow = false;
+      let offset = 0;
+
+      chips.forEach((chip) => {
+        this.rendered2.setStyle(chip._elementRef.nativeElement, 'display', 'inline-flex');
+
+        const { width } = chip._elementRef.nativeElement.getBoundingClientRect();
+
+        offset += width;
+
+        if (isOverflow) {
+          count += 1;
+
+          this.rendered2.setStyle(chip._elementRef.nativeElement, 'display', 'none');
+        } else {
+          // tslint:disable-next-line: no-shadowed-variable
+          const { width } = chip._elementRef.nativeElement.parentElement.getBoundingClientRect();
+
+          if (offset > width - COUNT_WIDTH) {
+            count += 1;
+
+            isOverflow = true;
+
+            this.rendered2.setStyle(chip._elementRef.nativeElement, 'display', 'none');
+          }
+        }
+
+        offset += CHIP_LEFT_MARGIN;
+      });
+
+      if (this.hiddenChipCount !== count) {
+        this.hiddenChipCount = count;
+        this.stateChanges.next();
+      }
+    }
+  }
+
+  private changeState(value: any[]) {
+    this.onChange(value);
+    this.stateChanges.next();
+
+    this.selectionChanged$.next(true);
   }
 }

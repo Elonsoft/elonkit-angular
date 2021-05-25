@@ -24,7 +24,8 @@ export class AutocompleteMultipleStoryBasicComponent {
   public form = new FormGroup({
     autocomplete: new FormControl([
       { id: 3, name: 'Norway' },
-      { id: 9, name: 'Portugal' }
+      { id: 9, name: 'Portugal' },
+      { id: 10, name: 'Russia' }
     ])
   });
 

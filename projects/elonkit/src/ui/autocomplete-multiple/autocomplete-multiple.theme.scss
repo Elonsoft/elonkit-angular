@@ -12,7 +12,23 @@
     }
 
     &__count {
+      background-color: mat-color($mono-a, A50);
       color: mat-color($mono-a, A600);
+    }
+
+    &__chip {
+      &.mat-standard-chip {
+        background-color: mat-color($mono-a, A100);
+        color: mat-color($mono-a, A900);
+
+        .mat-chip-remove {
+          color: mat-color($mono-a, A500);
+        }
+      }
+    }
+
+    &__clear {
+      color: mat-color($mono-a, A400);
     }
 
     &__menu {
@@ -25,10 +41,10 @@
 
     &__option {
       &_selected {
-        background: mat-color($accent, A100);
+        background-color: mat-color($accent, A100);
 
         .mat-pseudo-checkbox-checked {
-          background: mat-color($accent, 300);
+          background-color: mat-color($accent, 300);
         }
       }
     }
