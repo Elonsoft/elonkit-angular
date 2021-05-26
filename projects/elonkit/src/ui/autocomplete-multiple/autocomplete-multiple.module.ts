@@ -15,6 +15,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import { ESAutocompleteMultipleComponent } from './autocomplete-multiple.component';
+import { ESTooltipModule } from '../tooltip';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { ESAutocompleteMultipleComponent } from './autocomplete-multiple.compone
     MatInputModule,
     MatListModule,
     A11yModule,
-    OverlayModule
+    OverlayModule,
+    ESTooltipModule
   ],
   exports: [ESAutocompleteMultipleComponent],
   declarations: [ESAutocompleteMultipleComponent]

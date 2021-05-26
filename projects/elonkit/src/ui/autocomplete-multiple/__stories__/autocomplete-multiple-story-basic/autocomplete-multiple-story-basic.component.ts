@@ -1,6 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+
 import { of } from 'rxjs';
+
+const OPTIONS = [
+  { id: 1, name: 'Estonia' },
+  { id: 2, name: 'Iceland' },
+  { id: 3, name: 'Norway' },
+  { id: 4, name: 'Lithuania' },
+  { id: 5, name: 'Sweden' },
+  { id: 6, name: 'Austria' },
+  { id: 7, name: 'Switzerland' },
+  { id: 8, name: 'Albania' },
+  { id: 9, name: 'Portugal' },
+  { id: 10, name: 'Russia' },
+  { id: 11, name: 'Rus' }
+];
 
 @Component({
   selector: 'es-autocomplete-multiple-story-basic',
@@ -30,32 +45,13 @@ export class AutocompleteMultipleStoryBasicComponent {
   });
 
   public searchService = (text: string, options?: any[]) => {
-    const o = [
-      { id: 1, name: 'Estonia' },
-      { id: 2, name: 'Iceland' },
-      { id: 3, name: 'Norway' },
-      { id: 4, name: 'Lithuania' },
-      { id: 5, name: 'Sweden' },
-      { id: 6, name: 'Austria' },
-      { id: 7, name: 'Switzerland' },
-      { id: 8, name: 'Albania' },
-      { id: 9, name: 'Portugal' },
-      { id: 10, name: 'Russia' }
-    ];
+    const source = options ? options : OPTIONS;
 
-    if (options) {
-      return of(
-        text.length
-          ? options.filter((option) => option.name.toLowerCase().includes(text.toLowerCase()))
-          : options
-      );
-    } else {
-      return of(
-        text.length
-          ? o.filter((option) => option.name.toLowerCase().includes(text.toLowerCase()))
-          : o
-      );
-    }
+    return of(
+      text.length
+        ? source.filter((option) => option.name.toLowerCase().includes(text.toLowerCase()))
+        : source
+    );
   };
 
   public displayWith = (value: { id: number; name: string }) => value.name;

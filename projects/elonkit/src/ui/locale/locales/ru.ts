@@ -40,14 +40,25 @@ export const ru = {
     labelStatus: 'Статус'
   },
   autocompliteMultiple: {
-    labelTabAll: 'Всё',
-    labelTabSelected: 'Выбрано',
-    labelTabNotSelected: 'Не выбрано',
-    labelClear: 'Очистить',
-    labelChooseAll: 'Выбрать все',
-    labelRemoveChoice: 'Снять выбор',
+    labelTabAll: 'Все',
+    labelTabSelected: 'Выбранные',
+    labelTabNotSelected: 'Не выбранные',
     labelShown: 'Показано',
     labelOf: 'из',
-    labelSelected: 'Выбрано'
+    labelAllSelected: 'Все выбранные',
+    labelSelected: 'Выбрано',
+    labelSearchScopeAll: 'Область поиска Все',
+    labelSearchScopeSelected: 'Область поиска Выбранные',
+    labelSearchScopeNotSelected: 'Область поиска Не выбранные',
+
+    labelClear: 'Очистить',
+    labelCloseMenu: 'Закрыть меню',
+    labelChoose: 'Выбрать',
+    labelChooseAll: 'Выбрать все',
+    labelOpenMenu: 'Открыть меню',
+    labelRemoveAll: 'Удалить все',
+    labelRemoveChoice: 'Снять выбор',
+    labelSearch: 'Найти',
+    labelShowSelected: 'Показать выбранные'
   }
 };

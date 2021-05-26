@@ -1,21 +1,12 @@
 @mixin es-autocomplete-multiple-theme($theme, $elonkit-theme) {
+  $accent: map-get($theme, accent);
   $mono-a: map-get($elonkit-theme, mono-a);
   $mono-b: map-get($elonkit-theme, mono-b);
+  $primary: map-get($theme, primary);
   $surface: map-get($elonkit-theme, surface);
   $warn: map-get($theme, warn);
-  $accent: map-get($theme, accent);
-  $primary: map-get($theme, primary);
 
   .es-autocomplete-multiple {
-    &__panel {
-      background-color: mat-color($surface, 4);
-    }
-
-    &__count {
-      background-color: mat-color($mono-a, A50);
-      color: mat-color($mono-a, A600);
-    }
-
     &__chip {
       &.mat-standard-chip {
         background-color: mat-color($mono-a, A100);
@@ -27,26 +18,25 @@
       }
     }
 
+    &__count {
+      background-color: mat-color($mono-a, A50);
+      color: mat-color($mono-a, A600);
+    }
+
     &__clear {
       color: mat-color($mono-a, A400);
     }
 
-    &__menu {
-      border-bottom-color: mat-color($mono-a, A100);
-
-      &-button {
-        color: mat-color($mono-a, A700);
-      }
+    &__panel {
+      background-color: mat-color($surface, 4);
     }
 
-    &__option {
-      &_selected {
-        background-color: mat-color($accent, A100);
+    &__menu {
+      border-bottom-color: mat-color($mono-a, A100);
+    }
 
-        .mat-pseudo-checkbox-checked {
-          background-color: mat-color($accent, 300);
-        }
-      }
+    &__menu-button {
+      color: mat-color($mono-a, A700);
     }
 
     &__button-toggle {
@@ -63,8 +53,21 @@
       }
     }
 
+    &__option {
+      &_selected {
+        background-color: mat-color($accent, A100);
+
+        .mat-pseudo-checkbox-checked {
+          background-color: mat-color($accent, 300);
+        }
+      }
+    }
+
+    &__divider {
+      color: mat-color($mono-a, A100);
+    }
+
     &__footer {
-      border-top-color: mat-color($mono-a, A100);
       color: mat-color($mono-a, A600);
     }
   }

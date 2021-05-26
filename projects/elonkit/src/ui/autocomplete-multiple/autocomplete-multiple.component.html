@@ -1,20 +1,35 @@
-<div class="es-autocomplete-multiple es-subtitle-1">
+<div *ngIf="locale$ | async as locale" class="es-autocomplete-multiple es-subtitle-1">
   <div class="es-autocomplete-multiple__value">
     <mat-chip-list *ngIf="value.length" class="es-autocomplete-multiple__chip-list" #chipList>
       <mat-chip
         *ngFor="let option of this.value; index as i"
+        [esTooltip]="displayWith(option)"
+        esTooltipArrow
+        esTooltipInteractive
         class="es-autocomplete-multiple__chip es-body-100"
         removable
+        [disabled]="ngControl.disabled || disabled"
         (removed)="onRemove(i)"
       >
-        {{ displayWith(option) }}
+        <label class="es-autocomplete-multiple__chip-text">
+          {{ displayWith(option) }}
+        </label>
 
         <mat-icon matChipRemove svgIcon="es-autocomplete-multiple:clear-small"></mat-icon>
       </mat-chip>
 
-      <div *ngIf="hiddenChipCount" class="es-autocomplete-multiple__count es-caption">
+      <button
+        *ngIf="hiddenChipCount"
+        tabindex="0"
+        class="es-autocomplete-multiple__count es-caption"
+        [ngClass]="{ 'es-autocomplete-multiple__count_disabled': ngControl.disabled || disabled }"
+        [esTooltip]="locale.autocompliteMultiple.labelShowSelected"
+        esTooltipArrow
+        esTooltipInteractive
+        (click)="onShowSelectedTab()"
+      >
         +{{ hiddenChipCount }}
-      </div>
+      </button>
     </mat-chip-list>
   </div>
 
@@ -22,6 +37,8 @@
     *ngIf="value.length"
     class="es-autocomplete-multiple__clear"
     mat-icon-button
+    [attr.aria-label]="locale.autocompliteMultiple.labelRemoveAll"
+    [disabled]="ngControl.disabled || disabled"
     (click)="onRemoveAll($event)"
   >
     <mat-icon svgIcon="es-autocomplete-multiple:clear"></mat-icon>
@@ -32,6 +49,12 @@
     class="es-autocomplete-multiple__arrow"
     mat-icon-button
     [attr.aria-describedby]="describedBy"
+    [attr.aria-label]="
+      this.isOpen
+        ? locale.autocompliteMultiple.labelCloseMenu
+        : locale.autocompliteMultiple.labelOpenMenu
+    "
+    [disabled]="ngControl.disabled || disabled"
   >
     <mat-icon
       svgIcon="es-autocomplete-multiple:{{ this.isOpen ? 'menu-up' : 'menu-down' }}"
@@ -57,19 +80,22 @@
     cdkTrapFocus
     @panel
   >
-    <mat-button-toggle-group formControlName="scope" class="es-autocomplete-multiple__toggle-group">
+    <mat-button-toggle-group class="es-autocomplete-multiple__toggle-group" formControlName="scope">
       <mat-button-toggle
         class="es-autocomplete-multiple__button-toggle es-body-100"
+        [attr.aria-label]="locale.autocompliteMultiple.labelSearchScopeAll"
         [value]="searchScope.ALL"
         >{{ locale.autocompliteMultiple.labelTabAll }}</mat-button-toggle
       >
       <mat-button-toggle
         class="es-autocomplete-multiple__button-toggle es-body-100"
+        [attr.aria-label]="locale.autocompliteMultiple.labelSearchScopeSelected"
         [value]="searchScope.SELECTED"
         >{{ locale.autocompliteMultiple.labelTabSelected }}</mat-button-toggle
       >
       <mat-button-toggle
         class="es-autocomplete-multiple__button-toggle es-body-100"
+        [attr.aria-label]="locale.autocompliteMultiple.labelSearchScopeNotSelected"
         [value]="searchScope.NOT_SELECTED"
         >{{ locale.autocompliteMultiple.labelTabNotSelected }}</mat-button-toggle
       >
@@ -81,12 +107,15 @@
         matPrefix
         svgIcon="es-autocomplete-multiple:magnify"
       ></mat-icon>
+
       <input
         #input
         class="es-autocomplete-search__input es-subtitle-1"
         formControlName="text"
+        [attr.aria-label]="locale.autocompliteMultiple.labelSearch"
         [placeholder]="placeholder"
       />
+
       <button
         *ngIf="form.get('text').value"
         class="es-autocomplete-search__clear"
@@ -98,44 +127,53 @@
       </button>
     </div>
 
-    <div *ngIf="((filteredOptions$ | async) || []).length" class="es-autocomplete-multiple__menu">
-      <button
-        mat-button
-        class="es-autocomplete-multiple__menu-button es-body-100"
-        [attr.aria-label]="locale.autocompliteMultiple.labelChooseAll"
-        (click)="onSelectAll()"
-      >
-        {{ locale.autocompliteMultiple.labelChooseAll }}
-      </button>
-      <button
-        mat-button
-        class="es-autocomplete-multiple__menu-button es-body-100"
-        [attr.aria-label]="locale.autocompliteMultiple.labelRemoveChoice"
-        (click)="onRemoveAll()"
-      >
-        {{ locale.autocompliteMultiple.labelRemoveChoice }}
-      </button>
-    </div>
+    <ng-container *ngIf="filteredOptions$ | async as options">
+      <div *ngIf="options.length" class="es-autocomplete-multiple__menu">
+        <button
+          mat-button
+          class="es-autocomplete-multiple__menu-button es-body-100"
+          [attr.aria-label]="locale.autocompliteMultiple.labelChooseAll"
+          (click)="onSelectAll()"
+        >
+          {{ locale.autocompliteMultiple.labelChooseAll }}
+        </button>
 
-    <mat-selection-list
-      *ngIf="filteredOptions$ | async as options"
-      class="es-autocomplete-multiple__options"
-      color="primary"
-      (selectionChange)="onSelectionChange($event)"
-      #selectionList
-    >
-      <mat-list-option
-        *ngFor="let option of options"
-        class="es-autocomplete-multiple__option"
-        [ngClass]="{ 'es-autocomplete-multiple__option_selected': matOption.selected }"
-        checkboxPosition="before"
-        [value]="option"
-        [selected]="isSelected(option)"
-        #matOption
+        <button
+          mat-button
+          class="es-autocomplete-multiple__menu-button es-body-100"
+          [attr.aria-label]="locale.autocompliteMultiple.labelRemoveChoice"
+          (click)="onDeSelectAll()"
+        >
+          {{ locale.autocompliteMultiple.labelRemoveChoice }}
+        </button>
+      </div>
+
+      <mat-selection-list
+        class="es-autocomplete-multiple__options"
+        color="primary"
+        (selectionChange)="onSelectionChange($event)"
+        #selectionList
       >
-        {{ displayWith(option) }}
-      </mat-list-option>
-    </mat-selection-list>
+        <mat-list-option
+          *ngFor="let option of options"
+          class="es-autocomplete-multiple__option"
+          [ngClass]="{ 'es-autocomplete-multiple__option_selected': matOption.selected }"
+          [attr.aria-label]="
+            isSelected(option)
+              ? locale.autocompliteMultiple.labelRemoveChoice + ' ' + displayWith(option)
+              : locale.autocompliteMultiple.labelChoose + ' ' + displayWith(option)
+          "
+          checkboxPosition="before"
+          [value]="option"
+          [selected]="isSelected(option)"
+          #matOption
+        >
+          {{ displayWith(option) }}
+        </mat-list-option>
+      </mat-selection-list>
+
+      <mat-divider *ngIf="options.length" class="es-autocomplete-multiple__divider"></mat-divider>
+    </ng-container>
 
     <div class="es-autocomplete-multiple__footer es-caption">
       <label>
