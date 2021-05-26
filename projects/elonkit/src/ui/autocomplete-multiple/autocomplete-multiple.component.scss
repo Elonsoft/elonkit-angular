@@ -27,36 +27,52 @@
 
       .mat-standard-chip {
         margin: 0;
-
-        &:not(:first-child) {
-          margin-left: 4px;
-        }
       }
     }
   }
 
   &__chip {
     &.mat-standard-chip {
+      max-width: 160px;
       min-height: 24px;
+
+      &:not(:first-child) {
+        margin-left: 4px;
+      }
     }
+
+    .mat-chip-remove {
+      min-width: 18px;
+    }
+  }
+
+  &__chip-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__count {
     align-items: center;
+    border: 0 none;
     border-radius: 96px;
     box-sizing: border-box;
-    display: flex;
-    margin-left: 4px;
-    padding: 4px 5px 4px 4px;
+    cursor: pointer;
     height: 24px;
+    margin-left: 4px;
+    outline: none;
+    padding: 4px 5px 4px 4px;
+
+    &_disabled {
+      cursor: default;
+    }
   }
 
   &__clear.mat-icon-button {
     align-items: center;
     display: flex;
-    justify-content: center;
     height: 20px;
-
+    justify-content: center;
     margin-left: 4px;
     margin-right: 1px;
     width: 20px;
@@ -118,9 +134,13 @@
     }
   }
 
-  &__name {
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &__options {
+    max-height: 208px;
+    overflow: auto;
+
+    &.mat-list-base {
+      padding: 0;
+    }
   }
 
   &__option {
@@ -141,38 +161,27 @@
     }
   }
 
-  &__options {
-    max-height: 208px;
-    overflow: auto;
-
-    &.mat-list-base {
-      padding: 0;
-    }
-  }
-
   &__menu {
     align-items: center;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-
     display: flex;
     height: 32px;
     padding-left: 8px;
+  }
 
-    &-button {
+  &__menu-button {
+    height: 32px;
+
+    &.mat-button {
+      border-radius: 0;
       height: 32px;
-
-      &.mat-button {
-        border-radius: 0;
-        line-height: 32px;
-        padding: 0 8px;
-      }
+      line-height: 32px;
+      padding: 0 8px;
     }
   }
 
   &__footer {
-    border-top-style: solid;
-    border-top-width: 1px;
     display: flex;
     justify-content: space-between;
     padding: 6px 16px;

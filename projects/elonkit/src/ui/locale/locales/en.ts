@@ -43,11 +43,22 @@ export const en = {
     labelTabAll: 'All',
     labelTabSelected: 'Selected',
     labelTabNotSelected: 'Not selected',
-    labelClear: 'Clear',
-    labelChooseAll: 'Choose all',
-    labelRemoveChoice: 'Remove choice',
     labelShown: 'Shown',
     labelOf: 'of',
-    labelSelected: 'Selected'
+    labelSelected: 'Selected',
+    labelAllSelected: 'All selected',
+    labelSearchScopeAll: 'Search scope all',
+    labelSearchScopeSelected: 'Search scope Selected',
+    labelSearchScopeNotSelected: 'Search scope Not selected',
+
+    labelClear: 'Clear',
+    labelCloseMenu: ' Close menu',
+    labelChoose: 'Choose',
+    labelChooseAll: 'Choose all',
+    labelOpenMenu: 'Open menu',
+    labelRemoveAll: 'Remove all',
+    labelRemoveChoice: 'Remove choice',
+    labelSearch: 'Search',
+    labelShowSelected: 'Show selected'
   }
 };
