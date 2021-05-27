@@ -7,10 +7,11 @@ import { CoreModule } from '~storybook/core.module';
 
 import { ESAutocompleteMultipleModule } from '../..';
 
-import { AutocompleteMultipleStoryBasicComponent } from './autocomplete-multiple-story-basic.component';
+import { AutocompleteMultipleStoryServiceComponent } from './autocomplete-multiple-story-service.component';
+import { AutocompleteMultipleStoryService } from './autocomplete-multiple-story-service.service';
 
 @NgModule({
-  declarations: [AutocompleteMultipleStoryBasicComponent],
+  declarations: [AutocompleteMultipleStoryServiceComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -18,6 +19,7 @@ import { AutocompleteMultipleStoryBasicComponent } from './autocomplete-multiple
     CoreModule,
     ESAutocompleteMultipleModule
   ],
-  exports: [AutocompleteMultipleStoryBasicComponent]
+  exports: [AutocompleteMultipleStoryServiceComponent],
+  providers: [AutocompleteMultipleStoryService]
 })
-export class AutocompleteMultipleStoryBasicModule {}
+export class AutocompleteMultipleStoryServiceModule {}
