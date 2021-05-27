@@ -6,26 +6,56 @@ import { action } from '@storybook/addon-actions';
 import { ESAutocompleteMultipleComponent } from '..';
 
 import {
-  AutocompleteMultipleStoryBasicModule,
-  AutocompleteMultipleStoryBasicComponent,
-  AUTOCOMPLETE_MULTIPLE_STORY_BASIC_SOURCE
-} from './autocomplete-multiple-story-basic';
+  AutocompleteMultipleStoryServiceModule,
+  AutocompleteMultipleStoryServiceComponent,
+  AUTOCOMPLETE_MULTIPLE_STORY_SERVICE_SOURCE
+} from './autocomplete-multiple-story-service';
 
 <Meta title='UI/Autocomplete multiple' />
 
 # Autocomplete multiple
 
-Component autocomplete multiple
+Autocomplete multiple is component for multiple select options with support for autocomplete.
 
 ## Demos
 
-<Canvas source={AUTOCOMPLETE_MULTIPLE_STORY_BASIC_SOURCE}>
-  <Story name='Basic' height='500px'>
-    {{
-      component: AutocompleteMultipleStoryBasicComponent,
-      moduleMetadata: {
-        imports: [AutocompleteMultipleStoryBasicModule]
+<Canvas source={AUTOCOMPLETE_MULTIPLE_STORY_SERVICE_SOURCE}>
+  <Story
+    name='Service'
+    height='500px'
+    args={{
+      width: 300,
+      showedOptionsCount: 25,
+      required: false,
+      disabled: false
+    }}
+    argTypes={{
+      width: {
+        control: 'number'
+      },
+      showedOptionsCount: {
+        control: 'number'
+      },
+      required: {
+        control: 'boolean'
+      },
+      disabled: {
+        control: 'boolean'
       }
     }}
+  >
+    {((args) => ({
+      component: AutocompleteMultipleStoryServiceComponent,
+      moduleMetadata: {
+        imports: [AutocompleteMultipleStoryServiceModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
   </Story>
 </Canvas>
+
+## API
+
+<ArgsTable of={ESAutocompleteMultipleComponent} />
