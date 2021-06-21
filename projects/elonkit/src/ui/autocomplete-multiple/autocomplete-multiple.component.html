@@ -5,7 +5,6 @@
         *ngFor="let option of this.value; index as i"
         [esTooltip]="displayWith(option)"
         esTooltipArrow
-        esTooltipInteractive
         class="es-autocomplete-multiple__chip es-body-100"
         removable
         [disabled]="ngControl.disabled || disabled"
@@ -25,7 +24,6 @@
         [ngClass]="{ 'es-autocomplete-multiple__count_disabled': ngControl.disabled || disabled }"
         [esTooltip]="locale.autocompliteMultiple.labelShowSelected"
         esTooltipArrow
-        esTooltipInteractive
         (click)="onShowSelectedTab()"
       >
         +{{ hiddenChipCount }}
@@ -101,16 +99,16 @@
       >
     </mat-button-toggle-group>
 
-    <div class="es-autocomplete-search">
+    <div class="es-autocomplete-multiple-search">
       <mat-icon
-        class="es-autocomplete-search__icon"
+        class="es-autocomplete-multiple-search__icon"
         matPrefix
         svgIcon="es-autocomplete-multiple:magnify"
       ></mat-icon>
 
       <input
         #input
-        class="es-autocomplete-search__input es-subtitle-1"
+        class="es-autocomplete-multiple-search__input es-subtitle-1"
         formControlName="text"
         [attr.aria-label]="locale.autocompliteMultiple.labelSearch"
         [placeholder]="placeholder"
@@ -118,7 +116,7 @@
 
       <button
         *ngIf="form.get('text').value"
-        class="es-autocomplete-search__clear"
+        class="es-autocomplete-multiple-search__clear"
         mat-icon-button
         [attr.aria-label]="locale.autocompliteMultiple.labelClear"
         (click)="onClear()"
@@ -158,11 +156,7 @@
           *ngFor="let option of options"
           class="es-autocomplete-multiple__option"
           [ngClass]="{ 'es-autocomplete-multiple__option_selected': matOption.selected }"
-          [attr.aria-label]="
-            isSelected(option)
-              ? locale.autocompliteMultiple.labelRemoveChoice + ' ' + displayWith(option)
-              : locale.autocompliteMultiple.labelChoose + ' ' + displayWith(option)
-          "
+          [attr.aria-label]="displayWith(option)"
           checkboxPosition="before"
           [value]="option"
           [selected]="isSelected(option)"

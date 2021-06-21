@@ -13,7 +13,9 @@ import {
   Host,
   ElementRef,
   AfterViewInit,
-  Renderer2
+  Renderer2,
+  Inject,
+  InjectionToken
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -41,7 +43,8 @@ import {
   shareReplay,
   startWith,
   switchMap,
-  takeUntil
+  takeUntil,
+  tap
 } from 'rxjs/operators';
 
 import { resizeObserver } from '../../utils/resize-observer';
@@ -50,8 +53,24 @@ import { ESLocale, ESLocaleService } from '../locale';
 import { ES_AUTOCOMPLETE_ANIMATIONS } from './autocomplete-multiple.animations';
 import { ESAutocompleteMultipleSearchScope } from '.';
 
-const CHIP_LEFT_MARGIN = 4;
-const COUNT_WIDTH = 40;
+export interface ESAutocompleteMultipleDefaultOptionsSizes {
+  chipLeftMargin: number;
+  countBadgeMaxWidth: number;
+}
+
+export interface ESAutocompleteMultipleDefaultOptions {
+  sizes?: ESAutocompleteMultipleDefaultOptionsSizes;
+}
+
+export const ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_SIZES = {
+  chipLeftMargin: 4,
+  countBadgeMaxWidth: 40
+};
+
+export const ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_OPTIONS = new InjectionToken<ESAutocompleteMultipleDefaultOptions>(
+  'ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_OPTIONS'
+);
+
 const MIN_PANEL_WIDTH = 320;
 
 @Component({
@@ -75,13 +94,16 @@ export class ESAutocompleteMultipleComponent
   @ViewChild('selectionList', { static: false }) private selectionList?: MatSelectionList;
   @ViewChild('chipList', { static: false }) private chipList?: MatChipList;
 
-  /** Search options service. When passing the second parameter **options**, the search is performed in this selection. */
+  /** Options search service. When second argument is present, the search should be performed by passed down options. */
   @Input() public service!: (search: string, options?: any[]) => Observable<any[]>;
 
   /** Function that maps an option control value to its display value in the trigger. */
   @Input() public displayWith!: (option: any) => string;
 
-  /** Placeholder for search input */
+  /** Delay before starting search after entering search text. */
+  @Input() public searchDebounce = 400;
+
+  /** Placeholder for search input. */
   @Input()
   public get placeholder() {
     return this._placeholder;
@@ -114,8 +136,27 @@ export class ESAutocompleteMultipleComponent
   }
   private _disabled = false;
 
-  /** The number of displayed options in the list. By default, all options displayed */
-  @Input() public showedOptionsCount = null;
+  /**
+   * Sizes of component elements which are used for collapse calculations.
+   */
+  @Input()
+  public get sizes(): ESAutocompleteMultipleDefaultOptionsSizes {
+    return this._sizes;
+  }
+  public set sizes(value: ESAutocompleteMultipleDefaultOptionsSizes) {
+    this._sizes = value || this.defaultOptions?.sizes || ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_SIZES;
+  }
+  private _sizes;
+
+  /** Total number of options found and filters passed. */
+  @Input()
+  public get optionsCount(): number {
+    return this._optionsCount || 0;
+  }
+  public set optionsCount(value: number) {
+    this._optionsCount = value || 0;
+  }
+  private _optionsCount;
 
   /**
    * @internal
@@ -130,7 +171,6 @@ export class ESAutocompleteMultipleComponent
   public origin!: CdkOverlayOrigin;
 
   /**
-   * @internal
    * @ignore
    */
   public describedBy = '';
@@ -142,13 +182,11 @@ export class ESAutocompleteMultipleComponent
   private destoryed$ = new Subject<void>();
 
   /**
-   * @internal
    * @ignore
    */
   public stateChanges = new Subject<void>();
 
   /**
-   * @internal
    * @ignore
    */
   public value: any[] = [];
@@ -184,7 +222,6 @@ export class ESAutocompleteMultipleComponent
   public filteredOptions$: Observable<any[]>;
 
   /**
-   * @internal
    * @ignore
    */
   public focused = false;
@@ -214,10 +251,9 @@ export class ESAutocompleteMultipleComponent
    * @internal
    * @ignore
    */
-  private count = 0;
+  private filetredOptionsCount = 0;
 
   /**
-   * @internal
    * @ignore
    */
   @HostBinding('class.floating')
@@ -226,7 +262,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public get errorState(): boolean {
@@ -241,7 +276,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public get empty() {
@@ -252,18 +286,15 @@ export class ESAutocompleteMultipleComponent
    * @ignore
    */
   constructor(
-    /**
-     * @internal
-     */
     @Optional() @Self() public ngControl: NgControl,
-    /**
-     * @internal
-     */
     @Optional() public ngForm: FormGroupDirective,
     /**
      * @internal
      */
     @Optional() @Host() private matFormField: MatFormField,
+    @Optional()
+    @Inject(ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_OPTIONS)
+    private defaultOptions: ESAutocompleteMultipleDefaultOptions,
     /**
      * @internal
      */
@@ -290,10 +321,14 @@ export class ESAutocompleteMultipleComponent
     }
     this.locale$ = this.localeService.locale();
 
+    this.sizes = defaultOptions?.sizes || ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_SIZES;
+
     this.options$ = this.form.valueChanges.pipe(
       startWith({ scope: this.searchScope.ALL, text: '' }),
-      debounceTime(400),
+      debounceTime(this.searchDebounce),
       switchMap(({ scope, text }) => {
+        this.filetredOptionsCount = 0;
+
         if (scope === this.searchScope.SELECTED) {
           return this.service(text, this.value).pipe(catchError(() => of([])));
         }
@@ -311,30 +346,26 @@ export class ESAutocompleteMultipleComponent
       map(([options]) => {
         const { scope } = this.form.value;
 
-        if (scope === this.searchScope.SELECTED) {
-          return options.filter((option) => this.value.some((o) => o.id === option.id));
-        } else if (scope === this.searchScope.NOT_SELECTED) {
-          return options.filter((option) => !this.value.some((o) => o.id === option.id));
-        } else {
+        if (scope === this.searchScope.ALL) {
           return options;
         }
-      }),
-      map((options) => {
-        this.count = options.length;
 
-        if (this.showedOptionsCount) {
-          return this.showedOptionsCount > options.length
-            ? options
-            : options.slice(0, this.showedOptionsCount - 1);
-        } else {
-          return options;
-        }
+        const filtered =
+          scope === this.searchScope.SELECTED
+            ? options.filter((option) => this.value.some((o) => o.id === option.id))
+            : options.filter((option) => !this.value.some((o) => o.id === option.id));
+
+        this.optionsCount = this.optionsCount - options.length + filtered.length;
+
+        return filtered;
+      }),
+      tap((options) => {
+        this.filetredOptionsCount = options.length;
       })
     );
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngOnInit() {
@@ -350,7 +381,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngAfterViewInit() {
@@ -366,7 +396,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public ngOnDestroy() {
@@ -376,7 +405,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public setDescribedByIds(ids: string[]) {
@@ -384,7 +412,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public onContainerClick() {
@@ -408,7 +435,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public writeValue(value: any[]) {
@@ -419,7 +445,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public registerOnChange(onChange: (value: any) => void) {
@@ -427,13 +452,11 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public onChange = (_: any[]) => {};
 
   /**
-   * @internal
    * @ignore
    */
   public registerOnTouched(onTouched: () => void) {
@@ -441,7 +464,6 @@ export class ESAutocompleteMultipleComponent
   }
 
   /**
-   * @internal
    * @ignore
    */
   public onTouched = () => {};
@@ -570,15 +592,7 @@ export class ESAutocompleteMultipleComponent
    * @ignore
    */
   public getShownCountInfo(labelShown: string, labelOf: string) {
-    let count = 0;
-
-    if (this.showedOptionsCount) {
-      count = this.count - this.showedOptionsCount > 0 ? this.showedOptionsCount : this.count;
-    } else {
-      count = this.count;
-    }
-
-    return `${labelShown}: ${count} ${labelOf} ${this.count}`;
+    return `${labelShown}: ${this.filetredOptionsCount} ${labelOf} ${this.optionsCount}`;
   }
 
   /**
@@ -617,7 +631,7 @@ export class ESAutocompleteMultipleComponent
         } else {
           if (offset <= chipListWidth && index === chips.length - 1) {
             return;
-          } else if (offset > chipListWidth - COUNT_WIDTH && index) {
+          } else if (offset > chipListWidth - this.sizes.countBadgeMaxWidth && index) {
             count += 1;
 
             isOverflow = true;
@@ -625,13 +639,15 @@ export class ESAutocompleteMultipleComponent
             this.rendered2.setStyle(chip._elementRef.nativeElement, 'display', 'none');
           } else {
             const width =
-              chipWidth + COUNT_WIDTH > chipListWidth ? chipListWidth - COUNT_WIDTH : chipWidth;
+              chipWidth + this.sizes.countBadgeMaxWidth > chipListWidth
+                ? chipListWidth - this.sizes.countBadgeMaxWidth
+                : chipWidth;
 
             this.rendered2.setStyle(chip._elementRef.nativeElement, 'width', `${width}px`);
           }
         }
 
-        offset += CHIP_LEFT_MARGIN;
+        offset += this.sizes.chipLeftMargin;
       });
 
       if (this.hiddenChipCount !== count) {

@@ -20,10 +20,18 @@ const OPTIONS = [
 
 @Injectable()
 export class AutocompleteMultipleStoryService {
-  public getOptions(text: string): Observable<any> {
+  public getOptions(text: string, count?: number): Observable<any> {
     return of(OPTIONS).pipe(
       debounceTime(1000),
-      map((options) => options.filter((option) => option.name.toLowerCase().includes(text)))
+      map((options) => options.filter((option) => option.name.toLowerCase().includes(text))),
+      map((options) => {
+        const o = count ? options.slice(0, count) : options;
+
+        return {
+          options: o,
+          totalCount: count ? Math.min(count, o.length) : o.length
+        };
+      })
     );
   }
 }
