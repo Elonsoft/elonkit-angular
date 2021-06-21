@@ -2,6 +2,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 import { AutocompleteMultipleStoryService } from './autocomplete-multiple-story-service.service';
 
@@ -23,7 +24,7 @@ import { AutocompleteMultipleStoryService } from './autocomplete-multiple-story-
           [service]="searchService"
           [required]="required"
           [disabled]="disabled"
-          [showedOptionsCount]="showedOptionsCount"
+          [optionsCount]="totalOptionCount"
           [displayWith]="displayWith"
         ></es-autocomplete-multiple>
       </mat-form-field>
@@ -33,13 +34,15 @@ import { AutocompleteMultipleStoryService } from './autocomplete-multiple-story-
 export class AutocompleteMultipleStoryServiceComponent {
   @Input() public width: number;
 
-  @Input() public showedOptionsCount: number;
+  @Input() public showedOptionCount = null;
 
   @Input() public required: boolean;
 
   @Input() public disabled: boolean;
 
   public form: FormGroup;
+
+  public totalOptionCount: number;
 
   constructor(private service: AutocompleteMultipleStoryService, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -56,9 +59,23 @@ export class AutocompleteMultipleStoryServiceComponent {
   public searchService = (text: string, options?: any[]) => {
     const lowerText = text ? text.toLowerCase() : '';
 
-    return options
-      ? of(options.filter((option) => option.name.toLowerCase().includes(lowerText)))
-      : this.service.getOptions(lowerText);
+    this.totalOptionCount = 0;
+
+    if (options) {
+      return of(options.filter((option) => option.name.toLowerCase().includes(lowerText))).pipe(
+        tap((o) => {
+          this.totalOptionCount = o.length;
+        })
+      );
+    } else {
+      return this.service.getOptions(lowerText, this.showedOptionCount).pipe(
+        map((o) => {
+          this.totalOptionCount = o.totalCount;
+
+          return o.options;
+        })
+      );
+    }
   };
 
   public displayWith = (value: { id: number; name: string }) => value.name;

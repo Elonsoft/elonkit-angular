@@ -1,6 +1,8 @@
 import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Canvas } from '~storybook/components';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { action } from '@storybook/addon-actions';
 
 import { ESAutocompleteMultipleComponent } from '..';
@@ -25,7 +27,7 @@ Autocomplete multiple is component for multiple select options with support for 
     height='500px'
     args={{
       width: 300,
-      showedOptionsCount: 25,
+      showedOptionCount: 25,
       required: false,
       disabled: false
     }}
@@ -33,7 +35,7 @@ Autocomplete multiple is component for multiple select options with support for 
       width: {
         control: 'number'
       },
-      showedOptionsCount: {
+      showedOptionCount: {
         control: 'number'
       },
       required: {
@@ -47,7 +49,7 @@ Autocomplete multiple is component for multiple select options with support for 
     {((args) => ({
       component: AutocompleteMultipleStoryServiceComponent,
       moduleMetadata: {
-        imports: [AutocompleteMultipleStoryServiceModule]
+        imports: [HttpClientModule, AutocompleteMultipleStoryServiceModule]
       },
       props: {
         ...args
@@ -59,3 +61,34 @@ Autocomplete multiple is component for multiple select options with support for 
 ## API
 
 <ArgsTable of={ESAutocompleteMultipleComponent} />
+
+## Interfaces
+
+```ts
+interface ESAutocompleteMultipleDefaultOptionsSizes {
+  chipLeftMargin: number;
+  countBadgeMaxWidth: number;
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_OPTIONS } from '@elonkit/angular/ui/autocomplete-multiple';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_OPTIONS,
+      useValue: {
+        sizes: {
+          chipLeftMargin: 4,
+          countBadgeMaxWidth: 40
+        }
+      }
+    }
+  ]
+})
+```
