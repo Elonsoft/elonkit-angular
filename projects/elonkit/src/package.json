@@ -1,6 +1,6 @@
 {
   "name": "@elonkit/angular",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "scripts": {
     "start": "compodoc -c ../.compodocrc.json && start-storybook -c ../storybook -s ../storybook/assets --port 4200",

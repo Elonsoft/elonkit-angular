@@ -2,6 +2,10 @@
 
 ## RELEASED
 
+### [v0.2.0] 23.06.2021
+
+- [AutocompleteMultiple] Introduce new component
+
 ### [v0.1.0] 13.05.2021
 
 - [ActionHeading] Introduce new component

@@ -1,0 +1,94 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Canvas } from '~storybook/components';
+
+import { HttpClientModule } from '@angular/common/http';
+
+import { action } from '@storybook/addon-actions';
+
+import { ESAutocompleteMultipleComponent } from '..';
+
+import {
+  AutocompleteMultipleStoryServiceModule,
+  AutocompleteMultipleStoryServiceComponent,
+  AUTOCOMPLETE_MULTIPLE_STORY_SERVICE_SOURCE
+} from './autocomplete-multiple-story-service';
+
+<Meta title='UI/Autocomplete Multiple' />
+
+# Autocomplete multiple
+
+Autocomplete multiple is component for multiple select options with support for autocomplete.
+
+## Demos
+
+<Canvas source={AUTOCOMPLETE_MULTIPLE_STORY_SERVICE_SOURCE}>
+  <Story
+    name='Service'
+    height='500px'
+    args={{
+      width: 300,
+      showedOptionCount: 25,
+      required: false,
+      disabled: false
+    }}
+    argTypes={{
+      width: {
+        control: 'number'
+      },
+      showedOptionCount: {
+        control: 'number'
+      },
+      required: {
+        control: 'boolean'
+      },
+      disabled: {
+        control: 'boolean'
+      }
+    }}
+  >
+    {((args) => ({
+      component: AutocompleteMultipleStoryServiceComponent,
+      moduleMetadata: {
+        imports: [HttpClientModule, AutocompleteMultipleStoryServiceModule]
+      },
+      props: {
+        ...args
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable of={ESAutocompleteMultipleComponent} />
+
+## Interfaces
+
+```ts
+interface ESAutocompleteMultipleDefaultOptionsSizes {
+  chipLeftMargin: number;
+  countBadgeMaxWidth: number;
+}
+```
+
+## Constants
+
+Injection token that can be used to configure the default options for all components within an app.
+
+```ts
+import { ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_OPTIONS } from '@elonkit/angular/ui/autocomplete-multiple';
+
+@NgModule({
+  providers: [
+    {
+      provide: ES_AUTOCOMPLETE_MULTIPLE_DEFAULT_OPTIONS,
+      useValue: {
+        sizes: {
+          chipLeftMargin: 4,
+          countBadgeMaxWidth: 40
+        }
+      }
+    }
+  ]
+})
+```

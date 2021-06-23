@@ -38,5 +38,27 @@ export const ru = {
   avatar: {
     labelAvatar: 'Аватар',
     labelStatus: 'Статус'
+  },
+  autocompliteMultiple: {
+    labelTabAll: 'Все',
+    labelTabSelected: 'Выбранные',
+    labelTabNotSelected: 'Не выбранные',
+    labelShown: 'Показано',
+    labelOf: 'из',
+    labelAllSelected: 'Все выбранные',
+    labelSelected: 'Выбрано',
+    labelSearchScopeAll: 'Область поиска Все',
+    labelSearchScopeSelected: 'Область поиска Выбранные',
+    labelSearchScopeNotSelected: 'Область поиска Не выбранные',
+
+    labelClear: 'Очистить',
+    labelCloseMenu: 'Закрыть меню',
+    labelChoose: 'Выбрать',
+    labelChooseAll: 'Выбрать все',
+    labelOpenMenu: 'Открыть меню',
+    labelRemoveAll: 'Удалить все',
+    labelRemoveChoice: 'Снять выбор',
+    labelSearch: 'Найти',
+    labelShowSelected: 'Показать выбранные'
   }
 };

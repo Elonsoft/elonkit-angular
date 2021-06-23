@@ -1,6 +1,6 @@
 export const BREADCRUMBS_STORY_CUSTOMIZATION_SOURCE = {
   ts: `
-  import { ES_BREADCRUMBS_DEFAULT_SIZES } from '@elonsoft/elonkit/ui/breadcrumbs';
+  import { ES_BREADCRUMBS_DEFAULT_SIZES } from '@elonkit/angular/ui/breadcrumbs';
 
   ...
 

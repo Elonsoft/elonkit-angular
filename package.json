@@ -1,11 +1,11 @@
 {
   "name": "elonkit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "scripts": {
-    "start": "yarn workspace @elonsoft/elonkit start",
+    "start": "yarn workspace @elonkit/angular start",
     "build": "ng build --prod && scss-bundle -c scss-bundle.config.json && scss-bundle -c scss-bundle.overrides.config.json && cp projects/elonkit/src/theming/typography.scss dist/elonkit/theming && cp -r projects/elonkit/src/theming/presets dist/elonkit/theming/presets && cp README.md dist/elonkit && cp LICENSE.md dist/elonkit",
-    "build:storybook": "yarn workspace @elonsoft/elonkit build",
+    "build:storybook": "yarn workspace @elonkit/angular build",
     "build-storybook": "yarn run build:storybook",
     "test": "ng test",
     "test:watch": "ng test --watch",
