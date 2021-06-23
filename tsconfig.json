@@ -19,7 +19,7 @@
       "elonkit/*": ["dist/elonkit/*"],
       "~storybook/*": ["projects/elonkit/storybook/*"]
     },
-    "types": ["jest", "resize-observer-browser"],
+    "types": ["jest"],
     "jsx": "react"
   },
   "angularCompilerOptions": {

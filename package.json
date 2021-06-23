@@ -40,7 +40,6 @@
     "@angular/platform-browser": "~9.1.10",
     "@angular/platform-browser-dynamic": "~9.1.10",
     "@angular/router": "~9.1.10",
-    "@types/resize-observer-browser": "^0.1.5",
     "angular2-text-mask": "^9.0.0",
     "rxjs": "~6.5.5",
     "text-mask-addons": "^3.8.0",

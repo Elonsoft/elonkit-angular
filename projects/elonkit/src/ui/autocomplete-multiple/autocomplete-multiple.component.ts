@@ -148,7 +148,7 @@ export class ESAutocompleteMultipleComponent
   }
   private _sizes;
 
-  /** Total number of options found and filters passed. */
+  /** Total number of options. */
   @Input()
   public get optionsCount(): number {
     return this._optionsCount || 0;
@@ -251,7 +251,7 @@ export class ESAutocompleteMultipleComponent
    * @internal
    * @ignore
    */
-  private filetredOptionsCount = 0;
+  private filteredOptionsCount = 0;
 
   /**
    * @ignore
@@ -327,7 +327,7 @@ export class ESAutocompleteMultipleComponent
       startWith({ scope: this.searchScope.ALL, text: '' }),
       debounceTime(this.searchDebounce),
       switchMap(({ scope, text }) => {
-        this.filetredOptionsCount = 0;
+        this.filteredOptionsCount = 0;
 
         if (scope === this.searchScope.SELECTED) {
           return this.service(text, this.value).pipe(catchError(() => of([])));
@@ -360,7 +360,7 @@ export class ESAutocompleteMultipleComponent
         return filtered;
       }),
       tap((options) => {
-        this.filetredOptionsCount = options.length;
+        this.filteredOptionsCount = options.length;
       })
     );
   }
@@ -438,7 +438,7 @@ export class ESAutocompleteMultipleComponent
    * @ignore
    */
   public writeValue(value: any[]) {
-    if (value !== undefined) {
+    if (value) {
       this.value = value;
       this.stateChanges.next();
     }
@@ -592,7 +592,7 @@ export class ESAutocompleteMultipleComponent
    * @ignore
    */
   public getShownCountInfo(labelShown: string, labelOf: string) {
-    return `${labelShown}: ${this.filetredOptionsCount} ${labelOf} ${this.optionsCount}`;
+    return `${labelShown}: ${this.filteredOptionsCount} ${labelOf} ${this.optionsCount}`;
   }
 
   /**

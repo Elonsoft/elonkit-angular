@@ -3,6 +3,7 @@ export * from './cdk/a11y';
 export * from './ui/action-heading';
 export * from './ui/alert';
 export * from './ui/audio-player';
+export * from './ui/autocomplete-multiple';
 export * from './ui/avatar';
 export * from './ui/breadcrumbs';
 export * from './ui/dropzone';
