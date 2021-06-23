@@ -1,5 +1,7 @@
 ## UNRELEASED
 
+- [AutocompleteMultiple] Introduce new component
+
 ## RELEASED
 
 ### [v0.1.0] 13.05.2021
