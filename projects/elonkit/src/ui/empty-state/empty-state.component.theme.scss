@@ -5,16 +5,16 @@
     &__image {
       // stylelint-disable-next-line selector-no-qualifying-type
       path[data-mono-a='A150'] {
-        fill: mat-color($mono-a, A150);
+        fill: mat.get-color-from-palette($mono-a, A150);
       }
     }
 
     &__heading {
-      color: mat-color($mono-a, A900);
+      color: mat.get-color-from-palette($mono-a, A900);
     }
 
     &__subheading {
-      color: mat-color($mono-a, A600);
+      color: mat.get-color-from-palette($mono-a, A600);
     }
   }
 }

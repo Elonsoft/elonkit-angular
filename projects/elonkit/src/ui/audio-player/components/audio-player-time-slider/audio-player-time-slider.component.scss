@@ -49,9 +49,9 @@
     $base: 12; // Triangle base
     $height: 8; // Triangle height
 
-    $size: math.round($base / math.sqrt(2)); // Square side size
-    $scale: $height / ($base / 2);
-    $offset: -#{$size / 2}px;
+    $size: math.round(math.div($base, math.sqrt(2))); // Square side size
+    $scale: math.div($height, math.div($base, 2));
+    $offset: -#{math.div($size, 2)}px;
 
     border-radius: 4px;
     display: none;

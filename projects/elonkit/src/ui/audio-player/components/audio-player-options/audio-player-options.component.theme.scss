@@ -4,26 +4,26 @@
 
   .es-audio-player-options {
     &__button.mat-icon-button {
-      color: mat-color($mono-a, A600);
+      color: mat.get-color-from-palette($mono-a, A600);
     }
 
     &__sub-label {
-      color: mat-color($mono-b, A600);
+      color: mat.get-color-from-palette($mono-b, A600);
     }
 
     &__item-content {
-      color: mat-color($mono-b, 500);
+      color: mat.get-color-from-palette($mono-b, 500);
     }
 
     &__divider {
-      border-color: mat-color($mono-b, A100);
+      border-color: mat.get-color-from-palette($mono-b, A100);
     }
 
     &__icon {
-      color: mat-color($mono-b, A900);
+      color: mat.get-color-from-palette($mono-b, A900);
 
       &_dark {
-        color: mat-color($mono-b, A600);
+        color: mat.get-color-from-palette($mono-b, A600);
       }
     }
   }

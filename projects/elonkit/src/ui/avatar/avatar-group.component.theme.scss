@@ -2,6 +2,6 @@
   $cl-mono-b: map-get($elonkit-theme, mono-b);
 
   .es-avatar-group .es-avatar {
-    border: 2px solid mat-color($cl-mono-b, 500);
+    border: 2px solid mat.get-color-from-palette($cl-mono-b, 500);
   }
 }

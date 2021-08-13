@@ -1,4 +1,4 @@
-import { ESActionHeadingComponent, ActionHeadingType } from '../action-heading.component';
+import { ESActionHeadingComponent, ESActionHeadingType } from '../action-heading.component';
 import { ESActionHeadingModule } from '../action-heading.module';
 import { render } from '@testing-library/angular';
 
@@ -22,7 +22,7 @@ describe('ActionHeading', () => {
     });
 
     const types = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-    for (const type of types as ActionHeadingType[]) {
+    for (const type of types as ESActionHeadingType[]) {
       component.fixture.componentInstance.type = type;
       component.fixture.componentInstance.changeDetector.detectChanges();
       types.forEach((item) => {

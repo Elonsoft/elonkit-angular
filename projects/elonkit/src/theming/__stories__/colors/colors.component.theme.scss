@@ -1,3 +1,5 @@
+@use '~@angular/material' as mat;
+
 @mixin es-colors-story-theme($theme, $elonkit-theme) {
   .es-colors-story {
     &__palette {
@@ -70,8 +72,8 @@
         &_#{'' + $palette} {
           @each $hue in $hues {
             &_#{$hue} {
-              background-color: mat-color(map-get($theme, $palette), $hue);
-              color: mat-contrast(map-get($theme, $palette), $hue);
+              background-color: mat.get-color-from-palette(map-get($theme, $palette), $hue);
+              color: mat.get-contrast-color-from-palette(map-get($theme, $palette), $hue);
             }
           }
         }
@@ -81,8 +83,8 @@
         &_#{'' + $palette} {
           @each $hue in $hues {
             &_#{$hue} {
-              background-color: mat-color(map-get($elonkit-theme, $palette), $hue);
-              color: mat-contrast(map-get($elonkit-theme, $palette), $hue);
+              background-color: mat.get-color-from-palette(map-get($elonkit-theme, $palette), $hue);
+              color: mat.get-contrast-color-from-palette(map-get($elonkit-theme, $palette), $hue);
             }
           }
         }

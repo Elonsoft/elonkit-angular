@@ -4,11 +4,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   stories: ['../src/**/*.stories.mdx'],
   addons: [
+    '@storybook/addon-docs',
     '@storybook/addon-controls',
     '@storybook/addon-actions',
     '@storybook/addon-a11y',
     '@storybook/addon-viewport',
-    '@storybook/addon-docs',
     '@storybook/addon-toolbars',
     'storybook-dark-mode/register'
   ],

@@ -5,7 +5,7 @@
   @include es-avatar-group-theme($theme, $elonkit-theme);
 
   .es-avatar {
-    background: mat-color($cl-mono-a, A100);
-    color: mat-color($cl-mono-a, A500);
+    background: mat.get-color-from-palette($cl-mono-a, A100);
+    color: mat.get-color-from-palette($cl-mono-a, A500);
   }
 }

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
-import { render } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 
-import { ESAlertModule, ESAlertComponent, ESAlertVariant } from '..';
-import { ESLocaleService, en, ru } from '../../locale';
+import { ESAlertComponent, ESAlertModule, ESAlertVariant } from '..';
+import { en, ESLocaleService, ru } from '../../locale';
 
 @Component({
   template: `
@@ -27,7 +27,7 @@ describe('Alert', () => {
       component.fixture.componentInstance.variant = variant;
       component.fixture.componentInstance.changeDetector.detectChanges();
 
-      expect(component.getByTestId('root')).toHaveClass(`es-alert_variant_${variant}`);
+      expect(screen.getByTestId('root')).toHaveClass(`es-alert_variant_${variant}`);
     }
   });
 
@@ -70,7 +70,7 @@ describe('Alert', () => {
   it('Should emit close event', async () => {
     const onClose = jest.fn();
 
-    const component = await render(ESAlertComponent, {
+    await render(ESAlertComponent, {
       imports: [ESAlertModule],
       componentProperties: {
         closable: true,
@@ -79,7 +79,7 @@ describe('Alert', () => {
       excludeComponentDeclaration: true
     });
 
-    component.click(component.getByLabelText(en.alert.labelClose));
+    fireEvent.click(screen.getByLabelText(en.alert.labelClose));
     expect(onClose).toBeCalled();
   });
 
@@ -88,7 +88,7 @@ describe('Alert', () => {
     localeService.register('ru', ru);
     localeService.use('ru');
 
-    const component = await render(ESAlertComponent, {
+    await render(ESAlertComponent, {
       imports: [ESAlertModule],
       componentProperties: {
         closable: true
@@ -97,25 +97,25 @@ describe('Alert', () => {
       excludeComponentDeclaration: true
     });
 
-    expect(component.queryByLabelText(ru.alert.labelClose)).not.toBeNull();
+    expect(screen.queryByLabelText(ru.alert.labelClose)).not.toBeNull();
   });
 
   it('Should accept typography class', async () => {
-    const component = await render(AlertTypographyWrapperComponent, {
+    await render(AlertTypographyWrapperComponent, {
       imports: [ESAlertModule],
       componentProperties: {
         typography: 'app-body-1'
       }
     });
 
-    expect(component.getByText('Message')).toHaveClass('app-body-1');
+    expect(screen.getByText('Message')).toHaveClass('app-body-1');
   });
 
   it('Should accept title typography class', async () => {
-    const component = await render(AlertTypographyWrapperComponent, {
+    await render(AlertTypographyWrapperComponent, {
       imports: [ESAlertModule]
     });
 
-    expect(component.getByText('Title')).toHaveClass('app-body-2');
+    expect(screen.getByText('Title')).toHaveClass('app-body-2');
   });
 });

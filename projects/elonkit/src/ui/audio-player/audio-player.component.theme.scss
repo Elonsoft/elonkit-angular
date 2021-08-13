@@ -10,14 +10,14 @@
   @include es-audio-player-volume-theme($theme, $elonkit-theme);
 
   .es-audio-player {
-    background-color: mat-color($mono-a, A75);
+    background-color: mat.get-color-from-palette($mono-a, A75);
 
     &__button.mat-icon-button {
-      color: mat-color($mono-a, A600);
+      color: mat.get-color-from-palette($mono-a, A600);
     }
 
     &__label {
-      color: mat-color($mono-a, A800);
+      color: mat.get-color-from-palette($mono-a, A800);
     }
   }
 }

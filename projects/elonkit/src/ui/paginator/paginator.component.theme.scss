@@ -3,35 +3,35 @@
   $mono-a: map-get($elonkit-theme, mono-a);
 
   .es-paginator {
-    color: mat-color($mono-a, A600);
+    color: mat.get-color-from-palette($mono-a, A600);
 
     &__item {
       &_active {
-        background-color: mat-color($accent, A100);
-        color: mat-color($mono-a, A500);
+        background-color: mat.get-color-from-palette($accent, A100);
+        color: mat.get-color-from-palette($mono-a, A500);
         font-weight: 600;
 
         &.mat-icon-button:disabled {
-          color: mat-color($accent);
+          color: mat.get-color-from-palette($accent);
 
           &:hover {
-            background-color: mat-color($accent, A100);
-            color: mat-color($accent);
+            background-color: mat.get-color-from-palette($accent, A100);
+            color: mat.get-color-from-palette($accent);
           }
         }
 
         &.mat-icon-button:hover {
-          color: mat-color($mono-a, A50);
+          color: mat.get-color-from-palette($mono-a, A50);
         }
       }
 
       &:hover {
-        background-color: mat-color($mono-a, A50);
+        background-color: mat.get-color-from-palette($mono-a, A50);
       }
     }
   }
 
   .mat-select-arrow {
-    color: mat-color($mono-a, A500);
+    color: mat.get-color-from-palette($mono-a, A500);
   }
 }

@@ -91,7 +91,7 @@ export class BreadcrumbsStoryBasicCategoriesListComponent {
 })
 export class BreadcrumbsStoryBasicItemsListComponent implements OnInit, OnDestroy {
   public items = [];
-  public destroyed$ = new Subject();
+  public destroyed$ = new Subject<void>();
 
   constructor(private changeDetector: ChangeDetectorRef, private route: ActivatedRoute) {}
 
