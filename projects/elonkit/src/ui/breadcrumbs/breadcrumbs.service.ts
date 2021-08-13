@@ -9,7 +9,7 @@ import { ESBreadcrumb } from './breadcrumbs.types';
 @Injectable({ providedIn: 'root' })
 export class ESBreadcrumbsService implements OnDestroy {
   public breadcrumbs$ = new BehaviorSubject<ESBreadcrumb[]>([]);
-  public destroyed$ = new Subject();
+  public destroyed$ = new Subject<void>();
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.getBreadcrumbs();

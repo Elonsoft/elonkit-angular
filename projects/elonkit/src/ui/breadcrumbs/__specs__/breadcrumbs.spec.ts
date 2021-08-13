@@ -1,28 +1,29 @@
-import { render, RenderResult } from '@testing-library/angular';
+import { fireEvent, render, RenderResult, screen } from '@testing-library/angular';
 
 import { NgZone } from '@angular/core';
 import { inject } from '@angular/core/testing';
+
 import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { ESBreadcrumbsModule } from '..';
-import { ESLocaleService, en, ru } from '../../locale';
+import { en, ESLocaleService, ru } from '../../locale';
 
 import {
-  ROUTES,
+  BreadcrumbsLeafComponent,
   BreadcrumbsRootComponent,
-  BreadcrumbsLeafComponent
+  ROUTES
 } from './breadcrumbs.spec.routes';
 import { CategoriesService, ItemsService } from './breadcrumbs.spec.service';
 
 import {
   CategoriesListResolver,
-  CategoriesShowResolver,
   CategoriesShowBreadcrumbsResolver,
+  CategoriesShowResolver,
   ItemsListResolver,
-  ItemsShowResolver,
-  ItemsShowBreadcrumbsResolver
+  ItemsShowBreadcrumbsResolver,
+  ItemsShowResolver
 } from './breadcrumbs.spec.resolver';
 
 const setWidth = (
@@ -80,22 +81,22 @@ describe('Breadcrumbs', () => {
         await component.navigate('/categories/1/1/edit');
         await component.fixture.whenStable();
 
-        zone.run(() => component.click(component.getByText('Item #1-1')));
+        zone.run(() => fireEvent.click(screen.getByText('Item #1-1')));
         await component.fixture.whenStable();
 
         expect(location.path()).toBe('/categories/1/1');
 
-        zone.run(() => component.click(component.getByText('Category #1')));
+        zone.run(() => fireEvent.click(screen.getByText('Category #1')));
         await component.fixture.whenStable();
 
         expect(location.path()).toBe('/categories/1');
 
-        zone.run(() => component.click(component.getByText('Categories')));
+        zone.run(() => fireEvent.click(screen.getByText('Categories')));
         await component.fixture.whenStable();
 
         expect(location.path()).toBe('/categories');
 
-        zone.run(() => component.click(component.getByLabelText('Home')));
+        zone.run(() => fireEvent.click(component.getByLabelText('Home')));
         await component.fixture.whenStable();
 
         expect(location.path()).toBe('/');
@@ -109,7 +110,7 @@ describe('Breadcrumbs', () => {
       await component.fixture.whenStable();
 
       const menu = component.getByLabelText('More');
-      component.click(menu);
+      fireEvent.click(menu);
 
       const options = overlayElement.querySelectorAll('a');
       expect(options).toHaveLength(3);
@@ -131,15 +132,15 @@ describe('Breadcrumbs', () => {
       await component.navigate('/categories/1/1/edit');
       await component.fixture.whenStable();
 
-      expect(component.queryByLabelText('Home')).not.toBeNull();
-      expect(component.queryAllByText(en.breadcrumbs.labelBack)).not.toBeNull();
-      expect(component.queryByText('Categories')).toBeNull();
-      expect(component.queryByText('Category 1')).toBeNull();
-      expect(component.queryByText('Item #1-1')).not.toBeNull();
-      expect(component.queryByText('Edit')).not.toBeNull();
+      expect(screen.queryByLabelText('Home')).not.toBeNull();
+      expect(screen.queryAllByText(en.breadcrumbs.labelBack)).not.toBeNull();
+      expect(screen.queryByText('Categories')).toBeNull();
+      expect(screen.queryByText('Category 1')).toBeNull();
+      expect(screen.queryByText('Item #1-1')).not.toBeNull();
+      expect(screen.queryByText('Edit')).not.toBeNull();
 
       const menu = component.getByLabelText('More');
-      component.click(menu);
+      fireEvent.click(menu);
 
       const options = overlayElement.querySelectorAll('.mat-menu-item');
       expect(options).toHaveLength(2);
@@ -151,7 +152,7 @@ describe('Breadcrumbs', () => {
       await component.fixture.whenStable();
 
       expect(location.path()).toBe('/categories');
-      expect(component.queryByText('Categories')).not.toBeNull();
+      expect(screen.queryByText('Categories')).not.toBeNull();
     }));
   });
 
@@ -186,7 +187,7 @@ describe('Breadcrumbs', () => {
       await component.navigate('/categories/1/1/edit');
       await component.fixture.whenStable();
 
-      expect(component.queryByLabelText(ru.breadcrumbs.labelMore)).not.toBeNull();
+      expect(screen.queryByLabelText(ru.breadcrumbs.labelMore)).not.toBeNull();
     });
 
     it('Should change horizontal navigation locale', async () => {
@@ -195,7 +196,7 @@ describe('Breadcrumbs', () => {
       await component.navigate('/categories/1');
       await component.fixture.whenStable();
 
-      expect(component.queryByLabelText(ru.breadcrumbs.labelMore)).not.toBeNull();
+      expect(screen.queryByLabelText(ru.breadcrumbs.labelMore)).not.toBeNull();
     });
   });
 });

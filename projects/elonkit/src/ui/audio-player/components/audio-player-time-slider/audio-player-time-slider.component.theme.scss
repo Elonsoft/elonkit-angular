@@ -11,28 +11,32 @@
         &:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,
         .cdk-mouse-focused .mat-slider-thumb,
         .mat-slider-thumb {
-          background: mat-color($primary, 500);
+          background: mat.get-color-from-palette($primary, 500);
         }
 
         .mat-slider-focus-ring {
-          background-color: mat-color($mono-a, A200);
+          background-color: mat.get-color-from-palette($mono-a, A200);
         }
       }
 
       &.mat-slider-horizontal {
         .mat-slider-track-wrapper,
         .mat-slider-track-background {
-          background: mat-color($primary, 100);
+          background: mat.get-color-from-palette($primary, 100);
         }
       }
     }
 
     &__tooltip {
-      background-color: mat-color($mono-a, A600);
-      color: mat-color($mono-b, 500);
+      background-color: mat.get-color-from-palette($mono-a, A600);
+      color: mat.get-color-from-palette($mono-b, 500);
 
       &::after {
-        background: linear-gradient(-45deg, mat-color($mono-a, A600) 50%, transparent 50%);
+        background: linear-gradient(
+          -45deg,
+          mat.get-color-from-palette($mono-a, A600) 50%,
+          transparent 50%
+        );
       }
     }
   }

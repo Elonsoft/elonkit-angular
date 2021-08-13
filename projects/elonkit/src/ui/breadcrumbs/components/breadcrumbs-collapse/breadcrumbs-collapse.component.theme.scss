@@ -1,10 +1,10 @@
 @mixin es-breadcrumbs-collapse-theme($theme, $elonkit-theme) {
   .es-breadcrumbs-collapse {
-    color: mat-color(map-get($elonkit-theme, mono-a), A600);
+    color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A600);
 
     &:hover,
     &:focus {
-      background-color: mat-color(map-get($elonkit-theme, mono-a), A50);
+      background-color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A50);
     }
   }
 }

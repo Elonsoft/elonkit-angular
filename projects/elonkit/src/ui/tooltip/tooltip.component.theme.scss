@@ -15,8 +15,8 @@
 @mixin es-tooltip-theme($theme, $es-theme) {
   .es-tooltip {
     @include es-tooltip-color(
-      mat-color(map-get($es-theme, mono-a), A600),
-      mat-color(map-get($es-theme, mono-b), 500),
+      mat.get-color-from-palette(map-get($es-theme, mono-a), A600),
+      mat.get-color-from-palette(map-get($es-theme, mono-b), 500),
       40px
     );
   }

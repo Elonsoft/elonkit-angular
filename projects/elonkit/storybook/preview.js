@@ -4,8 +4,8 @@ import { setCompodocJson } from '@storybook/addon-docs/angular';
 import docJson from '../documentation.json';
 setCompodocJson(docJson);
 
-import { addParameters, addDecorator, moduleMetadata } from '@storybook/angular';
-import { light, dark } from './theme';
+import { addDecorator, addParameters, moduleMetadata } from '@storybook/angular';
+import { dark, light } from './theme';
 
 import { LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

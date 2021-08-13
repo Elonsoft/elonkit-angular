@@ -1,18 +1,20 @@
-import { render, waitFor } from '@testing-library/angular';
+import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { Component } from '@angular/core';
 import {
-  FormGroup,
   FormControl,
-  Validators,
+  FormGroup,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  Validators
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { ESDropzoneModule } from '../dropzone.module';
 import { ESDropzoneValidationError } from '../dropzones.types';
+
+import { firstValueFrom } from 'rxjs';
 
 const TEXT_HEADING = 'CHOOSE FILES';
 const TEXT_SUBHEADING = 'This is an example of a description';
@@ -53,7 +55,7 @@ class DropzoneWrapperComponent {
 
 describe('Drag And Drop', () => {
   it('Should render component', async () => {
-    const component = await render(DropzoneWrapperComponent, {
+    await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -63,12 +65,12 @@ describe('Drag And Drop', () => {
         MatIconTestingModule
       ]
     });
-    expect(component.getByText(TEXT_HEADING)).toBeInTheDocument();
-    expect(component.getByText(TEXT_SUBHEADING)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HEADING)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_SUBHEADING)).toBeInTheDocument();
   });
 
   it('Should show hint', async () => {
-    const component = await render(DropzoneWrapperComponent, {
+    await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -78,11 +80,11 @@ describe('Drag And Drop', () => {
         MatIconTestingModule
       ]
     });
-    expect(component.getByText(TEXT_HINT)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HINT)).toBeInTheDocument();
   });
 
   it('Should show error', async () => {
-    const component = await render(DropzoneWrapperComponent, {
+    await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -92,13 +94,13 @@ describe('Drag And Drop', () => {
         MatIconTestingModule
       ]
     });
-    const submitButton = component.getByText(TEXT_SUBMIT);
-    component.click(submitButton);
-    expect(component.getByText(TEXT_ERROR)).toBeInTheDocument();
+    const submitButton = screen.getByText(TEXT_SUBMIT);
+    fireEvent.click(submitButton);
+    expect(screen.getByText(TEXT_ERROR)).toBeInTheDocument();
   });
 
   it('Should accept typography classes', async () => {
-    const component = await render(DropzoneWrapperComponent, {
+    await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -108,12 +110,12 @@ describe('Drag And Drop', () => {
         MatIconTestingModule
       ]
     });
-    expect(component.getByText(TEXT_HEADING)).toHaveClass(CLASS_HEADING);
-    expect(component.getByText(TEXT_SUBHEADING)).toHaveClass(CLASS_SUBHEADING);
+    expect(screen.getByText(TEXT_HEADING)).toHaveClass(CLASS_HEADING);
+    expect(screen.getByText(TEXT_SUBHEADING)).toHaveClass(CLASS_SUBHEADING);
   });
 
   it('Should add class on dragover and remove on drop', async () => {
-    const component = await render(DropzoneWrapperComponent, {
+    await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -124,18 +126,18 @@ describe('Drag And Drop', () => {
       ]
     });
 
-    component.dragOver(component.getByText(TEXT_HEADING));
-    expect(component.getByTestId('root')).toHaveClass('es-dropzone_dragover');
+    fireEvent.dragOver(screen.getByText(TEXT_HEADING));
+    expect(screen.getByTestId('root')).toHaveClass('es-dropzone_dragover');
 
-    component.drop(component.getByText(TEXT_HEADING), {
+    fireEvent.drop(screen.getByText(TEXT_HEADING), {
       dataTransfer: {
         files: {}
       }
     });
-    expect(component.getByTestId('root')).not.toHaveClass('es-dropzone_dragover');
+    expect(screen.getByTestId('root')).not.toHaveClass('es-dropzone_dragover');
   });
 
-  it('Should add files to FormControl on drop', async (done) => {
+  it('Should add files to FormControl on drop', async () => {
     const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
@@ -153,7 +155,7 @@ describe('Drag And Drop', () => {
     };
     const file = new File([''], fileFixture.name, { type: fileFixture.type });
 
-    component.drop(component.getByText(TEXT_HEADING), {
+    fireEvent.drop(screen.getByText(TEXT_HEADING), {
       dataTransfer: {
         files: {
           0: file,
@@ -166,23 +168,22 @@ describe('Drag And Drop', () => {
     });
 
     const componentInstance = component.fixture.componentInstance;
-    componentInstance.form.valueChanges.subscribe((res) => {
-      expect(res).toEqual({
-        docs: [
-          {
-            base64: 'data:image/png;base64,',
-            content: file,
-            name: fileFixture.name,
-            size: 0,
-            type: fileFixture.type
-          }
-        ]
-      });
-      done();
+    const componentValue = await firstValueFrom(componentInstance.form.valueChanges);
+
+    expect(componentValue).toEqual({
+      docs: [
+        {
+          base64: 'data:image/png;base64,',
+          content: file,
+          name: fileFixture.name,
+          size: 0,
+          type: fileFixture.type
+        }
+      ]
     });
   });
 
-  it('Should add files to FormControl on change', async (done) => {
+  it('Should add files to FormControl on change', async () => {
     const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
@@ -200,7 +201,7 @@ describe('Drag And Drop', () => {
     };
     const file = new File([''], fileFixture.name, { type: fileFixture.type });
 
-    component.change(component.getByTestId('input'), {
+    fireEvent.change(screen.getByTestId('input'), {
       target: {
         files: {
           0: file,
@@ -213,23 +214,22 @@ describe('Drag And Drop', () => {
     });
 
     const componentInstance = component.fixture.componentInstance;
-    componentInstance.form.valueChanges.subscribe((res) => {
-      expect(res).toEqual({
-        docs: [
-          {
-            base64: 'data:image/png;base64,',
-            content: file,
-            name: fileFixture.name,
-            size: 0,
-            type: fileFixture.type
-          }
-        ]
-      });
-      done();
+    const componentValue = await firstValueFrom(componentInstance.form.valueChanges);
+
+    expect(componentValue).toEqual({
+      docs: [
+        {
+          base64: 'data:image/png;base64,',
+          content: file,
+          name: fileFixture.name,
+          size: 0,
+          type: fileFixture.type
+        }
+      ]
     });
   });
 
-  it('Should emit validation errors', async (done) => {
+  it('Should emit validation errors', async () => {
     const component = await render(DropzoneWrapperComponent, {
       imports: [
         FormsModule,
@@ -253,7 +253,7 @@ describe('Drag And Drop', () => {
     const file2 = new File(['0123456789'], fileFixture2.name, { type: fileFixture2.type });
     const spy = jest.spyOn(component.fixture.componentInstance, 'onValidate');
 
-    component.change(component.getByTestId('input'), {
+    fireEvent.change(screen.getByTestId('input'), {
       target: {
         files: {
           0: file1,
@@ -266,12 +266,11 @@ describe('Drag And Drop', () => {
       }
     });
 
-    await waitFor(() => {
+    await waitFor(() =>
       expect(spy).toHaveBeenCalledWith([
         { error: 'FILE_TYPE', fileName: file1.name },
         { error: 'FILE_SIZE', fileName: file2.name }
-      ]);
-      done();
-    });
+      ])
+    );
   });
 });

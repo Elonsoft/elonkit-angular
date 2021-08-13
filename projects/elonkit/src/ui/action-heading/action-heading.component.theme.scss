@@ -5,7 +5,7 @@
 
   .es-action-heading {
     &__title {
-      color: mat-color($mono-a, A900);
+      color: mat.get-color-from-palette($mono-a, A900);
     }
   }
 }

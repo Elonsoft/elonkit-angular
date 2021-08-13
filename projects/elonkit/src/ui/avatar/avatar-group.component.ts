@@ -31,7 +31,7 @@ export class ESAvatarGroupComponent implements OnInit, AfterContentInit, OnDestr
   @Input()
   public size: number;
 
-  private destroyed$ = new Subject();
+  private destroyed$ = new Subject<void>();
 
   /**
    * @ignore

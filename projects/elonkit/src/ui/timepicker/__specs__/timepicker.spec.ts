@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { render } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 
-import { ESTimepickerModule, ESTimepickerComponent } from '..';
+import { ESTimepickerComponent, ESTimepickerModule } from '..';
 import { ESLocaleService, ru } from '../../locale';
 
 @Component({
@@ -17,20 +17,20 @@ class TimepickerWrapperComponent {
 
 describe('Timepicker', () => {
   it('Should mask input', async () => {
-    const component = await render(ESTimepickerComponent, {
+    await render(ESTimepickerComponent, {
       imports: [ESTimepickerModule],
       excludeComponentDeclaration: true
     });
 
-    const input = component.getByPlaceholderText('HH:MM') as HTMLInputElement;
+    const input = screen.getByPlaceholderText('HH:MM') as HTMLInputElement;
 
-    component.input(input, { target: { value: '1010' } });
+    fireEvent.input(input, { target: { value: '1010' } });
 
-    expect(component.queryByDisplayValue('10:10')).not.toBeNull();
+    expect(screen.queryByDisplayValue('10:10')).not.toBeNull();
   });
 
   it('Should mask input with seconds', async () => {
-    const component = await render(ESTimepickerComponent, {
+    await render(ESTimepickerComponent, {
       componentProperties: {
         withSeconds: true
       },
@@ -38,59 +38,59 @@ describe('Timepicker', () => {
       excludeComponentDeclaration: true
     });
 
-    const input = component.getByPlaceholderText('HH:MM:SS') as HTMLInputElement;
+    const input = screen.getByPlaceholderText('HH:MM:SS') as HTMLInputElement;
 
-    component.input(input, { target: { value: '101010' } });
+    fireEvent.input(input, { target: { value: '101010' } });
 
-    expect(component.queryByDisplayValue('10:10:10')).not.toBeNull();
+    expect(screen.queryByDisplayValue('10:10:10')).not.toBeNull();
   });
 
   it('Should restore previous correct value', async () => {
-    const component = await render(TimepickerWrapperComponent, {
+    await render(TimepickerWrapperComponent, {
       imports: [FormsModule, ESTimepickerModule]
     });
 
-    const input = component.getByDisplayValue('10:00') as HTMLInputElement;
+    const input = screen.getByDisplayValue('10:00') as HTMLInputElement;
 
-    component.input(input, { target: { value: '10' } });
-    expect(component.queryByDisplayValue('10:__')).not.toBeNull();
+    fireEvent.input(input, { target: { value: '10' } });
+    expect(screen.queryByDisplayValue('10:__')).not.toBeNull();
 
-    component.blur(input);
-    expect(component.queryByDisplayValue('10:00')).not.toBeNull();
+    fireEvent.blur(input);
+    expect(screen.queryByDisplayValue('10:00')).not.toBeNull();
   });
 
   it('Should allow clearing unrequired input', async () => {
-    const component = await render(TimepickerWrapperComponent, {
+    await render(TimepickerWrapperComponent, {
       componentProperties: {
         required: false
       },
       imports: [FormsModule, ESTimepickerModule]
     });
 
-    const input = component.getByDisplayValue('10:00') as HTMLInputElement;
+    const input = screen.getByDisplayValue('10:00') as HTMLInputElement;
 
-    component.input(input, { target: { value: '' } });
-    component.blur(input);
+    fireEvent.input(input, { target: { value: '' } });
+    fireEvent.blur(input);
 
     expect(input.value).toBe('');
-    expect(component.queryByDisplayValue('10:00')).toBeNull();
+    expect(screen.queryByDisplayValue('10:00')).toBeNull();
   });
 
   it('Should disallow clearing required input', async () => {
-    const component = await render(TimepickerWrapperComponent, {
+    await render(TimepickerWrapperComponent, {
       componentProperties: {
         required: true
       },
       imports: [FormsModule, ESTimepickerModule]
     });
 
-    const input = component.getByDisplayValue('10:00') as HTMLInputElement;
+    const input = screen.getByDisplayValue('10:00') as HTMLInputElement;
 
-    component.input(input, { target: { value: '' } });
-    component.blur(input);
+    fireEvent.input(input, { target: { value: '' } });
+    fireEvent.blur(input);
 
     expect(input.value).toBe('10:00');
-    expect(component.queryByDisplayValue('10:00')).not.toBeNull();
+    expect(screen.queryByDisplayValue('10:00')).not.toBeNull();
   });
 
   it('Should change locale', async () => {
@@ -98,7 +98,7 @@ describe('Timepicker', () => {
     localeService.register('ru', ru);
     localeService.use('ru');
 
-    const component = await render(ESTimepickerComponent, {
+    await render(ESTimepickerComponent, {
       componentProperties: {
         withSeconds: true
       },
@@ -111,6 +111,6 @@ describe('Timepicker', () => {
       timepicker: { labelHH, labelMM, labelSS }
     } = ru;
 
-    expect(component.queryByPlaceholderText(`${labelHH}:${labelMM}:${labelSS}`)).not.toBeNull();
+    expect(screen.queryByPlaceholderText(`${labelHH}:${labelMM}:${labelSS}`)).not.toBeNull();
   });
 });

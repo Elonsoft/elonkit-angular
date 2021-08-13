@@ -2,9 +2,8 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { inject } from '@angular/core/testing';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
-import { getByLabelText, render, RenderResult } from '@testing-library/angular';
+import { fireEvent, getByLabelText, render, RenderResult, screen } from '@testing-library/angular';
 import { en } from '../../locale';
-
 import { ESAudioPlayerComponent } from '../audio-player.component';
 import { ESAudioPlayerModule } from '../audio-player.module';
 
@@ -43,19 +42,19 @@ describe('AudioPlayer', () => {
   }));
 
   it('Should change volume', async () => {
-    component.click(component.getByLabelText(en.audioPlayer.labelMute));
+    fireEvent.click(screen.getByLabelText(en.audioPlayer.labelMute));
 
     expect(onVolumeChanged).toBeCalledWith(0);
 
-    component.click(component.getByLabelText(en.audioPlayer.labelUnmute));
+    fireEvent.click(screen.getByLabelText(en.audioPlayer.labelUnmute));
 
     expect(onVolumeChanged).toBeCalledWith(VOLUME);
   });
 
   it('Should download audio', async () => {
-    component.mouseEnter(component.getByLabelText(en.audioPlayer.labelOptions));
+    fireEvent.mouseEnter(screen.getByLabelText(en.audioPlayer.labelOptions));
 
-    component.click(getByLabelText(overlayElement, en.audioPlayer.labelDownload));
+    fireEvent.click(getByLabelText(overlayElement, en.audioPlayer.labelDownload));
 
     expect(onDownloadAudio).toBeCalled();
   });

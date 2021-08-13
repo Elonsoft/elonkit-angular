@@ -7,20 +7,20 @@
 
   .es-breadcrumbs {
     &__separator {
-      color: mat-color(map-get($elonkit-theme, mono-a), A500);
+      color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A500);
 
       &_single {
-        background-color: mat-color(map-get($elonkit-theme, mono-a), A100);
+        background-color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A100);
       }
     }
 
     &__link-back {
-      border-color: mat-color(map-get($elonkit-theme, mono-a), A500);
-      color: mat-color(map-get($elonkit-theme, mono-a), A900);
+      border-color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A500);
+      color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A900);
 
       &:hover,
       &:focus {
-        background-color: mat-color(map-get($elonkit-theme, mono-a), A50);
+        background-color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A50);
       }
     }
   }
