@@ -13,7 +13,9 @@
     "lint:tslint": "tslint -c tslint.json --project tsconfig.json 'projects/**/*.ts'",
     "lint:tslint:fix": "tslint -c tslint.json --project tsconfig.json 'projects/**/*.ts' --fix",
     "lint:stylelint": "stylelint projects",
-    "lint:stylelint:fix": "stylelint projects --fix"
+    "lint:stylelint:fix": "stylelint projects --fix",
+    "release": "standard-version",
+    "release:dry-run": "standard-version --dry-run"
   },
   "private": true,
   "workspaces": [
@@ -82,6 +84,7 @@
     "sass": "^1.32.8",
     "sass-loader": "^10.1.1",
     "scss-bundle": "~3.1.1",
+    "standard-version": "^9.3.1",
     "storybook-dark-mode": "^1.0.7",
     "stylelint": "~13.10.0",
     "stylelint-config-sass-guidelines": "~8.0.0",
