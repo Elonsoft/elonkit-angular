@@ -1,5 +1,7 @@
+@use '~@angular/material' as mat;
+
 @mixin preview-theme-light() {
-  $theme: mat-light-theme($es-light-primary, $es-light-accent, $es-light-warn);
+  $theme: mat.define-light-theme($es-light-primary, $es-light-accent, $es-light-warn);
 
   $es-theme: es-light-theme(
     (
@@ -8,7 +10,7 @@
     )
   );
 
-  @include angular-material-theme($theme);
+  @include mat.all-component-themes($theme);
 
   @include es-theme($theme, $es-theme);
   @include es-overrides($theme, $es-theme);

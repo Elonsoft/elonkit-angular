@@ -3,7 +3,7 @@ import '!style-loader!css-loader!sass-loader!./canvas.scss';
 import * as React from 'react';
 import { ICanvasProps } from './canvas.types';
 
-import { Source } from '@storybook/addon-docs/blocks';
+import { Source } from '@storybook/addon-docs';
 
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';

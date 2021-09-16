@@ -9,94 +9,94 @@
   .es-autocomplete-multiple {
     &__chip {
       &.mat-standard-chip {
-        background-color: mat-color($mono-a, A100);
-        color: mat-color($mono-a, A900);
+        background-color: mat.get-color-from-palette($mono-a, A100);
+        color: mat.get-color-from-palette($mono-a, A900);
 
         .mat-chip-remove {
-          color: mat-color($mono-a, A500);
+          color: mat.get-color-from-palette($mono-a, A500);
         }
       }
     }
 
     &__count {
-      background-color: mat-color($mono-a, A50);
-      color: mat-color($mono-a, A600);
+      background-color: mat.get-color-from-palette($mono-a, A50);
+      color: mat.get-color-from-palette($mono-a, A600);
     }
 
     &__clear {
-      color: mat-color($mono-a, A400);
+      color: mat.get-color-from-palette($mono-a, A400);
     }
 
     &__panel {
-      background-color: mat-color($surface, 4);
+      background-color: mat.get-color-from-palette($surface, 4);
     }
 
     &__menu {
-      border-bottom-color: mat-color($mono-a, A100);
+      border-bottom-color: mat.get-color-from-palette($mono-a, A100);
     }
 
     &__menu-button {
-      color: mat-color($mono-a, A700);
+      color: mat.get-color-from-palette($mono-a, A700);
     }
 
     &__button-toggle {
-      color: mat-color($mono-a, A600);
+      color: mat.get-color-from-palette($mono-a, A600);
 
       &.mat-button-toggle-appearance-standard {
-        border-color: mat-color($mono-a, A100);
+        border-color: mat.get-color-from-palette($mono-a, A100);
 
         &.mat-button-toggle-checked {
-          background: mat-color($mono-b, 500);
-          border-color: mat-color($primary, 300);
-          color: mat-color($mono-a, A900);
+          background: mat.get-color-from-palette($mono-b, 500);
+          border-color: mat.get-color-from-palette($primary, 300);
+          color: mat.get-color-from-palette($mono-a, A900);
         }
       }
     }
 
     &__option {
       &_selected {
-        background-color: mat-color($accent, A100);
+        background-color: mat.get-color-from-palette($accent, A100);
 
         .mat-pseudo-checkbox-checked {
-          background-color: mat-color($accent, 300);
+          background-color: mat.get-color-from-palette($accent, 300);
         }
       }
     }
 
     &__divider {
-      color: mat-color($mono-a, A100);
+      color: mat.get-color-from-palette($mono-a, A100);
     }
 
     &__footer {
-      color: mat-color($mono-a, A600);
+      color: mat.get-color-from-palette($mono-a, A600);
     }
   }
 
   .es-autocomplete-multiple-search {
-    border-bottom-color: mat-color($mono-a, A100);
+    border-bottom-color: mat.get-color-from-palette($mono-a, A100);
 
     &__input {
-      color: mat-color($mono-a, A900);
+      color: mat.get-color-from-palette($mono-a, A900);
 
       &::placeholder {
-        color: mat-color($mono-a, A400);
+        color: mat.get-color-from-palette($mono-a, A400);
       }
     }
 
     &__icon {
-      color: mat-color($mono-a, A500);
+      color: mat.get-color-from-palette($mono-a, A500);
     }
 
     &__clear.mat-icon-button {
-      color: mat-color($mono-a, A400);
+      color: mat.get-color-from-palette($mono-a, A400);
 
       &:hover,
       &:focus {
-        color: mat-color($warn, 500);
+        color: mat.get-color-from-palette($warn, 500);
       }
 
       .mat-button-focus-overlay {
-        background-color: mat-color($warn, A50);
+        background-color: mat.get-color-from-palette($warn, A50);
       }
     }
   }

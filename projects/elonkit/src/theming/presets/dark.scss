@@ -1,4 +1,6 @@
-$es-dark-primary: mat-palette(
+@use '~@angular/material' as mat;
+
+$es-dark-primary: mat.define-palette(
   (
     50: #283593,
     100: #303f9f,
@@ -41,7 +43,7 @@ $es-dark-primary: mat-palette(
   )
 );
 
-$es-dark-accent: mat-palette(
+$es-dark-accent: mat.define-palette(
   (
     50: #00695c,
     100: #00796b,
@@ -84,7 +86,7 @@ $es-dark-accent: mat-palette(
   )
 );
 
-$es-dark-warn: mat-palette(
+$es-dark-warn: mat.define-palette(
   (
     500: #ff594d,
     A50: rgba(255, 89, 77, 0.04),
@@ -122,7 +124,7 @@ $es-dark-warn: mat-palette(
 
 $es-dark-theme: (
   info:
-    mat-palette(
+    mat.define-palette(
       (
         500: #5eaeff,
         A50: rgba(94, 174, 255, 0.04),
@@ -158,7 +160,7 @@ $es-dark-theme: (
       500
     ),
   positive:
-    mat-palette(
+    mat.define-palette(
       (
         500: #47d6a3,
         A50: rgba(71, 214, 163, 0.04),
@@ -194,7 +196,7 @@ $es-dark-theme: (
       500
     ),
   attention:
-    mat-palette(
+    mat.define-palette(
       (
         500: #fca032,
         A50: rgba(252, 160, 50, 0.04),
@@ -230,7 +232,7 @@ $es-dark-theme: (
       500
     ),
   mono-a:
-    mat-palette(
+    mat.define-palette(
       (
         500: #fff,
         A50: rgba(255, 255, 255, 0.04),
@@ -266,7 +268,7 @@ $es-dark-theme: (
       500
     ),
   mono-b:
-    mat-palette(
+    mat.define-palette(
       (
         500: #000,
         A50: rgba(0, 0, 0, 0.04),
@@ -302,7 +304,7 @@ $es-dark-theme: (
       500
     ),
   grayscale:
-    mat-palette(
+    mat.define-palette(
       (
         50: #262a31,
         100: #353b45,
@@ -329,7 +331,7 @@ $es-dark-theme: (
       )
     ),
   surface:
-    mat-palette(
+    mat.define-palette(
       (
         0: #18181a,
         1: rgba(255, 255, 255, 0.05),
@@ -358,7 +360,7 @@ $es-dark-theme: (
       )
     ),
   white:
-    mat-palette(
+    mat.define-palette(
       (
         500: #fff,
         A50: rgba(255, 255, 255, 0.04),
@@ -392,7 +394,7 @@ $es-dark-theme: (
       500
     ),
   black:
-    mat-palette(
+    mat.define-palette(
       (
         500: #000,
         A50: rgba(0, 0, 0, 0.04),
@@ -426,7 +428,7 @@ $es-dark-theme: (
       500
     ),
   other:
-    mat-palette(
+    mat.define-palette(
       (
         background: #18181a,
         background-2: #09090a,

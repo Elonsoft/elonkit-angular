@@ -40,9 +40,11 @@ jobs:
         uses: actions/checkout@v1
       - name: Install dependencies
         run: yarn install
+      - name: Build
+        run: yarn workspace @elonkit/angular run build
       - name: Chromatic
         uses: chromaui/action@v1
         with:
+          storybookBuildDir: dist/elonkit-storybook
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          buildScriptName: build:storybook

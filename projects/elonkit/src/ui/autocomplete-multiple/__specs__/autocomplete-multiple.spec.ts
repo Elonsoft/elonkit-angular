@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { fakeAsync, inject, tick } from '@angular/core/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { getByLabelText, render, RenderResult } from '@testing-library/angular';
+import { fireEvent, getByLabelText, render, RenderResult, screen } from '@testing-library/angular';
 
 import { of } from 'rxjs';
+
 import { ESAutocompleteMultipleModule } from '../autocomplete-multiple.module';
 import { en } from '../../locale';
 import { CoreModule } from '~storybook/core.module';
@@ -107,7 +108,7 @@ describe('Autocomplete multiple', () => {
   }));
 
   it('Should display passed options', fakeAsync(async () => {
-    component.click(component.getByLabelText(en.autocompliteMultiple.labelOpenMenu));
+    fireEvent.click(screen.getByLabelText(en.autocompliteMultiple.labelOpenMenu));
 
     tick(1000);
 
@@ -122,9 +123,9 @@ describe('Autocomplete multiple', () => {
   }));
 
   it('Should display passed options after search', fakeAsync(async () => {
-    component.click(component.getByLabelText(en.autocompliteMultiple.labelOpenMenu));
+    fireEvent.click(screen.getByLabelText(en.autocompliteMultiple.labelOpenMenu));
 
-    component.input(getByLabelText(overlayElement, en.autocompliteMultiple.labelSearch), {
+    fireEvent.input(getByLabelText(overlayElement, en.autocompliteMultiple.labelSearch), {
       target: { value: SEARCH_TEXT_LA }
     });
 
@@ -141,11 +142,12 @@ describe('Autocomplete multiple', () => {
   }));
 
   it('Should display selected options after a series of actions', fakeAsync(() => {
-    component.click(component.getByLabelText(en.autocompliteMultiple.labelOpenMenu));
+    fireEvent.click(screen.getByLabelText(en.autocompliteMultiple.labelOpenMenu));
 
-    const button = getByLabelText(overlayElement, en.autocompliteMultiple.labelSearchScopeSelected);
+    fireEvent.click(
+      getByLabelText(overlayElement, en.autocompliteMultiple.labelSearchScopeSelected)
+    );
 
-    button.querySelector('button').click();
     tick(500);
 
     component.fixture.detectChanges();
@@ -154,7 +156,7 @@ describe('Autocomplete multiple', () => {
 
     expect(options).toHaveLength(3);
 
-    component.input(getByLabelText(overlayElement, en.autocompliteMultiple.labelSearch), {
+    fireEvent.input(getByLabelText(overlayElement, en.autocompliteMultiple.labelSearch), {
       target: { value: SEARCH_TEXT_O }
     });
     tick(500);
@@ -165,7 +167,7 @@ describe('Autocomplete multiple', () => {
 
     expect(options).toHaveLength(2);
 
-    component.click(getByLabelText(overlayElement, en.autocompliteMultiple.labelRemoveChoice));
+    fireEvent.click(getByLabelText(overlayElement, en.autocompliteMultiple.labelRemoveChoice));
     tick(500);
 
     component.fixture.detectChanges();

@@ -3,10 +3,10 @@
   $mono-b: map-get($elonkit-theme, mono-b);
 
   .es-audio-player-volume {
-    background-color: mat-color($mono-a, A75);
+    background-color: mat.get-color-from-palette($mono-a, A75);
 
     &__button.mat-icon-button {
-      color: mat-color($mono-a, A600);
+      color: mat.get-color-from-palette($mono-a, A600);
     }
 
     &__slider {
@@ -16,23 +16,23 @@
         &:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,
         .cdk-mouse-focused .mat-slider-thumb,
         .mat-slider-thumb {
-          background-color: mat-color($mono-b, 500);
+          background-color: mat.get-color-from-palette($mono-b, 500);
         }
 
         .mat-slider-focus-ring {
-          background-color: mat-color($mono-b, A200);
+          background-color: mat.get-color-from-palette($mono-b, A200);
         }
 
         &.mat-slider-vertical {
           .mat-slider-track-fill,
           .mat-slider-track-wrapper,
           .mat-slider-track-background {
-            background-color: mat-color($mono-b, 500);
+            background-color: mat.get-color-from-palette($mono-b, 500);
           }
 
           .mat-slider-track-wrapper,
           .mat-slider-track-background {
-            background-color: mat-color($mono-b, A400);
+            background-color: mat.get-color-from-palette($mono-b, A400);
           }
         }
       }

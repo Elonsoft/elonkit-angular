@@ -211,7 +211,7 @@ export class ESBreadcrumbsComponent implements OnInit, OnDestroy, AfterContentIn
    */
   public collapseBreadcrumbs: ESBreadcrumb[] = [];
 
-  private destroyed$ = new Subject();
+  private destroyed$ = new Subject<void>();
 
   constructor(
     private changeDetector: ChangeDetectorRef,

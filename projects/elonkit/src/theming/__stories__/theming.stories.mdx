@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Story } from '@storybook/addon-docs';
 import { Canvas } from '~storybook/components';
 
 import { Colors } from './colors/colors.component.tsx';
@@ -25,9 +25,11 @@ Import theming module.
 Use a built-in theme or define your own.
 
 ```scss
+@use '~@angular/material' as mat;
+
 @import '@elonkit/angular/theming/presets/light';
 
-$theme: mat-light-theme($es-light-primary, $es-light-accent, $es-light-warn);
+$theme: mat.define-light-theme($es-light-primary, $es-light-accent, $es-light-warn);
 
 $es-theme: es-light-theme(
   (
@@ -40,13 +42,13 @@ $es-theme: es-light-theme(
 $es-theme: es-light-theme(
   (
     colors: (
-      info: mat-palette(...),
-      positive: mat-palette(...),
-      attention: mat-palette(...),
-      mono-a: mat-palette(...),
-      mono-b: mat-palette(...),
-      surface: mat-palette(...),
-      common: mat-palette(...)
+      info: mat.define-palette(...),
+      positive: mat.define-palette(...),
+      attention: mat.define-palette(...),
+      mono-a: mat.define-palette(...),
+      mono-b: mat.define-palette(...),
+      surface: mat.define-palette(...),
+      common: mat.define-palette(...)
     )
   )
 );
@@ -55,7 +57,8 @@ $es-theme: es-light-theme(
 Include the theme mixin.
 
 ```scss
-@include angular-material-theme($theme);
+@include mat.core-theme($theme);
+@include mat.all-component-themes($theme);
 @include es-theme($theme, $es-theme);
 ```
 
@@ -96,13 +99,13 @@ $es-theme: es-light-theme(
     colors: $es-light-theme,
     typography: (
       0: (
-        body-200: mat-typography-level(es-rem(16), es-rem(24)),
-        body-100: mat-typography-level(es-rem(14), es-rem(20)),
+        body-200: mat.define-typography-level(es-rem(16), es-rem(24)),
+        body-100: mat.define-typography-level(es-rem(14), es-rem(20)),
         // ...
       ),
       600: (
-        body-200: mat-typography-level(es-rem(18), es-rem(26)),
-        body-100: mat-typography-level(es-rem(16), es-rem(22)),
+        body-200: mat.define-typography-level(es-rem(18), es-rem(26)),
+        body-100: mat.define-typography-level(es-rem(16), es-rem(22)),
         // ...
       )
     )

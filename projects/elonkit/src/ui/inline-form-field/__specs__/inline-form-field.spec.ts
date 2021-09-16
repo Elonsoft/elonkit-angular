@@ -1,20 +1,20 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
 
 import {
+  FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  FormGroup,
-  FormControl,
   Validators
 } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { render } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 
-import { ESInlineFormFieldModule, ESInlineFormFieldComponent } from '..';
+import { ESInlineFormFieldComponent, ESInlineFormFieldModule } from '..';
 import { ESLocaleService, ru } from '../../locale';
 
 const TEXT_HELLO = 'Hello';
@@ -106,19 +106,19 @@ describe('InlineFormField', () => {
       imports: [FormsModule, MatFormFieldModule, MatInputModule, ESInlineFormFieldModule]
     });
 
-    expect(component.getByText(TEXT_HELLO)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HELLO)).toBeInTheDocument();
 
-    const buttonEdit = component.getByLabelText('Edit');
-    component.click(buttonEdit);
+    const buttonEdit = screen.getByLabelText('Edit');
+    fireEvent.click(buttonEdit);
 
-    const input = component.getByPlaceholderText('Input');
-    component.input(input, { target: { value: TEXT_HELLO_WORLD } });
+    const input = screen.getByPlaceholderText('Input');
+    fireEvent.input(input, { target: { value: TEXT_HELLO_WORLD } });
 
-    const buttonSave = component.getByLabelText('Save');
-    component.click(buttonSave);
+    const buttonSave = screen.getByLabelText('Save');
+    fireEvent.click(buttonSave);
 
     expect(component.fixture.componentInstance.text).toBe(TEXT_HELLO_WORLD);
-    expect(component.getByText(TEXT_HELLO_WORLD)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HELLO_WORLD)).toBeInTheDocument();
   });
 
   it('Should reset text', async () => {
@@ -126,19 +126,19 @@ describe('InlineFormField', () => {
       imports: [FormsModule, MatFormFieldModule, MatInputModule, ESInlineFormFieldModule]
     });
 
-    expect(component.getByText(TEXT_HELLO)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HELLO)).toBeInTheDocument();
 
-    const buttonEdit = component.getByLabelText('Edit');
-    component.click(buttonEdit);
+    const buttonEdit = screen.getByLabelText('Edit');
+    fireEvent.click(buttonEdit);
 
-    const input = component.getByPlaceholderText('Input');
-    component.input(input, { target: { value: TEXT_HELLO_WORLD } });
+    const input = screen.getByPlaceholderText('Input');
+    fireEvent.input(input, { target: { value: TEXT_HELLO_WORLD } });
 
-    const buttonCancel = component.getByLabelText('Cancel');
-    component.click(buttonCancel);
+    const buttonCancel = screen.getByLabelText('Cancel');
+    fireEvent.click(buttonCancel);
 
     expect(component.fixture.componentInstance.text).toBe(TEXT_HELLO);
-    expect(component.getByText(TEXT_HELLO)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HELLO)).toBeInTheDocument();
   });
 
   it('Should emit events', async () => {
@@ -162,10 +162,10 @@ describe('InlineFormField', () => {
       excludeComponentDeclaration: true
     });
 
-    component.click(component.getByLabelText('Edit'));
-    component.click(component.getByLabelText('Save'));
-    component.click(component.getByLabelText('Edit'));
-    component.click(component.getByLabelText('Cancel'));
+    fireEvent.click(screen.getByLabelText('Edit'));
+    fireEvent.click(screen.getByLabelText('Save'));
+    fireEvent.click(screen.getByLabelText('Edit'));
+    fireEvent.click(screen.getByLabelText('Cancel'));
 
     expect(onEdit).toBeCalledTimes(2);
     expect(onEdit).toBeCalledWith(component.fixture.componentInstance);
@@ -182,18 +182,18 @@ describe('InlineFormField', () => {
     localeService.register('ru', ru);
     localeService.use('ru');
 
-    const component = await render(ESInlineFormFieldComponent, {
+    await render(ESInlineFormFieldComponent, {
       imports: [ESInlineFormFieldModule],
       providers: [{ provide: ESLocaleService, useValue: localeService }],
       excludeComponentDeclaration: true
     });
 
-    const editButton = component.getByLabelText(ru.inlineFormField.labelEdit);
+    const editButton = screen.getByLabelText(ru.inlineFormField.labelEdit);
     expect(editButton).toBeInTheDocument();
-    component.click(editButton);
+    fireEvent.click(editButton);
 
-    expect(component.getByLabelText(ru.inlineFormField.labelSave)).toBeInTheDocument();
-    expect(component.getByLabelText(ru.inlineFormField.labelCancel)).toBeInTheDocument();
+    expect(screen.getByLabelText(ru.inlineFormField.labelSave)).toBeInTheDocument();
+    expect(screen.getByLabelText(ru.inlineFormField.labelCancel)).toBeInTheDocument();
   });
 
   it('Should accept typography class', async () => {
@@ -202,20 +202,20 @@ describe('InlineFormField', () => {
       excludeComponentDeclaration: true
     });
 
-    expect(component.getByTestId('root')).toHaveClass('es-body-200');
+    expect(screen.getByTestId('root')).toHaveClass('es-body-200');
 
     const typography = 'es-body-100';
 
     component.fixture.componentInstance.typography = typography;
     component.fixture.componentInstance.changeDetector.detectChanges();
 
-    expect(component.getByTestId('root')).toHaveClass(typography);
+    expect(screen.getByTestId('root')).toHaveClass(typography);
   });
 
   it('Should disable default save behaviour', async () => {
     const onSave = jest.fn();
 
-    const component = await render(InlineFormFieldWrapperComponent, {
+    await render(InlineFormFieldWrapperComponent, {
       imports: [FormsModule, MatFormFieldModule, MatInputModule, ESInlineFormFieldModule],
       componentProperties: {
         manualSave: true,
@@ -225,74 +225,74 @@ describe('InlineFormField', () => {
       }
     });
 
-    expect(component.getByText(TEXT_HELLO)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HELLO)).toBeInTheDocument();
 
-    const buttonEdit = component.getByLabelText('Edit');
-    component.click(buttonEdit);
+    const buttonEdit = screen.getByLabelText('Edit');
+    fireEvent.click(buttonEdit);
 
-    const input = component.getByPlaceholderText('Input');
-    component.input(input, { target: { value: TEXT_HELLO_WORLD } });
+    const input = screen.getByPlaceholderText('Input');
+    fireEvent.input(input, { target: { value: TEXT_HELLO_WORLD } });
 
-    const buttonSave = component.getByLabelText('Save');
-    component.click(buttonSave);
+    const buttonSave = screen.getByLabelText('Save');
+    fireEvent.click(buttonSave);
 
-    expect(component.getByDisplayValue(TEXT_HELLO_WORLD)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(TEXT_HELLO_WORLD)).toBeInTheDocument();
     expect(onSave).toBeCalled();
   });
 
   it('Should prevent save with validation errors', async () => {
-    const component = await render(InlineFormFieldValidationWrapperComponent, {
+    await render(InlineFormFieldValidationWrapperComponent, {
       imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, ESInlineFormFieldModule]
     });
 
-    expect(component.getByText(TEXT_HELLO)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HELLO)).toBeInTheDocument();
 
-    const buttonEdit = component.getByLabelText('Edit');
-    component.click(buttonEdit);
+    const buttonEdit = screen.getByLabelText('Edit');
+    fireEvent.click(buttonEdit);
 
-    const input = component.getByPlaceholderText('Input');
-    component.input(input, { target: { value: '' } });
+    const input = screen.getByPlaceholderText('Input');
+    fireEvent.input(input, { target: { value: '' } });
 
-    const buttonSave = component.getByLabelText('Save');
-    component.click(buttonSave);
+    const buttonSave = screen.getByLabelText('Save');
+    fireEvent.click(buttonSave);
 
-    expect(component.getByText(TEXT_ERROR_REQUIRED)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_ERROR_REQUIRED)).toBeInTheDocument();
 
-    component.input(input, { target: { value: TEXT_HELLO_WORLD } });
-    component.click(buttonSave);
+    fireEvent.input(input, { target: { value: TEXT_HELLO_WORLD } });
+    fireEvent.click(buttonSave);
 
-    expect(component.queryByText(TEXT_ERROR_REQUIRED)).toBeNull();
-    expect(component.getByText(TEXT_HELLO_WORLD)).toBeInTheDocument();
+    expect(screen.queryByText(TEXT_ERROR_REQUIRED)).toBeNull();
+    expect(screen.getByText(TEXT_HELLO_WORLD)).toBeInTheDocument();
   });
 
   it('Should work with server-side validation', fakeAsync(async () => {
-    const component = await render(InlineFormFieldServerValidationWrapperComponent, {
+    await render(InlineFormFieldServerValidationWrapperComponent, {
       imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, ESInlineFormFieldModule]
     });
 
-    expect(component.getByText(TEXT_HELLO)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_HELLO)).toBeInTheDocument();
 
-    const buttonEdit = component.getByLabelText('Edit');
-    component.click(buttonEdit);
+    const buttonEdit = screen.getByLabelText('Edit');
+    fireEvent.click(buttonEdit);
 
-    const input = component.getByPlaceholderText('Input');
-    component.input(input, { target: { value: '' } });
+    const input = screen.getByPlaceholderText('Input');
+    fireEvent.input(input, { target: { value: '' } });
 
-    const buttonSave = component.getByLabelText('Save');
-    component.click(buttonSave);
+    const buttonSave = screen.getByLabelText('Save');
+    fireEvent.click(buttonSave);
 
-    expect(component.queryByText(TEXT_ERROR_REQUIRED)).toBeNull();
-
-    tick(TIMEOUT);
-
-    expect(component.getByText(TEXT_ERROR_REQUIRED)).toBeInTheDocument();
-
-    component.input(input, { target: { value: TEXT_HELLO_WORLD } });
-    component.click(buttonSave);
+    expect(screen.queryByText(TEXT_ERROR_REQUIRED)).toBeNull();
 
     tick(TIMEOUT);
 
-    expect(component.queryByText(TEXT_ERROR_REQUIRED)).toBeNull();
-    expect(component.getByText(TEXT_HELLO_WORLD)).toBeInTheDocument();
+    expect(screen.getByText(TEXT_ERROR_REQUIRED)).toBeInTheDocument();
+
+    fireEvent.input(input, { target: { value: TEXT_HELLO_WORLD } });
+    fireEvent.click(buttonSave);
+
+    tick(TIMEOUT);
+
+    expect(screen.queryByText(TEXT_ERROR_REQUIRED)).toBeNull();
+    expect(screen.getByText(TEXT_HELLO_WORLD)).toBeInTheDocument();
   }));
 });

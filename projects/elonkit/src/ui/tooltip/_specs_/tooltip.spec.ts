@@ -2,7 +2,14 @@ import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { fakeAsync, tick, flush, inject } from '@angular/core/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
-import { render, getByText, queryByText, RenderResult } from '@testing-library/angular';
+import {
+  render,
+  getByText,
+  queryByText,
+  RenderResult,
+  fireEvent,
+  screen
+} from '@testing-library/angular';
 
 import { ESTooltipModule } from '..';
 
@@ -68,22 +75,22 @@ describe('Tooltip', () => {
   }));
 
   it('Should display a template', async () => {
-    component.mouseEnter(component.getByText(BUTTON_TEXT));
+    fireEvent.mouseEnter(screen.getByText(BUTTON_TEXT));
     expect(queryByText(overlayElement, TOOLTIP_TEXT)).toBeInTheDocument();
   });
 
   it('Should render an arrow', async () => {
     component.fixture.componentInstance.esTooltipArrow = true;
 
-    component.mouseEnter(component.getByText(BUTTON_TEXT));
+    fireEvent.mouseEnter(screen.getByText(BUTTON_TEXT));
     expect(overlayElement.querySelector('.es-tooltip__arrow')).toBeInTheDocument();
   });
 
   it('Should close tooltip by a close button click', fakeAsync(async () => {
-    component.mouseEnter(component.getByText(BUTTON_TEXT));
+    fireEvent.mouseEnter(screen.getByText(BUTTON_TEXT));
     expect(queryByText(overlayElement, TOOLTIP_TEXT)).toBeInTheDocument();
 
-    component.click(getByText(overlayElement, BUTTON_CLOSE_TEXT));
+    fireEvent.click(getByText(overlayElement, BUTTON_CLOSE_TEXT));
 
     // Through trial and error...
     tick();

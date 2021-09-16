@@ -1,10 +1,10 @@
 import { inject } from '@angular/core/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
-import { render, getByText } from '@testing-library/angular';
+import { fireEvent, getByText, render, screen } from '@testing-library/angular';
 
-import { ESPaginatorModule, ESPaginatorComponent } from '..';
-import { ESLocaleService, en, ru } from '../../locale';
+import { ESPaginatorComponent, ESPaginatorModule } from '..';
+import { en, ESLocaleService, ru } from '../../locale';
 
 describe('Paginator', () => {
   it('Should calculate corrent number of pages', async () => {
@@ -20,88 +20,88 @@ describe('Paginator', () => {
       excludeComponentDeclaration: true
     });
 
-    expect(component.queryByText('1')).toBeInTheDocument();
-    expect(component.queryByText('2')).toBeInTheDocument();
-    expect(component.queryByText('3')).toBeInTheDocument();
-    expect(component.queryByText('4')).toBeInTheDocument();
-    expect(component.queryByText('5')).toBeInTheDocument();
-    expect(component.queryByText('6')).toBeInTheDocument();
-    expect(component.queryByText('7')).toBeInTheDocument();
-    expect(component.queryByText('8')).toBeNull();
+    expect(screen.queryByText('1')).toBeInTheDocument();
+    expect(screen.queryByText('2')).toBeInTheDocument();
+    expect(screen.queryByText('3')).toBeInTheDocument();
+    expect(screen.queryByText('4')).toBeInTheDocument();
+    expect(screen.queryByText('5')).toBeInTheDocument();
+    expect(screen.queryByText('6')).toBeInTheDocument();
+    expect(screen.queryByText('7')).toBeInTheDocument();
+    expect(screen.queryByText('8')).toBeNull();
     // ...
-    expect(component.queryByText('19')).toBeNull();
-    expect(component.queryByText('20')).toBeInTheDocument();
+    expect(screen.queryByText('19')).toBeNull();
+    expect(screen.queryByText('20')).toBeInTheDocument();
 
     component.fixture.componentInstance.page = 10;
     component.fixture.componentInstance.changeDetector.detectChanges();
 
-    expect(component.queryByText('1')).toBeInTheDocument();
-    expect(component.queryByText('2')).toBeNull();
+    expect(screen.queryByText('1')).toBeInTheDocument();
+    expect(screen.queryByText('2')).toBeNull();
     // ...
-    expect(component.queryByText('7')).toBeNull();
-    expect(component.queryByText('8')).toBeInTheDocument();
-    expect(component.queryByText('9')).toBeInTheDocument();
-    expect(component.queryByText('10')).toBeInTheDocument();
-    expect(component.queryByText('11')).toBeInTheDocument();
-    expect(component.queryByText('12')).toBeInTheDocument();
-    expect(component.queryByText('13')).toBeNull();
+    expect(screen.queryByText('7')).toBeNull();
+    expect(screen.queryByText('8')).toBeInTheDocument();
+    expect(screen.queryByText('9')).toBeInTheDocument();
+    expect(screen.queryByText('10')).toBeInTheDocument();
+    expect(screen.queryByText('11')).toBeInTheDocument();
+    expect(screen.queryByText('12')).toBeInTheDocument();
+    expect(screen.queryByText('13')).toBeNull();
     // ...
-    expect(component.queryByText('19')).toBeNull();
-    expect(component.queryByText('20')).toBeInTheDocument();
+    expect(screen.queryByText('19')).toBeNull();
+    expect(screen.queryByText('20')).toBeInTheDocument();
 
     component.fixture.componentInstance.siblingCount = 1;
     component.fixture.componentInstance.changeDetector.detectChanges();
 
-    expect(component.queryByText('1')).toBeInTheDocument();
-    expect(component.queryByText('2')).toBeNull();
+    expect(screen.queryByText('1')).toBeInTheDocument();
+    expect(screen.queryByText('2')).toBeNull();
     // ...
-    expect(component.queryByText('8')).toBeNull();
-    expect(component.queryByText('9')).toBeInTheDocument();
-    expect(component.queryByText('10')).toBeInTheDocument();
-    expect(component.queryByText('11')).toBeInTheDocument();
-    expect(component.queryByText('12')).toBeNull();
+    expect(screen.queryByText('8')).toBeNull();
+    expect(screen.queryByText('9')).toBeInTheDocument();
+    expect(screen.queryByText('10')).toBeInTheDocument();
+    expect(screen.queryByText('11')).toBeInTheDocument();
+    expect(screen.queryByText('12')).toBeNull();
     // ...
-    expect(component.queryByText('19')).toBeNull();
-    expect(component.queryByText('20')).toBeInTheDocument();
+    expect(screen.queryByText('19')).toBeNull();
+    expect(screen.queryByText('20')).toBeInTheDocument();
 
     component.fixture.componentInstance.boundaryCount = 2;
     component.fixture.componentInstance.changeDetector.detectChanges();
 
-    expect(component.queryByText('1')).toBeInTheDocument();
-    expect(component.queryByText('2')).toBeInTheDocument();
-    expect(component.queryByText('3')).toBeNull();
+    expect(screen.queryByText('1')).toBeInTheDocument();
+    expect(screen.queryByText('2')).toBeInTheDocument();
+    expect(screen.queryByText('3')).toBeNull();
     // ...
-    expect(component.queryByText('8')).toBeNull();
-    expect(component.queryByText('9')).toBeInTheDocument();
-    expect(component.queryByText('10')).toBeInTheDocument();
-    expect(component.queryByText('11')).toBeInTheDocument();
-    expect(component.queryByText('12')).toBeNull();
+    expect(screen.queryByText('8')).toBeNull();
+    expect(screen.queryByText('9')).toBeInTheDocument();
+    expect(screen.queryByText('10')).toBeInTheDocument();
+    expect(screen.queryByText('11')).toBeInTheDocument();
+    expect(screen.queryByText('12')).toBeNull();
     // ...
-    expect(component.queryByText('18')).toBeNull();
-    expect(component.queryByText('19')).toBeInTheDocument();
-    expect(component.queryByText('20')).toBeInTheDocument();
+    expect(screen.queryByText('18')).toBeNull();
+    expect(screen.queryByText('19')).toBeInTheDocument();
+    expect(screen.queryByText('20')).toBeInTheDocument();
 
     component.fixture.componentInstance.page = 20;
     component.fixture.componentInstance.changeDetector.detectChanges();
 
-    expect(component.queryByText('1')).toBeInTheDocument();
-    expect(component.queryByText('2')).toBeInTheDocument();
-    expect(component.queryByText('3')).toBeNull();
+    expect(screen.queryByText('1')).toBeInTheDocument();
+    expect(screen.queryByText('2')).toBeInTheDocument();
+    expect(screen.queryByText('3')).toBeNull();
     // ...
-    expect(component.queryByText('14')).toBeNull();
-    expect(component.queryByText('15')).toBeInTheDocument();
-    expect(component.queryByText('16')).toBeInTheDocument();
-    expect(component.queryByText('17')).toBeInTheDocument();
-    expect(component.queryByText('18')).toBeInTheDocument();
-    expect(component.queryByText('19')).toBeInTheDocument();
-    expect(component.queryByText('20')).toBeInTheDocument();
+    expect(screen.queryByText('14')).toBeNull();
+    expect(screen.queryByText('15')).toBeInTheDocument();
+    expect(screen.queryByText('16')).toBeInTheDocument();
+    expect(screen.queryByText('17')).toBeInTheDocument();
+    expect(screen.queryByText('18')).toBeInTheDocument();
+    expect(screen.queryByText('19')).toBeInTheDocument();
+    expect(screen.queryByText('20')).toBeInTheDocument();
   });
 
   it('Should emit events', async () => {
     const onPageChange = jest.fn();
     const onPageSizeChange = jest.fn();
 
-    const component = await render(ESPaginatorComponent, {
+    await render(ESPaginatorComponent, {
       componentProperties: {
         count: 100,
         page: 5,
@@ -117,23 +117,23 @@ describe('Paginator', () => {
       excludeComponentDeclaration: true
     });
 
-    component.click(component.getByLabelText(en.paginator.labelPrev));
+    fireEvent.click(screen.getByLabelText(en.paginator.labelPrev));
     expect(onPageChange).toBeCalledWith(4);
 
-    component.click(component.getByLabelText(en.paginator.labelNext));
+    fireEvent.click(screen.getByLabelText(en.paginator.labelNext));
     expect(onPageChange).toBeCalledWith(6);
 
-    component.click(component.getByText('7'));
+    fireEvent.click(screen.getByText('7'));
     expect(onPageChange).toBeCalledWith(7);
 
-    component.input(component.getByLabelText(en.paginator.labelGoTo), { target: { value: '10' } });
-    component.submit(component.getByLabelText(en.paginator.labelGoTo));
+    fireEvent.input(screen.getByLabelText(en.paginator.labelGoTo), { target: { value: '10' } });
+    fireEvent.submit(screen.getByLabelText(en.paginator.labelGoTo));
     expect(onPageChange).toBeCalledWith(10);
 
-    component.click(
-      component.getByLabelText(en.paginator.labelItemsPerPage).querySelector('.mat-select-trigger')
+    fireEvent.click(
+      screen.getByLabelText(en.paginator.labelItemsPerPage).querySelector('.mat-select-trigger')
     );
-    component.click(getByText(document.body, /250/));
+    fireEvent.click(getByText(document.body, /250/));
 
     expect(onPageSizeChange).toBeCalledWith(250);
   });
@@ -142,7 +142,7 @@ describe('Paginator', () => {
     let overlay: OverlayContainer;
     let overlayElement: HTMLElement;
 
-    const component = await render(ESPaginatorComponent, {
+    await render(ESPaginatorComponent, {
       componentProperties: {
         count: 100,
         page: 5,
@@ -158,8 +158,8 @@ describe('Paginator', () => {
       overlayElement = oc.getContainerElement();
     })();
 
-    component.click(
-      component.getByLabelText(en.paginator.labelItemsPerPage).querySelector('.mat-select-trigger')
+    fireEvent.click(
+      screen.getByLabelText(en.paginator.labelItemsPerPage).querySelector('.mat-select-trigger')
     );
 
     const options = overlayElement.querySelectorAll('.mat-option');
@@ -180,7 +180,7 @@ describe('Paginator', () => {
     localeService.register('ru', ru);
     localeService.use('ru');
 
-    const component = await render(ESPaginatorComponent, {
+    await render(ESPaginatorComponent, {
       componentProperties: {
         count: 100,
         page: 1,
@@ -193,11 +193,11 @@ describe('Paginator', () => {
       excludeComponentDeclaration: true
     });
 
-    expect(component.getByLabelText(ru.paginator.labelItemsPerPage)).toBeInTheDocument();
-    expect(component.getByText(`1 — 10 ${ru.paginator.labelOf} 100`)).toBeInTheDocument();
-    expect(component.getByLabelText(ru.paginator.labelPrev)).toBeInTheDocument();
-    expect(component.getByLabelText(ru.paginator.labelPrev)).toBeInTheDocument();
-    expect(component.getByLabelText(ru.paginator.labelGoTo)).toBeInTheDocument();
-    expect(component.getByPlaceholderText(`1 ${ru.paginator.labelPage}`)).toBeInTheDocument();
+    expect(screen.getByLabelText(ru.paginator.labelItemsPerPage)).toBeInTheDocument();
+    expect(screen.getByText(`1 — 10 ${ru.paginator.labelOf} 100`)).toBeInTheDocument();
+    expect(screen.getByLabelText(ru.paginator.labelPrev)).toBeInTheDocument();
+    expect(screen.getByLabelText(ru.paginator.labelPrev)).toBeInTheDocument();
+    expect(screen.getByLabelText(ru.paginator.labelGoTo)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(`1 ${ru.paginator.labelPage}`)).toBeInTheDocument();
   });
 });

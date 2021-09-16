@@ -1,5 +1,7 @@
+@use '~@angular/material' as mat;
+
 @mixin preview-theme-dark() {
-  $theme: mat-dark-theme($es-dark-primary, $es-dark-accent, $es-dark-warn);
+  $theme: mat.define-dark-theme($es-dark-primary, $es-dark-accent, $es-dark-warn);
 
   $es-theme: es-dark-theme(
     (
@@ -8,7 +10,7 @@
     )
   );
 
-  @include angular-material-theme($theme);
+  @include mat.all-component-themes($theme);
 
   @include es-theme($theme, $es-theme);
   @include es-overrides($es-theme, $es-theme);
@@ -17,5 +19,5 @@
   @include es-colors-story-theme($theme, $es-theme);
   @include es-typography-story-theme($theme, $es-theme);
 
-  color: mat-color(map-get($theme, foreground), text);
+  color: mat.get-color-from-palette(map-get($theme, foreground), text);
 }

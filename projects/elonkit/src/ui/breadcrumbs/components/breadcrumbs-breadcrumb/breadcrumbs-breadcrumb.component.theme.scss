@@ -3,27 +3,27 @@
     $root: '.es-breadcrumbs-breadcrumb';
 
     &__link {
-      color: mat-color(map-get($elonkit-theme, mono-a), A900);
+      color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A900);
 
       &_last {
-        color: mat-color(map-get($elonkit-theme, mono-a), A500);
+        color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A500);
       }
 
       &:not(&_last) {
         &:hover,
         &:focus {
-          background-color: mat-color(map-get($elonkit-theme, mono-a), A50);
+          background-color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A50);
         }
       }
     }
 
     &__menu {
-      color: mat-color(map-get($elonkit-theme, mono-a), A500);
+      color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A500);
 
       &.mat-icon-button {
         &:hover,
         &:focus {
-          background-color: mat-color(map-get($elonkit-theme, mono-a), A50);
+          background-color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A50);
         }
       }
     }

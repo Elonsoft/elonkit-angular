@@ -12,60 +12,60 @@
   .es-alert {
     &_variant {
       &_default {
-        background-color: mat-color($mono-a, A50);
-        border-color: mat-color($mono-a, A100);
+        background-color: mat.get-color-from-palette($mono-a, A50);
+        border-color: mat.get-color-from-palette($mono-a, A100);
       }
 
       &_info {
-        background-color: mat-color($info, A100);
-        border-color: mat-color($info, A300);
+        background-color: mat.get-color-from-palette($info, A100);
+        border-color: mat.get-color-from-palette($info, A300);
       }
 
       &_success {
-        background-color: mat-color($positive, A100);
-        border-color: mat-color($positive, A300);
+        background-color: mat.get-color-from-palette($positive, A100);
+        border-color: mat.get-color-from-palette($positive, A300);
       }
 
       &_warning {
-        background-color: mat-color($attention, A100);
-        border-color: mat-color($attention, A200);
+        background-color: mat.get-color-from-palette($attention, A100);
+        border-color: mat.get-color-from-palette($attention, A200);
       }
 
       &_error {
-        background-color: mat-color($warn, A100);
-        border-color: mat-color($warn, A200);
+        background-color: mat.get-color-from-palette($warn, A100);
+        border-color: mat.get-color-from-palette($warn, A200);
       }
     }
 
     &__text {
-      color: mat-color($mono-a, A900);
+      color: mat.get-color-from-palette($mono-a, A900);
     }
 
     &__icon {
       &_variant {
         &_default {
-          color: mat-color($mono-a, A500);
+          color: mat.get-color-from-palette($mono-a, A500);
         }
 
         &_info {
-          color: mat-color($info);
+          color: mat.get-color-from-palette($info);
         }
 
         &_success {
-          color: mat-color($positive);
+          color: mat.get-color-from-palette($positive);
         }
 
         &_warning {
-          color: mat-color($attention);
+          color: mat.get-color-from-palette($attention);
         }
 
         &_error {
-          color: mat-color($warn);
+          color: mat.get-color-from-palette($warn);
         }
       }
 
       &_close {
-        color: mat-color($mono-a, A500);
+        color: mat.get-color-from-palette($mono-a, A500);
       }
     }
   }
