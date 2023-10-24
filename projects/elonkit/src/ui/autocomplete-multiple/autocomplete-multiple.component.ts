@@ -19,8 +19,8 @@ import {
 } from '@angular/core';
 import {
   ControlValueAccessor,
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
   FormGroupDirective,
   NgControl
 } from '@angular/forms';
@@ -30,7 +30,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 
 import { MatButton } from '@angular/material/button';
-import { MatChipList } from '@angular/material/chips';
+import { MatChipListbox } from '@angular/material/chips';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 
@@ -92,7 +92,7 @@ export class ESAutocompleteMultipleComponent
   @ViewChild('input', { static: false }) private input?: ElementRef<HTMLInputElement>;
   @ViewChild('arrow', { static: true }) private arrow?: MatButton;
   @ViewChild('selectionList', { static: false }) private selectionList?: MatSelectionList;
-  @ViewChild('chipList', { static: false }) private chipList?: MatChipList;
+  @ViewChild('chipList', { static: false }) private chipList?: MatChipListbox;
 
   /** Options search service. When second argument is present, the search should be performed by passed down options. */
   @Input() public service!: (search: string, options?: any[]) => Observable<any[]>;
@@ -236,9 +236,9 @@ export class ESAutocompleteMultipleComponent
    * @internal
    * @ignore
    */
-  public form = new FormGroup({
-    scope: new FormControl(this.searchScope.ALL),
-    text: new FormControl('')
+  public form = new UntypedFormGroup({
+    scope: new UntypedFormControl(this.searchScope.ALL),
+    text: new UntypedFormControl('')
   });
 
   /**
@@ -498,7 +498,7 @@ export class ESAutocompleteMultipleComponent
    */
   public onSelectionChange(event: MatSelectionListChange) {
     const newValue = this.value.slice();
-    const option = event.option.value;
+    const option = event.options[0].value;
 
     const index = newValue.findIndex((o) => o.id === option.id);
     if (index !== -1) {
@@ -603,7 +603,7 @@ export class ESAutocompleteMultipleComponent
     if (this.chipList) {
       let count = 0;
 
-      const chips = this.chipList.chips;
+      const chips = this.chipList._chips;
 
       let isOverflow = false;
       let offset = 0;

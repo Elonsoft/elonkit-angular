@@ -4,7 +4,7 @@ import {
   ChangeDetectorRef,
   ViewEncapsulation
 } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, FormControl, Validators } from '@angular/forms';
 
 import { of, throwError } from 'rxjs';
 import { delay, switchMap } from 'rxjs/operators';
@@ -30,9 +30,9 @@ const save = (value: string) =>
   encapsulation: ViewEncapsulation.None
 })
 export class InlineFormFieldStoryValidationComponent {
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
-  constructor(private changeDetector: ChangeDetectorRef, private formBuilder: FormBuilder) {
+  constructor(private changeDetector: ChangeDetectorRef, private formBuilder: UntypedFormBuilder) {
     this.form = this.formBuilder.group({
       text: ['Hello World', [Validators.required]],
       server: 'Hello Server Side Validation'

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 import { CategoriesService, ItemsService } from './breadcrumbs-story-basic.service';
 
 @Injectable()
-export class CategoriesListResolver implements Resolve<any> {
+export class CategoriesListResolver {
   constructor(private categoriesService: CategoriesService) {}
 
   public resolve() {
@@ -13,7 +13,7 @@ export class CategoriesListResolver implements Resolve<any> {
 }
 
 @Injectable()
-export class CategoriesShowResolver implements Resolve<any> {
+export class CategoriesShowResolver {
   constructor(private categoriesService: CategoriesService) {}
 
   public resolve(route: ActivatedRouteSnapshot) {
@@ -22,7 +22,7 @@ export class CategoriesShowResolver implements Resolve<any> {
 }
 
 @Injectable()
-export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
+export class CategoriesShowBreadcrumbsResolver {
   public resolve(route: ActivatedRouteSnapshot) {
     const category = route.parent.data.data.find((e) => e.id === +route.params.category);
 
@@ -37,7 +37,7 @@ export class CategoriesShowBreadcrumbsResolver implements Resolve<any> {
 }
 
 @Injectable()
-export class ItemsListResolver implements Resolve<any> {
+export class ItemsListResolver {
   constructor(private itemsService: ItemsService) {}
 
   public resolve(route: ActivatedRouteSnapshot) {
@@ -46,7 +46,7 @@ export class ItemsListResolver implements Resolve<any> {
 }
 
 @Injectable()
-export class ItemsShowResolver implements Resolve<any> {
+export class ItemsShowResolver {
   constructor(private itemsService: ItemsService) {}
 
   public resolve(route: ActivatedRouteSnapshot) {
@@ -55,7 +55,7 @@ export class ItemsShowResolver implements Resolve<any> {
 }
 
 @Injectable()
-export class ItemsShowBreadcrumbsResolver implements Resolve<any> {
+export class ItemsShowBreadcrumbsResolver {
   public resolve(route: ActivatedRouteSnapshot) {
     return { label: route.parent.data.data.title };
   }

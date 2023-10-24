@@ -12,7 +12,7 @@ import {
   Inject
 } from '@angular/core';
 
-import { FormControl, FormControlName, NgModel } from '@angular/forms';
+import { UntypedFormControl, FormControlName, NgModel } from '@angular/forms';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField } from '@angular/material/form-field';
 
@@ -89,7 +89,7 @@ export class ESInlineFormFieldComponent {
   @ContentChild(MatFormField) private formField: MatFormField;
 
   @ContentChild(NgModel) private ngModel: NgModel;
-  @ContentChild(FormControl) private formControl: FormControl;
+  @ContentChild(UntypedFormControl) private formControl: UntypedFormControl;
   @ContentChild(FormControlName) private formControlName: FormControlName;
 
   /**
@@ -131,7 +131,7 @@ export class ESInlineFormFieldComponent {
     this.typography = (defaultOptions && defaultOptions.typography) || DEFAULT_TYPOGRAPHY;
   }
 
-  private getControl(): FormControl | null {
+  private getControl(): UntypedFormControl | null {
     if (this.formControl) {
       return this.formControl;
     }

@@ -25,22 +25,39 @@
           "builder": "@angular-builders/jest:run",
           "options": {}
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
           "options": {
-            "tsConfig": [
-              "projects/elonkit/tsconfig.lib.json",
-              "projects/elonkit/tsconfig.spec.json"
+            "configDir": "./projects/elonkit/storybook",
+            "browserTarget": "elonkit:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "."
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "port": 4200
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "./projects/elonkit/storybook",
+            "browserTarget": "elonkit:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "."
+            ],
+            "outputDir": "./dist/elonkit-storybook"
           }
         }
       }
     }
   },
-  "defaultProject": "elonkit",
   "cli": {
     "analytics": false
   }

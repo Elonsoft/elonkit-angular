@@ -4,5 +4,5 @@
     "emitDecoratorMetadata": true
   },
   "exclude": ["../src/**/*.spec.ts", "../projects/**/*.spec.ts"],
-  "include": ["../src/**/*"]
+  "include": ["../src/**/*", "../storybook/**/*"]
 }

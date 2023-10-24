@@ -20,7 +20,7 @@
     &__menu {
       color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A500);
 
-      &.mat-icon-button {
+      &.mat-mdc-icon-button {
         &:hover,
         &:focus {
           background-color: mat.get-color-from-palette(map-get($elonkit-theme, mono-a), A50);

@@ -2,16 +2,10 @@
   "name": "@elonkit/angular",
   "version": "0.3.0",
   "license": "MIT",
-  "scripts": {
-    "start": "compodoc -c ../.compodocrc.json && start-storybook -c ../storybook -s ../storybook/assets --port 4200",
-    "build": "mkdir -p ./node_modules && compodoc -c ../.compodocrc.json && build-storybook -c ../storybook -s ../storybook/assets -o ../../../dist/elonkit-storybook"
-  },
   "peerDependencies": {
-    "@angular/cdk": "^12.2.1",
-    "@angular/common": "^12.2.1",
-    "@angular/core": "^12.2.1",
-    "@angular/material": "^12.2.1",
-    "angular2-text-mask": "^9.0.0",
-    "text-mask-addons": "^3.8.0"
+    "@angular/cdk": "^16.2.9",
+    "@angular/common": "^16.2.10",
+    "@angular/core": "^16.2.10",
+    "@angular/material": "^16.2.9"
   }
 }

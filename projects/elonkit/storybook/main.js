@@ -1,32 +1,32 @@
+import { dirname, join } from "path";
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   stories: ['../src/**/*.stories.mdx'],
+
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-controls',
-    '@storybook/addon-actions',
-    '@storybook/addon-a11y',
-    '@storybook/addon-viewport',
-    '@storybook/addon-toolbars',
-    'storybook-dark-mode/register'
+    getAbsolutePath("@storybook/addon-docs"),
+    getAbsolutePath("@storybook/addon-controls"),
+    getAbsolutePath("@storybook/addon-actions"),
+    getAbsolutePath("@storybook/addon-a11y"),
+    getAbsolutePath("@storybook/addon-viewport"),
+    getAbsolutePath("@storybook/addon-toolbars"),
+    getAbsolutePath("storybook-dark-mode"),
+    getAbsolutePath("@storybook/addon-mdx-gfm")
   ],
-  webpackFinal: async (config) => {
-    config.resolve.alias['~storybook'] = path.resolve(__dirname);
 
-    // https://github.com/storybookjs/storybook/issues/714
-    config.plugins.push(
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            from: path.resolve(__dirname, '../src/assets'),
-            to: './assets'
-          }
-        ]
-      })
-    );
+  framework: {
+    name: getAbsolutePath("@storybook/angular"),
+    options: {}
+  },
 
-    return config;
-  }
+  docs: {
+    autodocs: true
+  },
+  staticDirs: ["./assets"]
 };
+
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, "package.json")));
+}

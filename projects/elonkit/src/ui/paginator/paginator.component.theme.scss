@@ -11,7 +11,7 @@
         color: mat.get-color-from-palette($mono-a, A500);
         font-weight: 600;
 
-        &.mat-icon-button:disabled {
+        &.mat-mdc-icon-button:disabled {
           color: mat.get-color-from-palette($accent);
 
           &:hover {
@@ -20,7 +20,7 @@
           }
         }
 
-        &.mat-icon-button:hover {
+        &.mat-mdc-icon-button:hover {
           color: mat.get-color-from-palette($mono-a, A50);
         }
       }
@@ -30,7 +30,7 @@
       }
     }
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
   .mat-select-arrow {
     color: mat.get-color-from-palette($mono-a, A500);
   }

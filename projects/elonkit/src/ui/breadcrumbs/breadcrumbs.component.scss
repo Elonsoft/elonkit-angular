@@ -67,12 +67,12 @@
   &__menu {
     min-height: auto !important;
 
-    .mat-menu-content:not(:empty) {
+    .mat-mdc-menu-content:not(:empty) {
       padding-bottom: 4px;
       padding-top: 4px;
     }
 
-    .mat-menu-item {
+    .mat-mdc-menu-item {
       align-items: center;
       display: flex;
       height: 32px;

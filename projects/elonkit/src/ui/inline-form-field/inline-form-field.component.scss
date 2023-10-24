@@ -11,7 +11,7 @@
   &__preview {
     &:hover {
       /* stylelint-disable-next-line */
-      .es-inline-form-field__button_edit .mat-icon-button {
+      .es-inline-form-field__button_edit .mat-mdc-icon-button {
         opacity: 1;
       }
     }
@@ -28,53 +28,55 @@
 
     /* stylelint-disable selector-max-compound-selectors, selector-no-qualifying-type, indentation */
 
-    .mat-form-field {
+    .mat-mdc-form-field {
       font-weight: inherit;
       line-height: normal;
       width: 100%;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-infix {
       border-top: 0;
       padding: 5px 0;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-wrapper {
       padding-bottom: 0;
       padding-right: 64px;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-underline {
       bottom: 0;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-appearance-standard .mat-form-field-flex {
       padding-top: 0;
     }
 
-    .mat-input-element {
+    .mat-mdc-input-element {
       margin-top: 0;
     }
 
-    textarea.mat-input-element {
+    textarea.mat-mdc-input-element {
       margin: 0;
       overflow: hidden;
       padding: 0;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-subscript-wrapper {
       position: absolute;
       top: 100%;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-flex {
       align-items: center;
     }
 
-    .mat-form-field:not(.mat-form-field-appearance-legacy) {
+    .mat-mdc-form-field:not(.mat-form-field-appearance-legacy) {
+      /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
+      /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
       .mat-form-field-prefix,
       .mat-form-field-suffix {
-        .mat-icon-button {
+        .mat-mdc-icon-button {
           height: 24px;
           width: 24px;
         }
@@ -88,7 +90,7 @@
         }
       }
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-appearance-standard.mat-form-field-has-label
       .mat-select:not(.mat-select-empty)
       .mat-select-arrow-wrapper {
@@ -115,7 +117,7 @@
       width: 24px;
     }
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       font-size: inherit;
       height: 24px;
       line-height: 24px;
@@ -123,7 +125,7 @@
       top: 50%;
       transform: translateY(-50%);
       width: 24px;
-
+      /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
       .mat-button-wrapper {
         align-items: center;
         display: flex;
@@ -136,7 +138,7 @@
     }
 
     &_edit {
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         opacity: 0;
         transition: 200ms;
 

@@ -1,7 +1,7 @@
 <div *ngIf="locale$ | async as locale" class="es-autocomplete-multiple es-subtitle-1">
   <div class="es-autocomplete-multiple__value">
-    <mat-chip-list *ngIf="value.length" class="es-autocomplete-multiple__chip-list" #chipList>
-      <mat-chip
+    <mat-chip-listbox *ngIf="value.length" class="es-autocomplete-multiple__chip-list" #chipList>
+      <mat-chip-option
         *ngFor="let option of this.value; index as i"
         [esTooltip]="displayWith(option)"
         esTooltipArrow
@@ -15,7 +15,7 @@
         </label>
 
         <mat-icon matChipRemove svgIcon="es-autocomplete-multiple:clear-small"></mat-icon>
-      </mat-chip>
+      </mat-chip-option>
 
       <button
         *ngIf="hiddenChipCount"
@@ -28,7 +28,7 @@
       >
         +{{ hiddenChipCount }}
       </button>
-    </mat-chip-list>
+    </mat-chip-listbox>
   </div>
 
   <button

@@ -7,7 +7,7 @@ import {
   EventEmitter,
   OnDestroy
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { ESDropzoneFile } from '../../dropzones.types';
 import { Subscription } from 'rxjs';
@@ -30,7 +30,7 @@ export class DropzoneStoryBasicComponent implements OnInit, OnDestroy {
   @Output()
   public changeFiles = new EventEmitter<ESDropzoneFile[]>();
 
-  public docs = new FormControl([]);
+  public docs = new UntypedFormControl([]);
 
   private docSub: Subscription;
 

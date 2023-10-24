@@ -8,10 +8,10 @@
 
   .es-autocomplete-multiple {
     &__chip {
-      &.mat-standard-chip {
+      &.mat-mdc-standard-chip {
         background-color: mat.get-color-from-palette($mono-a, A100);
         color: mat.get-color-from-palette($mono-a, A900);
-
+        /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version. */
         .mat-chip-remove {
           color: mat.get-color-from-palette($mono-a, A500);
         }
@@ -41,10 +41,11 @@
 
     &__button-toggle {
       color: mat.get-color-from-palette($mono-a, A600);
-
+      /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
+      /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
       &.mat-button-toggle-appearance-standard {
         border-color: mat.get-color-from-palette($mono-a, A100);
-
+        /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
         &.mat-button-toggle-checked {
           background: mat.get-color-from-palette($mono-b, 500);
           border-color: mat.get-color-from-palette($primary, 300);
@@ -87,14 +88,14 @@
       color: mat.get-color-from-palette($mono-a, A500);
     }
 
-    &__clear.mat-icon-button {
+    &__clear.mat-mdc-icon-button {
       color: mat.get-color-from-palette($mono-a, A400);
 
       &:hover,
       &:focus {
         color: mat.get-color-from-palette($warn, 500);
       }
-
+      /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
       .mat-button-focus-overlay {
         background-color: mat.get-color-from-palette($warn, A50);
       }

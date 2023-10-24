@@ -8,7 +8,7 @@
 ## Installation
 
 ```bash
-yarn add @elonkit/angular angular2-text-mask text-mask-addons
+yarn add @elonkit/angular
 ```
 
 ## Usage

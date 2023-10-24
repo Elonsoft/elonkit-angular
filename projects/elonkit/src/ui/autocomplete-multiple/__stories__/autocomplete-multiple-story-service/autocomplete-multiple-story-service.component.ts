@@ -1,5 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -40,11 +40,14 @@ export class AutocompleteMultipleStoryServiceComponent {
 
   @Input() public disabled: boolean;
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   public totalOptionCount: number;
 
-  constructor(private service: AutocompleteMultipleStoryService, private formBuilder: FormBuilder) {
+  constructor(
+    private service: AutocompleteMultipleStoryService,
+    private formBuilder: UntypedFormBuilder
+  ) {
     this.form = this.formBuilder.group({
       autocomplete: [
         [

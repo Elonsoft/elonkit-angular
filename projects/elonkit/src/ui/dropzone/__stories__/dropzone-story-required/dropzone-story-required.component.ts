@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
@@ -15,8 +15,8 @@ export class DropzoneStoryRequiredComponent {
 
   @Input() public locale: 'en' | 'ru';
 
-  public form = new FormGroup({
-    docs: new FormControl([], Validators.required)
+  public form = new UntypedFormGroup({
+    docs: new UntypedFormControl([], Validators.required)
   });
 
   constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {

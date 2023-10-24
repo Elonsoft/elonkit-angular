@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
@@ -15,8 +15,8 @@ export class DropzoneStoryCustomIconComponent {
 
   @Input() public locale: 'en' | 'ru';
 
-  public form = new FormGroup({
-    docs: new FormControl([])
+  public form = new UntypedFormGroup({
+    docs: new UntypedFormControl([])
   });
 
   constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {

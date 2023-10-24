@@ -13,20 +13,26 @@ $es-typography: (
       mat.define-typography-level(
         es-rem(40),
         es-rem(48),
-        600,
+        500,
         $es-font-family,
         $letter-spacing: es-rem(0.2)
       ),
     h2:
       mat.define-typography-level(
-        es-rem(34),
+        es-rem(32),
         es-rem(40),
-        600,
+        500,
         $es-font-family,
         $letter-spacing: es-rem(0.1)
       ),
     h3:
-      mat.define-typography-level(es-rem(28), es-rem(36), 600, $es-font-family, $letter-spacing: 0),
+      mat.define-typography-level(
+        es-rem(28),
+        es-rem(36),
+        500,
+        $es-font-family,
+        $letter-spacing: 0
+      ),
     h4:
       mat.define-typography-level(
         es-rem(24),
@@ -62,12 +68,28 @@ $es-typography: (
     subtitle-2:
       mat.define-typography-level(
         es-rem(14),
-        es-rem(16),
+        es-rem(20),
         500,
         $es-font-family,
         $letter-spacing: es-rem(0.1)
       ),
     body-400:
+      mat.define-typography-level(
+        es-rem(20),
+        es-rem(32),
+        400,
+        $es-font-family,
+        $letter-spacing: es-rem(0.5)
+      ),
+    body-400-medium:
+      mat.define-typography-level(
+        es-rem(20),
+        es-rem(32),
+        500,
+        $es-font-family,
+        $letter-spacing: es-rem(0.5)
+      ),
+    body-400-bold:
       mat.define-typography-level(
         es-rem(20),
         es-rem(32),
@@ -83,6 +105,22 @@ $es-typography: (
         $es-font-family,
         $letter-spacing: es-rem(0.5)
       ),
+    body-300-medium:
+      mat.define-typography-level(
+        es-rem(18),
+        es-rem(28),
+        500,
+        $es-font-family,
+        $letter-spacing: es-rem(0.5)
+      ),
+    body-300-bold:
+      mat.define-typography-level(
+        es-rem(18),
+        es-rem(28),
+        700,
+        $es-font-family,
+        $letter-spacing: es-rem(0.5)
+      ),
     body-200:
       mat.define-typography-level(
         es-rem(16),
@@ -91,11 +129,43 @@ $es-typography: (
         $es-font-family,
         $letter-spacing: es-rem(0.5)
       ),
+    body-200-medium:
+      mat.define-typography-level(
+        es-rem(16),
+        es-rem(24),
+        500,
+        $es-font-family,
+        $letter-spacing: es-rem(0.5)
+      ),
+    body-200-bold:
+      mat.define-typography-level(
+        es-rem(16),
+        es-rem(24),
+        700,
+        $es-font-family,
+        $letter-spacing: es-rem(0.5)
+      ),
     body-100:
       mat.define-typography-level(
         es-rem(14),
         es-rem(20),
         400,
+        $es-font-family,
+        $letter-spacing: es-rem(0.25)
+      ),
+    body-100-medium:
+      mat.define-typography-level(
+        es-rem(14),
+        es-rem(20),
+        500,
+        $es-font-family,
+        $letter-spacing: es-rem(0.25)
+      ),
+    body-100-bold:
+      mat.define-typography-level(
+        es-rem(14),
+        es-rem(20),
+        700,
         $es-font-family,
         $letter-spacing: es-rem(0.25)
       ),
@@ -115,18 +185,62 @@ $es-typography: (
         $es-font-family,
         $letter-spacing: es-rem(0.4)
       ),
+    caption-medium:
+      mat.define-typography-level(
+        es-rem(12),
+        es-rem(16),
+        500,
+        $es-font-family,
+        $letter-spacing: es-rem(0.4)
+      ),
+    caption-bold:
+      mat.define-typography-level(
+        es-rem(12),
+        es-rem(16),
+        700,
+        $es-font-family,
+        $letter-spacing: es-rem(0.4)
+      ),
     overline:
       mat.define-typography-level(
         es-rem(10),
         es-rem(16),
-        400,
+        500,
         $es-font-family,
         $letter-spacing: es-rem(1.2)
       ),
-    mini-m:
-      mat.define-typography-level(es-rem(11), es-rem(16), 600, $es-font-family, $letter-spacing: 0),
-    mini-s:
-      mat.define-typography-level(es-rem(9), es-rem(14), 400, $es-font-family, $letter-spacing: 0)
+    mini-200:
+      mat.define-typography-level(
+        es-rem(11),
+        es-rem(16),
+        700,
+        $es-font-family,
+        $letter-spacing: 0
+      ),
+    mini-100:
+      mat.define-typography-level(
+        es-rem(9),
+        es-rem(12),
+        500,
+        $es-font-family,
+        $letter-spacing: es-rem(0.6)
+      ),
+    mini-100-bold:
+      mat.define-typography-level(
+        es-rem(9),
+        es-rem(12),
+        700,
+        $es-font-family,
+        $letter-spacing: es-rem(0.6)
+      ),
+    micro:
+      mat.define-typography-level(
+        es-rem(9),
+        es-rem(12),
+        400,
+        $es-font-family,
+        $letter-spacing: 0
+      )
   )
 );
 

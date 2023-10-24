@@ -85,10 +85,42 @@ export const Typography: React.FC = () => {
           </tr>
           <tr>
             <td>
+              <code>es-body-400-medium</code>
+            </td>
+            <td>
+              <div className='es-body-400-medium'>Body 400 | Medium</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-body-400-bold</code>
+            </td>
+            <td>
+              <div className='es-body-400-bold'>Body 400 | Bold</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
               <code>es-body-300</code>
             </td>
             <td>
               <div className='es-body-300'>Body 300</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-body-300-medium</code>
+            </td>
+            <td>
+              <div className='es-body-300-medium'>Body 300 | Medium</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-body-300-bold</code>
+            </td>
+            <td>
+              <div className='es-body-300-bold'>Body 300 | Bold</div>
             </td>
           </tr>
           <tr>
@@ -101,10 +133,42 @@ export const Typography: React.FC = () => {
           </tr>
           <tr>
             <td>
+              <code>es-body-200-medium</code>
+            </td>
+            <td>
+              <div className='es-body-200-medium'>Body 200 | Medium</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-body-200-bold</code>
+            </td>
+            <td>
+              <div className='es-body-200-bold'>Body 200 | Bold</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
               <code>es-body-100</code>
             </td>
             <td>
               <div className='es-body-100'>Body 100</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-body-100-medium</code>
+            </td>
+            <td>
+              <div className='es-body-100-medium'>Body 100 | Medium</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-body-100-bold</code>
+            </td>
+            <td>
+              <div className='es-body-100-bold'>Body 100 | Bold</div>
             </td>
           </tr>
           <tr>
@@ -125,6 +189,22 @@ export const Typography: React.FC = () => {
           </tr>
           <tr>
             <td>
+              <code>es-caption-medium</code>
+            </td>
+            <td>
+              <div className='es-caption-medium'>Caption | Medium</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-caption-bold</code>
+            </td>
+            <td>
+              <div className='es-caption-bold'>Caption | Bold</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
               <code>es-overline</code>
             </td>
             <td>
@@ -133,18 +213,34 @@ export const Typography: React.FC = () => {
           </tr>
           <tr>
             <td>
-              <code>es-mini-m</code>
+              <code>es-mini-200</code>
             </td>
             <td>
-              <div className='es-mini-m'>Mini M</div>
+              <div className='es-mini-200'>Mini 200</div>
             </td>
           </tr>
           <tr>
             <td>
-              <code>es-mini-s</code>
+              <code>es-mini-100</code>
             </td>
             <td>
-              <div className='es-mini-s'>MIni S</div>
+              <div className='es-mini-100'>Mini 100</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-mini-100-bold</code>
+            </td>
+            <td>
+              <div className='es-mini-100-bold'>Mini 100 | Bold</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>es-micro</code>
+            </td>
+            <td>
+              <div className='es-micro'>Micro</div>
             </td>
           </tr>
         </tbody>

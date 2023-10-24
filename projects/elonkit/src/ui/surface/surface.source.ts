@@ -1,15 +1,15 @@
 export const SURFACE_SOURCE = {
   html: `
-  <div class="es-surface-0">Surface 0</div>
-  <div class="es-surface-1">Surface 1</div>
-  <div class="es-surface-2">Surface 2</div>
-  <div class="es-surface-3">Surface 3</div>
-  <div class="es-surface-4">Surface 4</div>
-  <div class="es-surface-6">Surface 6</div>
-  <div class="es-surface-8">Surface 7</div>
-  <div class="es-surface-12">Surface 12</div>
-  <div class="es-surface-16">Surface 16</div>
-  <div class="es-surface-24">Surface 24</div>
+  <div class="es-surface-50">Surface 50</div>
+  <div class="es-surface-100">Surface 100</div>
+  <div class="es-surface-200">Surface 200</div>
+  <div class="es-surface-300">Surface 300</div>
+  <div class="es-surface-400">Surface 400</div>
+  <div class="es-surface-500">Surface 500</div>
+  <div class="es-surface-600">Surface 600</div>
+  <div class="es-surface-700">Surface 700</div>
+  <div class="es-surface-800">Surface 800</div>
+  <div class="es-surface-900">Surface 900</div>
   <div class="es-surface-on">Surface On</div>
   `
 };

@@ -207,14 +207,14 @@ export class ESTooltipComponent implements OnDestroy {
    * @ignore
    * The timeout ID of any current timer set to show the tooltip.
    */
-  public showTimeoutId: number | null;
+  public showTimeoutId: any;
 
   /**
    * @internal
    * @ignore
    * The timeout ID of any current timer set to hide the tooltip.
    */
-  public hideTimeoutId: number | null;
+  public hideTimeoutId: any;
 
   /**
    * @internal

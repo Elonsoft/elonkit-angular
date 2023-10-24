@@ -1,16 +1,17 @@
 .es-autocomplete-multiple-story-service {
   width: 100%;
 
-  &__field.mat-form-field {
+  &__field.mat-mdc-form-field {
     width: 300px;
 
     &.mat-form-field-appearance-outline {
+      /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
       .mat-form-field-infix {
         border-top: 0;
         padding-bottom: 16px;
         padding-top: 16px;
       }
-
+      /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
       .mat-form-field-label {
         top: 2.4em;
       }

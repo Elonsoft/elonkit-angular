@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -10,17 +11,31 @@
     "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"],
+    "target": "ES2022",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "stripInternal": true,
     "paths": {
-      "elonkit": ["dist/elonkit"],
-      "elonkit/*": ["dist/elonkit/*"],
-      "~storybook/*": ["projects/elonkit/storybook/*"]
+      "elonkit": [
+        "dist/elonkit"
+      ],
+      "elonkit/*": [
+        "dist/elonkit/*"
+      ],
+      "~storybook/*": [
+        "projects/elonkit/storybook/*"
+      ]
     },
-    "types": ["jest"],
-    "jsx": "react"
+    "types": [
+      "jest"
+    ],
+    "jsx": "react",
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

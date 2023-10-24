@@ -15,7 +15,6 @@ import { ESTooltipComponent } from './tooltip.component';
   imports: [CommonModule, A11yModule, OverlayModule, MatCommonModule],
   exports: [ESTooltipDirective, ESTooltipComponent, CdkScrollableModule, MatCommonModule],
   declarations: [ESTooltipDirective, ESTooltipComponent],
-  entryComponents: [ESTooltipComponent],
   providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]
 })
 export class ESTooltipModule {}

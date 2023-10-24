@@ -383,7 +383,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   private isHovered = false;
   private mouseLocations: Array<ESTooltipMouseLocation> = [];
   private mouseLastDelayLocation: ESTooltipMouseLocation;
-  private mouseMoveTimeoutId: number;
+  private mouseMoveTimeoutId: any;
 
   private overlayPosition: 'right' | 'left' | 'top' | 'bottom';
 
@@ -395,7 +395,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
   /**
    * Timer started at the last `touchstart` event.
    */
-  private touchstartTimeout: number;
+  private touchstartTimeout: any;
 
   /**
    * Emits when the component is destroyed.
@@ -914,7 +914,7 @@ export class ESTooltipDirective implements OnDestroy, AfterViewInit {
       }
 
       style.touchAction = 'none';
-      style.webkitTapHighlightColor = 'transparent';
+      // style.webkitTapHighlightColor = 'transparent';
     }
   }
 

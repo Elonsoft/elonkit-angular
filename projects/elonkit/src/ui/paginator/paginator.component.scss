@@ -18,7 +18,7 @@
     margin-left: 4px;
     margin-right: 18px;
 
-    &.mat-select {
+    &.mat-mdc-select {
       width: 40px;
     }
   }
@@ -34,19 +34,20 @@
   &__input {
     appearance: textfield;
     width: 64px;
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     &.mat-form-field-appearance-outline .mat-form-field-flex {
       padding-bottom: 0;
       padding-left: 0.6em;
       padding-right: 0.6em;
       padding-top: 0;
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     &.mat-form-field-appearance-outline .mat-form-field-wrapper {
       margin-bottom: 0;
       margin-top: 0;
       padding-bottom: 0;
-
+      /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
       .mat-form-field-infix {
         border: 0;
         font-size: 12px;
@@ -54,12 +55,12 @@
         padding-top: 14px;
       }
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-subscript-wrapper {
       display: none;
     }
 
-    .mat-input-element {
+    .mat-mdc-input-element {
       appearance: textfield;
 
       &::-webkit-outer-spin-button,
@@ -87,7 +88,7 @@
     }
 
     &,
-    &.mat-icon-button {
+    &.mat-mdc-icon-button {
       height: 32px;
       line-height: unset;
       margin: 0;
