@@ -17,7 +17,7 @@ For a full list of componets and usage examples check out our [documentation web
 
 ## Contributing
 
-Read our [contributing guide](/CONTRIBUTING) to learn about our development process and how to propose bugfixes and improvements.
+Read our [contributing guide](./CONTRIBUTING.md) to learn about our development process and how to propose bugfixes and improvements.
 
 ## License
 
